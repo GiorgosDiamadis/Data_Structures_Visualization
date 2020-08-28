@@ -10,11 +10,40 @@ public class SingleLinkedList : IList
     private TMPro.TextMeshProUGUI new_node_data = null;
     private List<string> list;
 
-    public override void add_node(int data)
+    public override IEnumerator add_node(int data)
     {
-        create_arrow();
-        create_node(data);
-        list.Add(data.ToString());
+        bool found = false;
+
+        GameObject child;
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+            child = view.transform.GetChild(i).gameObject;
+            if (child.tag.Equals("Node"))
+            {
+                SpriteRenderer spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+                spr.sprite = traverse_sprite;
+                TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+
+                if (child_data.text == data.ToString())
+                {
+                    yield return new WaitForSeconds(0.5f);
+                    spr.sprite = initial_sprite;
+                    found = true;
+                    break;
+                }
+                yield return new WaitForSeconds(0.5f);
+                spr.sprite = initial_sprite;
+            }
+        }
+
+        if (!found)
+        {
+            create_arrow();
+            create_node(data);
+            list.Add(data.ToString());
+        }
+        
     }
 
     public override void init_list()

@@ -11,7 +11,7 @@ public abstract class IList : MonoBehaviour
 
     protected int init_number = 3;
     public abstract void init_list();
-    public abstract void add_node(int data);
+    public abstract IEnumerator add_node(int data);
 
     private void Awake()
     {
@@ -38,6 +38,7 @@ public abstract class IList : MonoBehaviour
 
                 if ( child_data.text == data.ToString())
                 {
+                    yield return new WaitForSeconds(0.5f);
                     spr.sprite = initial_sprite;
                     break;
                 }

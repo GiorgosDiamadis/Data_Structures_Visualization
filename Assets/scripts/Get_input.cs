@@ -20,7 +20,8 @@ public class Get_input : MonoBehaviour
         }
 
         IList list = transform.parent.parent.GetComponent<IList>();
-        list.add_node(data);
+        StartCoroutine(list.add_node(data));
+        
     }
 
     public void search()
