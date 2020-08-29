@@ -10,6 +10,7 @@ public abstract class IList : MonoBehaviour
 
 
     protected int init_number = 3;
+    protected GameObject pseudocode = null;
     public abstract void init_list();
     public abstract IEnumerator add_node(long data);
     public abstract IEnumerator delete_node(long data);
@@ -23,6 +24,7 @@ public abstract class IList : MonoBehaviour
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
 
         view = GameObject.Find("View");
+        pseudocode = GameObject.Find("Pseudocode");
     }
 
     public IEnumerator search(long data)

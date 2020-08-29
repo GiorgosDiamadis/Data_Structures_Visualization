@@ -8,42 +8,86 @@ public class SingleLinkedList : IList
     [SerializeField] private bool is_init = false;
     private GameObject new_node = null;
     private TMPro.TextMeshProUGUI new_node_data = null;
-    private List<string> list;
+    private float speed = .5f;
 
     public override IEnumerator add_node(long data)
     {
         bool found = false;
 
-        GameObject child;
-        for (int i = 0; i < view.transform.childCount; i++)
+        GameObject child,previous;
+        child = null;
+        previous = null;
+
+        GameObject head = view.transform.GetChild(0).gameObject;
+
+        pseudocode.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+
+        SpriteRenderer sp = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        sp.sprite = traverse_sprite;
+        previous = head;
+
+        yield return new WaitForSeconds(speed);
+        pseudocode.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+
+
+        for (int i = 1; i < view.transform.childCount; i++)
         {
             child = view.transform.GetChild(i).gameObject;
+
             if (child.tag.Equals("Node"))
             {
+                // While highlighter
+                pseudocode.transform.GetChild(2).GetChild(0).gameObject.SetActive(true);
+                yield return new WaitForSeconds(speed);
+                pseudocode.transform.GetChild(2).GetChild(0).gameObject.SetActive(false);
+                //=========
                 SpriteRenderer spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+
+                pseudocode.transform.GetChild(3).GetChild(0).gameObject.SetActive(true);
+                
+                if (previous != null)
+                {
+                    previous.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
+                }
 
                 spr.sprite = traverse_sprite;
                 TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
 
+                yield return new WaitForSeconds(speed);
+
+                pseudocode.transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
+
+
                 if (child_data.text == data.ToString())
                 {
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(speed);
                     spr.sprite = initial_sprite;
                     found = true;
                     break;
                 }
-                yield return new WaitForSeconds(0.5f);
-                spr.sprite = initial_sprite;
+
+                yield return new WaitForSeconds(speed);
+                pseudocode.transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
+
+                previous = child;
             }
         }
 
+
+        child.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
+
         if (!found)
         {
+            pseudocode.transform.GetChild(4).GetChild(0).gameObject.SetActive(true);
+            yield return new WaitForSeconds(speed);
+
             create_arrow();
             create_node(data);
-            list.Add(data.ToString());
+            pseudocode.transform.GetChild(4).GetChild(0).gameObject.SetActive(false);
+
         }
-        
+
     }
 
     public override IEnumerator delete_node(long data)
@@ -92,7 +136,7 @@ public class SingleLinkedList : IList
         if (is_init)
             return;
 
-        list = new List<string>();
+
 
         for (int i = 0; i < init_number; i++)
         {
@@ -122,6 +166,5 @@ public class SingleLinkedList : IList
         else
             new_node_data.text = (data.Value).ToString();
 
-        list.Add(new_node_data.text);
     }
 }
