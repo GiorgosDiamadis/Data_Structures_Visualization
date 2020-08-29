@@ -11,7 +11,9 @@ public abstract class IList : MonoBehaviour
 
     protected int init_number = 3;
     public abstract void init_list();
-    public abstract IEnumerator add_node(int data);
+    public abstract IEnumerator add_node(long data);
+    public abstract IEnumerator delete_node(long data);
+
 
     private void Awake()
     {
@@ -23,7 +25,7 @@ public abstract class IList : MonoBehaviour
         view = GameObject.Find("View");
     }
 
-    public IEnumerator search(int data)
+    public IEnumerator search(long data)
     {
         GameObject child;
         for(int i = 0; i < view.transform.childCount; i++)

@@ -894,18 +894,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435161921}
   m_CullTransparentMesh: 0
---- !u!114 &470114892 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 470114892, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
-    type: 3}
-  m_PrefabInstance: {fileID: 7911818172441161870}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f9076f818116314a921ce15918f97cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &486673319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,6 +1675,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7911818173787570432, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
+        type: 3}
+      propertyPath: m_Name
+      value: Delete Input(Input Field)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911818173876560300, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
+        type: 3}
+      propertyPath: m_Name
+      value: Add Input(Input Field)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b3d27eb1ab72cd4fb04e365e0e87735, type: 3}
 --- !u!224 &924537297 stripped
@@ -2127,6 +2125,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911818173787570432, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
+        type: 3}
+      propertyPath: m_Name
+      value: Delete Input(Input Field)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911818173876560300, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
+        type: 3}
+      propertyPath: m_Name
+      value: Add Input(Input Field)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b3d27eb1ab72cd4fb04e365e0e87735, type: 3}
@@ -2767,6 +2775,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7911818173787570432, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
+        type: 3}
+      propertyPath: m_Name
+      value: Delete Input(Input Field)
+      objectReference: {fileID: 0}
     - target: {fileID: 7911818173787570433, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2796,6 +2809,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911818173876560300, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
+        type: 3}
+      propertyPath: m_Name
+      value: Add Input(Input Field)
       objectReference: {fileID: 0}
     - target: {fileID: 7911818173876560301, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
         type: 3}
@@ -2997,36 +3015,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 23090212}
     m_Modifications:
-    - target: {fileID: 7911818172507919047, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7911818172507919047, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7911818172507919047, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7911818172507919047, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 470114892}
-    - target: {fileID: 7911818172507919047, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: search
-      objectReference: {fileID: 0}
-    - target: {fileID: 7911818172507919047, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 7911818173405036716, guid: 2b3d27eb1ab72cd4fb04e365e0e87735,
         type: 3}
       propertyPath: m_Name

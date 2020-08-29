@@ -1,27 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
-
 public class Get_input : MonoBehaviour
 {
     private TMPro.TMP_InputField input_field = null;
-    private int data = -1;
+    private long data = Int64.MaxValue;
 
     private void Start()
     {
         input_field = GetComponent<TMPro.TMP_InputField>();
     }
-
-    public void add()
+    public void clear()
     {
+        input_field.text = "";
+    }
+    public void add()
+    {   
         if(input_field.text.Length != 0)
         {
             data = int.Parse(input_field.text);
         }
 
-        IList list = transform.parent.parent.GetComponent<IList>();
-        StartCoroutine(list.add_node(data));
-        
+        if(data < Int64.MaxValue)
+        {
+            IList list = transform.parent.parent.GetComponent<IList>();
+            StartCoroutine(list.add_node(data));
+            data = Int64.MaxValue;
+        }
+        clear();
     }
 
     public void search()
@@ -31,8 +36,28 @@ public class Get_input : MonoBehaviour
             data = int.Parse(input_field.text);
         }
 
-        IList list = transform.parent.parent.GetComponent<IList>();
-        StartCoroutine(list.search(data));
+        if(data < Int64.MaxValue)
+        {
+            IList list = transform.parent.parent.GetComponent<IList>();
+            StartCoroutine(list.search(data));
+            data = Int64.MaxValue;
+        }
+        clear();
+    }
+    public void delete()
+    {
+        if (input_field.text.Length != 0)
+        {
+            data = int.Parse(input_field.text);
+        }
+
+        if (data < Int64.MaxValue)
+        {
+            IList list = transform.parent.parent.GetComponent<IList>();
+            StartCoroutine(list.delete_node(data));
+            data = Int64.MaxValue;
+        }
+        clear();
     }
 
 }

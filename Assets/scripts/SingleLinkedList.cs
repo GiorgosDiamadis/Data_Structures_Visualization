@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SingleLinkedList : IList
 {
@@ -10,7 +10,7 @@ public class SingleLinkedList : IList
     private TMPro.TextMeshProUGUI new_node_data = null;
     private List<string> list;
 
-    public override IEnumerator add_node(int data)
+    public override IEnumerator add_node(long data)
     {
         bool found = false;
 
@@ -46,6 +46,47 @@ public class SingleLinkedList : IList
         
     }
 
+    public override IEnumerator delete_node(long data)
+    {
+        bool found = false;
+        int position = -1;
+
+        GameObject child;
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+            child = view.transform.GetChild(i).gameObject;
+            if (child.tag.Equals("Node"))
+            {
+                SpriteRenderer spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+                spr.sprite = traverse_sprite;
+                TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+
+                if (child_data.text == data.ToString())
+                {
+                    yield return new WaitForSeconds(0.5f);
+                    spr.sprite = initial_sprite;
+                    found = true;
+                    position = i;
+                    break;
+                }
+                yield return new WaitForSeconds(0.5f);
+                spr.sprite = initial_sprite;
+            }
+        }
+
+        if (found)
+        {
+            Destroy(view.transform.GetChild(position).gameObject);
+
+            if(position == view.transform.childCount - 1)
+                Destroy(view.transform.GetChild(position - 1).gameObject);
+            else
+                Destroy(view.transform.GetChild(position + 1).gameObject);
+
+        }
+    }
+
     public override void init_list()
     {
         if (is_init)
@@ -71,7 +112,7 @@ public class SingleLinkedList : IList
         Instantiate(arrow, view.transform);
     }
 
-    private void create_node(int? data = null)
+    private void create_node(long? data = null)
     {
         new_node = Instantiate(node, view.transform);
         new_node_data = new_node.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
