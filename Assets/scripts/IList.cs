@@ -16,6 +16,9 @@ public abstract class IList : MonoBehaviour
     public abstract IEnumerator delete_node(long data);
 
 
+    protected float speed = .5f;
+
+
     private void Awake()
     {
         node = Resources.Load("prefabs/Node") as GameObject;
@@ -27,9 +30,16 @@ public abstract class IList : MonoBehaviour
         pseudocode = GameObject.Find("Pseudocode");
     }
 
+    protected void highlight_pseudocode(int index, bool is_open)
+    {
+        pseudocode.transform.GetChild(index).GetChild(0).gameObject.SetActive(is_open);
+    }
+
+
     public IEnumerator search(long data)
     {
         GameObject child;
+
         for(int i = 0; i < view.transform.childCount; i++)
         {
             child = view.transform.GetChild(i).gameObject;

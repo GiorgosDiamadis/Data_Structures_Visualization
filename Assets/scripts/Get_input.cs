@@ -9,10 +9,12 @@ public class Get_input : MonoBehaviour
     {
         input_field = GetComponent<TMPro.TMP_InputField>();
     }
+
     public void clear()
     {
         input_field.text = "";
     }
+
     public void add()
     {   
         if(input_field.text.Length != 0)
@@ -26,6 +28,7 @@ public class Get_input : MonoBehaviour
             StartCoroutine(list.add_node(data));
             data = Int64.MaxValue;
         }
+
         clear();
     }
 
@@ -42,8 +45,10 @@ public class Get_input : MonoBehaviour
             StartCoroutine(list.search(data));
             data = Int64.MaxValue;
         }
+        
         clear();
     }
+
     public void delete()
     {
         if (input_field.text.Length != 0)
@@ -59,5 +64,4 @@ public class Get_input : MonoBehaviour
         }
         clear();
     }
-
 }

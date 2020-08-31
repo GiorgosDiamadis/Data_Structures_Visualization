@@ -1,14 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
+using DG.Tweening;
 
 public class SingleLinkedList : IList
 {
     [SerializeField] private bool is_init = false;
     private GameObject new_node = null;
     private TMPro.TextMeshProUGUI new_node_data = null;
-    private float speed = .5f;
+
+    
 
     public override IEnumerator add_node(long data)
     {
@@ -16,18 +16,18 @@ public class SingleLinkedList : IList
 
         GameObject child,previous;
         child = null;
-        previous = null;
 
         GameObject head = view.transform.GetChild(0).gameObject;
 
-        pseudocode.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+        highlight_pseudocode(0, true);
 
-        SpriteRenderer sp = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        sp.sprite = traverse_sprite;
+        SpriteRenderer spr = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        spr.sprite = traverse_sprite;
         previous = head;
 
         yield return new WaitForSeconds(speed);
-        pseudocode.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+        highlight_pseudocode(0, false);
+
 
 
         for (int i = 1; i < view.transform.childCount; i++)
@@ -37,15 +37,19 @@ public class SingleLinkedList : IList
             if (child.tag.Equals("Node"))
             {
                 // While highlighter
-                pseudocode.transform.GetChild(2).GetChild(0).gameObject.SetActive(true);
+                highlight_pseudocode(1, true);
+
                 yield return new WaitForSeconds(speed);
-                pseudocode.transform.GetChild(2).GetChild(0).gameObject.SetActive(false);
+
+                highlight_pseudocode(1, false);
+
                 //=========
-                SpriteRenderer spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
 
 
-                pseudocode.transform.GetChild(3).GetChild(0).gameObject.SetActive(true);
-                
+                highlight_pseudocode(2, true);
+
+
                 if (previous != null)
                 {
                     previous.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
@@ -56,7 +60,8 @@ public class SingleLinkedList : IList
 
                 yield return new WaitForSeconds(speed);
 
-                pseudocode.transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
+                highlight_pseudocode(2, false);
+
 
 
                 if (child_data.text == data.ToString())
@@ -68,23 +73,23 @@ public class SingleLinkedList : IList
                 }
 
                 yield return new WaitForSeconds(speed);
-                pseudocode.transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
 
                 previous = child;
             }
         }
 
-
-        child.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
+        spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        spr.sprite = initial_sprite;
 
         if (!found)
         {
-            pseudocode.transform.GetChild(4).GetChild(0).gameObject.SetActive(true);
-            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(3, true);
 
+            yield return new WaitForSeconds(speed);
             create_arrow();
             create_node(data);
-            pseudocode.transform.GetChild(4).GetChild(0).gameObject.SetActive(false);
+
+            highlight_pseudocode(3, false);
 
         }
 
@@ -109,9 +114,11 @@ public class SingleLinkedList : IList
                 if (child_data.text == data.ToString())
                 {
                     yield return new WaitForSeconds(0.5f);
+
                     spr.sprite = initial_sprite;
                     found = true;
                     position = i;
+
                     break;
                 }
                 yield return new WaitForSeconds(0.5f);
@@ -135,9 +142,6 @@ public class SingleLinkedList : IList
     {
         if (is_init)
             return;
-
-
-
         for (int i = 0; i < init_number; i++)
         {
             create_node();
@@ -150,6 +154,7 @@ public class SingleLinkedList : IList
 
         is_init = true;
     }
+
 
     private void create_arrow()
     {
