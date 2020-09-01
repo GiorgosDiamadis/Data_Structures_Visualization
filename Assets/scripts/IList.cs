@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 public abstract class IList : MonoBehaviour
 {
     protected GameObject node = null;
@@ -16,7 +17,7 @@ public abstract class IList : MonoBehaviour
     public abstract IEnumerator delete_node(long data);
 
 
-    protected float speed = .5f;
+    protected float speed = 1f;
 
 
     private void Awake()
@@ -27,7 +28,6 @@ public abstract class IList : MonoBehaviour
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
 
         view = GameObject.Find("View");
-        pseudocode = GameObject.Find("Pseudocode");
     }
 
     protected void highlight_pseudocode(int index, bool is_open)
@@ -35,31 +35,90 @@ public abstract class IList : MonoBehaviour
         pseudocode.transform.GetChild(index).GetChild(0).gameObject.SetActive(is_open);
     }
 
+    protected void load_pseudocode(string method)
+    {
+        pseudocode = Resources.Load("prefabs/pseudocode/sll/pseudocode_" + method) as GameObject;
+        pseudocode = Instantiate(pseudocode, FindObjectOfType<Canvas>().transform);
+        pseudocode.name = "pseudocode_" + method;
 
+        pseudocode.GetComponent<RectTransform>().DOScale(1f, speed);
+    }
     public IEnumerator search(long data)
     {
-        GameObject child;
-
-        for(int i = 0; i < view.transform.childCount; i++)
+        if (pseudocode != null)
         {
+            if (pseudocode.name != "pseudocode_search")
+            {
+                Destroy(pseudocode);
+                load_pseudocode("search");
+                yield return new WaitForSeconds(speed);
+            }
+        }
+        else
+        {
+            load_pseudocode("search");
+            yield return new WaitForSeconds(speed);
+        }
+
+
+
+        GameObject child, previous = null;
+
+        GameObject head = view.transform.GetChild(0).gameObject;
+        previous = head;
+
+
+        highlight_pseudocode(0, true);
+
+        SpriteRenderer spr = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        spr.sprite = traverse_sprite;
+
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(0, false);
+
+
+        for (int i = 1; i < view.transform.childCount; i++)
+        {
+
             child = view.transform.GetChild(i).gameObject;
             if (child.tag.Equals("Node"))
             {
-                SpriteRenderer spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                highlight_pseudocode(1, true);
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(1, false);
 
-                spr.sprite = traverse_sprite;
+                spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
                 TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
 
-                if ( child_data.text == data.ToString())
+                highlight_pseudocode(2, true);
+
+                if (previous != null)
                 {
-                    yield return new WaitForSeconds(0.5f);
+                    previous.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
+                }
+
+
+                spr.sprite = traverse_sprite;
+
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(2, false);
+
+                if (child_data.text == data.ToString())
+                {
+                    highlight_pseudocode(3, true);
+                    yield return new WaitForSeconds(speed);
                     spr.sprite = initial_sprite;
+
+                    highlight_pseudocode(3, false);
                     break;
                 }
-                yield return new WaitForSeconds(0.5f);
-                spr.sprite = initial_sprite;
+                previous = child;
             }
         }
+
+        spr.sprite = initial_sprite;
+
     }
 
 }

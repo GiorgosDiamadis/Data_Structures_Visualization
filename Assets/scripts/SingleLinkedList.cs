@@ -1,20 +1,34 @@
 ﻿using System.Collections;
 using UnityEngine;
-using DG.Tweening;
-
 public class SingleLinkedList : IList
 {
     [SerializeField] private bool is_init = false;
     private GameObject new_node = null;
     private TMPro.TextMeshProUGUI new_node_data = null;
 
-    
+
 
     public override IEnumerator add_node(long data)
     {
+
+        if (pseudocode != null)
+        {
+            if (pseudocode.name != "pseudocode_add")
+            {
+                Destroy(pseudocode);
+                load_pseudocode("add");
+                yield return new WaitForSeconds(speed);
+            }
+        }
+        else
+        {
+            load_pseudocode("add");
+            yield return new WaitForSeconds(speed);
+        }
+
         bool found = false;
 
-        GameObject child,previous;
+        GameObject child, previous;
         child = null;
 
         GameObject head = view.transform.GetChild(0).gameObject;
@@ -95,6 +109,8 @@ public class SingleLinkedList : IList
 
     }
 
+    
+
     public override IEnumerator delete_node(long data)
     {
         bool found = false;
@@ -130,7 +146,7 @@ public class SingleLinkedList : IList
         {
             Destroy(view.transform.GetChild(position).gameObject);
 
-            if(position == view.transform.childCount - 1)
+            if (position == view.transform.childCount - 1)
                 Destroy(view.transform.GetChild(position - 1).gameObject);
             else
                 Destroy(view.transform.GetChild(position + 1).gameObject);
@@ -165,8 +181,8 @@ public class SingleLinkedList : IList
     {
         new_node = Instantiate(node, view.transform);
         new_node_data = new_node.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
-        
-        if(!data.HasValue)
+
+        if (!data.HasValue)
             new_node_data.text = (Random.Range(-100, 100)).ToString();
         else
             new_node_data.text = (data.Value).ToString();
