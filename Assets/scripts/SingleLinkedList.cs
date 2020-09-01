@@ -109,47 +109,115 @@ public class SingleLinkedList : IList
 
     }
 
-    
+
 
     public override IEnumerator delete_node(long data)
     {
+
+        if (pseudocode != null)
+        {
+            if (pseudocode.name != "pseudocode_delete")
+            {
+                Destroy(pseudocode);
+                load_pseudocode("delete");
+                yield return new WaitForSeconds(speed);
+            }
+        }
+        else
+        {
+            load_pseudocode("delete");
+            yield return new WaitForSeconds(speed);
+        }
+
+
+
         bool found = false;
         int position = -1;
 
-        GameObject child;
-        for (int i = 0; i < view.transform.childCount; i++)
+        GameObject child, previous;
+        child = null;
+
+        GameObject head = view.transform.GetChild(0).gameObject;
+
+        highlight_pseudocode(0, true);
+
+        SpriteRenderer spr = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        spr.sprite = traverse_sprite;
+        previous = head;
+
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(0, false);
+
+
+        for (int i = 1; i < view.transform.childCount; i++,position++)
         {
             child = view.transform.GetChild(i).gameObject;
             if (child.tag.Equals("Node"))
             {
-                SpriteRenderer spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                // While highlighter
+                highlight_pseudocode(1, true);
+
+                yield return new WaitForSeconds(speed);
+
+                highlight_pseudocode(1, false);
+
+                //=========
+                spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+
+                highlight_pseudocode(2, true);
+
+
+                if (previous != null)
+                {
+                    previous.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
+                }
 
                 spr.sprite = traverse_sprite;
                 TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
 
+                yield return new WaitForSeconds(speed);
+
+                highlight_pseudocode(2, false);
+
                 if (child_data.text == data.ToString())
                 {
-                    yield return new WaitForSeconds(0.5f);
-
+                    yield return new WaitForSeconds(speed);
                     spr.sprite = initial_sprite;
                     found = true;
-                    position = i;
-
                     break;
                 }
-                yield return new WaitForSeconds(0.5f);
-                spr.sprite = initial_sprite;
+                yield return new WaitForSeconds(speed);
+
+                previous = child;
             }
         }
 
+        spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        spr.sprite = initial_sprite;
+
         if (found)
         {
+            highlight_pseudocode(3, true);
+
+            yield return new WaitForSeconds(speed);
+
+
             Destroy(view.transform.GetChild(position).gameObject);
 
             if (position == view.transform.childCount - 1)
                 Destroy(view.transform.GetChild(position - 1).gameObject);
             else
                 Destroy(view.transform.GetChild(position + 1).gameObject);
+
+            highlight_pseudocode(3, false);
+        }
+        else
+        {
+            highlight_pseudocode(3, true);
+
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(3, false);
 
         }
     }

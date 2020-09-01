@@ -17,7 +17,7 @@ public abstract class IList : MonoBehaviour
     public abstract IEnumerator delete_node(long data);
 
 
-    protected float speed = 1f;
+    protected float speed = .5f;
 
 
     private void Awake()
@@ -106,18 +106,16 @@ public abstract class IList : MonoBehaviour
 
                 if (child_data.text == data.ToString())
                 {
-                    highlight_pseudocode(3, true);
-                    yield return new WaitForSeconds(speed);
-                    spr.sprite = initial_sprite;
-
-                    highlight_pseudocode(3, false);
                     break;
                 }
                 previous = child;
             }
         }
-
+        highlight_pseudocode(3, true);
+        yield return new WaitForSeconds(speed);
         spr.sprite = initial_sprite;
+
+        highlight_pseudocode(3, false);
 
     }
 
