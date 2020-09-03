@@ -1,45 +1,73 @@
 ﻿using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-public abstract class IList : MonoBehaviour
+using UnityEngine.EventSystems;
+public abstract class IList : MonoBehaviour,IPointerClickHandler
 {
     protected GameObject node = null;
-    protected GameObject arrow = null;
+    protected GameObject arrow_front = null;
+    protected GameObject arrow_back = null;
     protected GameObject view = null;
     protected Sprite traverse_sprite = null;
     protected Sprite initial_sprite = null;
     protected float speed = .5f;
 
-    [SerializeField] private bool is_init = false;
+    public bool is_init = false;
+
     private GameObject new_node = null;
     private TMPro.TextMeshProUGUI new_node_data = null;
 
     protected int init_number = 3;
     protected GameObject pseudocode = null;
-    public abstract void create_arrow();
-
+    public abstract void load_pseudocode(string method);
 
     private void Awake()
     {
         node = Resources.Load("prefabs/Node") as GameObject;
-        arrow = Resources.Load("prefabs/Arrow") as GameObject;
         traverse_sprite = Resources.Load<Sprite>("NeonShapes/PNG/RedCircle");
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
+        arrow_front = Resources.Load("prefabs/Arrow_sll") as GameObject;
+        arrow_back = Resources.Load("prefabs/Arrow_dll") as GameObject;
 
         view = GameObject.Find("View");
     }
 
-    public void init_list()
+
+    public void create_arrow_front()
+    {
+        Instantiate(arrow_front, view.transform);
+    }
+    public void create_arrow_front_back()
+    {
+        Instantiate(arrow_back, view.transform);
+    }
+
+
+    public void init_list(string list_type)
     {
         if (is_init)
             return;
+
+        if (view.transform.childCount > 0)
+        {
+            for(int i = 0; i < view.transform.childCount; i++)
+            {
+                Destroy(view.transform.GetChild(i).gameObject);
+            }
+        }
+
         for (int i = 0; i < init_number; i++)
         {
             create_node();
 
             if (i < init_number - 1)
             {
-                create_arrow();
+                if(list_type == "sll")
+                    create_arrow_front();
+                else
+                {
+                    create_arrow_front_back();
+                }
             }
         }
         is_init = true;
@@ -59,15 +87,6 @@ public abstract class IList : MonoBehaviour
     protected void highlight_pseudocode(int index, bool is_open)
     {
         pseudocode.transform.GetChild(index).GetChild(0).gameObject.SetActive(is_open);
-    }
-
-    protected void load_pseudocode(string method)
-    {
-        pseudocode = Resources.Load("prefabs/pseudocode/sll/pseudocode_" + method) as GameObject;
-        pseudocode = Instantiate(pseudocode, FindObjectOfType<Canvas>().transform);
-        pseudocode.name = "pseudocode_" + method;
-
-        pseudocode.GetComponent<RectTransform>().DOScale(1f, speed);
     }
 
     public IEnumerator add_node(long data)
@@ -162,7 +181,7 @@ public abstract class IList : MonoBehaviour
             highlight_pseudocode(3, true);
 
             yield return new WaitForSeconds(speed);
-            create_arrow();
+            create_arrow_front();
             create_node(data);
 
             highlight_pseudocode(3, false);
@@ -256,6 +275,7 @@ public abstract class IList : MonoBehaviour
 
         if (found)
         {
+            position++;
             highlight_pseudocode(3, true);
 
             yield return new WaitForSeconds(speed);
@@ -356,4 +376,14 @@ public abstract class IList : MonoBehaviour
 
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        foreach (IList list in FindObjectsOfType<IList>())
+        {
+            if (list != this)
+            {
+                list.is_init = false;
+            }
+        }
+    }
 }

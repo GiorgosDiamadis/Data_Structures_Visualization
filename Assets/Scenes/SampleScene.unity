@@ -218,13 +218,13 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 23090216}
         m_MethodName: init_list
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: sll
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &23090214
@@ -361,6 +361,7 @@ GameObject:
   - component: {fileID: 132361632}
   - component: {fileID: 132361631}
   - component: {fileID: 132361630}
+  - component: {fileID: 132361633}
   m_Layer: 5
   m_Name: Double Linked List (Button)
   m_TagString: DLL Actions
@@ -443,6 +444,17 @@ MonoBehaviour:
           m_StringArgument: DLL Actions
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 132361633}
+        m_MethodName: init_list
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: dll
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &132361631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,6 +491,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132361628}
   m_CullTransparentMesh: 0
+--- !u!114 &132361633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132361628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9396a9e9dc485be4fac2233001d1222d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  is_init: 0
 --- !u!1 &300712133
 GameObject:
   m_ObjectHideFlags: 0

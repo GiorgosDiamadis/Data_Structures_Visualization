@@ -1,12 +1,13 @@
-﻿using UnityEngine.EventSystems;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using DG.Tweening;
-public class SingleLinkedList : IList
+
+public class DoubleLinkedList : IList
 {
 
     public override void load_pseudocode(string method)
     {
-        pseudocode = Resources.Load("prefabs/pseudocode/sll/pseudocode_" + method) as GameObject;
+        pseudocode = Resources.Load("prefabs/pseudocode/dll/pseudocode_" + method) as GameObject;
         pseudocode = Instantiate(pseudocode, FindObjectOfType<Canvas>().transform);
         pseudocode.name = "pseudocode_" + method;
 
