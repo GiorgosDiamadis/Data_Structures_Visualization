@@ -18,7 +18,7 @@ public abstract class IList : MonoBehaviour,IPointerClickHandler
     private TMPro.TextMeshProUGUI new_node_data = null;
 
     protected int init_number = 3;
-    protected GameObject pseudocode = null;
+    protected static GameObject pseudocode = null;
     public abstract void load_pseudocode(string method);
 
     private void Awake()
