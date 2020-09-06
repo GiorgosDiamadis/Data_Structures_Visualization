@@ -24,8 +24,8 @@ public class Get_input : MonoBehaviour
 
         if(data < Int64.MaxValue)
         {
-            IList list = transform.parent.parent.GetComponent<IList>();
-            StartCoroutine(list.add_node(data));
+            IList list = transform.GetComponentInParent<IList>();
+            StartCoroutine(list.add_front(data));
             data = Int64.MaxValue;
         }
 
@@ -41,7 +41,7 @@ public class Get_input : MonoBehaviour
 
         if(data < Int64.MaxValue)
         {
-            IList list = transform.parent.parent.GetComponent<IList>();
+            IList list = transform.GetComponentInParent<IList>();
             StartCoroutine(list.search(data));
             data = Int64.MaxValue;
         }
@@ -58,7 +58,7 @@ public class Get_input : MonoBehaviour
 
         if (data < Int64.MaxValue)
         {
-            IList list = transform.parent.parent.GetComponent<IList>();
+            IList list = transform.GetComponentInParent<IList>();
             StartCoroutine(list.delete_node(data));
             data = Int64.MaxValue;
         }

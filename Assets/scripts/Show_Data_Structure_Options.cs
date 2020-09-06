@@ -33,7 +33,6 @@ public class Show_Data_Structure_Options : MonoBehaviour
 
     public void show_method_options(RectTransform rect)
     {
-        print("show method " + rect.name);
 
         target = rect;
 
@@ -44,7 +43,6 @@ public class Show_Data_Structure_Options : MonoBehaviour
         }
         else
         {
-            print(rect.name);
             scale(rect, scale_down);
         }
 
@@ -59,7 +57,6 @@ public class Show_Data_Structure_Options : MonoBehaviour
 
         target = options.GetComponent<RectTransform>();
 
-        print("show panel " + target.name);
 
 
         if (!options.activeSelf)
