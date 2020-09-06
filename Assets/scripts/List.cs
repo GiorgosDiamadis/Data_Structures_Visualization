@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 using UnityEngine.EventSystems;
-public abstract class IList : MonoBehaviour, IPointerClickHandler
+public class List : Data_Structure, IPointerClickHandler
 {
     protected GameObject node = null;
     [SerializeField] protected GameObject arrow = null;
+    [SerializeField] private string pseudocode_dir = "";
     protected GameObject view = null;
     protected Sprite traverse_sprite = null;
     protected Sprite initial_sprite = null;
@@ -17,7 +19,17 @@ public abstract class IList : MonoBehaviour, IPointerClickHandler
 
     protected int init_number = 3;
     protected static GameObject pseudocode = null;
-    public abstract void load_pseudocode(string method);
+    private void load_pseudocode(string method)
+    {
+        if (pseudocode != null)
+            Destroy(pseudocode);
+
+        pseudocode = Resources.Load("prefabs/pseudocode/" + pseudocode_dir + "/pseudocode_" + method) as GameObject;
+        pseudocode = Instantiate(pseudocode, FindObjectOfType<Canvas>().transform);
+        pseudocode.name = "pseudocode_" + method;
+
+        pseudocode.GetComponent<RectTransform>().DOScale(1f, speed);
+    }
 
     private void Awake()
     {
@@ -382,7 +394,7 @@ public abstract class IList : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        foreach (IList list in FindObjectsOfType<IList>())
+        foreach (List list in FindObjectsOfType<List>())
         {
             if (list != this)
             {

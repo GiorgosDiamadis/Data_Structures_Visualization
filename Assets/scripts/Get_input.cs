@@ -9,22 +9,31 @@ public class Get_input : MonoBehaviour
     {
         input_field = GetComponent<TMPro.TMP_InputField>();
     }
-
-    public void clear()
+    private void clear()
     {
         input_field.text = "";
     }
 
-    public void add()
-    {   
-        if(input_field.text.Length != 0)
+    public void list_add()
+    {
+        data = get_data();
+        if (data < Int64.MaxValue)
         {
-            data = int.Parse(input_field.text);
+            List list = transform.GetComponentInParent<List>();
+            StartCoroutine(list.add_node(data));
+            data = Int64.MaxValue;
         }
 
-        if(data < Int64.MaxValue)
+        clear();
+    }
+
+    public void list_add_front()
+    {
+       data = get_data();
+
+        if (data < Int64.MaxValue)
         {
-            IList list = transform.GetComponentInParent<IList>();
+            List list = transform.GetComponentInParent<List>();
             StartCoroutine(list.add_front(data));
             data = Int64.MaxValue;
         }
@@ -32,16 +41,23 @@ public class Get_input : MonoBehaviour
         clear();
     }
 
-    public void search()
+    private long get_data()
     {
         if (input_field.text.Length != 0)
         {
             data = int.Parse(input_field.text);
         }
 
-        if(data < Int64.MaxValue)
+        return data;
+    }
+
+    public void list_search()
+    {
+        data = get_data();
+
+        if (data < Int64.MaxValue)
         {
-            IList list = transform.GetComponentInParent<IList>();
+            List list = transform.GetComponentInParent<List>();
             StartCoroutine(list.search(data));
             data = Int64.MaxValue;
         }
@@ -49,16 +65,13 @@ public class Get_input : MonoBehaviour
         clear();
     }
 
-    public void delete()
+    public void list_delete()
     {
-        if (input_field.text.Length != 0)
-        {
-            data = int.Parse(input_field.text);
-        }
+        data = get_data();
 
         if (data < Int64.MaxValue)
         {
-            IList list = transform.GetComponentInParent<IList>();
+            List list = transform.GetComponentInParent<List>();
             StartCoroutine(list.delete_node(data));
             data = Int64.MaxValue;
         }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
-public class Show_Data_Structure_Options : MonoBehaviour
+public class ShowUI : MonoBehaviour
 {
     private GameObject d_structure = null;
     private GameObject options = null;
@@ -48,7 +48,7 @@ public class Show_Data_Structure_Options : MonoBehaviour
 
     }
 
-    public void show_panel_options(string data_structure_tag)
+    public void show_structure_options(string data_structure_tag)
     {
         d_structure = GameObject.FindGameObjectWithTag(data_structure_tag);
         
