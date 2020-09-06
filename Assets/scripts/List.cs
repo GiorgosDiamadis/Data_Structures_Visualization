@@ -2,7 +2,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
-public class List : Data_Structure, IPointerClickHandler
+public class List : MonoBehaviour, IPointerClickHandler
 {
     protected GameObject node = null;
     [SerializeField] protected GameObject arrow = null;

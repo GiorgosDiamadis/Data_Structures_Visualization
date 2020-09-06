@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-public class Get_input : MonoBehaviour
+public class Input : MonoBehaviour
 {
     private TMPro.TMP_InputField input_field = null;
     private long data = Int64.MaxValue;
