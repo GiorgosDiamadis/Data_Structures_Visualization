@@ -218,7 +218,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 23090216}
         m_MethodName: init_list
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -447,7 +447,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 132361633}
         m_MethodName: init_list
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

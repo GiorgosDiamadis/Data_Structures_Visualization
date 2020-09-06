@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
-using DG.Tweening;
 using UnityEngine.EventSystems;
-public abstract class IList : MonoBehaviour,IPointerClickHandler
+public abstract class IList : MonoBehaviour, IPointerClickHandler
 {
     protected GameObject node = null;
     [SerializeField] protected GameObject arrow = null;
@@ -36,14 +35,14 @@ public abstract class IList : MonoBehaviour,IPointerClickHandler
     }
 
 
-    public void init_list(string list_type)
+    public void init_list()
     {
         if (is_init)
             return;
 
         if (view.transform.childCount > 0)
         {
-            for(int i = 0; i < view.transform.childCount; i++)
+            for (int i = 0; i < view.transform.childCount; i++)
             {
                 Destroy(view.transform.GetChild(i).gameObject);
             }
@@ -80,20 +79,8 @@ public abstract class IList : MonoBehaviour,IPointerClickHandler
     public IEnumerator add_node(long data)
     {
 
-        if (pseudocode != null)
-        {
-            if (pseudocode.name != "pseudocode_add")
-            {
-                Destroy(pseudocode);
-                load_pseudocode("add");
-                yield return new WaitForSeconds(speed);
-            }
-        }
-        else
-        {
-            load_pseudocode("add");
-            yield return new WaitForSeconds(speed);
-        }
+        load_pseudocode("add");
+        yield return new WaitForSeconds(speed);
 
         bool found = false;
 
@@ -145,8 +132,6 @@ public abstract class IList : MonoBehaviour,IPointerClickHandler
 
                 highlight_pseudocode(2, false);
 
-
-
                 if (child_data.text == data.ToString())
                 {
                     yield return new WaitForSeconds(speed);
@@ -179,22 +164,9 @@ public abstract class IList : MonoBehaviour,IPointerClickHandler
     }
     public IEnumerator delete_node(long data)
     {
-        if (pseudocode != null)
-        {
-            if (pseudocode.name != "pseudocode_delete")
-            {
-                Destroy(pseudocode);
-                load_pseudocode("delete");
-                yield return new WaitForSeconds(speed);
-            }
-        }
-        else
-        {
-            load_pseudocode("delete");
-            yield return new WaitForSeconds(speed);
-        }
 
-
+        load_pseudocode("delete");
+        yield return new WaitForSeconds(speed);
 
         bool found = false;
         int position = -1;
@@ -290,21 +262,9 @@ public abstract class IList : MonoBehaviour,IPointerClickHandler
 
     public IEnumerator search(long data)
     {
-        if (pseudocode != null)
-        {
-            if (pseudocode.name != "pseudocode_search")
-            {
-                Destroy(pseudocode);
-                load_pseudocode("search");
-                yield return new WaitForSeconds(speed);
-            }
-        }
-        else
-        {
-            load_pseudocode("search");
-            yield return new WaitForSeconds(speed);
-        }
 
+        load_pseudocode("search");
+        yield return new WaitForSeconds(speed);
 
 
         GameObject child, previous = null;
