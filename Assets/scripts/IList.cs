@@ -5,8 +5,7 @@ using UnityEngine.EventSystems;
 public abstract class IList : MonoBehaviour,IPointerClickHandler
 {
     protected GameObject node = null;
-    protected GameObject arrow_front = null;
-    protected GameObject arrow_back = null;
+    [SerializeField] protected GameObject arrow = null;
     protected GameObject view = null;
     protected Sprite traverse_sprite = null;
     protected Sprite initial_sprite = null;
@@ -26,20 +25,14 @@ public abstract class IList : MonoBehaviour,IPointerClickHandler
         node = Resources.Load("prefabs/Node") as GameObject;
         traverse_sprite = Resources.Load<Sprite>("NeonShapes/PNG/RedCircle");
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
-        arrow_front = Resources.Load("prefabs/Arrow_sll") as GameObject;
-        arrow_back = Resources.Load("prefabs/Arrow_dll") as GameObject;
 
         view = GameObject.Find("View");
     }
 
 
-    public void create_arrow_front()
+    public void create_arrow()
     {
-        Instantiate(arrow_front, view.transform);
-    }
-    public void create_arrow_front_back()
-    {
-        Instantiate(arrow_back, view.transform);
+        Instantiate(arrow, view.transform);
     }
 
 
@@ -62,12 +55,7 @@ public abstract class IList : MonoBehaviour,IPointerClickHandler
 
             if (i < init_number - 1)
             {
-                if(list_type == "sll")
-                    create_arrow_front();
-                else
-                {
-                    create_arrow_front_back();
-                }
+                create_arrow();
             }
         }
         is_init = true;
@@ -181,7 +169,7 @@ public abstract class IList : MonoBehaviour,IPointerClickHandler
             highlight_pseudocode(3, true);
 
             yield return new WaitForSeconds(speed);
-            create_arrow_front();
+            create_arrow();
             create_node(data);
 
             highlight_pseudocode(3, false);
