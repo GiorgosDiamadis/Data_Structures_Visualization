@@ -31,16 +31,36 @@ public class Show_Data_Structure_Options : MonoBehaviour
 
     }
 
+    public void show_method_options(RectTransform rect)
+    {
+        print("show method " + rect.name);
+
+        target = rect;
+
+        if (!rect.gameObject.activeSelf)
+        {
+            rect.gameObject.SetActive(true);
+            scale(rect, scale_up);
+        }
+        else
+        {
+            print(rect.name);
+            scale(rect, scale_down);
+        }
+
+    }
 
     public void show_panel_options(string data_structure_tag)
     {
         d_structure = GameObject.FindGameObjectWithTag(data_structure_tag);
+        
         options = d_structure.transform.GetChild(1).gameObject;
 
 
-
-
         target = options.GetComponent<RectTransform>();
+
+        print("show panel " + target.name);
+
 
         if (!options.activeSelf)
         {
