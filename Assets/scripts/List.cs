@@ -143,92 +143,125 @@ public class List : MonoBehaviour, IPointerClickHandler
             load_pseudocode("add_position");
             yield return new WaitForSeconds(speed);
 
-            bool found = false;
-
-            GameObject child, previous;
-            child = null;
-
-            GameObject head = view.transform.GetChild(0).gameObject;
-
-            highlight_pseudocode(0, true);
-
-            SpriteRenderer spr = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            spr.sprite = traverse_sprite;
-            previous = head;
-
-            yield return new WaitForSeconds(speed);
-            highlight_pseudocode(0, false);
-
-            int k = 0;
-            int i = 1;
-            for (; i < view.transform.childCount && k < position-1; i++)
+            if (position == 0)
             {
-                child = view.transform.GetChild(i).gameObject;
+                highlight_pseudocode(0, true);
+                yield return new WaitForSeconds(speed);
+                GameObject new_node = create_node(data);
 
-                if (child.tag.Equals("Node"))
+                new_node.transform.SetAsFirstSibling();
+                GameObject arrow = create_arrow();
+
+                arrow.transform.SetSiblingIndex(1);
+                highlight_pseudocode(0, false);
+            }
+            else
+            {
+                bool found = false;
+
+                GameObject child, previous;
+                child = null;
+
+                GameObject head = view.transform.GetChild(0).gameObject;
+
+                highlight_pseudocode(0, true);
+
+                SpriteRenderer spr = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                spr.sprite = traverse_sprite;
+                previous = head;
+
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(0, false);
+
+                int k = 0;
+                int i = 1;
+                for (; i < view.transform.childCount && k < position - 1; i++)
                 {
-                    // While highlighter
-                    highlight_pseudocode(1, true);
+                    child = view.transform.GetChild(i).gameObject;
 
-                    yield return new WaitForSeconds(speed);
-
-                    highlight_pseudocode(1, false);
-
-                    //=========
-                    spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
-
-
-                    highlight_pseudocode(2, true);
-
-
-                    if (previous != null)
+                    if (child.tag.Equals("Node"))
                     {
-                        previous.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
-                    }
+                        // While highlighter
+                        highlight_pseudocode(1, true);
 
-                    spr.sprite = traverse_sprite;
-                    TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
-
-                    yield return new WaitForSeconds(speed);
-
-                    highlight_pseudocode(2, false);
-
-                    if (child_data.text == data.ToString())
-                    {
                         yield return new WaitForSeconds(speed);
-                        spr.sprite = initial_sprite;
-                        found = true;
-                        break;
+
+                        highlight_pseudocode(1, false);
+
+                        //=========
+                        spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+
+                        highlight_pseudocode(2, true);
+
+
+                        if (previous != null)
+                        {
+                            previous.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
+                        }
+
+                        spr.sprite = traverse_sprite;
+                        TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+
+                        yield return new WaitForSeconds(speed);
+
+                        highlight_pseudocode(2, false);
+
+                        if (child_data.text == data.ToString())
+                        {
+                            yield return new WaitForSeconds(speed);
+                            spr.sprite = initial_sprite;
+                            found = true;
+                            break;
+                        }
+
+                        yield return new WaitForSeconds(speed);
+
+                        previous = child;
+
+                        spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                        k++;
                     }
+                }
+
+                spr.sprite = initial_sprite;
+
+                if (!found)
+                {
+                    highlight_pseudocode(3, true);
 
                     yield return new WaitForSeconds(speed);
+                    
 
-                    previous = child;
+                    print(view.transform.childCount + " " + i + " " + k + " " + position);
 
-                    spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
-                    k++;
+
+                    if (i == view.transform.childCount)
+                    {
+                        GameObject arrow = create_arrow();
+                        GameObject new_node = create_node(data);
+
+                        new_node.transform.SetSiblingIndex(i+1);
+                        arrow.transform.SetSiblingIndex(i);
+                    }
+                    else
+                    {
+                        GameObject arrow = create_arrow();
+                        GameObject new_node = create_node(data);
+
+                        if (i % 2 != 0)
+                            i++;
+
+                        new_node.transform.SetSiblingIndex(i);
+                        arrow.transform.SetSiblingIndex(i + 1);
+                    }
+
+                    highlight_pseudocode(3, false);
+
                 }
             }
 
-            spr.sprite = initial_sprite;
 
-            if (!found)
-            {
-                highlight_pseudocode(3, true);
-
-                yield return new WaitForSeconds(speed);
-                GameObject arrow = create_arrow();
-                GameObject new_node = create_node(data);
-
-                if (i % 2 != 0)
-                    i++;
-
-                new_node.transform.SetSiblingIndex(i);
-                arrow.transform.SetSiblingIndex(i + 1);
-
-                highlight_pseudocode(3, false);
-
-            }
         }
     }
 
