@@ -136,9 +136,99 @@ public class List : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public IEnumerator add_position()
+    public IEnumerator add_position(long data, int position)
     {
-        yield return null;
+        if (!exists(data))
+        {
+            load_pseudocode("add");
+            yield return new WaitForSeconds(speed);
+
+            bool found = false;
+
+            GameObject child, previous;
+            child = null;
+
+            GameObject head = view.transform.GetChild(0).gameObject;
+
+            highlight_pseudocode(0, true);
+
+            SpriteRenderer spr = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            spr.sprite = traverse_sprite;
+            previous = head;
+
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(0, false);
+
+            int k = 0;
+
+            for (int i = 1; i < view.transform.childCount && k < position-1; i++)
+            {
+                child = view.transform.GetChild(i).gameObject;
+
+                if (child.tag.Equals("Node"))
+                {
+                    // While highlighter
+                    highlight_pseudocode(1, true);
+
+                    yield return new WaitForSeconds(speed);
+
+                    highlight_pseudocode(1, false);
+
+                    //=========
+                    spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+
+                    highlight_pseudocode(2, true);
+
+
+                    if (previous != null)
+                    {
+                        previous.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
+                    }
+
+                    spr.sprite = traverse_sprite;
+                    TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+
+                    yield return new WaitForSeconds(speed);
+
+                    highlight_pseudocode(2, false);
+
+                    if (child_data.text == data.ToString())
+                    {
+                        yield return new WaitForSeconds(speed);
+                        spr.sprite = initial_sprite;
+                        found = true;
+                        break;
+                    }
+
+                    yield return new WaitForSeconds(speed);
+
+                    previous = child;
+
+                    spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                    k++;
+                }
+            }
+
+            spr.sprite = initial_sprite;
+
+            if (!found)
+            {
+                highlight_pseudocode(3, true);
+
+                yield return new WaitForSeconds(speed);
+                GameObject arrow = create_arrow();
+                GameObject new_node = create_node(data);
+
+                position++;
+
+                new_node.transform.SetSiblingIndex(position);
+                arrow.transform.SetSiblingIndex(position + 1);
+
+                highlight_pseudocode(3, false);
+
+            }
+        }
     }
 
     public IEnumerator add_node(long data)
