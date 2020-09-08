@@ -36,7 +36,7 @@ public class Input : MonoBehaviour
         if (data < Int64.MaxValue)
         {
             List list = transform.GetComponentInParent<List>();
-            StartCoroutine(list.add_position(data,position));
+            StartCoroutine(list.add_position(data, position));
             data = Int64.MaxValue;
         }
 
@@ -56,7 +56,7 @@ public class Input : MonoBehaviour
 
     public void list_add_front()
     {
-       data = get_data();
+        data = get_data();
 
         if (data < Int64.MaxValue)
         {
@@ -90,7 +90,7 @@ public class Input : MonoBehaviour
             StartCoroutine(list.search(data));
             data = Int64.MaxValue;
         }
-        
+
         clear();
     }
 

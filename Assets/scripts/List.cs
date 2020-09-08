@@ -140,7 +140,7 @@ public class List : MonoBehaviour, IPointerClickHandler
     {
         if (!exists(data))
         {
-            load_pseudocode("add");
+            load_pseudocode("add_position");
             yield return new WaitForSeconds(speed);
 
             bool found = false;
@@ -160,8 +160,8 @@ public class List : MonoBehaviour, IPointerClickHandler
             highlight_pseudocode(0, false);
 
             int k = 0;
-
-            for (int i = 1; i < view.transform.childCount && k < position-1; i++)
+            int i = 1;
+            for (; i < view.transform.childCount && k < position-1; i++)
             {
                 child = view.transform.GetChild(i).gameObject;
 
@@ -220,10 +220,11 @@ public class List : MonoBehaviour, IPointerClickHandler
                 GameObject arrow = create_arrow();
                 GameObject new_node = create_node(data);
 
-                position++;
+                if (i % 2 != 0)
+                    i++;
 
-                new_node.transform.SetSiblingIndex(position);
-                arrow.transform.SetSiblingIndex(position + 1);
+                new_node.transform.SetSiblingIndex(i);
+                arrow.transform.SetSiblingIndex(i + 1);
 
                 highlight_pseudocode(3, false);
 
