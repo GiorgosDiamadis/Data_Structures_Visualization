@@ -5,6 +5,9 @@ public class Input : MonoBehaviour
     private TMPro.TMP_InputField input_field = null;
     private long data = Int64.MaxValue;
     private int position = -1;
+
+
+
     private void Start()
     {
         input_field = GetComponent<TMPro.TMP_InputField>();
@@ -68,7 +71,7 @@ public class Input : MonoBehaviour
         clear();
     }
 
-    private long get_data()
+    public long get_data()
     {
 
         String[] d = input_field.text.Split(':');

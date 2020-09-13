@@ -8,8 +8,8 @@ public class ShowUI : MonoBehaviour
 
     private RectTransform target = null;
 
-    private Vector3 scale_up = new Vector3(1, 1, 0);
-    private Vector3 scale_down = new Vector3(.1f, .1f, 0);
+    private static Vector3 scale_up = new Vector3(1, 1, 0);
+    private static Vector3 scale_down = new Vector3(.1f, .1f, 0);
 
     [SerializeField] private RectTransform[] actions = null;
     [SerializeField] private RectTransform[] structures = null;

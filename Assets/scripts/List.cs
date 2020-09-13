@@ -1,89 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
-using DG.Tweening;
-using UnityEngine.EventSystems;
-public class List : MonoBehaviour, IPointerClickHandler
+public class List : IDataStructure
 {
-    protected GameObject node = null;
-    [SerializeField] protected GameObject arrow = null;
-    [SerializeField] private string pseudocode_dir = "";
-    protected GameObject view = null;
-    protected Sprite traverse_sprite = null;
-    protected Sprite initial_sprite = null;
-    protected float speed = .5f;
+    [SerializeField] private GameObject arrow = null;
+    private static int init_number = 3;
 
-    public bool is_init = false;
-
-    private GameObject new_node = null;
-    private TMPro.TextMeshProUGUI new_node_data = null;
-
-    protected int init_number = 3;
-    protected static GameObject pseudocode = null;
-    private void load_pseudocode(string method)
+    public override void init()
     {
-        if (pseudocode != null)
-            Destroy(pseudocode);
-
-        pseudocode = Resources.Load("prefabs/pseudocode/" + pseudocode_dir + "/pseudocode_" + method) as GameObject;
-        pseudocode = Instantiate(pseudocode, FindObjectOfType<Canvas>().transform);
-        pseudocode.name = "pseudocode_" + method;
-
-        pseudocode.GetComponent<RectTransform>().DOScale(1f, speed);
-    }
-
-    private void Awake()
-    {
-        node = Resources.Load("prefabs/Node") as GameObject;
-        traverse_sprite = Resources.Load<Sprite>("NeonShapes/PNG/RedCircle");
-        initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
-
-        view = GameObject.Find("View");
-    }
-
-
-    public GameObject create_arrow()
-    {
-        GameObject arr = Instantiate(arrow, view.transform);
-
-        return arr;
-    }
-
-    private bool exists(long data)
-    {
-
-        GameObject child = null;
-
-        for (int i = 0; i < view.transform.childCount; i++)
-        {
-            child = view.transform.GetChild(i).gameObject;
-
-            if (child.tag.Equals("Node"))
-            {
-                long node_data = long.Parse(child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text);
-                if (data == node_data)
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-
-    public void init_list()
-    {
-        if (is_init)
-            return;
-
-        if (view.transform.childCount > 0)
-        {
-            for (int i = 0; i < view.transform.childCount; i++)
-            {
-                Destroy(view.transform.GetChild(i).gameObject);
-            }
-        }
-
         for (int i = 0; i < init_number; i++)
         {
             create_node();
@@ -93,8 +16,14 @@ public class List : MonoBehaviour, IPointerClickHandler
                 create_arrow();
             }
         }
-        is_init = true;
     }
+    public GameObject create_arrow()
+    {
+        GameObject arr = Instantiate(arrow, view.transform);
+
+        return arr;
+    }
+
     protected GameObject create_node(long? data = null)
     {
         new_node = Instantiate(node, view.transform);
@@ -114,7 +43,6 @@ public class List : MonoBehaviour, IPointerClickHandler
     {
         pseudocode.transform.GetChild(index).GetChild(0).gameObject.SetActive(is_open);
     }
-
 
     public IEnumerator add_front(long data)
     {
@@ -231,7 +159,7 @@ public class List : MonoBehaviour, IPointerClickHandler
                     highlight_pseudocode(3, true);
 
                     yield return new WaitForSeconds(speed);
-                    
+
 
                     print(view.transform.childCount + " " + i + " " + k + " " + position);
 
@@ -241,7 +169,7 @@ public class List : MonoBehaviour, IPointerClickHandler
                         GameObject arrow = create_arrow();
                         GameObject new_node = create_node(data);
 
-                        new_node.transform.SetSiblingIndex(i+1);
+                        new_node.transform.SetSiblingIndex(i + 1);
                         arrow.transform.SetSiblingIndex(i);
                     }
                     else
@@ -516,14 +444,5 @@ public class List : MonoBehaviour, IPointerClickHandler
 
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        foreach (List list in FindObjectsOfType<List>())
-        {
-            if (list != this)
-            {
-                list.is_init = false;
-            }
-        }
-    }
+
 }
