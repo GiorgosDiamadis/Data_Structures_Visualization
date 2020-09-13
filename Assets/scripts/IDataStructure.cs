@@ -6,7 +6,7 @@ using DG.Tweening;
 public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private string pseudocode_dir = "";
-    public abstract void init();
+    public abstract void Init();
     protected static float speed;
 
     protected static GameObject view = null;
@@ -21,14 +21,14 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
-        view = GameObject.Find("View");
-        traverse_sprite = Resources.Load<Sprite>("NeonShapes/PNG/RedCircle");
-        initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
-        speed = GameHandler.Instance.highlight_speed;
-        node = Resources.Load("prefabs/Node") as GameObject;
+        traverse_sprite = GameHandler.Instance.Get_Traverse_Sprite();
+        initial_sprite =GameHandler.Instance.Get_Initial_Sprite();
+        view = GameHandler.Instance.Get_View();
+        speed = GameHandler.Instance.Get_Speed();
+        node = GameHandler.Instance.Get_Node();
     }
 
-    protected void load_pseudocode(string method)
+    protected void Load_Pseudocode(string method)
     {
         if (pseudocode != null)
             Destroy(pseudocode);

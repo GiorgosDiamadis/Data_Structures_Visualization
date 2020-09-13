@@ -5,7 +5,7 @@ public class List : IDataStructure
     [SerializeField] private GameObject arrow = null;
     private static int init_number = 3;
 
-    public override void init()
+    public override void Init()
     {
         for (int i = 0; i < init_number; i++)
         {
@@ -49,7 +49,7 @@ public class List : IDataStructure
 
         if (!exists(data))
         {
-            load_pseudocode("add_front");
+            Load_Pseudocode("add_front");
             yield return new WaitForSeconds(speed);
 
             highlight_pseudocode(0, true);
@@ -68,7 +68,7 @@ public class List : IDataStructure
     {
         if (!exists(data))
         {
-            load_pseudocode("add_position");
+            Load_Pseudocode("add_position");
             yield return new WaitForSeconds(speed);
 
             if (position == 0)
@@ -197,7 +197,7 @@ public class List : IDataStructure
     {
         if (!exists(data))
         {
-            load_pseudocode("add");
+            Load_Pseudocode("add");
             yield return new WaitForSeconds(speed);
 
             bool found = false;
@@ -285,7 +285,7 @@ public class List : IDataStructure
     public IEnumerator delete_node(long data)
     {
 
-        load_pseudocode("delete");
+        Load_Pseudocode("delete");
         yield return new WaitForSeconds(speed);
 
         bool found = false;
@@ -383,7 +383,7 @@ public class List : IDataStructure
     public IEnumerator search(long data)
     {
 
-        load_pseudocode("search");
+        Load_Pseudocode("search");
         yield return new WaitForSeconds(speed);
 
 
