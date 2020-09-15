@@ -109,14 +109,13 @@ public class List : IDataStructure
 
                     if (child.tag.Equals("Node"))
                     {
-                        // While highlighter
+
                         highlight_pseudocode(1, true);
 
                         yield return new WaitForSeconds(speed);
 
                         highlight_pseudocode(1, false);
 
-                        //=========
                         spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
 
 

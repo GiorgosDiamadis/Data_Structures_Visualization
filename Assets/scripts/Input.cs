@@ -6,8 +6,6 @@ public class Input : MonoBehaviour
     private long data = Int64.MaxValue;
     private int position = -1;
 
-
-
     private void Start()
     {
         input_field = GetComponent<TMPro.TMP_InputField>();
@@ -19,7 +17,7 @@ public class Input : MonoBehaviour
 
     public void list_add()
     {
-        data = get_data();
+        data = get_data(input_field);
         if (data < Int64.MaxValue)
         {
             List list = transform.GetComponentInParent<List>();
@@ -33,8 +31,11 @@ public class Input : MonoBehaviour
 
     public void list_add_position()
     {
-        data = get_data();
-        position = get_position();
+
+        TMPro.TMP_InputField[] input_fields = GetComponentsInChildren<TMPro.TMP_InputField>();
+
+        data = get_data(input_fields[0]);
+        position = get_position(input_fields[1]);
 
         if (data < Int64.MaxValue)
         {
@@ -43,23 +44,34 @@ public class Input : MonoBehaviour
             data = Int64.MaxValue;
         }
 
-        clear();
+        input_fields[0].text = "";
+        input_fields[1].text = "";
     }
 
-    private int get_position()
+    private int get_position(TMPro.TMP_InputField inp_f)
     {
-        String[] d = input_field.text.Split(':');
-        if (input_field.text.Length != 0)
+        if (inp_f.text.Length != 0)
         {
-            position = int.Parse(d[1]);
+            position = int.Parse(inp_f.text);
         }
 
         return position;
     }
 
+    public long get_data(TMPro.TMP_InputField inp_f)
+    {
+
+        if (inp_f.text.Length != 0)
+        {
+            data = int.Parse(inp_f.text);
+        }
+
+        return data;
+    }
+
     public void list_add_front()
     {
-        data = get_data();
+        data = get_data(input_field);
 
         if (data < Int64.MaxValue)
         {
@@ -71,21 +83,11 @@ public class Input : MonoBehaviour
         clear();
     }
 
-    public long get_data()
-    {
-
-        String[] d = input_field.text.Split(':');
-        if (input_field.text.Length != 0)
-        {
-            data = int.Parse(d[0]);
-        }
-
-        return data;
-    }
+    
 
     public void list_search()
     {
-        data = get_data();
+        data = get_data(input_field);
 
         if (data < Int64.MaxValue)
         {
@@ -99,7 +101,7 @@ public class Input : MonoBehaviour
 
     public void list_delete()
     {
-        data = get_data();
+        data = get_data(input_field);
 
         if (data < Int64.MaxValue)
         {

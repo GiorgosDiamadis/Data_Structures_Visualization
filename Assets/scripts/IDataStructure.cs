@@ -10,6 +10,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     protected static float speed;
 
     protected static GameObject view = null;
+    protected static GameObject pseudocode_panel = null;
     protected static Sprite traverse_sprite = null;
     protected static Sprite initial_sprite = null;
     protected static GameObject node = null;
@@ -26,6 +27,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         view = GameHandler.Instance.Get_View();
         speed = GameHandler.Instance.Get_Speed();
         node = GameHandler.Instance.Get_Node();
+        pseudocode_panel = GameHandler.Instance.Get_Pseudocode_Panel();
     }
 
     protected void Load_Pseudocode(string method)
@@ -34,7 +36,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
             Destroy(pseudocode);
 
         pseudocode = Resources.Load("prefabs/pseudocode/" + pseudocode_dir + "/pseudocode_" + method) as GameObject;
-        pseudocode = Instantiate(pseudocode, FindObjectOfType<Canvas>().transform);
+        pseudocode = Instantiate(pseudocode, pseudocode_panel.transform);
         pseudocode.name = "pseudocode_" + method;
 
         pseudocode.GetComponent<RectTransform>().DOScale(1f, speed);

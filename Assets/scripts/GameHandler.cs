@@ -5,6 +5,7 @@ public class GameHandler : MonoBehaviour
 {
     private IDataStructure current_structure = null;
     private static GameObject view;
+    private static GameObject pseudocode_panel;
     public static GameHandler Instance;
     private static GameObject node = null;
     private static Sprite traverse_sprite = null;
@@ -25,10 +26,19 @@ public class GameHandler : MonoBehaviour
             Instance = this;
         }
         view = GameObject.Find("View");
+        pseudocode_panel = GameObject.Find("Pseudocode");
+
+        print(pseudocode_panel);
+
         traverse_sprite = Resources.Load<Sprite>("NeonShapes/PNG/RedCircle");
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
         node = Resources.Load("prefabs/Node") as GameObject;
         On_Data_Structure_Change += On_Structure_Change;
+    }
+
+    public GameObject Get_Pseudocode_Panel()
+    {
+        return pseudocode_panel;
     }
 
     public GameObject Get_Node()
