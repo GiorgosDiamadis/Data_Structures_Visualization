@@ -61,6 +61,9 @@ public class List : IDataStructure
 
             arrow.transform.SetSiblingIndex(1);
             highlight_pseudocode(0, false);
+
+            GameHandler.Instance.reduce_scale.Invoke();
+
         }
     }
 
@@ -180,6 +183,7 @@ public class List : IDataStructure
                     }
 
                     highlight_pseudocode(3, false);
+                    GameHandler.Instance.reduce_scale.Invoke();
 
                 }
             }
@@ -271,6 +275,7 @@ public class List : IDataStructure
                 create_node(data);
 
                 highlight_pseudocode(3, false);
+                GameHandler.Instance.reduce_scale.Invoke();
 
             }
         }

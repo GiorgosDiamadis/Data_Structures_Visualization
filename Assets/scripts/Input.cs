@@ -18,7 +18,7 @@ public class Input : MonoBehaviour
     public void list_add()
     {
         data = get_data(input_field);
-        if (data < Int64.MaxValue)
+        if (data < Int64.MaxValue && GameHandler.Instance.Can_Add())
         {
             List list = transform.GetComponentInParent<List>();
             StartCoroutine(list.add_node(data));
@@ -37,7 +37,7 @@ public class Input : MonoBehaviour
         data = get_data(input_fields[0]);
         position = get_position(input_fields[1]);
 
-        if (data < Int64.MaxValue)
+        if (data < Int64.MaxValue && GameHandler.Instance.Can_Add())
         {
             List list = transform.GetComponentInParent<List>();
             StartCoroutine(list.add_position(data, position));
@@ -73,7 +73,7 @@ public class Input : MonoBehaviour
     {
         data = get_data(input_field);
 
-        if (data < Int64.MaxValue)
+        if (data < Int64.MaxValue && GameHandler.Instance.Can_Add())
         {
             List list = transform.GetComponentInParent<List>();
             StartCoroutine(list.add_front(data));

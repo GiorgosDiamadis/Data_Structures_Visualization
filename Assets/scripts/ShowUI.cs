@@ -77,7 +77,7 @@ public class ShowUI : MonoBehaviour
     }
 
 
-    private void scale(RectTransform target, Vector3 result_scale)
+    public void scale(RectTransform target, Vector3 result_scale)
     {
         if (result_scale.x < 1)
         {
