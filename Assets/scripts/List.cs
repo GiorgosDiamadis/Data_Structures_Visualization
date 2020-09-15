@@ -159,10 +159,6 @@ public class List : IDataStructure
 
                     yield return new WaitForSeconds(speed);
 
-
-                    print(view.transform.childCount + " " + i + " " + k + " " + position);
-
-
                     if (i == view.transform.childCount)
                     {
                         GameObject arrow = create_arrow();
