@@ -13,11 +13,13 @@ public class GameHandler : MonoBehaviour
     private static Sprite traverse_sprite = null;
     private static Sprite initial_sprite = null;
     public Action<IDataStructure> On_Data_Structure_Change;
-    public Action reduce_scale;
+    public Action handle_insertion;
+    public Action handle_deletion;
 
     [SerializeField] private float speed = 0.5f;
 
-    int i = 0;
+    int insertion_counter = 0;
+    int deletion_counter = 0;
     private static int MAX_NODES = 14;
     private int num_nodes = 0;
     private void Awake()
@@ -36,11 +38,13 @@ public class GameHandler : MonoBehaviour
         view_panel = GameObject.Find("View_Panel");
 
 
+
         traverse_sprite = Resources.Load<Sprite>("NeonShapes/PNG/RedCircle");
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
         node = Resources.Load("prefabs/Node") as GameObject;
         On_Data_Structure_Change += On_Structure_Change;
-        reduce_scale += Handle_Insertion;
+        handle_insertion += Handle_Insertion;
+        handle_deletion += Handle_Deletion;
     }
 
     public bool Can_Add()
@@ -48,16 +52,34 @@ public class GameHandler : MonoBehaviour
         return MAX_NODES - num_nodes > 0;
     }
 
+
+    public void Handle_Deletion()
+    {
+        deletion_counter++;
+
+        num_nodes--;
+
+
+        if (deletion_counter == 3)
+        {
+            if (view_panel.transform.localScale.x + 0.2f > 1.0001f)
+                return;
+
+            view_panel.transform.localScale = new Vector3(view_panel.transform.localScale.x + 0.2f, view_panel.transform.localScale.y + 0.2f, 0);
+            deletion_counter = 0;
+        }
+    }
+
     public void Handle_Insertion()
     {
-        i++;
+        insertion_counter++;
         
         num_nodes++;
 
-        if (i == 3 && view_panel.transform.localScale.x - 0.2f > 0.4f)
+        if (insertion_counter == 3 && view_panel.transform.localScale.x - 0.2f > 0.4f)
         {
             view_panel.transform.localScale = new Vector3(view_panel.transform.localScale.x - 0.2f, view_panel.transform.localScale.y - 0.2f, 0);
-            i = 0;
+            insertion_counter = 0;
         }
     }
 
