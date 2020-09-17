@@ -57,9 +57,13 @@ public class List : IDataStructure
             GameObject new_node = create_node(data);
 
             new_node.transform.SetAsFirstSibling();
-            GameObject arrow = create_arrow();
 
-            arrow.transform.SetSiblingIndex(1);
+            if (view.transform.childCount != 1)
+            {
+                GameObject arrow = create_arrow();
+                arrow.transform.SetSiblingIndex(1);
+            }
+
             highlight_pseudocode(0, false);
 
             GameHandler.Instance.handle_insertion.Invoke();
@@ -69,6 +73,9 @@ public class List : IDataStructure
 
     public IEnumerator add_position(long data, int position)
     {
+
+
+
         if (!exists(data))
         {
             Load_Pseudocode("add_position");
@@ -84,6 +91,13 @@ public class List : IDataStructure
                 GameObject arrow = create_arrow();
 
                 arrow.transform.SetSiblingIndex(1);
+                highlight_pseudocode(0, false);
+            }
+            else if (view.transform.childCount == 0)
+            {
+                highlight_pseudocode(0, true);
+                yield return new WaitForSeconds(speed);
+                create_node(data);
                 highlight_pseudocode(0, false);
             }
             else
@@ -199,28 +213,163 @@ public class List : IDataStructure
             Load_Pseudocode("add");
             yield return new WaitForSeconds(speed);
 
-            bool found = false;
+            if (view.transform.childCount == 0)
+            {
+                highlight_pseudocode(0, true);
+                yield return new WaitForSeconds(speed);
+                create_node(data);
+                highlight_pseudocode(0, false);
 
-            GameObject child, previous;
-            child = null;
+                yield return new WaitForSeconds(speed);
 
-            GameObject head = view.transform.GetChild(0).gameObject;
+                highlight_pseudocode(3, true);
 
-            highlight_pseudocode(0, true);
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(3, false);
+                GameHandler.Instance.handle_insertion.Invoke();
+            }
+            else
+            {
 
-            SpriteRenderer spr = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            spr.sprite = traverse_sprite;
-            previous = head;
+                bool found = false;
+
+                GameObject child, previous;
+                child = null;
+
+                GameObject head = view.transform.GetChild(0).gameObject;
+
+                highlight_pseudocode(0, true);
+
+                SpriteRenderer spr = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                spr.sprite = traverse_sprite;
+                previous = head;
+
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(0, false);
+
+                for (int i = 1; i < view.transform.childCount; i++)
+                {
+                    child = view.transform.GetChild(i).gameObject;
+
+                    if (child.tag.Equals("Node"))
+                    {
+                        // While highlighter
+                        highlight_pseudocode(1, true);
+
+                        yield return new WaitForSeconds(speed);
+
+                        highlight_pseudocode(1, false);
+
+                        //=========
+                        spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+
+                        highlight_pseudocode(2, true);
+
+
+                        if (previous != null)
+                        {
+                            previous.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
+                        }
+
+                        spr.sprite = traverse_sprite;
+                        TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+
+                        yield return new WaitForSeconds(speed);
+
+                        highlight_pseudocode(2, false);
+
+                        if (child_data.text == data.ToString())
+                        {
+                            yield return new WaitForSeconds(speed);
+                            spr.sprite = initial_sprite;
+                            found = true;
+                            break;
+                        }
+
+                        yield return new WaitForSeconds(speed);
+
+                        previous = child;
+                    }
+                }
+                if(child!=null)
+                    spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                spr.sprite = initial_sprite;
+
+                if (!found)
+                {
+                    highlight_pseudocode(3, true);
+
+                    yield return new WaitForSeconds(speed);
+                    create_arrow();
+                    create_node(data);
+
+                    highlight_pseudocode(3, false);
+                    GameHandler.Instance.handle_insertion.Invoke();
+
+                }
+            }
+
+
+        }
+    }
+    public IEnumerator delete_node(long data)
+    {
+
+        Load_Pseudocode("delete");
+        yield return new WaitForSeconds(speed);
+
+        bool found = false;
+        int position = -1;
+
+        GameObject child, previous;
+        child = null;
+
+        GameObject head = view.transform.GetChild(0).gameObject;
+
+        highlight_pseudocode(0, true);
+
+        SpriteRenderer spr = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        spr.sprite = traverse_sprite;
+        previous = head;
+
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(0, false);
+
+
+
+        if (head.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text == data.ToString())
+        {
+            highlight_pseudocode(1, true);
 
             yield return new WaitForSeconds(speed);
-            highlight_pseudocode(0, false);
+
+            highlight_pseudocode(1, false);
+
+            position++;
+            highlight_pseudocode(3, true);
+
+            yield return new WaitForSeconds(speed);
 
 
+            Destroy(view.transform.GetChild(position).gameObject);
 
-            for (int i = 1; i < view.transform.childCount; i++)
+            if (position == view.transform.childCount - 1)
+                Destroy(view.transform.GetChild(position - 1).gameObject);
+            else
+                Destroy(view.transform.GetChild(position + 1).gameObject);
+
+            spr.sprite = initial_sprite;
+
+            highlight_pseudocode(3, false);
+
+            GameHandler.Instance.handle_deletion.Invoke();
+        }
+        else
+        {
+            for (int i = 1; i < view.transform.childCount; i++, position++)
             {
                 child = view.transform.GetChild(i).gameObject;
-
                 if (child.tag.Equals("Node"))
                 {
                     // While highlighter
@@ -256,7 +405,6 @@ public class List : IDataStructure
                         found = true;
                         break;
                     }
-
                     yield return new WaitForSeconds(speed);
 
                     previous = child;
@@ -266,120 +414,37 @@ public class List : IDataStructure
             spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
             spr.sprite = initial_sprite;
 
-            if (!found)
+            if (found)
+            {
+                position++;
+                highlight_pseudocode(3, true);
+
+                yield return new WaitForSeconds(speed);
+
+
+                Destroy(view.transform.GetChild(position).gameObject);
+
+                if (position == view.transform.childCount - 1)
+                    Destroy(view.transform.GetChild(position - 1).gameObject);
+                else
+                    Destroy(view.transform.GetChild(position + 1).gameObject);
+
+                highlight_pseudocode(3, false);
+
+                GameHandler.Instance.handle_deletion.Invoke();
+            }
+            else
             {
                 highlight_pseudocode(3, true);
 
                 yield return new WaitForSeconds(speed);
-                create_arrow();
-                create_node(data);
-
                 highlight_pseudocode(3, false);
-                GameHandler.Instance.handle_insertion.Invoke();
 
             }
         }
 
 
-    }
-    public IEnumerator delete_node(long data)
-    {
 
-        Load_Pseudocode("delete");
-        yield return new WaitForSeconds(speed);
-
-        bool found = false;
-        int position = -1;
-
-        GameObject child, previous;
-        child = null;
-
-        GameObject head = view.transform.GetChild(0).gameObject;
-
-        highlight_pseudocode(0, true);
-
-        SpriteRenderer spr = head.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        spr.sprite = traverse_sprite;
-        previous = head;
-
-        yield return new WaitForSeconds(speed);
-        highlight_pseudocode(0, false);
-
-
-        for (int i = 1; i < view.transform.childCount; i++, position++)
-        {
-            child = view.transform.GetChild(i).gameObject;
-            if (child.tag.Equals("Node"))
-            {
-                // While highlighter
-                highlight_pseudocode(1, true);
-
-                yield return new WaitForSeconds(speed);
-
-                highlight_pseudocode(1, false);
-
-                //=========
-                spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
-
-
-                highlight_pseudocode(2, true);
-
-
-                if (previous != null)
-                {
-                    previous.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = initial_sprite;
-                }
-
-                spr.sprite = traverse_sprite;
-                TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
-
-                yield return new WaitForSeconds(speed);
-
-                highlight_pseudocode(2, false);
-
-                if (child_data.text == data.ToString())
-                {
-                    yield return new WaitForSeconds(speed);
-                    spr.sprite = initial_sprite;
-                    found = true;
-                    break;
-                }
-                yield return new WaitForSeconds(speed);
-
-                previous = child;
-            }
-        }
-
-        spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        spr.sprite = initial_sprite;
-
-        if (found)
-        {
-            position++;
-            highlight_pseudocode(3, true);
-
-            yield return new WaitForSeconds(speed);
-
-
-            Destroy(view.transform.GetChild(position).gameObject);
-
-            if (position == view.transform.childCount - 1)
-                Destroy(view.transform.GetChild(position - 1).gameObject);
-            else
-                Destroy(view.transform.GetChild(position + 1).gameObject);
-
-            highlight_pseudocode(3, false);
-
-            GameHandler.Instance.handle_deletion.Invoke();
-        }
-        else
-        {
-            highlight_pseudocode(3, true);
-
-            yield return new WaitForSeconds(speed);
-            highlight_pseudocode(3, false);
-
-        }
     }
 
     public IEnumerator search(long data)
