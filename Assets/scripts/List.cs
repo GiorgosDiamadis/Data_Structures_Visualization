@@ -350,14 +350,18 @@ public class List : IDataStructure
             highlight_pseudocode(3, true);
 
             yield return new WaitForSeconds(speed);
-
+            print(position);
 
             Destroy(view.transform.GetChild(position).gameObject);
 
-            if (position == view.transform.childCount - 1)
-                Destroy(view.transform.GetChild(position - 1).gameObject);
-            else
-                Destroy(view.transform.GetChild(position + 1).gameObject);
+            if (view.transform.childCount > 1)
+            {
+                if (position == view.transform.childCount - 1)
+                    Destroy(view.transform.GetChild(position - 1).gameObject);
+                else
+                    Destroy(view.transform.GetChild(position + 1).gameObject);
+
+            }
 
             spr.sprite = initial_sprite;
 
