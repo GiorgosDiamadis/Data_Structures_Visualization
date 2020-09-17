@@ -52,6 +52,11 @@ public class GameHandler : MonoBehaviour
         return MAX_NODES - num_nodes > 0;
     }
 
+    public bool Can_Delete()
+    {
+        return num_nodes > 0;
+    }
+
     public void Handle_Deletion()
     {
         deletion_counter++;
@@ -86,6 +91,16 @@ public class GameHandler : MonoBehaviour
             insertion_counter = 0;
         }
     }
+   
+    private void On_Structure_Change(IDataStructure structure)
+    {
+        if (current_structure != structure)
+        {
+            current_structure = structure;
+            view.transform.Destroy_All_Children();
+            current_structure.Init();
+        }
+    }
 
     public GameObject Get_Pseudocode_Panel()
     {
@@ -114,14 +129,5 @@ public class GameHandler : MonoBehaviour
     public float Get_Speed()
     {
         return speed;
-    }
-    private void On_Structure_Change(IDataStructure structure)
-    {
-        if (current_structure != structure)
-        {
-            current_structure = structure;
-            view.transform.Destroy_All_Children();
-            current_structure.Init();
-        }
     }
 }

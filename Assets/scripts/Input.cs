@@ -103,7 +103,7 @@ public class Input : MonoBehaviour
     {
         data = get_data(input_field);
 
-        if (data < Int64.MaxValue)
+        if (data < Int64.MaxValue && GameHandler.Instance.Can_Delete())
         {
             List list = transform.GetComponentInParent<List>();
             StartCoroutine(list.delete_node(data));

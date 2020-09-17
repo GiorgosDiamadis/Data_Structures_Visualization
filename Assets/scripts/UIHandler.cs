@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
-public class ShowUI : MonoBehaviour
+public class UIHandler : MonoBehaviour
 {
     private GameObject d_structure = null;
     private GameObject options = null;
