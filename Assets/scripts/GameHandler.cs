@@ -22,6 +22,7 @@ public class GameHandler : MonoBehaviour
     int deletion_counter = 0;
     private static int MAX_NODES = 14;
     private int num_nodes = 0;
+
     private void Awake()
     {
         if (Instance == null)
@@ -33,11 +34,10 @@ public class GameHandler : MonoBehaviour
             Destroy(Instance);
             Instance = this;
         }
+
         view = GameObject.Find("View");
         pseudocode_panel = GameObject.Find("Pseudocode");
         view_panel = GameObject.Find("View_Panel");
-
-
 
         traverse_sprite = Resources.Load<Sprite>("NeonShapes/PNG/RedCircle");
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
@@ -52,7 +52,6 @@ public class GameHandler : MonoBehaviour
         return MAX_NODES - num_nodes > 0;
     }
 
-
     public void Handle_Deletion()
     {
         deletion_counter++;
@@ -60,12 +59,13 @@ public class GameHandler : MonoBehaviour
         num_nodes--;
 
 
-        if (deletion_counter == 3)
+        if (deletion_counter == 3 && view_panel.transform.localScale.x + 0.2f < 1.1f)
         {
-            if (view_panel.transform.localScale.x + 0.2f > 1.0001f)
-                return;
-
             view_panel.transform.localScale = new Vector3(view_panel.transform.localScale.x + 0.2f, view_panel.transform.localScale.y + 0.2f, 0);
+            deletion_counter = 0;
+        }
+        else if(deletion_counter == 3)
+        {
             deletion_counter = 0;
         }
     }
@@ -76,9 +76,13 @@ public class GameHandler : MonoBehaviour
         
         num_nodes++;
 
-        if (insertion_counter == 3 && view_panel.transform.localScale.x - 0.2f > 0.4f)
+        if (insertion_counter == 3 && view_panel.transform.localScale.x - 0.2f > 0.4f && view.transform.childCount > 5)
         {
             view_panel.transform.localScale = new Vector3(view_panel.transform.localScale.x - 0.2f, view_panel.transform.localScale.y - 0.2f, 0);
+            insertion_counter = 0;
+        }
+        else if(insertion_counter == 3)
+        {
             insertion_counter = 0;
         }
     }
