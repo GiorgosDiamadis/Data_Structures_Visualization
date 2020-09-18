@@ -18,11 +18,24 @@ public class Input : MonoBehaviour
     public void list_add()
     {
         data = get_data(input_field);
-        if (data < Int64.MaxValue && GameHandler.Instance.Can_Add())
+        
+        if (data < Int64.MaxValue)
         {
-            List list = transform.GetComponentInParent<List>();
-            StartCoroutine(list.add_node(data));
-            data = Int64.MaxValue;
+            if (GameHandler.Instance.Can_Add())
+            {
+                List list = transform.GetComponentInParent<List>();
+                StartCoroutine(list.add_node(data));
+                data = Int64.MaxValue;
+            }
+            else
+            {
+                UIHandler.Instance.show_message("You have reached maximum nodes");
+
+            }
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Please enter a valid number");
         }
 
         clear();
@@ -73,17 +86,26 @@ public class Input : MonoBehaviour
     {
         data = get_data(input_field);
 
-        if (data < Int64.MaxValue && GameHandler.Instance.Can_Add())
+        if (data < Int64.MaxValue)
         {
-            List list = transform.GetComponentInParent<List>();
-            StartCoroutine(list.add_front(data));
-            data = Int64.MaxValue;
-        }
+            if (GameHandler.Instance.Can_Add())
+            {
+                List list = transform.GetComponentInParent<List>();
+                StartCoroutine(list.add_front(data));
+                data = Int64.MaxValue;
+            }
+            else
+            {
+                UIHandler.Instance.show_message("You have reached maximum nodes");
 
+            }
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Please enter a valid number");
+        }
         clear();
     }
-
-    
 
     public void list_search()
     {
@@ -91,9 +113,13 @@ public class Input : MonoBehaviour
 
         if (data < Int64.MaxValue)
         {
-            List list = transform.GetComponentInParent<List>();
-            StartCoroutine(list.search(data));
-            data = Int64.MaxValue;
+                List list = transform.GetComponentInParent<List>();
+                StartCoroutine(list.search(data));
+                data = Int64.MaxValue;
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Please enter a valid number");
         }
 
         clear();
@@ -103,11 +129,22 @@ public class Input : MonoBehaviour
     {
         data = get_data(input_field);
 
-        if (data < Int64.MaxValue && GameHandler.Instance.Can_Delete())
+        if (data < Int64.MaxValue)
         {
-            List list = transform.GetComponentInParent<List>();
-            StartCoroutine(list.delete_node(data));
-            data = Int64.MaxValue;
+            if (GameHandler.Instance.Can_Delete())
+            {
+                List list = transform.GetComponentInParent<List>();
+                StartCoroutine(list.delete_node(data));
+                data = Int64.MaxValue;
+            }
+            else
+            {
+                UIHandler.Instance.show_message("List is empty");
+            }
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Please enter a valid number");
         }
         clear();
     }

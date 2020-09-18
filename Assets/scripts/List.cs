@@ -3,6 +3,7 @@ using UnityEngine;
 public class List : IDataStructure
 {
     [SerializeField] private GameObject arrow = null;
+    [SerializeField] private GameObject circular_arrow = null;
     private static int init_number = 3;
 
     public override void Init()

@@ -21,7 +21,7 @@ public class GameHandler : MonoBehaviour
     int insertion_counter = 0;
     int deletion_counter = 0;
     private static int MAX_NODES = 14;
-    private int num_nodes = 0;
+    private int num_nodes = 3;
 
     private void Awake()
     {
