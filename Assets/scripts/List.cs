@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class List : IDataStructure
 {
     [SerializeField] private GameObject arrow = null;
-    [SerializeField] private GameObject circular_arrow = null;
+    [SerializeField] private Sprite arrow_point = null;
+    [SerializeField] private Sprite arrow_body = null;
+    [SerializeField] private bool is_circular = false;
     private static int init_number = 3;
 
     public override void Init()
@@ -16,6 +20,10 @@ public class List : IDataStructure
             {
                 create_arrow();
             }
+        }
+
+        if (is_circular)
+        {
         }
     }
     public GameObject create_arrow()

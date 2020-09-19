@@ -1878,7 +1878,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pseudocode_dir: scl
   arrow: {fileID: 2179471157716375253, guid: fcf454100bfb527419fd007c8ec7b266, type: 3}
-  circular_arrow: {fileID: 0}
+  circular_arrow: {fileID: 5540892259758307320, guid: b326118cc42fd21498ff63477b559330,
+    type: 3}
 --- !u!1 &1009924744
 GameObject:
   m_ObjectHideFlags: 0
