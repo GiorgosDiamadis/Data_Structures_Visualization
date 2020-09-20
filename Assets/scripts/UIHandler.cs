@@ -79,7 +79,7 @@ public class UIHandler : MonoBehaviour
 
         target = options.GetComponent<RectTransform>();
 
-        print(data_structure_tag);
+
 
         if (!options.activeSelf)
         {

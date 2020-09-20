@@ -5,13 +5,15 @@ public static class TransformExtensions
 {
     public static void Destroy_All_Children(this Transform queried)
     {
-        if (queried.childCount > 0)
-        {
-            for (int i = 0; i < queried.childCount; i++)
-            {
+        int child_count = queried.transform.childCount;
+        int i = 0;
 
-                UnityEngine.Object.Destroy(queried.GetChild(i).gameObject);
-            }
+        while (i < child_count && child_count > 0)
+        {
+            GameObject obg = queried.transform.GetChild(0).gameObject;
+            obg.transform.SetParent(null);
+            UnityEngine.Object.Destroy(obg);
+            i++;
         }
     }
 

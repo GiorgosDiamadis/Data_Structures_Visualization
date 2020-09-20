@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-
+//TO UNITY GAMIETAI
 public class List : IDataStructure
 {
     [SerializeField] private GameObject arrow = null;
-    [SerializeField] private Sprite arrow_point = null;
-    [SerializeField] private Sprite arrow_body = null;
     [SerializeField] private bool is_circular = false;
+    [SerializeField] private bool is_double = false;
     private static int init_number = 3;
 
     public override void Init()
     {
+
+        view.transform.Destroy_All_Children();
+
         for (int i = 0; i < init_number; i++)
         {
             create_node();
@@ -24,6 +26,18 @@ public class List : IDataStructure
 
         if (is_circular)
         {
+            if (!is_double)
+            {
+                view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+                view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+            }
+            else
+            {
+                view.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+                view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+                view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                view.transform.GetChild(view.transform.childCount - 1).GetChild(2).gameObject.SetActive(true);
+            }
         }
     }
     public GameObject create_arrow()
@@ -75,6 +89,24 @@ public class List : IDataStructure
 
             highlight_pseudocode(0, false);
 
+            if (view.transform.childCount > 2)
+            {
+                if (is_circular)
+                {
+                    if (!is_double)
+                    {
+                        view.transform.GetChild(2).GetChild(2).gameObject.SetActive(false);
+                        view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+
+                        if (!view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.activeSelf)
+                        {
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                        }
+                    }
+                }
+            }
+            
+
             GameHandler.Instance.handle_insertion.Invoke();
 
         }
@@ -83,14 +115,21 @@ public class List : IDataStructure
     public IEnumerator add_position(long data, int position)
     {
 
-
-
         if (!exists(data))
         {
             Load_Pseudocode("add_position");
             yield return new WaitForSeconds(speed);
 
-            if (position == 0)
+            if (view.transform.childCount == 0)
+            {
+                highlight_pseudocode(0, true);
+                yield return new WaitForSeconds(speed);
+                create_node(data);
+                highlight_pseudocode(0, false);
+                GameHandler.Instance.handle_insertion.Invoke();
+
+            }
+            else if (position == 0)
             {
                 highlight_pseudocode(0, true);
                 yield return new WaitForSeconds(speed);
@@ -101,14 +140,27 @@ public class List : IDataStructure
 
                 arrow.transform.SetSiblingIndex(1);
                 highlight_pseudocode(0, false);
+
+                if (view.transform.childCount > 2)
+                {
+                    if (is_circular)
+                    {
+                        if (!is_double)
+                        {
+                            view.transform.GetChild(2).GetChild(2).gameObject.SetActive(false);
+                            view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+
+                            if (!view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.activeSelf)
+                            {
+                                view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                            }
+                        }
+                    }
+                }
+
+                GameHandler.Instance.handle_insertion.Invoke();
             }
-            else if (view.transform.childCount == 0)
-            {
-                highlight_pseudocode(0, true);
-                yield return new WaitForSeconds(speed);
-                create_node(data);
-                highlight_pseudocode(0, false);
-            }
+            
             else
             {
                 bool found = false;
@@ -206,6 +258,24 @@ public class List : IDataStructure
                     }
 
                     highlight_pseudocode(3, false);
+
+                    if (is_circular)
+                    {
+                        if (!is_double)
+                        {
+
+                            if (!view.transform.GetChild(view.transform.childCount - 3).GetChild(1).gameObject.activeSelf)
+                            {
+                                view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+                            }
+
+                            view.transform.GetChild(view.transform.childCount - 3).GetChild(1).gameObject.SetActive(false);
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                        }
+                    }
+
+
+
                     GameHandler.Instance.handle_insertion.Invoke();
 
                 }
@@ -228,13 +298,7 @@ public class List : IDataStructure
                 yield return new WaitForSeconds(speed);
                 create_node(data);
                 highlight_pseudocode(0, false);
-
-                yield return new WaitForSeconds(speed);
-
-                highlight_pseudocode(3, true);
-
-                yield return new WaitForSeconds(speed);
-                highlight_pseudocode(3, false);
+                
                 GameHandler.Instance.handle_insertion.Invoke();
             }
             else
@@ -301,7 +365,7 @@ public class List : IDataStructure
                         previous = child;
                     }
                 }
-                if(child!=null)
+                if (child != null)
                     spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
                 spr.sprite = initial_sprite;
 
@@ -314,6 +378,22 @@ public class List : IDataStructure
                     create_node(data);
 
                     highlight_pseudocode(3, false);
+
+                    if (is_circular)
+                    {
+                        if (!is_double)
+                        {
+
+                            if(!view.transform.GetChild(view.transform.childCount - 3).GetChild(1).gameObject.activeSelf)
+                            {
+                                view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+                            }
+
+                            view.transform.GetChild(view.transform.childCount - 3).GetChild(1).gameObject.SetActive(false);
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                        }
+                    }
+
                     GameHandler.Instance.handle_insertion.Invoke();
 
                 }
@@ -355,26 +435,26 @@ public class List : IDataStructure
 
             highlight_pseudocode(1, false);
 
-            position++;
             highlight_pseudocode(3, true);
 
             yield return new WaitForSeconds(speed);
-            print(position);
 
-            Destroy(view.transform.GetChild(position).gameObject);
+            view.transform.GetChild(0).gameObject.Destroy_Object();
 
-            if (view.transform.childCount > 1)
-            {
-                if (position == view.transform.childCount - 1)
-                    Destroy(view.transform.GetChild(position - 1).gameObject);
-                else
-                    Destroy(view.transform.GetChild(position + 1).gameObject);
-
-            }
+            view.transform.GetChild(0).gameObject.Destroy_Object();
 
             spr.sprite = initial_sprite;
 
             highlight_pseudocode(3, false);
+            if (is_circular)
+            {
+                if (!is_double)
+                {
+
+                    view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+
+                }
+            }
 
             GameHandler.Instance.handle_deletion.Invoke();
         }
@@ -435,12 +515,16 @@ public class List : IDataStructure
                 yield return new WaitForSeconds(speed);
 
 
-                Destroy(view.transform.GetChild(position).gameObject);
+                view.transform.GetChild(position).gameObject.Destroy_Object();
 
                 if (position == view.transform.childCount - 1)
-                    Destroy(view.transform.GetChild(position - 1).gameObject);
+                {
+                    view.transform.GetChild(position).gameObject.Destroy_Object();
+                }
                 else
-                    Destroy(view.transform.GetChild(position + 1).gameObject);
+                {
+                    view.transform.GetChild(position - 1).gameObject.Destroy_Object();
+                }
 
                 highlight_pseudocode(3, false);
 

@@ -13,7 +13,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     protected static GameObject pseudocode_panel = null;
     protected static Sprite traverse_sprite = null;
     protected static Sprite initial_sprite = null;
-    protected static GameObject node = null;
+    [SerializeField] protected GameObject node = null;
 
     protected static GameObject pseudocode = null;
 
@@ -26,7 +26,6 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         initial_sprite =GameHandler.Instance.Get_Initial_Sprite();
         view = GameHandler.Instance.Get_View();
         speed = GameHandler.Instance.Get_Speed();
-        node = GameHandler.Instance.Get_Node();
         pseudocode_panel = GameHandler.Instance.Get_Pseudocode_Panel();
     }
 

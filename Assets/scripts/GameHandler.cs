@@ -9,14 +9,13 @@ public class GameHandler : MonoBehaviour
     private static GameObject view_panel;
     private static GameObject pseudocode_panel;
     public static GameHandler Instance;
-    private static GameObject node = null;
     private static Sprite traverse_sprite = null;
     private static Sprite initial_sprite = null;
     public Action<IDataStructure> On_Data_Structure_Change;
     public Action handle_insertion;
     public Action handle_deletion;
 
-    [SerializeField] private float speed = 0.5f;
+    [SerializeField] private float speed = 0.1f;
 
     int insertion_counter = 0;
     int deletion_counter = 0;
@@ -41,7 +40,6 @@ public class GameHandler : MonoBehaviour
 
         traverse_sprite = Resources.Load<Sprite>("NeonShapes/PNG/RedCircle");
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
-        node = Resources.Load("prefabs/Node") as GameObject;
         On_Data_Structure_Change += On_Structure_Change;
         handle_insertion += Handle_Insertion;
         handle_deletion += Handle_Deletion;
@@ -97,8 +95,7 @@ public class GameHandler : MonoBehaviour
         if (current_structure != structure)
         {
             current_structure = structure;
-            view.transform.Destroy_All_Children();
-            current_structure.Init();
+           current_structure.Init();
         }
     }
 
@@ -107,10 +104,6 @@ public class GameHandler : MonoBehaviour
         return pseudocode_panel;
     }
 
-    public GameObject Get_Node()
-    {
-        return node;
-    }
     public GameObject Get_View()
     {
         return view;
