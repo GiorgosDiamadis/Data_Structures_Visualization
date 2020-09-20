@@ -11,8 +11,7 @@ public static class TransformExtensions
         while (i < child_count && child_count > 0)
         {
             GameObject obg = queried.transform.GetChild(0).gameObject;
-            obg.transform.SetParent(null);
-            UnityEngine.Object.Destroy(obg);
+            obg.Destroy_Object();
             i++;
         }
     }
