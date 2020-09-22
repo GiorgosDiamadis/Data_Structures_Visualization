@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-//TO UNITY GAMIETAI
+
 public class List : IDataStructure
 {
     [SerializeField] private GameObject arrow = null;
@@ -103,6 +103,20 @@ public class List : IDataStructure
                             view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
                         }
                     }
+                    else
+                    {
+                        view.transform.GetChild(2).GetChild(2).gameObject.SetActive(false);
+                        view.transform.GetChild(2).GetChild(1).gameObject.SetActive(false);
+                        
+                        view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+                        view.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+
+                        if (!view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.activeSelf)
+                        {
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(2).gameObject.SetActive(true);
+                        }
+                    }
                 }
             }
             
@@ -127,7 +141,6 @@ public class List : IDataStructure
                 create_node(data);
                 highlight_pseudocode(0, false);
                 GameHandler.Instance.handle_insertion.Invoke();
-
             }
             else if (position == 0)
             {
@@ -153,6 +166,20 @@ public class List : IDataStructure
                             if (!view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.activeSelf)
                             {
                                 view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                            }
+                        }
+                        else
+                        {
+                            view.transform.GetChild(2).GetChild(2).gameObject.SetActive(false);
+                            view.transform.GetChild(2).GetChild(1).gameObject.SetActive(false);
+                            
+                            view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+                            view.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+
+                            if (!view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.activeSelf)
+                            {
+                                view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                                view.transform.GetChild(view.transform.childCount - 1).GetChild(2).gameObject.SetActive(true);
                             }
                         }
                     }
@@ -272,16 +299,31 @@ public class List : IDataStructure
                             view.transform.GetChild(view.transform.childCount - 3).GetChild(1).gameObject.SetActive(false);
                             view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
                         }
+                        else
+                        {
+                            if (!view.transform.GetChild(view.transform.childCount - 3).GetChild(1).gameObject.activeSelf)
+                            {
+                                view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+                                view.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+                            }
+                            else
+                            {
+
+                                view.transform.GetChild(view.transform.childCount - 3).GetChild(1).gameObject.SetActive(false);
+                                view.transform.GetChild(view.transform.childCount - 3).GetChild(2).gameObject.SetActive(false);
+
+                            }
+
+
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(2).gameObject.SetActive(true);
+
+                        }
                     }
-
-
-
                     GameHandler.Instance.handle_insertion.Invoke();
 
                 }
             }
-
-
         }
     }
 
@@ -365,8 +407,10 @@ public class List : IDataStructure
                         previous = child;
                     }
                 }
+                
                 if (child != null)
                     spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                
                 spr.sprite = initial_sprite;
 
                 if (!found)
@@ -391,6 +435,28 @@ public class List : IDataStructure
 
                             view.transform.GetChild(view.transform.childCount - 3).GetChild(1).gameObject.SetActive(false);
                             view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                        }
+                        else
+                        {
+
+                            if (!view.transform.GetChild(view.transform.childCount - 3).GetChild(1).gameObject.activeSelf)
+                            {
+                                view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+                                view.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+                            }
+                            else
+                            {
+
+                                view.transform.GetChild(view.transform.childCount - 3).GetChild(1).gameObject.SetActive(false);
+                                view.transform.GetChild(view.transform.childCount - 3).GetChild(2).gameObject.SetActive(false);
+
+                            }
+
+
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(2).gameObject.SetActive(true);
+
+                            
                         }
                     }
 
@@ -450,9 +516,12 @@ public class List : IDataStructure
             {
                 if (!is_double)
                 {
-
                     view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
-
+                }
+                else
+                {
+                    view.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+                    view.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
                 }
             }
 
@@ -520,10 +589,31 @@ public class List : IDataStructure
                 if (position == view.transform.childCount - 1)
                 {
                     view.transform.GetChild(position).gameObject.Destroy_Object();
+                    if (is_circular)
+                    {
+                        if (!is_double)
+                        {
+                            view.transform.GetChild(view.transform.childCount-1).GetChild(1).gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(1).gameObject.SetActive(true);
+                            view.transform.GetChild(view.transform.childCount - 1).GetChild(2).gameObject.SetActive(true);
+                        }
+                    }
+
                 }
                 else
                 {
-                    view.transform.GetChild(position - 1).gameObject.Destroy_Object();
+                    view.transform.GetChild(position).gameObject.Destroy_Object();
+                }
+
+
+                if (view.transform.childCount== 1)
+                {
+                    print("skata");
+                    view.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+                    view.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
                 }
 
                 highlight_pseudocode(3, false);
@@ -541,6 +631,12 @@ public class List : IDataStructure
         }
 
 
+        if (view.transform.childCount == 1)
+        {
+            print("skata");
+            view.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+            view.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+        }
 
     }
 
