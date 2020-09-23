@@ -19,8 +19,9 @@ public class GameHandler : MonoBehaviour
 
     int insertion_counter = 0;
     int deletion_counter = 0;
-    private static int MAX_NODES = 14;
-    private int num_nodes = 3;
+    private int MAX_NODES;
+    private int num_nodes=3;
+    private int counter = 0;
 
     private void Awake()
     {
@@ -62,12 +63,12 @@ public class GameHandler : MonoBehaviour
         num_nodes--;
 
 
-        if (deletion_counter == 3 && view_panel.transform.localScale.x + 0.2f < 1.1f)
+        if (deletion_counter == counter && view_panel.transform.localScale.x + 0.2f < 1.1f)
         {
             view_panel.transform.localScale = new Vector3(view_panel.transform.localScale.x + 0.2f, view_panel.transform.localScale.y + 0.2f, 0);
             deletion_counter = 0;
         }
-        else if(deletion_counter == 3)
+        else if(deletion_counter == counter)
         {
             deletion_counter = 0;
         }
@@ -79,12 +80,12 @@ public class GameHandler : MonoBehaviour
         
         num_nodes++;
 
-        if (insertion_counter == 3 && view_panel.transform.localScale.x - 0.2f > 0.4f && view.transform.childCount > 5)
+        if (insertion_counter == counter && view_panel.transform.localScale.x - 0.2f > 0.4f && view.transform.childCount > 5)
         {
             view_panel.transform.localScale = new Vector3(view_panel.transform.localScale.x - 0.2f, view_panel.transform.localScale.y - 0.2f, 0);
             insertion_counter = 0;
         }
-        else if(insertion_counter == 3)
+        else if(insertion_counter == counter)
         {
             insertion_counter = 0;
         }
@@ -94,8 +95,13 @@ public class GameHandler : MonoBehaviour
     {
         if (current_structure != structure)
         {
+            view_panel.transform.localScale = new Vector3(1f, 1f, 1f);
+            insertion_counter = 0;
+            deletion_counter = 0;
             current_structure = structure;
-           current_structure.Init();
+            current_structure.Init();
+            counter = current_structure.Get_Counter();
+            MAX_NODES = current_structure.Get_Max_Nodes();
         }
     }
 

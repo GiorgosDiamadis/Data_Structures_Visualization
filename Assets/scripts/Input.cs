@@ -15,6 +15,32 @@ public class Input : MonoBehaviour
         input_field.text = "";
     }
 
+    public void stack_push()
+    {
+        data = get_data(input_field);
+
+        if (data < Int64.MaxValue)
+        {
+            if (GameHandler.Instance.Can_Add())
+            {
+                Stack stack= transform.GetComponentInParent<Stack>();
+                stack.push(data);
+                data = Int64.MaxValue;
+            }
+            else
+            {
+                UIHandler.Instance.show_message("You have reached maximum nodes");
+
+            }
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Please enter a valid number");
+        }
+
+        clear();
+    }
+
     public void list_add()
     {
         data = get_data(input_field);

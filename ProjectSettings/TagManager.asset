@@ -14,6 +14,9 @@ TagManager:
   - DCL Actions
   - SCL Actions
   - Node
+  - Stack
+  - Stack A Actions
+  - Stack L Actions
   layers:
   - Default
   - TransparentFX
