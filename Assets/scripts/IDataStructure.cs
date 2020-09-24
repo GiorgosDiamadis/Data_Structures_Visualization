@@ -79,6 +79,21 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         return num_nodes;
     }
 
+    protected GameObject create_cell(bool not_empty_data=false)
+    {
+        new_node = Instantiate(node, view.transform);
+        new_node_data = new_node.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+
+        if (not_empty_data)
+            new_node_data.text = (Random.Range(-100, 100)).ToString();
+        else
+            new_node_data.text = "";
+
+
+        return new_node;
+
+    }
+
     protected GameObject create_node(long? data = null)
     {
         new_node = Instantiate(node, view.transform);

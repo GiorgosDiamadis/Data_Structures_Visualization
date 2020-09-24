@@ -23,7 +23,7 @@ public class Input : MonoBehaviour
         {
             if (GameHandler.Instance.Can_Add())
             {
-                Stack stack= transform.GetComponentInParent<Stack>();
+                IStack stack= transform.GetComponentInParent<IStack>();
                 StartCoroutine( stack.push(data));
                 data = Int64.MaxValue;
             }

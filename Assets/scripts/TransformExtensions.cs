@@ -4,9 +4,14 @@ using UnityEngine;
 public static class TransformExtensions
 {
 
-    public static void DestroyChild(this Transform queried,int index)
+    public static void DestroyChild(this Transform queried,params int[] index)
     {
-        queried.GetChild(index).gameObject.Destroy_Object();
+        Transform child = queried;
+        for(int i = 0; i < index.Length; i++)
+        {
+            child = child.GetChild(index[i]);
+        }
+        child.gameObject.Destroy_Object();
     }
     public static void Destroy_All_Children(this Transform queried)
     {

@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Stack : IDataStructure
+public class StackWithList : IDataStructure, IStack
 {
     
     public override void Init()
@@ -19,9 +19,11 @@ public class Stack : IDataStructure
             }
         }
 
+
         view.GetComponent<GridLayoutGroup>().startAxis = GridLayoutGroup.Axis.Horizontal;
         view.GetComponent<GridLayoutGroup>().constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         view.GetComponent<GridLayoutGroup>().constraintCount = 1;
+
         num_nodes = 2;
         max_nodes = 12;
     }
