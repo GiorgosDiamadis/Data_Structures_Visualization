@@ -3,6 +3,11 @@ using UnityEngine;
 
 public static class TransformExtensions
 {
+
+    public static void DestroyChild(this Transform queried,int index)
+    {
+        queried.GetChild(index).gameObject.Destroy_Object();
+    }
     public static void Destroy_All_Children(this Transform queried)
     {
         int child_count = queried.transform.childCount;

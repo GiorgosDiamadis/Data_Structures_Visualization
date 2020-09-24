@@ -38,6 +38,10 @@ public class List : IDataStructure
             }
         }
 
+        view.GetComponent<GridLayoutGroup>().startAxis = GridLayoutGroup.Axis.Vertical;
+        view.GetComponent<GridLayoutGroup>().constraint = GridLayoutGroup.Constraint.FixedRowCount;
+        view.GetComponent<GridLayoutGroup>().constraintCount = 1;
+
         num_nodes = 3;
         max_nodes = 14;
 
