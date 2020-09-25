@@ -11,6 +11,9 @@ public class GameHandler : MonoBehaviour
     public static GameHandler Instance;
     private static Sprite traverse_sprite = null;
     private static Sprite initial_sprite = null;
+    private static Sprite red_cell = null;
+    private static Sprite green_cell = null;
+
     public Action<IDataStructure> On_Data_Structure_Change;
     public Action handle_insertion;
     public Action handle_deletion;
@@ -22,6 +25,9 @@ public class GameHandler : MonoBehaviour
     private int MAX_NODES;
     private int num_nodes=3;
     private int counter = 0;
+
+    public Sprite Red_cell { get => red_cell;}
+    public Sprite Green_cell { get => green_cell;}
 
     private void Awake()
     {
@@ -41,6 +47,9 @@ public class GameHandler : MonoBehaviour
 
         traverse_sprite = Resources.Load<Sprite>("NeonShapes/PNG/RedCircle");
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
+        red_cell = Resources.Load<Sprite>("NeonShapes/PNG/RedSquare");
+        green_cell = Resources.Load<Sprite>("NeonShapes/PNG/GreenSquare");
+
         On_Data_Structure_Change += On_Structure_Change;
         handle_insertion += Handle_Insertion;
         handle_deletion += Handle_Deletion;

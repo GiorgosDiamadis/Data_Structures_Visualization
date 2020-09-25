@@ -11,8 +11,15 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     protected static GameObject view = null;
     protected static GameObject pseudocode_panel = null;
+    
     protected static Sprite traverse_sprite = null;
     protected static Sprite initial_sprite = null;
+
+
+    protected static Sprite red_cell = null;
+    protected static Sprite green_cell = null;
+
+
     protected int init_number = 3;
     protected int num_nodes;
     protected int max_nodes;
@@ -36,6 +43,9 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         initial_sprite =GameHandler.Instance.Get_Initial_Sprite();
         view = GameHandler.Instance.Get_View();
         speed = GameHandler.Instance.Get_Speed();
+        red_cell= GameHandler.Instance.Red_cell;
+        green_cell = GameHandler.Instance.Green_cell;
+
         pseudocode_panel = GameHandler.Instance.Get_Pseudocode_Panel();
     }
 
