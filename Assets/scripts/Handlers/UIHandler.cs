@@ -7,13 +7,14 @@ public class UIHandler : MonoBehaviour
     private GameObject options = null;
     public static UIHandler Instance;
     private RectTransform target = null;
-
+    private TMPro.TextMeshProUGUI mess;
     private static Vector3 scale_up = new Vector3(1, 1, 0);
     private static Vector3 scale_down = new Vector3(.1f, .1f, 0);
 
     [SerializeField] private RectTransform[] actions = null;
     [SerializeField] private RectTransform[] structures = null;
     [SerializeField] private GameObject message_panel = null;
+    private RectTransform mess_rect;
     [SerializeField] private List<string> structures_tags = null;
 
     private void Awake()
@@ -28,6 +29,8 @@ public class UIHandler : MonoBehaviour
             Instance = this;
         }
 
+        mess = message_panel.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        mess_rect = message_panel.GetComponent<RectTransform>();
     }
 
     public void close(RectTransform[] panel)
@@ -46,11 +49,11 @@ public class UIHandler : MonoBehaviour
 
     public void show_message(string message)
     {
-        TMPro.TextMeshProUGUI mess = message_panel.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        
         mess.text = message;
 
         message_panel.SetActive(true);
-        message_panel.GetComponent<RectTransform>().DOScale(scale_up, .2f);
+        mess_rect.DOScale(scale_up, .2f);
     }
 
     public void show_method_options(RectTransform rect)
@@ -113,8 +116,8 @@ public class UIHandler : MonoBehaviour
 
     public void close_message()
     {
-        target = message_panel.GetComponent<RectTransform>();
-        message_panel.GetComponent<RectTransform>().DOScale(scale_down, duration: .05f).OnComplete(set_inactive);
+        target = mess_rect;
+        target.DOScale(scale_down, duration: .05f).OnComplete(set_inactive);
     }
 
     private void set_inactive()

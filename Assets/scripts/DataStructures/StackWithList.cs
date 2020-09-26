@@ -106,10 +106,10 @@ public class StackWithList : IDataStructure, IStack
         view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = initial_sprite;
         highlight_pseudocode(0, false);
 
-        view.transform.DestroyChild(0);
+        view.transform.Destroy_Child(0);
         
         if (view.transform.childCount > 0)
-            view.transform.DestroyChild(0);
+            view.transform.Destroy_Child(0);
 
         GameHandler.Instance.handle_deletion.Invoke();
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 public static class TransformExtensions
 {
 
-    public static void DestroyChild(this Transform queried,params int[] index)
+    public static void Destroy_Child(this Transform queried,params int[] index)
     {
         Transform child = queried;
         for(int i = 0; i < index.Length; i++)
