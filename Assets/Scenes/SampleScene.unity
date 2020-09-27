@@ -2542,10 +2542,10 @@ RectTransform:
   m_Father: {fileID: 529037520}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -73.35004, y: -56.69699}
-  m_SizeDelta: {x: -533.3, y: -113.4}
+  m_SizeDelta: {x: 1066.7, y: 786.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1009924746
 MonoBehaviour:
@@ -3772,10 +3772,10 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_StartCorner: 0
-  m_StartAxis: 1
+  m_StartAxis: 0
   m_CellSize: {x: 70, y: 70}
-  m_Spacing: {x: 10, y: 10}
-  m_Constraint: 2
+  m_Spacing: {x: 10, y: 54.02}
+  m_Constraint: 1
   m_ConstraintCount: 1
 --- !u!1001 &1560546047
 PrefabInstance:
@@ -4361,6 +4361,7 @@ GameObject:
   - component: {fileID: 1799723596}
   - component: {fileID: 1799723595}
   - component: {fileID: 1799723594}
+  - component: {fileID: 1799723593}
   m_Layer: 5
   m_Name: Binary
   m_TagString: Binary tree
@@ -4389,6 +4390,21 @@ RectTransform:
   m_AnchoredPosition: {x: 97.15, y: -16.5}
   m_SizeDelta: {x: 186, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1799723593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799723591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692174137b164364f97c70ebabb510e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pseudocode_dir: 
+  node: {fileID: 5210076550946774919, guid: 0ea7fd2d6fa21a147909c3899908d177, type: 3}
+  arrow: {fileID: 0}
 --- !u!114 &1799723594
 MonoBehaviour:
   m_ObjectHideFlags: 0

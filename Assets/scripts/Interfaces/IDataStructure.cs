@@ -104,16 +104,18 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     }
 
-    protected GameObject create_node(long? data = null)
+    protected GameObject create_node(long? data = null, bool empty_data = false)
     {
         new_node = Instantiate(node, view.transform);
         new_node_data = new_node.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
 
-        if (!data.HasValue)
+        if (empty_data)
+            new_node_data.text = " ";
+        else if (!data.HasValue)
             new_node_data.text = (Random.Range(-100, 100)).ToString();
-        else
+        else if(data.HasValue)
             new_node_data.text = (data.Value).ToString();
-
+        
 
         return new_node;
 
