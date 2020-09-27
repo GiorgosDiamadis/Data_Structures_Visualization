@@ -18,10 +18,12 @@ public class GameHandler : MonoBehaviour
     public Action handle_insertion;
     public Action handle_deletion;
 
+    public bool is_running = false;
+
     [SerializeField] private float speed = 0.1f;
 
-    int insertion_counter = 0;
-    int deletion_counter = 0;
+    private int insertion_counter = 0;
+    private int deletion_counter = 0;
     private int MAX_NODES;
     private int num_nodes=3;
     private int counter = 0;

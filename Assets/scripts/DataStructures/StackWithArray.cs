@@ -23,6 +23,7 @@ public class StackWithArray : IDataStructure, IStack
 
         next_empty = 3;
         max_nodes = 10;
+
         view.GetComponent<GridLayoutGroup>().startAxis = GridLayoutGroup.Axis.Vertical;
         view.GetComponent<GridLayoutGroup>().constraint = GridLayoutGroup.Constraint.FixedRowCount;
         view.GetComponent<GridLayoutGroup>().constraintCount = 1;
@@ -33,11 +34,17 @@ public class StackWithArray : IDataStructure, IStack
 
     public void peek()
     {
+        if (GameHandler.Instance.is_running)
+            return;
+        GameHandler.Instance.is_running = true;
+
         StartCoroutine(peek_cor());
     }
 
     private IEnumerator peek_cor()
     {
+        UIHandler.Instance.close_message();
+
         Load_Pseudocode("peek");
         yield return new WaitForSeconds(speed);
 
@@ -57,34 +64,54 @@ public class StackWithArray : IDataStructure, IStack
             view.transform.GetChild(next_empty - 1).GetComponentInChildren<SpriteRenderer>().sprite = green_cell;
             highlight_pseudocode(1, false);
         }
+        GameHandler.Instance.is_running = false;
     }
 
     public IEnumerator push(long data)
     {
+        UIHandler.Instance.close_message();
+
+
+        Load_Pseudocode("push");
+        yield return new WaitForSeconds(speed);
+
+        highlight_pseudocode(0, true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(0, false);
+
         if (next_empty == 10)
         {
             UIHandler.Instance.show_message("Stack is full!");
+            highlight_pseudocode(2, true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(2, false);
         }
         else
         {
-            
+
             view.transform.GetChild(next_empty).GetComponentInChildren<SpriteRenderer>().sprite = red_cell;
+            highlight_pseudocode(1, true);
             yield return new WaitForSeconds(speed);
-            
+            highlight_pseudocode(1, false);
             view.transform.GetChild(next_empty).GetComponentInChildren<SpriteRenderer>().sprite = green_cell;
             view.transform.GetChild(next_empty).GetChild(0).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = data.ToString();
-            
+
             next_empty++;
         }
+        GameHandler.Instance.is_running = false;
     }
 
     public void pop()
     {
+        if (GameHandler.Instance.is_running)
+            return;
+        GameHandler.Instance.is_running = true;
         StartCoroutine(pop_cor());
     }
 
     private IEnumerator pop_cor()
     {
+        UIHandler.Instance.close_message();
         Load_Pseudocode("pop");
         yield return new WaitForSeconds(speed);
 
@@ -97,12 +124,12 @@ public class StackWithArray : IDataStructure, IStack
             UIHandler.Instance.show_message("Stack is empty!");
             highlight_pseudocode(2, true);
             yield return new WaitForSeconds(speed);
-        
+
             highlight_pseudocode(2, false);
         }
         else
         {
-            
+
             highlight_pseudocode(1, true);
             next_empty--;
             view.transform.GetChild(next_empty).GetComponentInChildren<SpriteRenderer>().sprite = red_cell;
@@ -113,6 +140,9 @@ public class StackWithArray : IDataStructure, IStack
             view.transform.GetChild(next_empty).GetComponentInChildren<SpriteRenderer>().sprite = green_cell;
             view.transform.GetChild(next_empty).GetChild(0).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "";
         }
+
+        GameHandler.Instance.is_running = false;
+
     }
 
 }

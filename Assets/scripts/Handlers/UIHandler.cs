@@ -49,7 +49,6 @@ public class UIHandler : MonoBehaviour
 
     public void show_message(string message)
     {
-        
         mess.text = message;
 
         message_panel.SetActive(true);
@@ -117,7 +116,8 @@ public class UIHandler : MonoBehaviour
     public void close_message()
     {
         target = mess_rect;
-        target.DOScale(scale_down, duration: .05f).OnComplete(set_inactive);
+        if(target.gameObject.activeSelf)
+            target.DOScale(scale_down, duration: .05f).OnComplete(set_inactive);
     }
 
     private void set_inactive()

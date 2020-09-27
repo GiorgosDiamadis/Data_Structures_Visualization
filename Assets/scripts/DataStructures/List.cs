@@ -47,9 +47,10 @@ public class List : IDataStructure
         max_nodes = 14;
 
     }
-    
+
     public IEnumerator add_front(long data)
     {
+        UIHandler.Instance.close_message();
 
         if (!exists(data))
         {
@@ -105,10 +106,12 @@ public class List : IDataStructure
             GameHandler.Instance.handle_insertion.Invoke();
 
         }
+        GameHandler.Instance.is_running = false;
     }
 
     public IEnumerator add_position(long data, int position)
     {
+        UIHandler.Instance.close_message();
 
         if (!exists(data))
         {
@@ -306,10 +309,13 @@ public class List : IDataStructure
                 }
             }
         }
+        GameHandler.Instance.is_running = false;
     }
 
     public IEnumerator add_node(long data)
     {
+        UIHandler.Instance.close_message();
+
         if (!exists(data))
         {
             Load_Pseudocode("add");
@@ -448,9 +454,11 @@ public class List : IDataStructure
 
 
         }
+        GameHandler.Instance.is_running = false;
     }
     public IEnumerator delete_node(long data)
     {
+        UIHandler.Instance.close_message();
 
         Load_Pseudocode("delete");
         yield return new WaitForSeconds(speed);
@@ -619,10 +627,12 @@ public class List : IDataStructure
             view.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
         }
 
+        GameHandler.Instance.is_running = false;
     }
 
     public IEnumerator search(long data)
     {
+        UIHandler.Instance.close_message();
 
         Load_Pseudocode("search");
         yield return new WaitForSeconds(speed);
@@ -696,5 +706,6 @@ public class List : IDataStructure
 
             highlight_pseudocode(3, false);
         }
+        GameHandler.Instance.is_running = false;
     }
 }

@@ -18,14 +18,21 @@ public class Input : MonoBehaviour
 
     public void stack_push()
     {
+
+        if (GameHandler.Instance.is_running)
+            return;
+
+
+
         data = get_data(input_field);
 
         if (data < Int64.MaxValue)
         {
             if (GameHandler.Instance.Can_Add())
             {
-                IStack stack= transform.GetComponentInParent<IStack>();
-                StartCoroutine( stack.push(data));
+                IStack stack = transform.GetComponentInParent<IStack>();
+                StartCoroutine(stack.push(data));
+                GameHandler.Instance.is_running = true;
                 data = Int64.MaxValue;
             }
             else
@@ -44,14 +51,19 @@ public class Input : MonoBehaviour
 
     public void list_add()
     {
+
+        if (GameHandler.Instance.is_running)
+            return;
+
         data = get_data(input_field);
-        
+
         if (data < Int64.MaxValue)
         {
             if (GameHandler.Instance.Can_Add())
             {
                 List list = transform.GetComponentInParent<List>();
                 StartCoroutine(list.add_node(data));
+                GameHandler.Instance.is_running = true;
                 data = Int64.MaxValue;
             }
             else
@@ -71,6 +83,8 @@ public class Input : MonoBehaviour
 
     public void list_add_position()
     {
+        if (GameHandler.Instance.is_running)
+            return;
 
         TMPro.TMP_InputField[] input_fields = GetComponentsInChildren<TMPro.TMP_InputField>();
 
@@ -81,6 +95,7 @@ public class Input : MonoBehaviour
         {
             List list = transform.GetComponentInParent<List>();
             StartCoroutine(list.add_position(data, position));
+            GameHandler.Instance.is_running = true;
             data = Int64.MaxValue;
         }
 
@@ -111,6 +126,8 @@ public class Input : MonoBehaviour
 
     public void list_add_front()
     {
+        if (GameHandler.Instance.is_running)
+            return;
         data = get_data(input_field);
 
         if (data < Int64.MaxValue)
@@ -119,6 +136,7 @@ public class Input : MonoBehaviour
             {
                 List list = transform.GetComponentInParent<List>();
                 StartCoroutine(list.add_front(data));
+                GameHandler.Instance.is_running = true;
                 data = Int64.MaxValue;
             }
             else
@@ -136,13 +154,16 @@ public class Input : MonoBehaviour
 
     public void list_search()
     {
+        if (GameHandler.Instance.is_running)
+            return;
         data = get_data(input_field);
 
         if (data < Int64.MaxValue)
         {
-                List list = transform.GetComponentInParent<List>();
-                StartCoroutine(list.search(data));
-                data = Int64.MaxValue;
+            List list = transform.GetComponentInParent<List>();
+            StartCoroutine(list.search(data));
+            GameHandler.Instance.is_running = true;
+            data = Int64.MaxValue;
         }
         else
         {
@@ -154,6 +175,8 @@ public class Input : MonoBehaviour
 
     public void list_delete()
     {
+        if (GameHandler.Instance.is_running)
+            return;
         data = get_data(input_field);
 
         if (data < Int64.MaxValue)
@@ -162,6 +185,7 @@ public class Input : MonoBehaviour
             {
                 List list = transform.GetComponentInParent<List>();
                 StartCoroutine(list.delete_node(data));
+                GameHandler.Instance.is_running = true;
                 data = Int64.MaxValue;
             }
             else
