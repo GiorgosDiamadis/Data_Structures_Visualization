@@ -13,6 +13,40 @@ public static class TransformExtensions
         }
         child.gameObject.Destroy_Object();
     }
+
+    public static GameObject Get_Child_Object(this Transform queried,params int[] index)
+    {
+        Transform child = queried;
+        for (int i = 0; i < index.Length; i++)
+        {
+            child = child.GetChild(index[i]);
+        }
+
+        return child.gameObject;
+    }
+
+    public static Transform Get_Child_Transform(this Transform queried, params int[] index)
+    {
+        Transform child = queried;
+        for (int i = 0; i < index.Length; i++)
+        {
+            child = child.GetChild(index[i]);
+        }
+
+        return child;
+    }
+
+    public static void Set_Child_Active(this Transform queried, bool active,params int[] index)
+    {
+        Transform child = queried;
+        for (int i = 0; i < index.Length; i++)
+        {
+            child = child.GetChild(index[i]);
+        }
+
+        child.gameObject.SetActive(active);
+    }
+
     public static void Destroy_All_Children(this Transform queried)
     {
         int child_count = queried.transform.childCount;
