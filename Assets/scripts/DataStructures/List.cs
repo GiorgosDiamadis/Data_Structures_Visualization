@@ -43,7 +43,7 @@ public class List : IDataStructure
         view.GetComponent<GridLayoutGroup>().constraintCount = 1;
         view.GetComponent<GridLayoutGroup>().spacing = new Vector2(10f, 10f);
 
-        num_nodes = 3;
+        max_counter = 3;
         max_nodes = 14;
 
     }

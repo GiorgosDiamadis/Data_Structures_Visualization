@@ -17,7 +17,7 @@ public class UIHandler : MonoBehaviour
     private RectTransform mess_rect;
     [SerializeField] private List<string> structures_tags = null;
 
-    private void Awake()
+    private void Start()
     {
         if (Instance == null)
         {

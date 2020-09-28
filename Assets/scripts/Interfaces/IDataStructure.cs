@@ -21,7 +21,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
 
     protected int init_number = 3;
-    protected int num_nodes;
+    protected int max_counter;
     protected int max_nodes;
     [SerializeField] protected GameObject node = null;
     [SerializeField] private GameObject arrow = null;
@@ -31,22 +31,19 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     protected GameObject new_node = null;
     protected TMPro.TextMeshProUGUI new_node_data = null;
 
-
-    public int Get_Max_Nodes()
-    {
-        return max_nodes;
-    }
+    public int Max_nodes { get => max_nodes;}
+    public int Max_counter { get => max_counter;}
 
     private void Start()
     {
-        traverse_sprite = GameHandler.Instance.Get_Traverse_Sprite();
-        initial_sprite =GameHandler.Instance.Get_Initial_Sprite();
-        view = GameHandler.Instance.Get_View();
-        speed = GameHandler.Instance.Get_Speed();
+        traverse_sprite = GameHandler.Instance.Traverse_sprite;
+        initial_sprite =GameHandler.Instance.Initial_sprite;
+        view = ViewHandler.Instance.View;
+        speed = GameHandler.Instance.Speed;
         red_cell= GameHandler.Instance.Red_cell;
         green_cell = GameHandler.Instance.Green_cell;
 
-        pseudocode_panel = GameHandler.Instance.Get_Pseudocode_Panel();
+        pseudocode_panel = GameHandler.Instance.Pseudocode_panel;
     }
 
 
@@ -69,7 +66,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameHandler.Instance.On_Data_Structure_Change.Invoke(this);
+        GameHandler.Instance.On_Data_Structure_Change?.Invoke(this);
     }
 
     protected bool exists(long data)
@@ -82,11 +79,6 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         GameObject arr = Instantiate(arrow, view.transform);
 
         return arr;
-    }
-
-    public int Get_Counter()
-    {
-        return num_nodes;
     }
 
     protected GameObject create_cell(bool not_empty_data=false)

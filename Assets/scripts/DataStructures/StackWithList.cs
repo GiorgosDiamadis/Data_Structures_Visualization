@@ -25,7 +25,7 @@ public class StackWithList : IDataStructure, IStack
         view.GetComponent<GridLayoutGroup>().constraintCount = 1;
         view.GetComponent<GridLayoutGroup>().spacing = new Vector2(10f, 10f);
 
-        num_nodes = 2;
+        max_counter = 2;
         max_nodes = 12;
     }
 
