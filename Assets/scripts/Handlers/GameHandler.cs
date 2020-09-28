@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using DG.Tweening;
 
 public class GameHandler : MonoBehaviour
 {
@@ -17,7 +16,6 @@ public class GameHandler : MonoBehaviour
     public Action<IDataStructure> On_Data_Structure_Change;
     public Action handle_insertion;
     public Action handle_deletion;
-
     public bool is_running = false;
 
 
@@ -25,7 +23,6 @@ public class GameHandler : MonoBehaviour
     private int num_nodes=3;
     
     [SerializeField] private float speed = 0.1f;
-
 
     public Sprite Red_cell { get => red_cell;}
     public Sprite Green_cell { get => green_cell;}
@@ -55,11 +52,12 @@ public class GameHandler : MonoBehaviour
         green_cell = Resources.Load<Sprite>("NeonShapes/PNG/GreenSquare");
     }
 
+
     public bool Can_Add()
     {
         return MAX_NODES - num_nodes > 0;
     }
-
+    //Needs to be removed and be shown with pseudocode
     public bool Can_Delete()
     {
         return num_nodes > 0;

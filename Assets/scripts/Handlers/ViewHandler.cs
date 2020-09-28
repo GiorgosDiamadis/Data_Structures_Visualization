@@ -43,7 +43,10 @@ public class ViewHandler : MonoBehaviour
         GameHandler.Instance.handle_deletion += Handle_Deletion;
     }
 
-    public void Change_Grid(GridLayoutGroup.Axis axis = GridLayoutGroup.Axis.Horizontal, GridLayoutGroup.Constraint constraint = GridLayoutGroup.Constraint.FixedRowCount,int constraint_count=1,Vector2 spacing=default(Vector2),bool enabled=true)
+    public void Change_Grid(GridLayoutGroup.Axis axis = GridLayoutGroup.Axis.Horizontal,
+        GridLayoutGroup.Constraint constraint = GridLayoutGroup.Constraint.FixedRowCount,
+        int constraint_count=1,
+        Vector2 spacing=default(Vector2),bool enabled=true)
     {
         grid.startAxis = axis;
         grid.constraint = constraint;

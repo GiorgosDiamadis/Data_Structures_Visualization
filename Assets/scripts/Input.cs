@@ -179,12 +179,15 @@ public class Input : MonoBehaviour
             return;
         data = get_data(input_field);
 
+       
+
         if (data < Int64.MaxValue)
         {
             if (GameHandler.Instance.Can_Delete())
             {
                 List list = transform.GetComponentInParent<List>();
                 StartCoroutine(list.delete_node(data));
+
                 GameHandler.Instance.is_running = true;
                 data = Int64.MaxValue;
             }
