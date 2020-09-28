@@ -9,7 +9,7 @@ public class BinaryTree : IDataStructure
     public override void Init()
     {
         view.transform.Destroy_All_Children();
-        view.GetComponent<GridLayoutGroup>().enabled = false;
+        ViewHandler.Instance.Change_Grid(enabled: false);
         create_node(empty_data:true);
     }
 }

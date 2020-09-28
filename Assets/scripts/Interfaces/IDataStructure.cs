@@ -14,7 +14,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     
     protected static Sprite traverse_sprite = null;
     protected static Sprite initial_sprite = null;
-
+    
 
     protected static Sprite red_cell = null;
     protected static Sprite green_cell = null;

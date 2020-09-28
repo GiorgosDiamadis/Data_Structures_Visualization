@@ -24,10 +24,7 @@ public class StackWithArray : IDataStructure, IStack
         next_empty = 3;
         max_nodes = 10;
 
-        view.GetComponent<GridLayoutGroup>().startAxis = GridLayoutGroup.Axis.Vertical;
-        view.GetComponent<GridLayoutGroup>().constraint = GridLayoutGroup.Constraint.FixedRowCount;
-        view.GetComponent<GridLayoutGroup>().constraintCount = 1;
-        view.GetComponent<GridLayoutGroup>().spacing = new Vector2(30f, 30f);
+        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1, new Vector2(30f, 30f));
 
     }
 

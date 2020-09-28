@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ViewHandler : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class ViewHandler : MonoBehaviour
     private static GameObject view;
     private static GameObject view_panel;
     private IDataStructure current_structure = null;
+
+    private GridLayoutGroup grid;
 
     public GameObject View { get => view; }
     public GameObject View_panel { get => view_panel; }
@@ -32,12 +35,22 @@ public class ViewHandler : MonoBehaviour
         view = GameObject.Find("View");
         view_panel = GameObject.Find("View_Panel");
 
+        grid = view.GetComponent<GridLayoutGroup>();
+
         GameHandler.Instance.On_Data_Structure_Change += On_Structure_Change;
 
         GameHandler.Instance.handle_insertion += Handle_Insertion;
         GameHandler.Instance.handle_deletion += Handle_Deletion;
     }
 
+    public void Change_Grid(GridLayoutGroup.Axis axis = GridLayoutGroup.Axis.Horizontal, GridLayoutGroup.Constraint constraint = GridLayoutGroup.Constraint.FixedRowCount,int constraint_count=1,Vector2 spacing=default(Vector2),bool enabled=true)
+    {
+        grid.startAxis = axis;
+        grid.constraint = constraint;
+        grid.constraintCount = constraint_count;
+        grid.spacing = spacing;
+        grid.enabled = enabled;
+    }
 
     private void Handle_Deletion()
     {
