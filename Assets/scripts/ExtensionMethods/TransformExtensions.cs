@@ -6,55 +6,44 @@ public static class TransformExtensions
 
     public static void Destroy_Child(this Transform queried,params int[] index)
     {
-        Transform child = queried;
-        for(int i = 0; i < index.Length; i++)
-        {
-            child = child.GetChild(index[i]);
-        }
+        Transform child = queried.Get_Child(index);
         child.gameObject.Destroy_Object();
     }
 
-    public static T Get_Component_In_Child<T>(this Transform queried,params int[] index) where T : Component
+    public static Transform Get_Child(this Transform queried,params int[] index)
     {
         Transform child = queried;
         for (int i = 0; i < index.Length; i++)
         {
             child = child.GetChild(index[i]);
         }
+        return child;
+    }
 
+    public static T Get_Component_In_Child<T>(this Transform queried,params int[] index) where T : Component
+    {
+        Transform child = queried.Get_Child(index);
         T requested_component = child.GetComponent<T>();
         return requested_component;
     }
 
     public static GameObject Get_Child_Object(this Transform queried,params int[] index)
     {
-        Transform child = queried;
-        for (int i = 0; i < index.Length; i++)
-        {
-            child = child.GetChild(index[i]);
-        }
+        Transform child = queried.Get_Child(index);
 
         return child.gameObject;
     }
 
     public static Transform Get_Child_Transform(this Transform queried, params int[] index)
     {
-        Transform child = queried;
-        for (int i = 0; i < index.Length; i++)
-        {
-            child = child.GetChild(index[i]);
-        }
+        Transform child = queried.Get_Child(index);
 
         return child;
     }
 
     public static void Set_Child_Active(this Transform queried, bool active,params int[] index)
     {
-        Transform child = queried;
-        for (int i = 0; i < index.Length; i++)
-        {
-            child = child.GetChild(index[i]);
-        }
+        Transform child = queried.Get_Child(index);
 
         child.gameObject.SetActive(active);
     }
