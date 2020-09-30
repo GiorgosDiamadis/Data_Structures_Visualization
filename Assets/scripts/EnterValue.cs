@@ -17,9 +17,8 @@ public class EnterValue : MonoBehaviour, IPointerClickHandler
     {
         long value = long.Parse(input_field.text);
         data.text = value.ToString();
-        print(data.text);
-        print(value);
         input_field.gameObject.SetActive(false);
-
+        print(transform.gameObject);
+        FindObjectOfType<BinaryTree>().Add_To_Array(transform.gameObject);
     }
 }

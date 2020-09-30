@@ -5992,6 +5992,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1799723592}
     m_Modifications:
+    - target: {fileID: 5412203014542931516, guid: 79bde24279d5e51479853d31406cd445,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412203014542931516, guid: 79bde24279d5e51479853d31406cd445,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412203014542931516, guid: 79bde24279d5e51479853d31406cd445,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412203014542931516, guid: 79bde24279d5e51479853d31406cd445,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1799723593}
+    - target: {fileID: 5412203014542931516, guid: 79bde24279d5e51479853d31406cd445,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: In_Order_Traversal
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412203014542931516, guid: 79bde24279d5e51479853d31406cd445,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6286936018165023964, guid: 79bde24279d5e51479853d31406cd445,
         type: 3}
       propertyPath: m_Name

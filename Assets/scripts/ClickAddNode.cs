@@ -9,6 +9,5 @@ public class ClickAddNode : MonoBehaviour, IPointerClickHandler
     {
         BinaryTree tr = FindObjectOfType<BinaryTree>();
         tr.AddNode(eventData.pointerPress.gameObject);
-        //GetComponentInParent<BinaryTree>().AddNode(eventData.pointerDrag.gameObject);
     }
 }
