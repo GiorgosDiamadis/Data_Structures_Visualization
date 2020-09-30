@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,10 +7,20 @@ using UnityEngine.UI;
 
 public class BinaryTree : IDataStructure
 {
+    private static int max_children = 64;
+    private long[] tree;
+
     public override void Init()
     {
         view.transform.Destroy_All_Children();
         ViewHandler.Instance.Change_Grid(enabled: false);
+        tree = new long[max_children];
+        
+        for(int i = 0; i < max_children; i++)
+        {
+            tree[i] = Int64.MaxValue;
+        }
+        
         create_node(empty_data:true);
     }
 
