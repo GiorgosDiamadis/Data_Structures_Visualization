@@ -14,6 +14,18 @@ public static class TransformExtensions
         child.gameObject.Destroy_Object();
     }
 
+    public static T Get_Component_In_Child<T>(this Transform queried,params int[] index) where T : Component
+    {
+        Transform child = queried;
+        for (int i = 0; i < index.Length; i++)
+        {
+            child = child.GetChild(index[i]);
+        }
+
+        T requested_component = child.GetComponent<T>();
+        return requested_component;
+    }
+
     public static GameObject Get_Child_Object(this Transform queried,params int[] index)
     {
         Transform child = queried;

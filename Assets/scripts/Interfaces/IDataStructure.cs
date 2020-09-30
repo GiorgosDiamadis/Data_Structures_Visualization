@@ -49,7 +49,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     protected void highlight_pseudocode(int index, bool is_open)
     {
-        pseudocode.transform.GetChild(index).GetChild(0).gameObject.SetActive(is_open);
+        pseudocode.transform.Set_Child_Active(is_open,index,0);
     }
 
 
