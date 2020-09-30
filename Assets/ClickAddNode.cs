@@ -7,6 +7,8 @@ public class ClickAddNode : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        BinaryTree tr = FindObjectOfType<BinaryTree>();
+        tr.AddNode(eventData.pointerPress.gameObject);
+        //GetComponentInParent<BinaryTree>().AddNode(eventData.pointerDrag.gameObject);
     }
 }
