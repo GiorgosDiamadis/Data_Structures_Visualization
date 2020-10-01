@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +14,7 @@ class BinaryTreeNode
     public long data;
     public int position;
 
-    public BinaryTreeNode(long data,int position)
+    public BinaryTreeNode(long data, int position)
     {
         this.data = data;
         this.left = null;
@@ -27,6 +29,8 @@ public class BinaryTree : IDataStructure
     private static int max_children = 1024;
     private long[] tree;
     BinaryTreeNode head;
+    [SerializeField] private GameObject traversal_prefab = null;
+    static GameObject p;
 
     public override void Init()
     {
@@ -74,14 +78,40 @@ public class BinaryTree : IDataStructure
     public void In_Order_Traversal()
     {
         head = null;
+        if (pseudocode_panel.transform.childCount != 0)
+        {
+            pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
+        }
+
         Create_Tree_From_Array();
-        In_Order(head);
+        StartCoroutine(In_Order_Cor());
     }
 
-    private void In_Order(BinaryTreeNode head)
+    private void Load_Pseudocode_Nodes()
     {
+        if (p != null)
+            Destroy(p);
+
+        p = Resources.Load("prefabs/pseudocode/Traversal/Traversal") as GameObject;
+        p = Instantiate(p, pseudocode_panel.transform);
+        p.GetComponent<RectTransform>().DOScale(1f, speed);
+
+
+
+    }
+    private IEnumerator In_Order_Cor()
+    {
+
+        Load_Pseudocode_Nodes();
+        yield return new WaitForSeconds(speed);
+
         Stack<BinaryTreeNode> s = new Stack<BinaryTreeNode>();
         BinaryTreeNode curr = head;
+
+        curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+        yield return new WaitForSeconds(speed);
+        curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
 
         // traverse the tree  
         while (curr != null || s.Count > 0)
@@ -90,24 +120,72 @@ public class BinaryTree : IDataStructure
             {
                 s.Push(curr);
                 curr = curr.left;
+
+                if (curr != null)
+                {
+                    curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    yield return new WaitForSeconds(speed);
+                    curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                }
+
             }
+
             curr = s.Pop();
+
+            curr.scene_object.transform.Set_Child_Active(true, 1);
+
+            Create_Pseudocode_Nodes(curr);
+
+            yield return new WaitForSeconds(speed);
+
             curr = curr.right;
+
+            if (curr != null)
+            {
+                curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                yield return new WaitForSeconds(speed);
+                curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            }
+
         }
+
+        yield return new WaitForSeconds(speed);
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+            view.transform.Set_Child_Active(false, i, 1);
+        }
+
+    }
+
+    private static void Create_Pseudocode_Nodes(BinaryTreeNode curr)
+    {
+        GameObject n = Instantiate(new GameObject());
+
+        n.AddComponent<Image>();
+        n.GetComponent<Image>().color = new Vector4(0, 0, 0, 0);
+
+        GameObject u = Instantiate(curr.scene_object.transform.GetChild(0).gameObject);
+        GameObject y = Instantiate(curr.scene_object.transform.GetChild(1).gameObject);
+
+        u.transform.SetParent(n.transform);
+        y.transform.SetParent(n.transform);
+
+        n.transform.SetParent(pseudocode_panel.transform.Get_Child(0, 1));
+        n.transform.localScale = Vector3.one;
     }
 
     private void Create_Tree_From_Array()
     {
-        head = new BinaryTreeNode(tree[0],0);
+        head = new BinaryTreeNode(tree[0], 0);
         head.scene_object = Find_In_View(tree[0]);
-        
+
         BinaryTreeNode current;
         Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
 
         queue.Enqueue(head);
         int position = 0;
 
-        for(int i = 0; i < tree.Length && queue.Count!=0; i++)
+        for (int i = 0; i < tree.Length && queue.Count != 0; i++)
         {
             current = queue.Dequeue();
             position = current.position;
@@ -131,9 +209,9 @@ public class BinaryTree : IDataStructure
 
     private GameObject Find_In_View(long v)
     {
-        for(int i = 0; i < view.transform.childCount; i++)
+        for (int i = 0; i < view.transform.childCount; i++)
         {
-            if(long.Parse(view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(i,0,0).text) == v)
+            if (long.Parse(view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(i, 0, 0).text) == v)
             {
                 return view.transform.GetChild(i).gameObject;
             }

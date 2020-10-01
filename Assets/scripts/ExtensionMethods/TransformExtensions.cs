@@ -52,7 +52,8 @@ public static class TransformExtensions
     {
         int child_count = queried.transform.childCount;
         int i = 0;
-
+        if (child_count == 0)
+            return;
         while (i < child_count && child_count > 0)
         {
             GameObject obg = queried.transform.GetChild(0).gameObject;
