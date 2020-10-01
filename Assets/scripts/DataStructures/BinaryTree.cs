@@ -24,10 +24,13 @@ class BinaryTreeNode
 }
 
 
+
 public class BinaryTree : IDataStructure
 {
     private static int max_children = 1024;
     private long[] tree;
+    private Vector3[,,] info = new Vector3[31,31,31];
+
     BinaryTreeNode head;
     //[SerializeField] private GameObject traversal_prefab = null;
     static GameObject p;
