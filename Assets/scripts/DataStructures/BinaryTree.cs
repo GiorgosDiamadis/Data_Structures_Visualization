@@ -344,7 +344,7 @@ public class BinaryTree : IDataStructure
 
             curr = curr.right;
 
-            if (curr != null && curr.right!=null)
+            if (curr != null && curr.right!=null && curr.left!=null)
             {
                 curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                 yield return new WaitForSeconds(speed);
@@ -375,7 +375,7 @@ public class BinaryTree : IDataStructure
         y.transform.SetParent(n.transform);
 
         n.transform.SetParent(pseudocode_panel.transform.Get_Child(0, 1));
-        n.transform.localScale = Vector3.one;
+        n.transform.localScale = new Vector3(1f,1f,1f);
     }
 
     private void Create_Tree_From_Array()
