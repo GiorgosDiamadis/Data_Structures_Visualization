@@ -321,7 +321,7 @@ public class BinaryTree : IDataStructure
                 s.Push(curr);
                 curr = curr.left;
 
-                if (curr != null)
+                if (curr != null && curr.left!=null)
                 {
                     curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                     yield return new WaitForSeconds(speed);
@@ -332,9 +332,9 @@ public class BinaryTree : IDataStructure
 
             curr = s.Pop();
 
-            //curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
-            //yield return new WaitForSeconds(speed);
-            //curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            yield return new WaitForSeconds(speed);
+            curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
             curr.scene_object.transform.Set_Child_Active(true, 1);
 
@@ -344,7 +344,7 @@ public class BinaryTree : IDataStructure
 
             curr = curr.right;
 
-            if (curr != null)
+            if (curr != null && curr.right!=null)
             {
                 curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                 yield return new WaitForSeconds(speed);

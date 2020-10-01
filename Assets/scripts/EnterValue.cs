@@ -3,8 +3,8 @@ using UnityEngine.EventSystems;
 
 public class EnterValue : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private TMPro.TMP_InputField input_field;
-    [SerializeField] private TMPro.TextMeshProUGUI data;
+    [SerializeField] private TMPro.TMP_InputField input_field=null;
+    [SerializeField] private TMPro.TextMeshProUGUI data = null;
     public void OnPointerClick(PointerEventData eventData)
     {
         input_field.gameObject.SetActive(true);
