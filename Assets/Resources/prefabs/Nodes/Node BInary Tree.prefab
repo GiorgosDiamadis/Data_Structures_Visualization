@@ -86,6 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0074eb141d53a341b603ff2a23dfe47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input_field: {fileID: 8709331336392110930}
 --- !u!1 &547242314418719399
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0074eb141d53a341b603ff2a23dfe47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input_field: {fileID: 8709331336392110930}
 --- !u!1 &2032764506114667002
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,8 +447,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7840873967620271734}
-        m_MethodName: Apply_Value
+      - m_Target: {fileID: 334386247168198247}
+        m_MethodName: Add_Node
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -775,7 +777,6 @@ GameObject:
   - component: {fileID: 5210076549889758091}
   - component: {fileID: 5210076549889758090}
   - component: {fileID: 1893687659063439287}
-  - component: {fileID: 2053321526269996069}
   m_Layer: 0
   m_Name: Data
   m_TagString: Untagged
@@ -932,20 +933,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &2053321526269996069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5210076549889758084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46217e8d5db6d8049ae9e073e05ad948, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input_field: {fileID: 0}
-  data: {fileID: 0}
 --- !u!1 &5210076550397968552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,7 +1018,6 @@ GameObject:
   - component: {fileID: 5210076550946774916}
   - component: {fileID: 5210076550946774922}
   - component: {fileID: 5210076550946774917}
-  - component: {fileID: 7840873967620271734}
   m_Layer: 5
   m_Name: Node BInary Tree
   m_TagString: Node
@@ -1102,20 +1088,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7840873967620271734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5210076550946774919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46217e8d5db6d8049ae9e073e05ad948, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input_field: {fileID: 8709331336392110930}
-  data: {fileID: 5210076549889758090}
 --- !u!1 &5835707157855102993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,7 +1175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11, y: 53}
+  m_AnchoredPosition: {x: -2, y: -80}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6145819503144097658

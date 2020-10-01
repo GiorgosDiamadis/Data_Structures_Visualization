@@ -29,7 +29,7 @@ public class BinaryTree : IDataStructure
     private static int max_children = 1024;
     private long[] tree;
     BinaryTreeNode head;
-    [SerializeField] private GameObject traversal_prefab = null;
+    //[SerializeField] private GameObject traversal_prefab = null;
     static GameObject p;
 
     public override void Init()
@@ -43,37 +43,12 @@ public class BinaryTree : IDataStructure
             tree[i] = Int64.MaxValue;
         }
 
-        create_node(empty_data: true);
+       GameObject node =  create_node(empty_data: false);
+        Add_To_Array(node);
+
     }
 
-    public void Add_To_Array(GameObject node)
-    {
-        long value = long.Parse(node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text);
-        if (view.transform.childCount == 1)
-        {
-            tree[0] = value;
-        }
-        else
-        {
-            int position = Get_Parent_Position(node);
-
-            if (position == -1)
-            {
-                return;
-            }
-            else
-            {
-                if (node.name == "Left")
-                {
-                    tree[2 * position + 1] = value;
-                }
-                else if (node.name == "Right")
-                {
-                    tree[2 * position + 2] = value;
-                }
-            }
-        }
-    }
+   
 
     public void In_Order_Traversal()
     {
@@ -443,11 +418,11 @@ public class BinaryTree : IDataStructure
         return -1;
     }
 
-    public void AddNode(GameObject parent)
+    public void Add_Node(GameObject clicked_box,long value)
     {
-        GameObject new_node = Instantiate(node, parent.transform);
+        GameObject new_node = Instantiate(node, clicked_box.transform);
 
-        if (parent.name.Contains("LEFT"))
+        if (clicked_box.name.Contains("LEFT"))
         {
             new_node.transform.localPosition = new Vector3(-11f, -12f, 0);
             new_node.name = "Left";
@@ -458,15 +433,48 @@ public class BinaryTree : IDataStructure
             new_node.name = "Right";
         }
 
-        GameObject node_parent = parent.transform.parent.gameObject;
+        GameObject clicked_box_parent = clicked_box.transform.parent.gameObject;
 
-        Text parent_node = new_node.GetComponentInChildren<Text>();
-        parent_node.text = node_parent.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text;
+        Text parent_of_new_node = new_node.GetComponentInChildren<Text>();
+        parent_of_new_node.text = clicked_box_parent.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text;
 
 
         new_node.transform.SetParent(view.transform);
 
-        parent.GetComponent<Image>().color = new Vector4(0, 0, 0, 0);
+        new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = value.ToString();
 
+        clicked_box.GetComponent<Image>().color = new Vector4(0, 0, 0, 0);
+
+        Add_To_Array(new_node);
+
+    }
+
+    public void Add_To_Array(GameObject node)
+    {
+        long value = long.Parse(node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text);
+        if (view.transform.childCount == 1)
+        {
+            tree[0] = value;
+        }
+        else
+        {
+            int position = Get_Parent_Position(node);
+
+            if (position == -1)
+            {
+                return;
+            }
+            else
+            {
+                if (node.name == "Left")
+                {
+                    tree[2 * position + 1] = value;
+                }
+                else if (node.name == "Right")
+                {
+                    tree[2 * position + 2] = value;
+                }
+            }
+        }
     }
 }
