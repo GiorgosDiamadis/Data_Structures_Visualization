@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class EnterValue : MonoBehaviour, IPointerClickHandler
@@ -18,7 +16,7 @@ public class EnterValue : MonoBehaviour, IPointerClickHandler
         long value = long.Parse(input_field.text);
         data.text = value.ToString();
         input_field.gameObject.SetActive(false);
-        print(transform.gameObject);
+
         FindObjectOfType<BinaryTree>().Add_To_Array(transform.gameObject);
     }
 }
