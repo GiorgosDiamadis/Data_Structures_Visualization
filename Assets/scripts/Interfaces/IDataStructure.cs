@@ -46,13 +46,12 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
         pseudocode_panel = GameHandler.Instance.Pseudocode_panel;
 
-        GameHandler.Instance.On_Data_Structure_Change += DestroyPseudocode;
+        GameHandler.Instance.On_Data_Structure_Change += Destroy_Pseudocode;
     }
 
-    private void DestroyPseudocode(IDataStructure obj)
+    private void Destroy_Pseudocode(IDataStructure obj)
     {
-        if (pseudocode != null)
-            Destroy(pseudocode);
+        pseudocode_panel.transform.Destroy_All_Children();
     }
 
     protected void highlight_pseudocode(int index, bool is_open)
@@ -63,14 +62,18 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     protected void Load_Pseudocode(string method)
     {
-        if (pseudocode != null)
+        //if (pseudocode != null)
+        //    Destroy(pseudocode);
+
+        if(pseudocode==null || pseudocode.name!= "pseudocode_" + method)
+        {
             Destroy(pseudocode);
+            pseudocode = Resources.Load("prefabs/pseudocode/" + pseudocode_dir + "/pseudocode_" + method) as GameObject;
+            pseudocode = Instantiate(pseudocode, pseudocode_panel.transform);
+            pseudocode.name = "pseudocode_" + method;
 
-        pseudocode = Resources.Load("prefabs/pseudocode/" + pseudocode_dir + "/pseudocode_" + method) as GameObject;
-        pseudocode = Instantiate(pseudocode, pseudocode_panel.transform);
-        pseudocode.name = "pseudocode_" + method;
-
-        pseudocode.GetComponent<RectTransform>().DOScale(1f, speed);
+            pseudocode.GetComponent<RectTransform>().DOScale(1f, speed);
+        }
     }
     public void OnPointerClick(PointerEventData eventData)
     {

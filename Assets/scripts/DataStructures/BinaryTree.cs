@@ -378,6 +378,12 @@ public class BinaryTree : IDataStructure
         n.transform.localScale = new Vector3(1f,1f,1f);
     }
 
+    /*
+     *Create a tree structure given it's array representation.
+     *If parent node is at position i,then it's left child is located at 2*i+1 and it's right child at 2*i+2
+     *
+     *A Queue data structure is necessary because the values in the array are located exactly like a level order traversal
+     */
     private void Create_Tree_From_Array()
     {
         head = new BinaryTreeNode(tree[0], 0);
