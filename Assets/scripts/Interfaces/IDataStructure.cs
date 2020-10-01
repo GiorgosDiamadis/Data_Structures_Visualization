@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using System;
 
 public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 {
@@ -44,8 +45,15 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         green_cell = GameHandler.Instance.Green_cell;
 
         pseudocode_panel = GameHandler.Instance.Pseudocode_panel;
+
+        GameHandler.Instance.On_Data_Structure_Change += DestroyPseudocode;
     }
 
+    private void DestroyPseudocode(IDataStructure obj)
+    {
+        if (pseudocode != null)
+            Destroy(pseudocode);
+    }
 
     protected void highlight_pseudocode(int index, bool is_open)
     {
@@ -87,7 +95,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         new_node_data = new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0,0);
 
         if (not_empty_data)
-            new_node_data.text = (Random.Range(-100, 100)).ToString();
+            new_node_data.text = (UnityEngine.Random.Range(-100, 100)).ToString();
         else
             new_node_data.text = "";
 
@@ -104,7 +112,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         if (empty_data)
             new_node_data.text = " ";
         else if (!data.HasValue)
-            new_node_data.text = (Random.Range(-100, 100)).ToString();
+            new_node_data.text = (UnityEngine.Random.Range(-100, 100)).ToString();
         else if(data.HasValue)
             new_node_data.text = (data.Value).ToString();
         
