@@ -87,22 +87,222 @@ public class BinaryTree : IDataStructure
         StartCoroutine(In_Order_Cor());
     }
 
-    private void Load_Pseudocode_Nodes()
+    public void Post_Order_Traversal()
+    {
+        head = null;
+        if (pseudocode_panel.transform.childCount != 0)
+        {
+            pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
+        }
+
+        Create_Tree_From_Array();
+        StartCoroutine(Post_Order_Cor());
+    }
+
+    private IEnumerator Post_Order_Cor()
+    {
+
+        Load_Pseudocode_Nodes("Post Order");
+        yield return new WaitForSeconds(speed);
+
+        BinaryTreeNode curr = null;
+        BinaryTreeNode prev = null;
+
+        Stack<BinaryTreeNode> S = new Stack<BinaryTreeNode>();
+        curr = head;
+
+        S.Push(curr);
+
+        while (S.Count != 0)
+        {
+            curr = S.Peek();
+            curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            yield return new WaitForSeconds(speed);
+            curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            if (prev == null || prev.left == curr ||
+                                        prev.right == curr)
+            {
+
+                if (curr.left != null)
+                {
+                    S.Push(curr.left);
+
+                }
+                else if (curr.right != null)
+                {
+                    S.Push(curr.right);
+                }
+                else
+                {
+                    S.Pop();
+                    curr.scene_object.transform.Set_Child_Active(true, 1);
+
+                    Create_Pseudocode_Nodes(curr);
+
+                    yield return new WaitForSeconds(speed);
+                }
+            }
+            else if (curr.left == prev)
+            {
+                if (curr.right != null)
+                {
+                    S.Push(curr.right);
+
+                }
+                else
+                {
+                    S.Pop();
+                    curr.scene_object.transform.Set_Child_Active(true, 1);
+
+                    Create_Pseudocode_Nodes(curr);
+
+                    yield return new WaitForSeconds(speed);
+
+                }
+            }
+            else if (curr.right == prev)
+            {
+                S.Pop();
+                curr.scene_object.transform.Set_Child_Active(true, 1);
+
+                Create_Pseudocode_Nodes(curr);
+
+                yield return new WaitForSeconds(speed);
+
+            }
+
+            prev = curr;
+        }
+        yield return new WaitForSeconds(speed);
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+            view.transform.Set_Child_Active(false, i, 1);
+        }
+    }
+
+    public void Pre_Order_Traversal()
+    {
+        head = null;
+        if (pseudocode_panel.transform.childCount != 0)
+        {
+            pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
+        }
+
+        Create_Tree_From_Array();
+        StartCoroutine(Pre_Order_Cor());
+    }
+
+    private IEnumerator Pre_Order_Cor()
+    {
+        Load_Pseudocode_Nodes("Pre Order");
+        yield return new WaitForSeconds(speed);
+
+        Stack<BinaryTreeNode> nodeStack = new Stack<BinaryTreeNode>();
+        BinaryTreeNode curr = null;
+
+        nodeStack.Push(head);
+
+        while (nodeStack.Count > 0)
+        {
+
+            curr = nodeStack.Peek();
+            curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            yield return new WaitForSeconds(speed);
+            curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+
+            nodeStack.Pop();
+
+            curr.scene_object.transform.Set_Child_Active(true, 1);
+
+            Create_Pseudocode_Nodes(curr);
+
+            yield return new WaitForSeconds(speed);
+
+            if (curr.right != null)
+            {
+                nodeStack.Push(curr.right);
+            }
+            if (curr.left != null)
+            {
+                nodeStack.Push(curr.left);
+            }
+        }
+
+        yield return new WaitForSeconds(speed);
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+            view.transform.Set_Child_Active(false, i, 1);
+        }
+    }
+
+    public void Level_Order_Traversal()
+    {
+        head = null;
+        if (pseudocode_panel.transform.childCount != 0)
+        {
+            pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
+        }
+
+        Create_Tree_From_Array();
+        StartCoroutine(Level_Order_Cor());
+    }
+    private IEnumerator Level_Order_Cor()
+    {
+        Load_Pseudocode_Nodes("Level Order");
+        yield return new WaitForSeconds(speed);
+
+        Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
+        queue.Enqueue(head);
+
+        while (queue.Count != 0)
+        {
+            BinaryTreeNode curr = queue.Dequeue();
+
+            curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            yield return new WaitForSeconds(speed);
+            curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            curr.scene_object.transform.Set_Child_Active(true, 1);
+            Create_Pseudocode_Nodes(curr);
+            yield return new WaitForSeconds(speed);
+
+            if (curr.left != null)
+            {
+                queue.Enqueue(curr.left);
+            }
+            if (curr.right != null)
+            {
+                queue.Enqueue(curr.right);
+            }
+        }
+
+        yield return new WaitForSeconds(speed);
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+            view.transform.Set_Child_Active(false, i, 1);
+        }
+
+    }
+
+    private void Load_Pseudocode_Nodes(string trav)
     {
         if (p != null)
             Destroy(p);
 
         p = Resources.Load("prefabs/pseudocode/Traversal/Traversal") as GameObject;
+        p.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0).text = $"{trav} Traversal:";
         p = Instantiate(p, pseudocode_panel.transform);
         p.GetComponent<RectTransform>().DOScale(1f, speed);
-
-
-
     }
+
+
+
     private IEnumerator In_Order_Cor()
     {
 
-        Load_Pseudocode_Nodes();
+        Load_Pseudocode_Nodes("In Order");
         yield return new WaitForSeconds(speed);
 
         Stack<BinaryTreeNode> s = new Stack<BinaryTreeNode>();
@@ -131,6 +331,10 @@ public class BinaryTree : IDataStructure
             }
 
             curr = s.Pop();
+
+            //curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            //yield return new WaitForSeconds(speed);
+            //curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
             curr.scene_object.transform.Set_Child_Active(true, 1);
 
