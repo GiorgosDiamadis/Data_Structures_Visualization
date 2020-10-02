@@ -114,6 +114,8 @@ public class BinaryTree : IDataStructure
     {
 
         Load_Pseudocode_Nodes("Post Order");
+
+        Load_Pseudocode("postorder");
         yield return new WaitForSeconds(speed);
 
         BinaryTreeNode curr = null;
@@ -214,6 +216,8 @@ public class BinaryTree : IDataStructure
     private IEnumerator Pre_Order_Cor()
     {
         Load_Pseudocode_Nodes("Pre Order");
+
+        Load_Pseudocode("preorder");
         yield return new WaitForSeconds(speed);
 
         Stack<BinaryTreeNode> nodeStack = new Stack<BinaryTreeNode>();
@@ -260,6 +264,7 @@ public class BinaryTree : IDataStructure
     {
         if (GameHandler.Instance.is_running)
             return;
+
         head = null;
         if (pseudocode_panel.transform.childCount != 0)
         {
@@ -272,16 +277,28 @@ public class BinaryTree : IDataStructure
     }
     private IEnumerator Level_Order_Cor()
     {
-        Load_Pseudocode_Nodes("Level Order");
+        Load_Pseudocode_Nodes("Level Order"); 
+        Load_Pseudocode("levelorder");
+
         yield return new WaitForSeconds(speed);
 
         Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
         queue.Enqueue(head);
+        
+        highlight_pseudocode(0, is_open: true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(0, is_open: false);
+
+
+        highlight_pseudocode(1, is_open: true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(1, is_open: false);
 
         while (queue.Count != 0)
         {
             BinaryTreeNode curr = queue.Dequeue();
 
+            highlight_pseudocode(2, is_open: true);
             curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             yield return new WaitForSeconds(speed);
             curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
@@ -289,7 +306,16 @@ public class BinaryTree : IDataStructure
             curr.scene_object.transform.Set_Child_Active(true, 1);
             Create_Pseudocode_Nodes(curr);
             yield return new WaitForSeconds(speed);
+            highlight_pseudocode(2, is_open: false);
 
+
+            highlight_pseudocode(3, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(3, is_open: false);
+
+            highlight_pseudocode(4, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(4, is_open: false);
             if (curr.left != null)
             {
                 queue.Enqueue(curr.left);
@@ -298,6 +324,10 @@ public class BinaryTree : IDataStructure
             {
                 queue.Enqueue(curr.right);
             }
+
+            highlight_pseudocode(1, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(1, is_open: false);
         }
 
         yield return new WaitForSeconds(speed);
@@ -310,13 +340,18 @@ public class BinaryTree : IDataStructure
 
     private void Load_Pseudocode_Nodes(string trav)
     {
-        if (p != null)
-            Destroy(p);
+        if (p == null || p.name != trav)
+        {
+            if(p!=null)
+                Destroy(p);
 
-        p = Resources.Load("prefabs/pseudocode/Traversal/Traversal") as GameObject;
-        p.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0).text = $"{trav} Traversal:";
-        p = Instantiate(p, pseudocode_panel.transform);
-        p.GetComponent<RectTransform>().DOScale(1f, speed);
+            p = Resources.Load("prefabs/pseudocode/Traversal/Traversal") as GameObject;
+            p.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0).text = $"{trav} Traversal:";
+            p = Instantiate(p, pseudocode_panel.transform);
+            p.name = trav;
+            p.GetComponent<RectTransform>().DOScale(1f, speed);
+        }
+          
     }
 
 
@@ -326,6 +361,7 @@ public class BinaryTree : IDataStructure
 
 
         Load_Pseudocode_Nodes("In Order");
+        Load_Pseudocode("inorder");
         yield return new WaitForSeconds(speed);
 
         Stack<BinaryTreeNode> s = new Stack<BinaryTreeNode>();
@@ -493,10 +529,6 @@ public class BinaryTree : IDataStructure
         Text parent_of_new_node = new_node.GetComponentInChildren<Text>();
         parent_of_new_node.text = clicked_box_parent.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text;
 
-
-
-
-        //clicked_box.GetComponent<Image>().color = new Vector4(0, 0, 0, 0);
         clicked_box.SetActive(false);
 
         new_node.transform.SetParent(view.transform);

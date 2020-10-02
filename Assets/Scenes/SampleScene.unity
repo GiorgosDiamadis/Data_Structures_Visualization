@@ -2230,7 +2230,7 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -4415,7 +4415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692174137b164364f97c70ebabb510e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pseudocode_dir: 
+  pseudocode_dir: Tree_Traversals
   node: {fileID: 5210076550946774919, guid: 0ea7fd2d6fa21a147909c3899908d177, type: 3}
   arrow: {fileID: 0}
   e: {fileID: 5423148681795926632, guid: ab210211459f4664ca4bff676e028e05, type: 3}
