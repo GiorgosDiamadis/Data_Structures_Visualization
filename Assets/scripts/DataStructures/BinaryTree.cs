@@ -75,7 +75,6 @@ public class BinaryTree : IDataStructure
         {
             scales[i] = e.transform.Get_Child(i, 3).localScale;
         }
-        e = null;
     }
 
     public void In_Order_Traversal()
@@ -578,5 +577,12 @@ public class BinaryTree : IDataStructure
             }
         }
         return -1;
+    }
+
+    public void Value_Changed(GameObject node_to_be_changed, long new_value)
+    {
+        int pos = Get_Array_Position(node_to_be_changed);
+        tree[pos] = new_value;
+        node_to_be_changed.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = new_value.ToString();
     }
 }
