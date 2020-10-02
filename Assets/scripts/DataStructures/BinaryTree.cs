@@ -448,6 +448,13 @@ public class BinaryTree : IDataStructure
 
     public void Add_Node(GameObject clicked_box,long value)
     {
+
+        if (view.transform.Does_Data_Exist(value))
+        {
+            UIHandler.Instance.show_message("You can't have duplicated nodes");
+            return;
+        }
+
         GameObject new_node = Instantiate(node, clicked_box.transform);
 
         if (clicked_box.name.Contains("LEFT"))
@@ -509,6 +516,15 @@ public class BinaryTree : IDataStructure
         }
 
         new_node.transform.localPosition = positions[new_node_position];
+
+        if (new_node_position >= 15)
+        {
+            new_node.transform.Set_Child_Active(active: false, 3);
+            new_node.transform.Set_Child_Active(active: false, 4);
+            new_node.transform.Set_Child_Active(active: false, 5);
+            new_node.transform.Set_Child_Active(active: false, 6);
+
+        }
 
     }
 
