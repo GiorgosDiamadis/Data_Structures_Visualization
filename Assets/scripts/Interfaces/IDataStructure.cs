@@ -62,9 +62,6 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     protected void Load_Pseudocode(string method)
     {
-        //if (pseudocode != null)
-        //    Destroy(pseudocode);
-
         if(pseudocode==null || pseudocode.name!= "pseudocode_" + method)
         {
             Destroy(pseudocode);
@@ -123,5 +120,4 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         return new_node;
 
     }
-
 }
