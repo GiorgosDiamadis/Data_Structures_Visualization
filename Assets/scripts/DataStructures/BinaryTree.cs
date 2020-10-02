@@ -29,11 +29,16 @@ public class BinaryTree : IDataStructure
 {
     private static int max_children = 1024;
     private long[] tree;
-    private Vector3[,,] info = new Vector3[31,31,31];
+    public GameObject e;
+    private Vector3[] positions = new Vector3[31];
+    private float[] rotations_left = new float[15];
+    private float[] rotations_right = new float[15];
 
-    BinaryTreeNode head;
-    //[SerializeField] private GameObject traversal_prefab = null;
-    static GameObject p;
+    private Vector3[] scales = new Vector3[15];
+
+
+    private BinaryTreeNode head;
+    private static GameObject p;
 
     public override void Init()
     {
@@ -46,12 +51,32 @@ public class BinaryTree : IDataStructure
             tree[i] = Int64.MaxValue;
         }
 
-       GameObject node =  create_node(empty_data: false);
+        GameObject node =  create_node(empty_data: false);
         Add_To_Array(node);
+
+        Get_Node_Positions_From_Tree_Prefab();
 
     }
 
-   
+    private void Get_Node_Positions_From_Tree_Prefab()
+    {
+
+        for (int i = 1; i < e.transform.childCount; i++)
+        {
+            positions[i] = e.transform.GetChild(i).localPosition;
+        }
+        for(int i = 0; i < 15; i++)
+        {
+            rotations_left[i] = e.transform.Get_Child(i, 3).rotation.eulerAngles.z;
+            rotations_right[i] = e.transform.Get_Child(i, 4).rotation.eulerAngles.z;
+
+        }
+        for (int i = 0; i < 15; i++)
+        {
+            scales[i] = e.transform.Get_Child(i, 3).localScale;
+        }
+        e = null;
+    }
 
     public void In_Order_Traversal()
     {
@@ -442,22 +467,76 @@ public class BinaryTree : IDataStructure
         parent_of_new_node.text = clicked_box_parent.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text;
 
 
+
+
+        //clicked_box.GetComponent<Image>().color = new Vector4(0, 0, 0, 0);
+        clicked_box.SetActive(false);
+
         new_node.transform.SetParent(view.transform);
 
         new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = value.ToString();
 
-        clicked_box.GetComponent<Image>().color = new Vector4(0, 0, 0, 0);
+        int new_node_position =  Add_To_Array(new_node);
 
-        Add_To_Array(new_node);
+        GameObject parent_of_new_node_object=null;
+
+        for(int i = 0; i < view.transform.childCount; i++)
+        {
+            if(view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(i,0, 0).text == parent_of_new_node.text)
+            {
+                parent_of_new_node_object = view.transform.Get_Child_Object(i);
+                break;
+            }
+        }
+
+        int parent_position = Get_Array_Position(parent_of_new_node_object);
+
+        if (new_node.name == "Left")
+        {
+            parent_of_new_node_object.transform.Get_Child(3).localScale = scales[parent_position];
+            parent_of_new_node_object.transform.Get_Child(3).eulerAngles = new Vector3(0,0,rotations_left[parent_position]) ;
+
+            //parent_of_new_node_object.transform.Get_Child(3).Rotate(parent_of_new_node_object.transform.Get_Child(3).rotation.eulerAngles.With(z:-rotations_left[parent_position]));
+
+        }
+        else
+        {
+            parent_of_new_node_object.transform.Get_Child(4).localScale = scales[parent_position];
+            parent_of_new_node_object.transform.Get_Child(4).eulerAngles = new Vector3(0, 0, rotations_right[parent_position]);
+
+            //parent_of_new_node_object.transform.Get_Child(4).Rotate(parent_of_new_node_object.transform.Get_Child(4).rotation.eulerAngles.With(z: rotations_left[parent_position]));
+
+        }
+
+        new_node.transform.localPosition = positions[new_node_position];
 
     }
 
-    public void Add_To_Array(GameObject node)
+    private int Get_Array_Position(GameObject node)
+    {
+        long value = long.Parse(node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text);
+
+        for(int i = 0; i < tree.Length; i++)
+        {
+            if (tree[i] < Int64.MaxValue)
+            {
+                if(tree[i] == value)
+                {
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    public int Add_To_Array(GameObject node)
     {
         long value = long.Parse(node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text);
         if (view.transform.childCount == 1)
         {
             tree[0] = value;
+            return 0;
         }
         else
         {
@@ -465,19 +544,23 @@ public class BinaryTree : IDataStructure
 
             if (position == -1)
             {
-                return;
+                return -1;
             }
             else
             {
                 if (node.name == "Left")
                 {
                     tree[2 * position + 1] = value;
+                    return 2 * position + 1;
                 }
                 else if (node.name == "Right")
                 {
                     tree[2 * position + 2] = value;
+                    return 2 * position + 2;
+
                 }
             }
         }
+        return -1;
     }
 }
