@@ -122,18 +122,37 @@ public class BinaryTree : IDataStructure
         curr = head;
 
         S.Push(curr);
+        highlight_pseudocode(0, is_open: true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(0, is_open: false);
+
+        highlight_pseudocode(1, is_open: true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(1, is_open: false);
+
 
         while (S.Count != 0)
         {
             curr = S.Peek();
+            highlight_pseudocode(2, is_open: true);
+
             curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             yield return new WaitForSeconds(speed);
             curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            highlight_pseudocode(2, is_open: false);
 
-            if (prev == null || prev.left == curr ||
-                                        prev.right == curr)
+
+            
+
+            if (prev == null || prev.left == curr || prev.right == curr)
             {
+                highlight_pseudocode(3, is_open: true);
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(3, is_open: false);
 
+                highlight_pseudocode(4, is_open: true);
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(4, is_open: false);
                 if (curr.left != null)
                 {
                     S.Push(curr.left);
@@ -155,6 +174,14 @@ public class BinaryTree : IDataStructure
             }
             else if (curr.left == prev)
             {
+                highlight_pseudocode(5, is_open: true);
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(5, is_open: false);
+
+                highlight_pseudocode(6, is_open: true);
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(6, is_open: false);
+
                 if (curr.right != null)
                 {
                     S.Push(curr.right);
@@ -173,16 +200,27 @@ public class BinaryTree : IDataStructure
             }
             else if (curr.right == prev)
             {
+                highlight_pseudocode(7, is_open: true);
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(7, is_open: false);
+
+
+                highlight_pseudocode(8, is_open: true);
+
                 S.Pop();
                 curr.scene_object.transform.Set_Child_Active(true, 1);
 
                 Create_Pseudocode_Nodes(curr);
 
                 yield return new WaitForSeconds(speed);
+                highlight_pseudocode(8, is_open: false);
 
             }
 
             prev = curr;
+            highlight_pseudocode(1, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(1, is_open: false);
         }
         yield return new WaitForSeconds(speed);
         for (int i = 0; i < view.transform.childCount; i++)
