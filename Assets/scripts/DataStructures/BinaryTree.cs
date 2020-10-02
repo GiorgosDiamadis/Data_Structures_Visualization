@@ -217,15 +217,26 @@ public class BinaryTree : IDataStructure
         Load_Pseudocode("preorder");
         yield return new WaitForSeconds(speed);
 
+        highlight_pseudocode(0, is_open: true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(0, is_open: false);
+
         Stack<BinaryTreeNode> nodeStack = new Stack<BinaryTreeNode>();
         BinaryTreeNode curr = null;
 
         nodeStack.Push(head);
 
+
+        highlight_pseudocode(1, is_open: true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(1, is_open: false);
+
         while (nodeStack.Count > 0)
         {
 
+            highlight_pseudocode(2, is_open: true);
             curr = nodeStack.Peek();
+
             curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             yield return new WaitForSeconds(speed);
             curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
@@ -238,6 +249,16 @@ public class BinaryTree : IDataStructure
             Create_Pseudocode_Nodes(curr);
 
             yield return new WaitForSeconds(speed);
+            highlight_pseudocode(2, is_open: false);
+
+
+            highlight_pseudocode(3, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(3, is_open: false);
+            
+            highlight_pseudocode(4, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(4, is_open: false);
 
             if (curr.right != null)
             {
@@ -247,6 +268,10 @@ public class BinaryTree : IDataStructure
             {
                 nodeStack.Push(curr.left);
             }
+
+            highlight_pseudocode(1, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(1, is_open: false);
         }
 
         yield return new WaitForSeconds(speed);
@@ -355,8 +380,6 @@ public class BinaryTree : IDataStructure
 
     private IEnumerator In_Order_Cor()
     {
-
-
         Load_Pseudocode_Nodes("In Order");
         Load_Pseudocode("inorder");
 
