@@ -16,6 +16,82 @@ public class Input : MonoBehaviour
         input_field.text = "";
     }
 
+
+    public void avl_add()
+    {
+        if (GameHandler.Instance.is_running)
+            return;
+
+        data = get_data(input_field);
+
+        if (data < Int64.MaxValue)
+        {
+            if (GameHandler.Instance.Can_Add())
+            {
+                AVLTree avl = transform.GetComponentInParent<AVLTree>();
+                StartCoroutine(avl.add(data));
+                GameHandler.Instance.is_running = true;
+                data = Int64.MaxValue;
+            }
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Please enter a valid number");
+        }
+
+        clear();
+    }
+
+    public void avl_search()
+    {
+        if (GameHandler.Instance.is_running)
+            return;
+
+        data = get_data(input_field);
+
+        if (data < Int64.MaxValue)
+        {
+            if (GameHandler.Instance.Can_Add())
+            {
+                AVLTree avl = transform.GetComponentInParent<AVLTree>();
+                StartCoroutine(avl.search(data));
+                GameHandler.Instance.is_running = true;
+                data = Int64.MaxValue;
+            }
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Please enter a valid number");
+        }
+
+        clear();
+    }
+
+    public void avl_delete()
+    {
+        if (GameHandler.Instance.is_running)
+            return;
+
+        data = get_data(input_field);
+
+        if (data < Int64.MaxValue)
+        {
+            if (GameHandler.Instance.Can_Add())
+            {
+                AVLTree avl = transform.GetComponentInParent<AVLTree>();
+                StartCoroutine(avl.delete(data));
+                GameHandler.Instance.is_running = true;
+                data = Int64.MaxValue;
+            }
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Please enter a valid number");
+        }
+
+        clear();
+    }
+
     public void stack_push()
     {
 
