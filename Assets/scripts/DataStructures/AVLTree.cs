@@ -5,33 +5,65 @@ using UnityEngine;
 
 public class AVLTree : BinaryTree
 {
+    public override void Init()
+    {
+        base.Init();
+        //node.transform.Get_Component_In_Child<ClickAddNode>(5).enabled = false;
+        //node.transform.Get_Component_In_Child<ClickAddNode>(6).enabled = false;
 
+    }
 
     public IEnumerator add(long data)
     {
-        int i = 0;
+        int new_node_position = 0;
+        int parent_position = -1;
+        bool is_left_child = false;
 
-        while (i < tree.Length)
+        while (new_node_position < tree.Length)
         {
-            if (tree[i] < Int64.MaxValue)
+            if (tree[new_node_position] < Int64.MaxValue)
             {
-                if (data < tree[i])
-                    i = i * 2 + 1;
+                print(tree[new_node_position]);
+                if (data < tree[new_node_position])
+                {
+                    parent_position = new_node_position;
+                    new_node_position = new_node_position * 2 + 1;
+                    is_left_child = true;
+                }
                 else
-                    i = i * 2 + 2;
-
+                {
+                    parent_position = new_node_position;
+                    new_node_position = new_node_position * 2 + 2;
+                }
             }
             else
             {
-                print(i);
                 break;
             }
         }
-        yield return new WaitForSeconds(speed);
+
+        yield return null;
+
+        tree[new_node_position] = data;
+
+        GameObject new_node = Instantiate(node, view.transform);
+        new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
+
+        new_node.transform.localPosition = positions[new_node_position];
+        GameObject parent_node = Find_In_View(tree[parent_position]);
+
+        if (is_left_child)
+        {
+            parent_node.transform.Get_Child(3).localScale = scales[parent_position];
+            parent_node.transform.Get_Child(3).eulerAngles = new Vector3(0, 0, rotations_left[parent_position]);
+        }
+        else
+        {
+            parent_node.transform.Get_Child(4).localScale = scales[parent_position];
+            parent_node.transform.Get_Child(4).eulerAngles = new Vector3(0, 0, rotations_right[parent_position]);
+        }
 
         GameHandler.Instance.is_running = false;
-        
-
     }
 
     public IEnumerator delete(long data)

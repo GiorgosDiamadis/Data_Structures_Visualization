@@ -8,6 +8,7 @@ public class ChangeValue : MonoBehaviour,IPointerClickHandler
     [SerializeField] private TMPro.TMP_InputField inputField;
     public void OnPointerClick(PointerEventData eventData)
     {
+        print(gameObject);
         inputField.gameObject.SetActive(true);
     }
    public void Change_Value()

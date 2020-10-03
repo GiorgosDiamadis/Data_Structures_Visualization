@@ -28,11 +28,11 @@ public class BinaryTree : IDataStructure
     private static int max_children = 1024;
     protected static long[] tree;
     public GameObject e;
-    private Vector3[] positions = new Vector3[31];
-    private float[] rotations_left = new float[15];
-    private float[] rotations_right = new float[15];
+    protected Vector3[] positions = new Vector3[31];
+    protected float[] rotations_left = new float[15];
+    protected float[] rotations_right = new float[15];
 
-    private Vector3[] scales = new Vector3[15];
+    protected Vector3[] scales = new Vector3[15];
 
 
     private BinaryTreeNode head;
@@ -580,7 +580,7 @@ public class BinaryTree : IDataStructure
         }
     }
 
-    private GameObject Find_In_View(long v)
+    public GameObject Find_In_View(long v)
     {
         for (int i = 0; i < view.transform.childCount; i++)
         {
@@ -592,7 +592,7 @@ public class BinaryTree : IDataStructure
         return null;
     }
 
-    private int Get_Parent_Position(GameObject node)
+    public int Get_Parent_Position(GameObject node)
     {
         int value = int.Parse(node.GetComponentInChildren<Text>().text);
         for (int i = 0; i < max_children; i++)
@@ -678,7 +678,7 @@ public class BinaryTree : IDataStructure
 
     }
 
-    private int Get_Array_Position(GameObject node)
+    public int Get_Array_Position(GameObject node)
     {
         long value = long.Parse(node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text);
 

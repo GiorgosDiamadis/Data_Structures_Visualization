@@ -20,7 +20,7 @@ public class Input : MonoBehaviour
     public void avl_add()
     {
 
-        print(GameHandler.Instance.is_running);
+
 
         if (GameHandler.Instance.is_running)
             return;
@@ -30,8 +30,8 @@ public class Input : MonoBehaviour
         if (data < Int64.MaxValue)
         {
                 AVLTree avl = transform.GetComponentInParent<AVLTree>();
-                StartCoroutine(avl.add(data));
                 GameHandler.Instance.is_running = true;
+                StartCoroutine(avl.add(data));
                 data = Int64.MaxValue;
         }
         else
