@@ -26,7 +26,7 @@ class BinaryTreeNode
 public class BinaryTree : IDataStructure
 {
     private static int max_children = 1024;
-    private static long[] tree;
+    protected static long[] tree;
     public GameObject e;
     private Vector3[] positions = new Vector3[31];
     private float[] rotations_left = new float[15];

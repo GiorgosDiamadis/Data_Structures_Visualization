@@ -33,6 +33,7 @@ public class StackWithArray : IDataStructure, IStack
     {
         if (GameHandler.Instance.is_running)
             return;
+
         GameHandler.Instance.is_running = true;
 
         StartCoroutine(peek_cor());
