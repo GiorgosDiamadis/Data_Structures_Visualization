@@ -8,9 +8,6 @@ public class AVLTree : BinaryTree
     public override void Init()
     {
         base.Init();
-        //node.transform.Get_Component_In_Child<ClickAddNode>(5).enabled = false;
-        //node.transform.Get_Component_In_Child<ClickAddNode>(6).enabled = false;
-
     }
 
     public IEnumerator add(long data)
@@ -23,7 +20,6 @@ public class AVLTree : BinaryTree
         {
             if (tree[new_node_position] < Int64.MaxValue)
             {
-                print(tree[new_node_position]);
                 if (data < tree[new_node_position])
                 {
                     parent_position = new_node_position;
@@ -34,6 +30,7 @@ public class AVLTree : BinaryTree
                 {
                     parent_position = new_node_position;
                     new_node_position = new_node_position * 2 + 2;
+                    is_left_child = false;
                 }
             }
             else
@@ -44,25 +41,34 @@ public class AVLTree : BinaryTree
 
         yield return null;
 
-        tree[new_node_position] = data;
-
-        GameObject new_node = Instantiate(node, view.transform);
-        new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
-
-        new_node.transform.localPosition = positions[new_node_position];
-        GameObject parent_node = Find_In_View(tree[parent_position]);
-
-        if (is_left_child)
+        if(new_node_position < 31)
         {
-            parent_node.transform.Get_Child(3).localScale = scales[parent_position];
-            parent_node.transform.Get_Child(3).eulerAngles = new Vector3(0, 0, rotations_left[parent_position]);
-        }
-        else
-        {
-            parent_node.transform.Get_Child(4).localScale = scales[parent_position];
-            parent_node.transform.Get_Child(4).eulerAngles = new Vector3(0, 0, rotations_right[parent_position]);
-        }
+            tree[new_node_position] = data;
 
+            GameObject new_node = Instantiate(node, view.transform);
+            new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
+
+            new_node.transform.localPosition = positions[new_node_position];
+            GameObject parent_node = Find_In_View(tree[parent_position]);
+
+            if (is_left_child)
+            {
+                parent_node.transform.Get_Child(2).localScale = scales[parent_position];
+                parent_node.transform.Get_Child(2).eulerAngles = new Vector3(0, 0, rotations_left[parent_position]);
+            }
+            else
+            {
+                parent_node.transform.Get_Child(3).localScale = scales[parent_position];
+                parent_node.transform.Get_Child(3).eulerAngles = new Vector3(0, 0, rotations_right[parent_position]);
+            }
+
+            if (new_node_position >= 15)
+            {
+                new_node.transform.Set_Child_Active(active: false, 2);
+                new_node.transform.Set_Child_Active(active: false, 3);
+
+            }
+        }
         GameHandler.Instance.is_running = false;
     }
 
