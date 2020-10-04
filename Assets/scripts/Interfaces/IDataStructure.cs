@@ -24,7 +24,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     protected int init_number = 3;
     protected int max_counter;
     protected int max_nodes;
-    [SerializeField] protected GameObject node = null;
+    [SerializeField] protected GameObject node_prefab = null;
     [SerializeField] private GameObject arrow = null;
 
     protected static GameObject pseudocode = null;
@@ -91,7 +91,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     protected GameObject create_cell(bool not_empty_data=false)
     {
-        new_node = Instantiate(node, view.transform);
+        new_node = Instantiate(node_prefab, view.transform);
         new_node_data = new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0,0);
 
         if (not_empty_data)
@@ -106,7 +106,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     protected GameObject create_node(long? data = null, bool empty_data = false)
     {
-        new_node = Instantiate(node, view.transform);
+        new_node = Instantiate(node_prefab, view.transform);
         new_node_data = new_node.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
 
         if (empty_data)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,118 +9,84 @@ public class AVLTree : BinaryTree
     public override void Init()
     {
         base.Init();
-        head = new BinaryTreeNode(tree[0],0);
-        head.scene_object = Find_In_View(head.data);
+        head = new BinaryTreeNode(tree[0]);
+        head.scene_object = Find_In_View(tree[0]);
     }
 
     public IEnumerator add(long data)
     {
 
         yield return new WaitForSeconds(.1f);
-        head = insert(head, data,0);
-        preOrder(head);
+        head = insert(head, data);
+        Update_Array();
 
-        //int new_node_position = 0;
-        //int parent_position = -1;
-        //bool is_left_child = false;
-        //GameObject current = null;
 
-        //while (new_node_position < tree.Length)
-        //{
-        //    if (tree[new_node_position] < Int64.MaxValue)
-        //    {
+        Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
+        BinaryTreeNode current = null;
+        queue.Enqueue(head);
 
-        //        if (data < tree[new_node_position])
-        //        {
-        //            parent_position = new_node_position;
-        //            new_node_position = new_node_position * 2 + 1;
+        while (queue.Count != 0)
+        {
+            current = queue.Dequeue();
 
-        //            current = Find_In_View(tree[parent_position]);
+            if(current != head)
+                current.scene_object.transform.localPosition = positions[current.position];
 
-        //            current.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
-        //            yield return new WaitForSeconds(speed);
-        //            current.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            if (current.left != null)
+                queue.Enqueue(current.left);
 
-        //            is_left_child = true;
-        //        }
-        //        else
-        //        {
-        //            parent_position = new_node_position;
-        //            new_node_position = new_node_position * 2 + 2;
-
-        //            current = Find_In_View(tree[parent_position]);
-
-        //            current.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
-        //            yield return new WaitForSeconds(speed);
-        //            current.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-
-        //            is_left_child = false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        break;
-        //    }
-        //}
-
-        //yield return null;
-
-        //if(new_node_position < 31)
-        //{
-        //    tree[new_node_position] = data;
-
-        //    GameObject new_node = Instantiate(node, view.transform);
-        //    new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
-
-        //    new_node.transform.localPosition = positions[new_node_position];
-        //    GameObject parent_node = Find_In_View(tree[parent_position]);
-
-        //    if (is_left_child)
-        //    {
-        //        parent_node.transform.Get_Child(2).localScale = scales[parent_position];
-        //        parent_node.transform.Get_Child(2).eulerAngles = new Vector3(0, 0, rotations_left[parent_position]);
-        //    }
-        //    else
-        //    {
-        //        parent_node.transform.Get_Child(3).localScale = scales[parent_position];
-        //        parent_node.transform.Get_Child(3).eulerAngles = new Vector3(0, 0, rotations_right[parent_position]);
-        //    }
-
-        //    if (new_node_position >= 15)
-        //    {
-        //        new_node.transform.Set_Child_Active(active: false, 2);
-        //        new_node.transform.Set_Child_Active(active: false, 3);
-
-        //    }
-
-        //    new_node.transform.Set_Child_Active(true, 1);
-        //    yield return new WaitForSeconds(speed);
-        //    new_node.transform.Set_Child_Active(false, 1);
-
-        //    Create_Tree_From_Array();
-        //}
+            if (current.right != null)
+                queue.Enqueue(current.right);
+        }
 
         GameHandler.Instance.is_running = false;
     }
 
+    private void Update_Array()
+    {
+        Create_Array_From_Tree();
 
-    BinaryTreeNode insert(BinaryTreeNode node, long key,int position)
+        Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
+        BinaryTreeNode current = null;
+        queue.Enqueue(head);
+
+        while (queue.Count != 0)
+        {
+            current = queue.Dequeue();
+
+            current.position = Get_Array_Position(current.scene_object);
+
+
+            if (current.left != null)
+                queue.Enqueue(current.left);
+
+            if (current.right != null)
+                queue.Enqueue(current.right);
+        }
+    }
+
+    BinaryTreeNode insert(BinaryTreeNode node, long key)
     {
 
         if (node == null)
         {
-            BinaryTreeNode n = new BinaryTreeNode(key, position);
-            return n;
+            BinaryTreeNode new_node = new BinaryTreeNode(key);
+
+
+            new_node.scene_object = Instantiate(node_prefab, view.transform);
+            new_node.scene_object.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = key.ToString();
+
+            return new_node;
         }
 
         if (key < node.data)
         {
-            node.left = insert(node.left, key,2*position+1);
+            node.left = insert(node.left, key);
 
         }
         else if (key > node.data)
         {
-            node.right = insert(node.right, key,2*position+2);
+            node.right = insert(node.right, key);
 
         }
         else
@@ -157,7 +124,7 @@ public class AVLTree : BinaryTree
     {
         if (node != null)
         {
-            print("data:" + node.data + " position:" + node.position);
+            print("data:" + node.data +" " + node.scene_object);
             preOrder(node.left);
             preOrder(node.right);
         }

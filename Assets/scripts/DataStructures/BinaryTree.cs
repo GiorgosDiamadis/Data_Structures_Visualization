@@ -38,7 +38,7 @@ public class BinaryTreeNode
 
 public class BinaryTree : IDataStructure
 {
-    private static int max_children = 1024;
+    protected static int max_children = 31;
     protected static long[] tree;
     public GameObject e;
     protected Vector3[] positions = new Vector3[31];
@@ -598,11 +598,12 @@ public class BinaryTree : IDataStructure
         Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
         Queue<int> position = new Queue<int>();
         BinaryTreeNode current = null;
-        tree = new long[max_children];
+        
         for (int j = 0; j < max_children; j++)
         {
             tree[j] = Int64.MaxValue;
         }
+
         int i = 0;
         queue.Enqueue(head);
         position.Enqueue(i);
@@ -662,7 +663,7 @@ public class BinaryTree : IDataStructure
             return;
         }
 
-        GameObject new_node = Instantiate(node, clicked_box.transform);
+        GameObject new_node = Instantiate(node_prefab, clicked_box.transform);
 
         if (clicked_box.name.Contains("LEFT"))
         {

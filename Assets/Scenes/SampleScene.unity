@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: sll
-  node: {fileID: 7372331671216330056, guid: 1bcfccf592472944baab9167f5b7218b, type: 3}
+  node_prefab: {fileID: 0}
   arrow: {fileID: 2179471157716375253, guid: fcf454100bfb527419fd007c8ec7b266, type: 3}
   is_circular: 0
   is_double: 0
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: dll
-  node: {fileID: 7372331671216330056, guid: 1bcfccf592472944baab9167f5b7218b, type: 3}
+  node_prefab: {fileID: 0}
   arrow: {fileID: 605197943419349262, guid: fa0463e4fec250a41af731813d4ad246, type: 3}
   is_circular: 0
   is_double: 0
@@ -1978,7 +1978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: dcl
-  node: {fileID: 3476714479511389854, guid: 0773bd4f0deb8754cb3399dc8c8ffaf8, type: 3}
+  node_prefab: {fileID: 0}
   arrow: {fileID: 605197943419349262, guid: fa0463e4fec250a41af731813d4ad246, type: 3}
   is_circular: 1
   is_double: 1
@@ -3585,7 +3585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: scl
-  node: {fileID: 7625495437046849495, guid: e086366e06aacad49a8314a2d6bd24e9, type: 3}
+  node_prefab: {fileID: 0}
   arrow: {fileID: 2179471157716375253, guid: fcf454100bfb527419fd007c8ec7b266, type: 3}
   is_circular: 1
   is_double: 0
@@ -6500,7 +6500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: stack Array
-  node: {fileID: 7372331671216330056, guid: 3580ec2f172352248a3655a764d06bd3, type: 3}
+  node_prefab: {fileID: 0}
   arrow: {fileID: 0}
 --- !u!114 &1799301320
 MonoBehaviour:
@@ -6657,7 +6657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: Tree_Traversals
-  node: {fileID: 5210076550946774919, guid: 0ea7fd2d6fa21a147909c3899908d177, type: 3}
+  node_prefab: {fileID: 0}
   arrow: {fileID: 0}
   e: {fileID: 5423148681795926632, guid: ab210211459f4664ca4bff676e028e05, type: 3}
 --- !u!114 &1799723594
@@ -6815,7 +6815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: 
-  node: {fileID: 5210076550946774919, guid: 91e3990d6cd2f8b4d9ee11584a54ae58, type: 3}
+  node_prefab: {fileID: 5210076550946774919, guid: 91e3990d6cd2f8b4d9ee11584a54ae58,
+    type: 3}
   arrow: {fileID: 0}
   e: {fileID: 5423148681795926632, guid: ab210211459f4664ca4bff676e028e05, type: 3}
 --- !u!114 &1812486295
@@ -8011,7 +8012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: stack
-  node: {fileID: 7372331671216330056, guid: 1bcfccf592472944baab9167f5b7218b, type: 3}
+  node_prefab: {fileID: 0}
   arrow: {fileID: 7389181327472717678, guid: 7b421f98b6daa424a8237f9ecfce6dc7, type: 3}
 --- !u!114 &2074739193
 MonoBehaviour:
