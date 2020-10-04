@@ -6,12 +6,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-class BinaryTreeNode
+public class BinaryTreeNode
 {
     public BinaryTreeNode left;
     public BinaryTreeNode right;
-    public GameObject scene_object;
     public long data;
+    public int height;
+    
+    
+    public GameObject scene_object;
     public int position;
 
     public BinaryTreeNode(long data, int position)
@@ -19,7 +22,17 @@ class BinaryTreeNode
         this.data = data;
         this.left = null;
         this.right = null;
+        this.height = 1;
         this.position = position;
+    }
+
+    public BinaryTreeNode(long data)
+    {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+        this.height = 1;
+        this.position = -1;
     }
 }
 
@@ -35,7 +48,7 @@ public class BinaryTree : IDataStructure
     protected Vector3[] scales = new Vector3[15];
 
 
-    private BinaryTreeNode head;
+    public BinaryTreeNode head;
     private static GameObject p;
 
     public override void Init()
@@ -547,7 +560,7 @@ public class BinaryTree : IDataStructure
      *
      *A Queue data structure is necessary because the values in the array are located exactly like a level order traversal
      */
-    private void Create_Tree_From_Array()
+    public void Create_Tree_From_Array()
     {
         head = new BinaryTreeNode(tree[0], 0);
         head.scene_object = Find_In_View(tree[0]);
@@ -576,6 +589,40 @@ public class BinaryTree : IDataStructure
                 current.right.scene_object = Find_In_View(tree[2 * position + 2]);
                 queue.Enqueue(current.right);
 
+            }
+        }
+    }
+
+    public void Create_Array_From_Tree()
+    {
+        Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
+        Queue<int> position = new Queue<int>();
+        BinaryTreeNode current = null;
+        tree = new long[max_children];
+        for (int j = 0; j < max_children; j++)
+        {
+            tree[j] = Int64.MaxValue;
+        }
+        int i = 0;
+        queue.Enqueue(head);
+        position.Enqueue(i);
+
+        while (queue.Count != 0)
+        {
+            current = queue.Dequeue();
+            int location = position.Dequeue();
+            tree[location] = current.data;
+
+            if (current.left != null)
+            {
+                queue.Enqueue(current.left);
+                position.Enqueue(2 * location + 1);
+            }
+
+            if (current.right != null)
+            {
+                queue.Enqueue(current.right);
+                position.Enqueue(2 * location + 2);
             }
         }
     }
