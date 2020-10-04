@@ -16,6 +16,7 @@ public class BinaryTreeNode
     
     public GameObject scene_object;
     public int position;
+    public int parent;
 
     public BinaryTreeNode(long data, int position)
     {
@@ -24,6 +25,21 @@ public class BinaryTreeNode
         this.right = null;
         this.height = 1;
         this.position = position;
+        this.parent = -1;
+
+    }
+
+    public bool has_not_children()
+    {
+        return left == null && right == null;
+    }
+    public bool has_left_child()
+    {
+        return left != null;
+    }
+    public bool has_right_child()
+    {
+        return right != null;
     }
 
     public BinaryTreeNode(long data)
@@ -33,6 +49,7 @@ public class BinaryTreeNode
         this.right = null;
         this.height = 1;
         this.position = -1;
+        this.parent = -1;
     }
 }
 
@@ -71,7 +88,7 @@ public class BinaryTree : IDataStructure
     private void Get_Node_Positions_From_Tree_Prefab()
     {
 
-        for (int i = 1; i < e.transform.childCount; i++)
+        for (int i = 0; i < e.transform.childCount; i++)
         {
             positions[i] = e.transform.GetChild(i).localPosition;
         }

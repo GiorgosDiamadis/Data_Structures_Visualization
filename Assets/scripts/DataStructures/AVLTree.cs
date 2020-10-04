@@ -18,8 +18,14 @@ public class AVLTree : BinaryTree
 
         yield return new WaitForSeconds(.1f);
         head = insert(head, data);
-        Update_Array();
+        Update_Tree_Visual();
 
+        GameHandler.Instance.is_running = false;
+    }
+
+    private void Update_Tree_Visual()
+    {
+        Update_Array();
 
         Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
         BinaryTreeNode current = null;
@@ -29,17 +35,59 @@ public class AVLTree : BinaryTree
         {
             current = queue.Dequeue();
 
-            if(current != head)
-                current.scene_object.transform.localPosition = positions[current.position];
+            current.scene_object.transform.localPosition = positions[current.position];
+
+
+            if (current.has_not_children())
+            {
+                current.scene_object.transform.Get_Child(2).localScale = Vector3.one;
+                current.scene_object.transform.Get_Child(2).eulerAngles = new Vector3(0, 0, 70);
+
+                current.scene_object.transform.Get_Child(3).localScale = Vector3.one;
+                current.scene_object.transform.Get_Child(3).eulerAngles = new Vector3(0, 0, 100);
+            }
+            else if (!current.has_left_child())
+            {
+                current.scene_object.transform.Get_Child(2).localScale = Vector3.one;
+                current.scene_object.transform.Get_Child(2).eulerAngles = new Vector3(0, 0, 70);
+            }
+            else if (!current.has_right_child())
+            {
+                current.scene_object.transform.Get_Child(3).localScale = Vector3.one;
+                current.scene_object.transform.Get_Child(3).eulerAngles = new Vector3(0, 0, 100);
+            }
+
+            if (current.parent > -1)
+            {
+
+                GameObject parent = Find_In_View(tree[current.parent]);
+                int parent_position = Get_Array_Position(parent);
+
+
+                if (current.scene_object.name == "Left")
+                {
+                    parent.transform.Get_Child(2).localScale = scales[parent_position];
+                    parent.transform.Get_Child(2).eulerAngles = new Vector3(0, 0, rotations_left[parent_position]);
+                }
+                else
+                {
+                    parent.transform.Get_Child(3).localScale = scales[parent_position];
+                    parent.transform.Get_Child(3).eulerAngles = new Vector3(0, 0, rotations_right[parent_position]);
+                }
+
+
+            }
 
             if (current.left != null)
+            {
                 queue.Enqueue(current.left);
+            }
 
             if (current.right != null)
+            {
                 queue.Enqueue(current.right);
+            }
         }
-
-        GameHandler.Instance.is_running = false;
     }
 
     private void Update_Array()
@@ -58,10 +106,19 @@ public class AVLTree : BinaryTree
 
 
             if (current.left != null)
+            {
                 queue.Enqueue(current.left);
+                current.left.parent = current.position;
+                current.left.scene_object.name = "Left";
+            }
 
             if (current.right != null)
+            {
                 queue.Enqueue(current.right);
+                current.right.parent = current.position;
+                current.right.scene_object.name = "Right";
+
+            }
         }
     }
 
@@ -71,7 +128,6 @@ public class AVLTree : BinaryTree
         if (node == null)
         {
             BinaryTreeNode new_node = new BinaryTreeNode(key);
-
 
             new_node.scene_object = Instantiate(node_prefab, view.transform);
             new_node.scene_object.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = key.ToString();
@@ -124,7 +180,7 @@ public class AVLTree : BinaryTree
     {
         if (node != null)
         {
-            print("data:" + node.data +" " + node.scene_object);
+            print("data:" + node.data + " " + node.scene_object);
             preOrder(node.left);
             preOrder(node.right);
         }
@@ -135,7 +191,7 @@ public class AVLTree : BinaryTree
         return (a > b) ? a : b;
     }
 
-   private int getBalance(BinaryTreeNode node)
+    private int getBalance(BinaryTreeNode node)
     {
         if (node == null)
             return 0;
@@ -157,12 +213,7 @@ public class AVLTree : BinaryTree
         BinaryTreeNode T2 = x.right;
 
 
-        if(x.right!=null && y != null)
-            x.right.position = y.position;
         x.right = y;
-
-        if(y.left!=null && T2 != null)
-            y.left.position = T2.position;
 
         y.left = T2;
 
@@ -179,14 +230,8 @@ public class AVLTree : BinaryTree
         BinaryTreeNode y = x.right;
         BinaryTreeNode T2 = y.left;
 
-        if(y.left!=null && x != null)
-            y.left.position = x.position;
 
         y.left = x;
-
-        if(x.right!=null && T2!=null)
-            x.right.position = T2.position;
-        
         x.right = T2;
 
         x.height = max(height(x.left),
