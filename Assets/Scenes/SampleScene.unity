@@ -276,7 +276,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: sll
-  node_prefab: {fileID: 0}
+  node_prefab: {fileID: 7372331671216330056, guid: 1bcfccf592472944baab9167f5b7218b,
+    type: 3}
   arrow: {fileID: 2179471157716375253, guid: fcf454100bfb527419fd007c8ec7b266, type: 3}
   is_circular: 0
   is_double: 0
@@ -435,7 +436,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: dll
-  node_prefab: {fileID: 0}
+  node_prefab: {fileID: 7372331671216330056, guid: 1bcfccf592472944baab9167f5b7218b,
+    type: 3}
   arrow: {fileID: 605197943419349262, guid: fa0463e4fec250a41af731813d4ad246, type: 3}
   is_circular: 0
   is_double: 0
@@ -1978,7 +1980,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: dcl
-  node_prefab: {fileID: 0}
+  node_prefab: {fileID: 3476714479511389854, guid: 0773bd4f0deb8754cb3399dc8c8ffaf8,
+    type: 3}
   arrow: {fileID: 605197943419349262, guid: fa0463e4fec250a41af731813d4ad246, type: 3}
   is_circular: 1
   is_double: 1
@@ -3585,7 +3588,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: scl
-  node_prefab: {fileID: 0}
+  node_prefab: {fileID: 7625495437046849495, guid: e086366e06aacad49a8314a2d6bd24e9,
+    type: 3}
   arrow: {fileID: 2179471157716375253, guid: fcf454100bfb527419fd007c8ec7b266, type: 3}
   is_circular: 1
   is_double: 0
@@ -6500,7 +6504,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: stack Array
-  node_prefab: {fileID: 0}
+  node_prefab: {fileID: 7372331671216330056, guid: 3580ec2f172352248a3655a764d06bd3,
+    type: 3}
   arrow: {fileID: 0}
 --- !u!114 &1799301320
 MonoBehaviour:
@@ -8013,7 +8018,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pseudocode_dir: stack
-  node_prefab: {fileID: 0}
+  node_prefab: {fileID: 7372331671216330056, guid: 1bcfccf592472944baab9167f5b7218b,
+    type: 3}
   arrow: {fileID: 7389181327472717678, guid: 7b421f98b6daa424a8237f9ecfce6dc7, type: 3}
 --- !u!114 &2074739193
 MonoBehaviour:
