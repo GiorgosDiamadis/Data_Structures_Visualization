@@ -6,52 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class BinaryTreeNode
-{
-    public BinaryTreeNode left;
-    public BinaryTreeNode right;
-    public long data;
-    public int height;
-    
-    
-    public GameObject scene_object;
-    public int position;
-    public int parent;
 
-    public BinaryTreeNode(long data, int position)
-    {
-        this.data = data;
-        this.left = null;
-        this.right = null;
-        this.height = 1;
-        this.position = position;
-        this.parent = -1;
-
-    }
-
-    public bool has_not_children()
-    {
-        return left == null && right == null;
-    }
-    public bool has_left_child()
-    {
-        return left != null;
-    }
-    public bool has_right_child()
-    {
-        return right != null;
-    }
-
-    public BinaryTreeNode(long data)
-    {
-        this.data = data;
-        this.left = null;
-        this.right = null;
-        this.height = 1;
-        this.position = -1;
-        this.parent = -1;
-    }
-}
 
 public class BinaryTree : IDataStructure
 {

@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AVLTree : BinaryTree
 {
     public override void Init()
     {
         base.Init();
-        head = new BinaryTreeNode(tree[0]);
+        head = new BinaryTreeNode(tree[0],BinaryTreeNode.Child_Type.Root);
         head.scene_object = Find_In_View(tree[0]);
     }
 
@@ -17,12 +15,117 @@ public class AVLTree : BinaryTree
     {
 
         yield return new WaitForSeconds(.1f);
-        head = insert(head, data);
-        Update_Tree_Visual();
+
+
+        BinaryTreeNode current = head;
+        Stack<BinaryTreeNode> parents = new Stack<BinaryTreeNode>();
+        BinaryTreeNode new_node = new BinaryTreeNode(data);
+
+        while (current != null)
+        {
+            if(data < current.data)
+            {
+                parents.Push(current);
+                current = current.left;
+                new_node.child_type = BinaryTreeNode.Child_Type.Left;
+            }
+            else if (data > current.data)
+            {
+                parents.Push(current);
+                current = current.right;
+                new_node.child_type = BinaryTreeNode.Child_Type.Right;
+            }
+        }
+
+        BinaryTreeNode new_node_parent = parents.Peek();
+
+        if (new_node.child_type == BinaryTreeNode.Child_Type.Left)
+            new_node_parent.left = new_node;
+        else
+            new_node_parent.right = new_node;
+
+        new_node.height = 1 + max(height(new_node.left) , height(new_node.right));
+
+
 
         GameHandler.Instance.is_running = false;
     }
+    public IEnumerator delete(long data)
+    {
+        yield return null;
+    }
 
+    public IEnumerator search(long data)
+    {
+        yield return null;
+    }
+    
+    BinaryTreeNode insert(BinaryTreeNode node, long key)
+    {
+
+        if (node == null)
+        {
+            BinaryTreeNode new_node = new BinaryTreeNode(key);
+
+            new_node.scene_object = Instantiate(node_prefab, view.transform);
+            new_node.scene_object.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = key.ToString();
+
+            return new_node;
+        }
+
+        if (key < node.data)
+        {
+            node.left = insert(node.left, key);
+
+        }
+        else if (key > node.data)
+        {
+            node.right = insert(node.right, key);
+
+        }
+        else
+        {
+            return node;
+        }
+
+        node.height = 1 + max(height(node.left),
+                            height(node.right));
+
+        int balance = getBalance(node);
+
+        if (balance > 1 && key < node.left.data)
+            return rightRotate(node);
+
+        if (balance < -1 && key > node.right.data)
+            return leftRotate(node);
+
+        if (balance > 1 && key > node.left.data)
+        {
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+
+        if (balance < -1 && key < node.right.data)
+        {
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        }
+
+        return node;
+    }
+
+    void preOrder(BinaryTreeNode node)
+    {
+        if (node != null)
+        {
+            print("data:" + node.data + " " + node.scene_object);
+            preOrder(node.left);
+            preOrder(node.right);
+        }
+    }
+
+
+    #region Visual
     private void Update_Tree_Visual()
     {
         Update_Array();
@@ -121,71 +224,8 @@ public class AVLTree : BinaryTree
             }
         }
     }
-
-    BinaryTreeNode insert(BinaryTreeNode node, long key)
-    {
-
-        if (node == null)
-        {
-            BinaryTreeNode new_node = new BinaryTreeNode(key);
-
-            new_node.scene_object = Instantiate(node_prefab, view.transform);
-            new_node.scene_object.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = key.ToString();
-
-            return new_node;
-        }
-
-        if (key < node.data)
-        {
-            node.left = insert(node.left, key);
-
-        }
-        else if (key > node.data)
-        {
-            node.right = insert(node.right, key);
-
-        }
-        else
-        {
-            return node;
-        }
-
-        node.height = 1 + max(height(node.left),
-                            height(node.right));
-
-        int balance = getBalance(node);
-
-        if (balance > 1 && key < node.left.data)
-            return rightRotate(node);
-
-        if (balance < -1 && key > node.right.data)
-            return leftRotate(node);
-
-        if (balance > 1 && key > node.left.data)
-        {
-            node.left = leftRotate(node.left);
-            return rightRotate(node);
-        }
-
-        if (balance < -1 && key < node.right.data)
-        {
-            node.right = rightRotate(node.right);
-            return leftRotate(node);
-        }
-
-        return node;
-    }
-
-    void preOrder(BinaryTreeNode node)
-    {
-        if (node != null)
-        {
-            print("data:" + node.data + " " + node.scene_object);
-            preOrder(node.left);
-            preOrder(node.right);
-        }
-    }
-
+    #endregion
+    #region rotations
     private int max(int a, int b)
     {
         return (a > b) ? a : b;
@@ -241,14 +281,6 @@ public class AVLTree : BinaryTree
 
         return y;
     }
-
-    public IEnumerator delete(long data)
-    {
-        yield return null;
-    }
-
-    public IEnumerator search(long data)
-    {
-        yield return null;
-    }
+    #endregion
+    
 }
