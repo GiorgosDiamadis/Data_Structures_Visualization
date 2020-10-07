@@ -2,17 +2,57 @@
 
 public class BinaryTreeNode
 {
-    public BinaryTreeNode left;
-    public BinaryTreeNode right;
-    public BinaryTreeNode parent;
-    public GameObject scene_object;
+    public enum Child_Type
+    {
+        Left, Right
+    }
 
-    
+    private BinaryTreeNode left;
+    private BinaryTreeNode right;
+    private BinaryTreeNode parent;
     private int height;
-
+    private long data;
+    
+    public GameObject scene_object;
+    
     public int position;
     public int parent_position;
-    private long data;
+
+    private Child_Type child_type;
+
+    
+    public BinaryTreeNode(long data, Child_Type type) : this(data)
+    {
+        child_type = type;
+    }
+    public BinaryTreeNode(long data, int position) : this(data)
+    {
+        this.position = position;
+    }
+    public BinaryTreeNode(long data, GameObject obj) : this(data)
+    {
+        scene_object = obj;
+    }
+    public BinaryTreeNode(long data)
+    {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+        this.height = 1;
+        this.position = -1;
+        this.parent_position = -1;
+    }
+
+    public GameObject Get_GameObject()
+    {
+        return scene_object;
+    }
+
+    public void Set_Scene_Object(GameObject obj)
+    {
+        scene_object = obj;
+    }
+
 
     public BinaryTreeNode Get_Parent()
     {
@@ -69,6 +109,12 @@ public class BinaryTreeNode
         child_type = type;
     }
 
+    public Child_Type Get_Child_Type()
+    {
+        return child_type;
+    }
+
+
     public int Right_Height()
     {
         return right == null ? 0 : right.Get_Height();
@@ -92,30 +138,8 @@ public class BinaryTreeNode
         height = 1 + max(left_height, right_height);
     }
 
-    public enum Child_Type
-    {
-        Left,Right,Root
-    }
-
-    public Child_Type child_type;
-
-    public BinaryTreeNode(long data, Child_Type type) : this(data)
-    {
-        child_type = type;
-    }
-    public BinaryTreeNode(long data, int position) : this(data)
-    {
-        this.position = position;
-    }
-    public BinaryTreeNode(long data)
-    {
-        this.data = data;
-        this.left = null;
-        this.right = null;
-        this.height = 1;
-        this.position = -1;
-        this.parent_position = -1;
-    }
+   
+   
     public bool Has_A_Child()
     {
         return left != null || right != null;
