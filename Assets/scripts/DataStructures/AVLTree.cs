@@ -2,9 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AVLTree : BinaryTree
 {
+
+    [SerializeField] private Material green;
+    [SerializeField] private Material blue;
+    [SerializeField] private Material red;
+
+
     public override void Init()
     {
         base.Init();
@@ -26,10 +33,16 @@ public class AVLTree : BinaryTree
             current = head;
             while (current != null)
             {
+
+                current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                yield return new WaitForSeconds(speed);
+                current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
                 if (data < current.Get_Data())
                 {
                     parents.Push(current);
                     current = current.Get_Left();
+                    
                     new_node.Change_Child_Type(BinaryTreeNode.Child_Type.Left);
                 }
                 else if (data > current.Get_Data())
@@ -60,14 +73,22 @@ public class AVLTree : BinaryTree
 
                 new_node.Set_Scene_Object(Instantiate(node_prefab, view.transform), data);
 
+                
+
                 Update_Visual();
+
+                new_node.Get_GameObject().transform.Set_Child_Active(active: true, 1);
+
+                yield return new WaitForSeconds(speed);
+                new_node.Get_GameObject().transform.Set_Child_Active(active: false, 1);
+
 
                 new_node.Change_Height();
-                Rebalance(parents);
+
+                StartCoroutine(Rebalance(parents));
+                yield return new WaitForSeconds(speed);
 
                 Update_Visual();
-
-                yield return null;
             }
 
         }
@@ -223,7 +244,7 @@ public class AVLTree : BinaryTree
         }
     }
 
-    private void Rebalance(Stack<BinaryTreeNode> parents)
+    private IEnumerator Rebalance(Stack<BinaryTreeNode> parents)
     {
         while (parents.Count != 0)
         {
@@ -242,9 +263,27 @@ public class AVLTree : BinaryTree
                 w = Rebalance_Son(v);
                 u = Rebalance_Son(w);
 
+                v.Get_GameObject().transform.Set_Child_Active(active: true, 1);
+                v.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = red;
+                w.Get_GameObject().transform.Set_Child_Active(active: true, 1);
+                w.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
 
+                u.Get_GameObject().transform.Set_Child_Active(active: true, 1);
+                u.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = blue;
+
+                yield return new WaitForSeconds(speed);
 
                 v = Reconstruct(v, w, u);
+
+                yield return new WaitForSeconds(2 * speed);
+
+                current_parent.Get_GameObject().transform.Set_Child_Active(active: false, 1);
+                w.Get_GameObject().transform.Set_Child_Active(active: false, 1);
+                w.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
+                u.Get_GameObject().transform.Set_Child_Active(active: false, 1);
+                u.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
+                current_parent.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
+
                 v.Get_Left().Change_Height();
                 v.Get_Right().Change_Height();
                 v.Change_Height();
