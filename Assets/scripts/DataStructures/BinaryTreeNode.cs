@@ -145,6 +145,8 @@ public class BinaryTreeNode
     {
         return left != null || right != null;
     }
+
+
     public bool Has_Left_Child()
     {
         return left != null;

@@ -100,9 +100,96 @@ public class AVLTree : BinaryTree
 
     public IEnumerator delete(long data)
     {
-        yield return null;
-    }
+        BinaryTreeNode current = head;
 
+        while (current != null)
+        {
+
+            current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            yield return new WaitForSeconds(speed);
+            current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            if (data < current.Get_Data())
+            {
+                current = current.Get_Left();
+            }
+            else if (data > current.Get_Data())
+            {
+                current = current.Get_Right();
+
+            }
+            else if (data == current.Get_Data())
+            {
+                break;
+            }
+        }
+
+        if (current == null)
+        {
+            UIHandler.Instance.show_message("Key doesn't exist");
+        }
+        else
+        {
+            if (current.Get_Left() == null && current.Get_Right() == null)
+            {
+
+                if (current.Get_Parent().Get_Right() == current)
+                {
+                    current.Get_Parent().Change_Right_To(new_right: null);
+                }
+                else if (current.Get_Parent().Get_Left() == current)
+                {
+                    current.Get_Parent().Change_Left_To(new_left: null);
+                }
+
+            }
+            else if (current.Get_Left() != null && current.Get_Right() == null)
+            {
+                if (current.Get_Parent().Get_Right() == current)
+                {
+                    current.Get_Parent().Change_Right_To(new_right: current.Get_Left());
+                    current.Get_Left().Change_Parent_To(new_parent: current.Get_Parent());
+                }
+                else if (current.Get_Parent().Get_Left() == current)
+                {
+                    current.Get_Parent().Change_Left_To(new_left: current.Get_Left());
+                    current.Get_Left().Change_Parent_To(new_parent: current.Get_Parent());
+                }
+            }
+            else if (current.Get_Left() == null && current.Get_Right() != null)
+            {
+                BinaryTreeNode left_most_of_right = current.Get_Right().Get_Left();
+
+                while (left_most_of_right != null)
+                    left_most_of_right = left_most_of_right.Get_Left();
+
+                current.Get_Parent().Change_Right_To(new_right: left_most_of_right);
+                left_most_of_right.Change_Parent_To(new_parent: current.Get_Parent());
+
+            }
+
+            Update_Visual();
+            current.Get_GameObject().Destroy_Object();
+            printPreorder(head);
+        }
+
+        GameHandler.Instance.is_running = false;
+
+    }
+    void printPreorder(BinaryTreeNode node)
+    {
+        if (node == null)
+            return;
+
+        /* first print data of node */
+        print(node.Get_Data());
+
+        /* then recur on left sutree */
+        printPreorder(node.Get_Left());
+
+        /* now recur on right subtree */
+        printPreorder(node.Get_Right());
+    }
     public IEnumerator search(long data)
     {
         BinaryTreeNode current = head;
