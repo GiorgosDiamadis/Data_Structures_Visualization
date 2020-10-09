@@ -51,13 +51,11 @@ public class Input : MonoBehaviour
 
         if (data < Int64.MaxValue)
         {
-            if (GameHandler.Instance.Can_Add())
-            {
                 AVLTree avl = transform.GetComponentInParent<AVLTree>();
-                StartCoroutine(avl.search(data));
                 GameHandler.Instance.is_running = true;
+                StartCoroutine(avl.search(data));
                 data = Int64.MaxValue;
-            }
+            
         }
         else
         {

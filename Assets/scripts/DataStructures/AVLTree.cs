@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +17,7 @@ public class AVLTree : BinaryTree
         head = new BinaryTreeNode(tree[0], Find_In_View(tree[0]));
     }
 
+    #region Tree Operations
     public IEnumerator add(long data)
     {
 
@@ -42,7 +42,7 @@ public class AVLTree : BinaryTree
                 {
                     parents.Push(current);
                     current = current.Get_Left();
-                    
+
                     new_node.Change_Child_Type(BinaryTreeNode.Child_Type.Left);
                 }
                 else if (data > current.Get_Data())
@@ -73,15 +73,13 @@ public class AVLTree : BinaryTree
 
                 new_node.Set_Scene_Object(Instantiate(node_prefab, view.transform), data);
 
-                
+
 
                 Update_Visual();
 
                 new_node.Get_GameObject().transform.Set_Child_Active(active: true, 1);
-
                 yield return new WaitForSeconds(speed);
                 new_node.Get_GameObject().transform.Set_Child_Active(active: false, 1);
-
 
                 new_node.Change_Height();
 
@@ -100,32 +98,51 @@ public class AVLTree : BinaryTree
         GameHandler.Instance.is_running = false;
     }
 
-    private int Check_Can_Add(long data)
+    public IEnumerator delete(long data)
+    {
+        yield return null;
+    }
+
+    public IEnumerator search(long data)
     {
         BinaryTreeNode current = head;
-        int pos = 0;
+        bool exists = false;
+
         while (current != null)
         {
+
+            current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            yield return new WaitForSeconds(speed);
+            current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
             if (data < current.Get_Data())
             {
-                pos = 2 * pos + 1;
                 current = current.Get_Left();
             }
             else if (data > current.Get_Data())
             {
-                pos = 2 * pos + 2;
                 current = current.Get_Right();
+
             }
             else if (data == current.Get_Data())
             {
-                pos = 0;
-                return pos;
+                UIHandler.Instance.show_message("Key exists");
+                exists = true;
+                break;
             }
         }
 
-        return pos;
-    }
+        if (!exists)
+        {
+            UIHandler.Instance.show_message("Key doesnt exist");
+        }
 
+        GameHandler.Instance.is_running = false;
+
+    }
+    #endregion
+
+    #region Visual
     private void Update_Visual()
     {
         int position = 0;
@@ -162,13 +179,13 @@ public class AVLTree : BinaryTree
             if (current.left == null)
             {
                 current.Get_GameObject().transform.Get_Child(2).localScale = Vector3.one;
-                current.Get_GameObject().transform.Get_Child(2).eulerAngles = new Vector3(0,0,70);
+                current.Get_GameObject().transform.Get_Child(2).eulerAngles = new Vector3(0, 0, 70);
             }
 
-            if(current.right == null)
+            if (current.right == null)
             {
                 current.Get_GameObject().transform.Get_Child(3).localScale = Vector3.one;
-                current.Get_GameObject().transform.Get_Child(3).eulerAngles = new Vector3(0,0,100);
+                current.Get_GameObject().transform.Get_Child(3).eulerAngles = new Vector3(0, 0, 100);
 
             }
 
@@ -186,7 +203,6 @@ public class AVLTree : BinaryTree
                 }
             }
 
-            
 
             if (current.Get_Left() != null)
             {
@@ -203,17 +219,7 @@ public class AVLTree : BinaryTree
         }
 
     }
-
-    public IEnumerator delete(long data)
-    {
-        yield return null;
-    }
-
-    public IEnumerator search(long data)
-    {
-        yield return null;
-    }
-
+    #endregion
 
     #region Rotations
 
@@ -480,6 +486,33 @@ public class AVLTree : BinaryTree
         }
 
     }
-
     #endregion
+
+
+    private int Check_Can_Add(long data)
+    {
+        BinaryTreeNode current = head;
+        int pos = 0;
+        while (current != null)
+        {
+            if (data < current.Get_Data())
+            {
+                pos = 2 * pos + 1;
+                current = current.Get_Left();
+            }
+            else if (data > current.Get_Data())
+            {
+                pos = 2 * pos + 2;
+                current = current.Get_Right();
+            }
+            else if (data == current.Get_Data())
+            {
+                pos = 0;
+                return pos;
+            }
+        }
+
+        return pos;
+    }
+
 }
