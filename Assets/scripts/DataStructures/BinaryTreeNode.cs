@@ -7,9 +7,9 @@ public class BinaryTreeNode
         Left, Right
     }
 
-    private BinaryTreeNode left;
-    private BinaryTreeNode right;
-    private BinaryTreeNode parent;
+    public BinaryTreeNode left;
+    public BinaryTreeNode right;
+    public BinaryTreeNode parent;
     private int height;
     private long data;
     
@@ -48,9 +48,10 @@ public class BinaryTreeNode
         return scene_object;
     }
 
-    public void Set_Scene_Object(GameObject obj)
+    public void Set_Scene_Object(GameObject obj,long data)
     {
         scene_object = obj;
+        scene_object.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
     }
 
 

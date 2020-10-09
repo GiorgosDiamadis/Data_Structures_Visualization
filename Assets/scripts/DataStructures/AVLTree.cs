@@ -14,49 +14,143 @@ public class AVLTree : BinaryTree
     public IEnumerator add(long data)
     {
 
-        yield return null;
-
         BinaryTreeNode current = head;
         Stack<BinaryTreeNode> parents = new Stack<BinaryTreeNode>();
         BinaryTreeNode new_node = new BinaryTreeNode(data);
+        bool exists = false;
+        int pos = 0;
 
         while (current != null)
         {
             if (data < current.Get_Data())
             {
-                parents.Push(current);
+                pos = 2 * pos + 1;
                 current = current.Get_Left();
-                new_node.Change_Child_Type(BinaryTreeNode.Child_Type.Left);
             }
             else if (data > current.Get_Data())
             {
-                parents.Push(current);
+                pos = 2 * pos + 2;
                 current = current.Get_Right();
-                new_node.Change_Child_Type(BinaryTreeNode.Child_Type.Right);
-
+            }
+            else if (data == current.Get_Data())
+            {
+                pos = 0;
+                print(pos);
+                break;
             }
         }
 
-        BinaryTreeNode new_node_parent = parents.Peek();
-        new_node.Change_Parent_To(new_parent:new_node_parent);
+        
+        if (pos < 31)
+        {
+            current = head;
+            while (current != null)
+            {
+                if (data < current.Get_Data())
+                {
+                    parents.Push(current);
+                    current = current.Get_Left();
+                    new_node.Change_Child_Type(BinaryTreeNode.Child_Type.Left);
+                }
+                else if (data > current.Get_Data())
+                {
+                    parents.Push(current);
+                    current = current.Get_Right();
+                    new_node.Change_Child_Type(BinaryTreeNode.Child_Type.Right);
 
-        if (new_node.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
-            new_node_parent.Change_Left_To(new_left: new_node);
+                }
+                else if (data == current.Get_Data())
+                {
+                    UIHandler.Instance.show_message("Key already exists");
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists)
+            {
+                BinaryTreeNode new_node_parent = parents.Peek();
+                new_node.Change_Parent_To(new_parent: new_node_parent);
+
+                if (new_node.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
+                    new_node_parent.Change_Left_To(new_left: new_node);
+                else
+                    new_node_parent.Change_Right_To(new_right: new_node);
+
+
+                new_node.Set_Scene_Object(Instantiate(node_prefab, view.transform), data);
+
+                int position = 0;
+                int parent_position = -1;
+                Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
+                Queue<int> position_queue = new Queue<int>();
+                Queue<int> parent_queue = new Queue<int>();
+
+                queue.Enqueue(head);
+                position_queue.Enqueue(position);
+                parent_queue.Enqueue(parent_position);
+
+                while (queue.Count != 0)
+                {
+                    current = queue.Dequeue();
+                    position = position_queue.Dequeue();
+                    parent_position = parent_queue.Dequeue();
+
+
+                    current.Get_GameObject().transform.localPosition = positions[position];
+
+                    if (parent_position != -1)
+                    {
+                        if (current.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
+                        {
+                            current.Get_Parent().Get_GameObject().transform.Get_Child(2).localScale = scales[parent_position];
+                            current.Get_Parent().Get_GameObject().transform.Get_Child(2).eulerAngles = new Vector3(0, 0, rotations_left[parent_position]);
+                        }
+                        else
+                        {
+                            current.Get_Parent().Get_GameObject().transform.Get_Child(3).localScale = scales[parent_position];
+                            current.Get_Parent().Get_GameObject().transform.Get_Child(3).eulerAngles = new Vector3(0, 0, rotations_right[parent_position]);
+                        }
+                    }
+
+                    if (position >= 15)
+                    {
+                        current.Get_GameObject().transform.Set_Child_Active(active: false, 2);
+                        current.Get_GameObject().transform.Set_Child_Active(active: false, 3);
+                    }
+
+                    if (current.Get_Left() != null)
+                    {
+                        queue.Enqueue(current.Get_Left());
+                        parent_queue.Enqueue(position);
+                        position_queue.Enqueue(2 * position + 1);
+                    }
+                    if (current.Get_Right() != null)
+                    {
+                        queue.Enqueue(current.Get_Right());
+                        parent_queue.Enqueue(position);
+                        position_queue.Enqueue(2 * position + 2);
+                    }
+                }
+                
+                
+                new_node.Change_Height();
+                Rebalance(parents);
+
+
+                yield return null;
+            }
+
+        }
         else
-            new_node_parent.Change_Right_To(new_right: new_node);
-
-        //Update visual-Instantiate new node,place it in proper position
-
-        new_node.Change_Height();
-        Rebalance(parents);
-
-        //Update visual-Update positions due to possible rotations
-
+        {
+            UIHandler.Instance.show_message("Cant have more than 5 levels");
+        }
 
         GameHandler.Instance.is_running = false;
     }
 
-   
+
 
     public IEnumerator delete(long data)
     {
@@ -116,6 +210,8 @@ public class AVLTree : BinaryTree
                 v = current_parent;
                 w = Rebalance_Son(v);
                 u = Rebalance_Son(w);
+
+
 
                 v = Reconstruct(v, w, u);
                 v.Get_Left().Change_Height();
