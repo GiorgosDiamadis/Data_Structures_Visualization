@@ -143,7 +143,59 @@ public class AVLTree : BinaryTree
                 }
 
             }
-            else if (current.Get_Left() != null && current.Get_Right() == null)
+            else if (current.Get_Right() != null)
+            {
+                BinaryTreeNode left_most_of_right = current.Get_Right();
+                BinaryTreeNode left_current2 = current.Get_Left();
+                BinaryTreeNode parent_current = current.Get_Parent();
+
+                if (left_most_of_right.Get_Left() == null)
+                {
+
+                    if (current.Get_Parent().Get_Left() == current)
+                    {
+                        current.Get_Parent().Change_Left_To(new_left: left_most_of_right);
+                    }
+                    else
+                    {
+                        current.Get_Parent().Change_Right_To(new_right: left_most_of_right);
+                    }
+
+                    left_most_of_right.Change_Parent_To(new_parent: parent_current);
+                    left_most_of_right.Change_Left_To(new_left: left_current2);
+                    left_current2.Change_Parent_To(new_parent: left_most_of_right);
+
+                }
+                else
+                {
+                    left_most_of_right = left_most_of_right.Get_Left();
+
+                    BinaryTreeNode left_current = current.Get_Left();
+                    BinaryTreeNode right_current = current.Get_Right();
+
+                    while (left_most_of_right.Get_Left() != null)
+                        left_most_of_right = left_most_of_right.Get_Left();
+
+                    left_most_of_right.Get_Parent().Change_Left_To(new_left: null);
+
+                    if (current.Get_Parent().Get_Left() == current)
+                    {
+                        current.Get_Parent().Change_Left_To(new_left: left_most_of_right);
+                    }
+                    else
+                    {
+                        current.Get_Parent().Change_Right_To(new_right: left_most_of_right);
+                    }
+
+                    left_most_of_right.Change_Left_To(new_left: left_current);
+
+                    left_most_of_right.Change_Right_To(new_right: right_current);
+
+                    left_current.Change_Parent_To(new_parent: left_most_of_right);
+                    right_current.Change_Parent_To(new_parent: left_most_of_right);
+                }
+            }
+            else if (current.Get_Left() != null)
             {
                 if (current.Get_Parent().Get_Right() == current)
                 {
@@ -156,22 +208,10 @@ public class AVLTree : BinaryTree
                     current.Get_Left().Change_Parent_To(new_parent: current.Get_Parent());
                 }
             }
-            else if (current.Get_Left() == null && current.Get_Right() != null)
-            {
-                BinaryTreeNode left_most_of_right = current.Get_Right().Get_Left();
-
-                while (left_most_of_right != null)
-                    left_most_of_right = left_most_of_right.Get_Left();
-
-                current.Get_Parent().Change_Right_To(new_right: left_most_of_right);
-                left_most_of_right.Change_Parent_To(new_parent: current.Get_Parent());
-
-            }
-
-            Update_Visual();
-            current.Get_GameObject().Destroy_Object();
-            printPreorder(head);
         }
+
+        Update_Visual();
+        current.Get_GameObject().Destroy_Object();
 
         GameHandler.Instance.is_running = false;
 
