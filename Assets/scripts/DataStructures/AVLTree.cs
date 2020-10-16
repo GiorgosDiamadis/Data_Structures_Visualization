@@ -21,6 +21,7 @@ public class AVLTree : BinaryTree
     public IEnumerator add(long data)
     {
 
+        Debug.Log("Adding");
         BinaryTreeNode current = head;
         Stack<BinaryTreeNode> parents = new Stack<BinaryTreeNode>();
         BinaryTreeNode new_node = new BinaryTreeNode(data);
@@ -97,10 +98,8 @@ public class AVLTree : BinaryTree
     public IEnumerator delete(long data)
     {
         BinaryTreeNode current = head;
-
         while (current != null)
         {
-
             current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             yield return new WaitForSeconds(speed);
             current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
@@ -126,86 +125,76 @@ public class AVLTree : BinaryTree
         }
         else
         {
-            if (current.Get_Left() == null && current.Get_Right() == null)
+            if (current.Has_One_Child())
             {
-                if (current.Get_Parent().Get_Right() == current)
-                {
-                    current.Get_Parent().Change_Right_To(new_right: null);
-                }
-                else if (current.Get_Parent().Get_Left() == current)
-                {
-                    current.Get_Parent().Change_Left_To(new_left: null);
-                }
+                BinaryTreeNode child_of_current = null;
+                
+                if (current.Get_Right() == null)
+                    child_of_current = current.Get_Left();
+                else if (current.Get_Left() == null)
+                    child_of_current = current.Get_Right();
+
+                if (current.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
+                    current.Get_Parent().Change_Left_To(new_left: child_of_current);
+                else
+                    current.Get_Parent().Change_Right_To(new_right: child_of_current);
+
+                child_of_current.Change_Parent_To(new_parent: current.Get_Parent());
+
+                current.Get_GameObject().Destroy_Object();
             }
-            else if (current.Get_Right() != null)
+            else
             {
-                BinaryTreeNode left_most_of_right = current.Get_Right();
-                BinaryTreeNode left_of_current = current.Get_Left();
-                BinaryTreeNode parent_of_current = current.Get_Parent();
-
-                if (left_most_of_right.Get_Left() == null)
+                if (current.Has_No_Children())
                 {
-
-                    if (current.Get_Parent().Get_Left() == current)
-                    {
-                        current.Get_Parent().Change_Left_To(new_left: left_most_of_right);
-                    }
+                    if (current.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
+                        current.Get_Parent().Change_Left_To(new_left: null);
                     else
-                    {
-                        current.Get_Parent().Change_Right_To(new_right: left_most_of_right);
-                    }
+                        current.Get_Parent().Change_Right_To(new_right: null);
 
-                    left_most_of_right.Change_Parent_To(new_parent: parent_of_current);
-                    left_most_of_right.Change_Left_To(new_left: left_of_current);
-                    left_of_current.Change_Parent_To(new_parent: left_most_of_right);
-
+                    current.Get_GameObject().Destroy_Object();
                 }
                 else
                 {
-                    left_most_of_right = left_most_of_right.Get_Left();
+                    BinaryTreeNode right_of_current = current.Get_Right();
+                    BinaryTreeNode left_most = right_of_current;
+                    BinaryTreeNode left_of_current = current.Get_Left();
+                    BinaryTreeNode parent_of_current = current.Get_Parent();
 
-                    BinaryTreeNode left_current = current.Get_Left();
-                    BinaryTreeNode right_current = current.Get_Right();
-
-                    while (left_most_of_right.Get_Left() != null)
-                        left_most_of_right = left_most_of_right.Get_Left();
-
-                    left_most_of_right.Get_Parent().Change_Left_To(new_left: null);
-
-                    if (current.Get_Parent().Get_Left() == current)
+                    while (left_most.Get_Left() != null)
                     {
-                        current.Get_Parent().Change_Left_To(new_left: left_most_of_right);
+                        left_most = left_most.Get_Left();
                     }
+
+                    if (left_most.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
+                        left_most.Get_Parent().Change_Left_To(new_left: null);
                     else
+                        left_most.Get_Parent().Change_Right_To(new_right: null);
+
+
+                    if (current.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
+                        parent_of_current.Change_Left_To(new_left: left_most);
+                    else
+                        parent_of_current.Change_Right_To(new_right: left_most);
+
+                    if (left_most != right_of_current)
                     {
-                        current.Get_Parent().Change_Right_To(new_right: left_most_of_right);
+                        left_most.Change_Right_To(new_right: right_of_current);
+                        right_of_current.Change_Parent_To(new_parent: left_most);
                     }
 
-                    left_most_of_right.Change_Left_To(new_left: left_current);
+                    left_most.Change_Left_To(new_left:left_of_current);
+                    left_most.Change_Parent_To(new_parent: parent_of_current);
+                    left_of_current.Change_Parent_To(new_parent: left_most);
+                    printPreorder(head);
 
-                    left_most_of_right.Change_Right_To(new_right: right_current);
-
-                    left_current.Change_Parent_To(new_parent: left_most_of_right);
-                    right_current.Change_Parent_To(new_parent: left_most_of_right);
-                }
-            }
-            else if (current.Get_Left() != null)
-            {
-                if (current.Get_Parent().Get_Right() == current)
-                {
-                    current.Get_Parent().Change_Right_To(new_right: current.Get_Left());
-                    current.Get_Left().Change_Parent_To(new_parent: current.Get_Parent());
-                }
-                else if (current.Get_Parent().Get_Left() == current)
-                {
-                    current.Get_Parent().Change_Left_To(new_left: current.Get_Left());
-                    current.Get_Left().Change_Parent_To(new_parent: current.Get_Parent());
                 }
             }
         }
 
-        current.Get_GameObject().Destroy_Object();
         Update_Visual();
+        current.Get_GameObject().Destroy_Object();
+
         GameHandler.Instance.is_running = false;
 
     }
@@ -215,7 +204,7 @@ public class AVLTree : BinaryTree
             return;
 
         /* first print data of node */
-        print(node.Get_Data());
+        print("data: "+node.Get_Data() + " left data: "+node.Get_Left()?.Get_Data() + " right data: "+node.Get_Right()?.Get_Data() + " parent data: " + node.Get_Parent()?.Get_Data() );
 
         /* then recur on left sutree */
         printPreorder(node.Get_Left());
@@ -397,7 +386,7 @@ public class AVLTree : BinaryTree
 
                 v = Reconstruct(v, w, u);
 
-                printPreorder(head);
+                //printPreorder(head);
 
                 //print(head.Get_Left()?.Get_Data());
                 //print(head.Get_Right()?.Get_Data());
