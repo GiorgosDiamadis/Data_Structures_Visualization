@@ -139,8 +139,7 @@ public class BinaryTreeNode
         height = 1 + max(left_height, right_height);
     }
 
-   
-   
+  
     public bool Has_A_Child()
     {
         return left != null || right != null;

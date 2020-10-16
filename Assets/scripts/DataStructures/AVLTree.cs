@@ -82,11 +82,7 @@ public class AVLTree : BinaryTree
                 new_node.Get_GameObject().transform.Set_Child_Active(active: false, 1);
 
                 new_node.Change_Height();
-
                 StartCoroutine(Rebalance(parents));
-                yield return new WaitForSeconds(speed);
-
-                Update_Visual();
             }
 
         }
@@ -132,7 +128,6 @@ public class AVLTree : BinaryTree
         {
             if (current.Get_Left() == null && current.Get_Right() == null)
             {
-
                 if (current.Get_Parent().Get_Right() == current)
                 {
                     current.Get_Parent().Change_Right_To(new_right: null);
@@ -141,13 +136,12 @@ public class AVLTree : BinaryTree
                 {
                     current.Get_Parent().Change_Left_To(new_left: null);
                 }
-
             }
             else if (current.Get_Right() != null)
             {
                 BinaryTreeNode left_most_of_right = current.Get_Right();
-                BinaryTreeNode left_current2 = current.Get_Left();
-                BinaryTreeNode parent_current = current.Get_Parent();
+                BinaryTreeNode left_of_current = current.Get_Left();
+                BinaryTreeNode parent_of_current = current.Get_Parent();
 
                 if (left_most_of_right.Get_Left() == null)
                 {
@@ -161,9 +155,9 @@ public class AVLTree : BinaryTree
                         current.Get_Parent().Change_Right_To(new_right: left_most_of_right);
                     }
 
-                    left_most_of_right.Change_Parent_To(new_parent: parent_current);
-                    left_most_of_right.Change_Left_To(new_left: left_current2);
-                    left_current2.Change_Parent_To(new_parent: left_most_of_right);
+                    left_most_of_right.Change_Parent_To(new_parent: parent_of_current);
+                    left_most_of_right.Change_Left_To(new_left: left_of_current);
+                    left_of_current.Change_Parent_To(new_parent: left_most_of_right);
 
                 }
                 else
@@ -210,9 +204,8 @@ public class AVLTree : BinaryTree
             }
         }
 
-        Update_Visual();
         current.Get_GameObject().Destroy_Object();
-
+        Update_Visual();
         GameHandler.Instance.is_running = false;
 
     }
@@ -390,8 +383,6 @@ public class AVLTree : BinaryTree
 
             if (!current_parent.Is_Balanced())
             {
-
-
                 v = current_parent;
                 w = Rebalance_Son(v);
                 u = Rebalance_Son(w);
@@ -404,10 +395,15 @@ public class AVLTree : BinaryTree
                 u.Get_GameObject().transform.Set_Child_Active(active: true, 1);
                 u.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = blue;
 
-                yield return new WaitForSeconds(speed);
-
                 v = Reconstruct(v, w, u);
 
+                printPreorder(head);
+
+                //print(head.Get_Left()?.Get_Data());
+                //print(head.Get_Right()?.Get_Data());
+
+                yield return new WaitForSeconds(speed);
+                Update_Visual();
                 yield return new WaitForSeconds(2 * speed);
 
                 current_parent.Get_GameObject().transform.Set_Child_Active(active: false, 1);
@@ -430,6 +426,8 @@ public class AVLTree : BinaryTree
         if (w.Get_Child_Type() == BinaryTreeNode.Child_Type.Left &&
            u.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
         {
+            print("mpika");
+            
             if (v != head)
             {
                 if (v.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
@@ -510,7 +508,6 @@ public class AVLTree : BinaryTree
         }
         else if (u.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
         {
-
             v.Change_Right_To(new_right: u.Get_Left());
 
             if (u.Get_Left() != null)
