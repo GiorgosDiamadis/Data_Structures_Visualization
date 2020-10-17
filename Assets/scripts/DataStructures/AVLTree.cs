@@ -97,8 +97,6 @@ public class AVLTree : BinaryTree
         {
             UIHandler.Instance.show_message("Cant have more than 5 levels");
         }
-
-        GameHandler.Instance.is_running = false;
     }
 
     public IEnumerator delete(long data)
@@ -148,7 +146,6 @@ public class AVLTree : BinaryTree
                 else
                     current.Get_Parent().Change_Right_To(new_right: child_of_current);
 
-                child_of_current.Change_Parent_To(new_parent: current.Get_Parent());
                 parents.Push(child_of_current);
                 current.Get_GameObject().Destroy_Object();
 
@@ -196,12 +193,9 @@ public class AVLTree : BinaryTree
                     if (left_most != right_of_current)
                     {
                         left_most.Change_Right_To(new_right: right_of_current);
-                        right_of_current.Change_Parent_To(new_parent: left_most);
                     }
 
                     left_most.Change_Left_To(new_left: left_of_current);
-                    left_most.Change_Parent_To(new_parent: parent_of_current);
-                    left_of_current.Change_Parent_To(new_parent: left_most);
 
                     parents.Push(left_most);
 
@@ -215,9 +209,6 @@ public class AVLTree : BinaryTree
         Update_Visual();
 
         StartCoroutine(Rebalance(parents));
-
-        GameHandler.Instance.is_running = false;
-
     }
 
     void printPreorder(BinaryTreeNode node)
@@ -293,7 +284,7 @@ public class AVLTree : BinaryTree
             position = position_queue.Dequeue();
             parent_position = parent_queue.Dequeue();
 
-            print(current.Get_Data());
+
             current.Get_GameObject().transform.localPosition = positions[position];
 
             if (position >= 15)
@@ -383,6 +374,7 @@ public class AVLTree : BinaryTree
 
     private IEnumerator Rebalance(Stack<BinaryTreeNode> parents)
     {
+
         while (parents.Count != 0)
         {
             BinaryTreeNode current_parent = parents.Pop();
@@ -392,35 +384,27 @@ public class AVLTree : BinaryTree
 
             current_parent.Change_Height();
 
+            current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            yield return new WaitForSeconds(speed);
+            current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+
             if (!current_parent.Is_Balanced())
             {
                 v = current_parent;
                 w = Rebalance_Son(v);
                 u = Rebalance_Son(w);
 
-                v.Get_GameObject().transform.Set_Child_Active(active: true, 1);
-                v.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = red;
-                w.Get_GameObject().transform.Set_Child_Active(active: true, 1);
-                w.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
-
-                u.Get_GameObject().transform.Set_Child_Active(active: true, 1);
-                u.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = blue;
-
-                print("Rotate at " + v.Get_Data());
+                Color_Nodes(v, w, u);
 
                 v = Reconstruct(v, w, u);
 
-                //printPreorder(head);
                 yield return new WaitForSeconds(speed);
                 Update_Visual();
                 yield return new WaitForSeconds(2 * speed);
 
-                current_parent.Get_GameObject().transform.Set_Child_Active(active: false, 1);
-                w.Get_GameObject().transform.Set_Child_Active(active: false, 1);
-                w.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
-                u.Get_GameObject().transform.Set_Child_Active(active: false, 1);
-                u.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
-                current_parent.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
+
+                DeColor_Nodes(current_parent, w, u);
 
                 v.Get_Left().Change_Height();
                 v.Get_Right().Change_Height();
@@ -428,6 +412,27 @@ public class AVLTree : BinaryTree
             }
             v = v.Get_Parent();
         }
+        GameHandler.Instance.is_running = false;
+    }
+
+    private void DeColor_Nodes(BinaryTreeNode current_parent, BinaryTreeNode w, BinaryTreeNode u)
+    {
+        current_parent.Get_GameObject().transform.Set_Child_Active(active: false, 1);
+        w.Get_GameObject().transform.Set_Child_Active(active: false, 1);
+        w.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
+        u.Get_GameObject().transform.Set_Child_Active(active: false, 1);
+        u.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
+        current_parent.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
+    }
+
+    private void Color_Nodes(BinaryTreeNode v, BinaryTreeNode w, BinaryTreeNode u)
+    {
+        v.Get_GameObject().transform.Set_Child_Active(active: true, 1);
+        v.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = red;
+        w.Get_GameObject().transform.Set_Child_Active(active: true, 1);
+        w.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = green;
+        u.Get_GameObject().transform.Set_Child_Active(active: true, 1);
+        u.Get_GameObject().transform.Get_Component_In_Child<MeshRenderer>(1).material = blue;
     }
 
     private BinaryTreeNode Reconstruct(BinaryTreeNode v, BinaryTreeNode w, BinaryTreeNode u)
@@ -445,16 +450,9 @@ public class AVLTree : BinaryTree
                 {
                     v.Get_Parent().Change_Right_To(new_right: w);
                 }
-
-                w.Change_Parent_To(new_parent: v.Get_Parent());
             }
 
             v.Change_Left_To(new_left: w.Get_Right());
-
-            if (w.Get_Right() != null)
-            {
-                w.Get_Right().Change_Parent_To(new_parent: v);
-            }
 
             w.Change_Right_To(new_right: v);
 
@@ -482,16 +480,9 @@ public class AVLTree : BinaryTree
                     v.Get_Parent().Change_Left_To(new_left: w);
                 }
 
-                w.Change_Parent_To(new_parent: v.Get_Parent());
-
             }
 
             v.Change_Right_To(new_right: w.Get_Left());
-
-            if (w.Get_Left() != null)
-            {
-                w.Get_Left().Change_Parent_To(new_parent: v);
-            }
 
             w.Change_Left_To(new_left: v);
 
@@ -508,18 +499,8 @@ public class AVLTree : BinaryTree
         {
             v.Change_Right_To(new_right: u.Get_Left());
 
-            if (u.Get_Left() != null)
-            {
-                u.Get_Left().Change_Parent_To(new_parent: v);
-
-            }
 
             w.Change_Left_To(new_left: u.Get_Right());
-
-            if (u.Get_Right() != null)
-            {
-                u.Get_Right().Change_Parent_To(new_parent: w);
-            }
 
             if (v != head)
             {
@@ -531,7 +512,6 @@ public class AVLTree : BinaryTree
                 {
                     v.Get_Parent().Change_Left_To(new_left: u);
                 }
-                u.Change_Parent_To(new_parent: v.Get_Parent());
             }
 
             v.Change_Parent_To(new_parent: u);
@@ -553,18 +533,8 @@ public class AVLTree : BinaryTree
         else
         {
             v.Change_Left_To(new_left: u.Get_Right());
-            if (u.Get_Right() != null)
-            {
-                u.Get_Right().Change_Parent_To(new_parent: v);
-
-            }
 
             w.Change_Right_To(new_right: u.Get_Left());
-            if (u.Get_Left() != null)
-            {
-                u.Get_Left().Change_Parent_To(new_parent: w);
-
-            }
 
             if (v != head)
             {
@@ -577,7 +547,6 @@ public class AVLTree : BinaryTree
 
                     v.Get_Parent().Change_Right_To(new_right: u);
                 }
-                u.Change_Parent_To(new_parent: v.Get_Parent());
             }
 
 

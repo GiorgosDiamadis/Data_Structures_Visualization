@@ -78,15 +78,21 @@ public class BinaryTreeNode
     public void Change_Left_To(BinaryTreeNode new_left)
     {
         left = new_left;
-        if(new_left!=null)
+        if (new_left != null)
+        {
             new_left.child_type = Child_Type.Left;
+            new_left.parent = this;
+        }
     }
 
     public void Change_Right_To(BinaryTreeNode new_right)
     {
         right = new_right;
-        if(new_right!=null)
+        if (new_right != null)
+        {
             new_right.child_type = Child_Type.Right;
+            new_right.parent = this;
+        }
 
     }
     public long Get_Data()
