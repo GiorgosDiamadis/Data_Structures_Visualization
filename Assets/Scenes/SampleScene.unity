@@ -6661,7 +6661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692174137b164364f97c70ebabb510e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pseudocode_dir: Tree_Traversals
+  pseudocode_dir: Trees
   node_prefab: {fileID: 5210076550946774919, guid: 0ea7fd2d6fa21a147909c3899908d177,
     type: 3}
   arrow: {fileID: 0}
@@ -6820,7 +6820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab94922dc86b7fc4c9bc9f73db0b1786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pseudocode_dir: 
+  pseudocode_dir: Trees
   node_prefab: {fileID: 5210076550946774919, guid: 91e3990d6cd2f8b4d9ee11584a54ae58,
     type: 3}
   arrow: {fileID: 0}

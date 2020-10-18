@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class ChangeValue : MonoBehaviour,IPointerClickHandler
 {
-    [SerializeField] private TMPro.TMP_InputField inputField;
+    [SerializeField] private TMPro.TMP_InputField inputField = null;
     public void OnPointerClick(PointerEventData eventData)
     {
         print(gameObject);
