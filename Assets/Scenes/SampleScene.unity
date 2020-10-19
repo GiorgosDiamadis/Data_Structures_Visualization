@@ -2875,7 +2875,6 @@ GameObject:
   - component: {fileID: 729676199}
   - component: {fileID: 729676198}
   - component: {fileID: 729676197}
-  - component: {fileID: 729676200}
   m_Layer: 5
   m_Name: Queue
   m_TagString: Queue
@@ -2994,21 +2993,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729676195}
   m_CullTransparentMesh: 0
---- !u!114 &729676200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729676195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f2f83686c1a9294985022cb18b37072, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pseudocode_dir: 
-  node_prefab: {fileID: 0}
-  arrow: {fileID: 0}
 --- !u!1 &733829265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3021,6 +3005,7 @@ GameObject:
   - component: {fileID: 733829270}
   - component: {fileID: 733829269}
   - component: {fileID: 733829268}
+  - component: {fileID: 733829267}
   m_Layer: 5
   m_Name: Queue with Array
   m_TagString: Stack A Actions
@@ -3049,6 +3034,22 @@ RectTransform:
   m_AnchoredPosition: {x: 290.14996, y: -15.6}
   m_SizeDelta: {x: 186, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &733829267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733829265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f2f83686c1a9294985022cb18b37072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pseudocode_dir: 
+  node_prefab: {fileID: 7372331671216330056, guid: 3580ec2f172352248a3655a764d06bd3,
+    type: 3}
+  arrow: {fileID: 0}
 --- !u!114 &733829268
 MonoBehaviour:
   m_ObjectHideFlags: 0
