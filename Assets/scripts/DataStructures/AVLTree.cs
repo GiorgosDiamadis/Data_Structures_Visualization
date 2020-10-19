@@ -121,6 +121,7 @@ public class AVLTree : BinaryTree
                     {
                         UIHandler.Instance.show_message("Key already exists");
                         exists = true;
+                        GameHandler.Instance.is_running = false;
                         break;
                     }
                 }
@@ -167,132 +168,196 @@ public class AVLTree : BinaryTree
     public IEnumerator delete(long data)
     {
         UIHandler.Instance.close_message();
+        Load_Pseudocode("delete");
+        yield return new WaitForSeconds(speed);
+
+        highlight_pseudocode(0, is_open: true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(0, is_open: false);
 
         BinaryTreeNode current = head;
 
         Stack<BinaryTreeNode> parents = new Stack<BinaryTreeNode>();
-        while (current != null)
+
+        if (head == null)
         {
-            current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            highlight_pseudocode(1, is_open: true);
+            UIHandler.Instance.show_message("Tree is empty.");
             yield return new WaitForSeconds(speed);
-            current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-
-            if (data < current.Get_Data())
-            {
-                parents.Push(current);
-                current = current.Get_Left();
-            }
-            else if (data > current.Get_Data())
-            {
-                parents.Push(current);
-                current = current.Get_Right();
-            }
-            else if (data == current.Get_Data())
-            {
-                break;
-            }
-        }
-
-        if (current == null)
-        {
-            UIHandler.Instance.show_message("Key doesn't exist");
+            highlight_pseudocode(1, is_open: false);
         }
         else
         {
-            if (current.Has_One_Child())
+            highlight_pseudocode(2, is_open: true);
+            head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(2, is_open: false);
+            head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            highlight_pseudocode(3, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(3, is_open: false);
+            
+            while (current != null)
             {
-                BinaryTreeNode child_of_current = null;
-
-                if (current.Get_Right() == null)
-                    child_of_current = current.Get_Left();
-                else if (current.Get_Left() == null)
-                    child_of_current = current.Get_Right();
-
-                if (current.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
-                    current.Get_Parent()?.Change_Left_To(new_left: child_of_current);
-                else
-                    current.Get_Parent()?.Change_Right_To(new_right: child_of_current);
-
-                parents.Push(child_of_current);
-
-                if (current == head)
+                if (data < current.Get_Data())
                 {
-                    head = child_of_current;
-                    print("New head is " + head.Get_Data());
+                    parents.Push(current);
+                    current = current.Get_Left();
+                    highlight_pseudocode(4, is_open: true);
+                    yield return new WaitForSeconds(speed);
+                    highlight_pseudocode(4, is_open: false);
 
+                    highlight_pseudocode(5, is_open: true);
+                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    yield return new WaitForSeconds(speed);
+                    highlight_pseudocode(5, is_open: false);
+                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+                    highlight_pseudocode(3, is_open: true);
+                    yield return new WaitForSeconds(speed);
+                    highlight_pseudocode(3, is_open: false);
                 }
+                else if (data > current.Get_Data())
+                {
+                    parents.Push(current);
+                    current = current.Get_Right();
+                    highlight_pseudocode(4, is_open: true);
+                    yield return new WaitForSeconds(speed);
+                    highlight_pseudocode(4, is_open: false);
 
-                current.Get_GameObject().Destroy_Object();
+                    highlight_pseudocode(6, is_open: true);
+                    yield return new WaitForSeconds(speed);
+                    highlight_pseudocode(6, is_open: false);
 
+                    highlight_pseudocode(7, is_open: true);
+                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    yield return new WaitForSeconds(speed);
+                    highlight_pseudocode(7, is_open: false);
+                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+                    highlight_pseudocode(3, is_open: true);
+                    yield return new WaitForSeconds(speed);
+                    highlight_pseudocode(3, is_open: false);
+                }
+                else if (data == current.Get_Data())
+                {
+                    highlight_pseudocode(4, is_open: true);
+                    yield return new WaitForSeconds(speed);
+                    highlight_pseudocode(4, is_open: false);
+
+                    highlight_pseudocode(6, is_open: true);
+                    yield return new WaitForSeconds(speed);
+                    highlight_pseudocode(6, is_open: false);
+
+                    highlight_pseudocode(8, is_open: true);
+                    yield return new WaitForSeconds(speed);
+                    highlight_pseudocode(8, is_open: false);
+                    break;
+                }
+            }
+
+            if (current == null)
+            {
+                UIHandler.Instance.show_message("Key doesn't exist");
             }
             else
             {
-                if (current.Has_No_Children())
+                if (current.Has_One_Child())
                 {
+                    BinaryTreeNode child_of_current = null;
+
+                    if (current.Get_Right() == null)
+                        child_of_current = current.Get_Left();
+                    else if (current.Get_Left() == null)
+                        child_of_current = current.Get_Right();
+
                     if (current.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
-                        current.Get_Parent()?.Change_Left_To(new_left: null);
+                        current.Get_Parent()?.Change_Left_To(new_left: child_of_current);
                     else
-                        current.Get_Parent()?.Change_Right_To(new_right: null);
+                        current.Get_Parent()?.Change_Right_To(new_right: child_of_current);
+
+                    parents.Push(child_of_current);
 
                     if (current == head)
                     {
-                        head = null;
-                        print("New head is " + head?.Get_Data());
+                        head = child_of_current;
+                        print("New head is " + head.Get_Data());
+
                     }
 
                     current.Get_GameObject().Destroy_Object();
+
                 }
                 else
                 {
-                    BinaryTreeNode right_of_current = current.Get_Right();
-                    BinaryTreeNode left_most = right_of_current;
-                    BinaryTreeNode left_of_current = current.Get_Left();
-                    BinaryTreeNode parent_of_current = current.Get_Parent();
-
-                    while (left_most.Get_Left() != null)
+                    if (current.Has_No_Children())
                     {
-                        left_most = left_most.Get_Left();
-                    }
+                        if (current.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
+                            current.Get_Parent()?.Change_Left_To(new_left: null);
+                        else
+                            current.Get_Parent()?.Change_Right_To(new_right: null);
 
-                    if (left_most.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
-                        left_most.Get_Parent().Change_Left_To(new_left: null);
-                    else
-                        left_most.Get_Parent().Change_Right_To(new_right: null);
+                        if (current == head)
+                        {
+                            head = null;
+                            print("New head is " + head?.Get_Data());
+                        }
 
-
-                    if (current.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
-                    {
-                        parent_of_current?.Change_Left_To(new_left: left_most);
+                        current.Get_GameObject().Destroy_Object();
                     }
                     else
                     {
-                        parent_of_current?.Change_Right_To(new_right: left_most);
+                        BinaryTreeNode right_of_current = current.Get_Right();
+                        BinaryTreeNode left_most = right_of_current;
+                        BinaryTreeNode left_of_current = current.Get_Left();
+                        BinaryTreeNode parent_of_current = current.Get_Parent();
+
+                        while (left_most.Get_Left() != null)
+                        {
+                            left_most = left_most.Get_Left();
+                        }
+
+                        if (left_most.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
+                            left_most.Get_Parent().Change_Left_To(new_left: null);
+                        else
+                            left_most.Get_Parent().Change_Right_To(new_right: null);
+
+
+                        if (current.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
+                        {
+                            parent_of_current?.Change_Left_To(new_left: left_most);
+                        }
+                        else
+                        {
+                            parent_of_current?.Change_Right_To(new_right: left_most);
+                        }
+
+                        if (left_most != right_of_current)
+                        {
+                            left_most.Change_Right_To(new_right: right_of_current);
+                        }
+
+                        left_most.Change_Left_To(new_left: left_of_current);
+
+                        parents.Push(left_most);
+
+                        if (current == head)
+                        {
+                            head = left_most;
+                            print("New head is " + head.Get_Data());
+                        }
+
+                        current.Get_GameObject().Destroy_Object();
+
                     }
-
-                    if (left_most != right_of_current)
-                    {
-                        left_most.Change_Right_To(new_right: right_of_current);
-                    }
-
-                    left_most.Change_Left_To(new_left: left_of_current);
-
-                    parents.Push(left_most);
-
-                    if (current == head)
-                    {
-                        head = left_most;
-                        print("New head is " + head.Get_Data());
-                    }
-
-                    current.Get_GameObject().Destroy_Object();
-
                 }
             }
+
+            Update_Visual();
+
+            StartCoroutine(Rebalance(parents));
         }
-
-        Update_Visual();
-
-        StartCoroutine(Rebalance(parents));
     }
 
     public IEnumerator search(long data)
@@ -519,6 +584,11 @@ public class AVLTree : BinaryTree
         Load_Pseudocode("rebalance");
         yield return new WaitForSeconds(speed);
 
+
+        highlight_pseudocode(0, is_open: true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(0, is_open: false);
+
         while (parents.Count != 0)
         {
             BinaryTreeNode current_parent = parents.Pop();
@@ -526,12 +596,25 @@ public class AVLTree : BinaryTree
             BinaryTreeNode w;
             BinaryTreeNode u;
 
-            current_parent.Change_Height();
 
             current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            highlight_pseudocode(1, is_open: true);
             yield return new WaitForSeconds(speed);
+            highlight_pseudocode(1, is_open: false);
             current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
+
+
+            current_parent.Change_Height();
+
+            highlight_pseudocode(2, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(2, is_open: false);
+
+
+            highlight_pseudocode(3, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(3, is_open: false);
 
             if (!current_parent.Is_Balanced())
             {
@@ -541,11 +624,14 @@ public class AVLTree : BinaryTree
 
                 Color_Nodes(v, w, u);
 
+                highlight_pseudocode(4, is_open: true);
+
                 v = Reconstruct(v, w, u);
 
                 yield return new WaitForSeconds(speed);
                 Update_Visual();
                 yield return new WaitForSeconds(2 * speed);
+                highlight_pseudocode(4, is_open: false);
 
 
                 DeColor_Nodes(current_parent, w, u);
@@ -555,6 +641,10 @@ public class AVLTree : BinaryTree
                 v.Change_Height();
             }
             v = v.Get_Parent();
+
+            highlight_pseudocode(0, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(0, is_open: false);
         }
         GameHandler.Instance.is_running = false;
     }

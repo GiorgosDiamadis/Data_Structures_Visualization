@@ -31,6 +31,7 @@ public class GameHandler : MonoBehaviour
     public float Speed { get => speed;}
     public  GameObject Pseudocode_panel { get => pseudocode_panel; }
     public int max_nodes { get => MAX_NODES; set => MAX_NODES = value; }
+    public Action<IDataStructure> On_Data_Structure_Variant_Change { get; internal set; }
 
     private void Awake()
     {

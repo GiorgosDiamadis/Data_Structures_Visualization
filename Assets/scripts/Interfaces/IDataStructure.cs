@@ -35,8 +35,10 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     public int Max_nodes { get => max_nodes;}
     public int Max_counter { get => max_counter;}
 
+
     private void Start()
     {
+
         traverse_sprite = GameHandler.Instance.Traverse_sprite;
         initial_sprite =GameHandler.Instance.Initial_sprite;
         view = ViewHandler.Instance.View;
@@ -75,6 +77,8 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         GameHandler.Instance.On_Data_Structure_Change?.Invoke(this);
+        GameHandler.Instance.On_Data_Structure_Variant_Change?.Invoke(this);
+
     }
 
     protected bool exists(long data)

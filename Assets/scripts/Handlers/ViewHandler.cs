@@ -20,7 +20,7 @@ public class ViewHandler : MonoBehaviour
     public GameObject View { get => view; }
     public GameObject View_panel { get => view_panel; }
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null)
         {

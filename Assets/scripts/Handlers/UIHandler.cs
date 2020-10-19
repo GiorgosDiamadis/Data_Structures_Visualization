@@ -1,23 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using DG.Tweening;
+
 public class UIHandler : MonoBehaviour
 {
-    private GameObject d_structure = null;
-    private GameObject options = null;
     public static UIHandler Instance;
+    public static GameObject current_structure_variant_open_panel = null;
+    public static GameObject current_data_structure_open_panel = null;
+    public static GameObject current_method_options_open = null;
     private RectTransform target = null;
-    private TMPro.TextMeshProUGUI mess;
+
     private static Vector3 scale_up = new Vector3(1, 1, 0);
     private static Vector3 scale_down = new Vector3(.1f, .1f, 0);
 
-    [SerializeField] private RectTransform[] actions = null;
-    [SerializeField] private RectTransform[] structures = null;
     [SerializeField] private GameObject message_panel = null;
-    private RectTransform mess_rect;
-    [SerializeField] private List<string> structures_tags = null;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -28,80 +25,96 @@ public class UIHandler : MonoBehaviour
             Destroy(Instance);
             Instance = this;
         }
-
-        mess = message_panel.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        mess_rect = message_panel.GetComponent<RectTransform>();
+        GameHandler.Instance.On_Data_Structure_Variant_Change += Show_Data_Structure_Variant_Methods;
     }
-
-    public void close(RectTransform[] panel)
+    public void Show_Data_Structure_Variants(string structure_tag)
     {
-        for (int i = 0; i < panel.Length; i++)
+        if (current_data_structure_open_panel != null)
         {
-            if (panel[i].gameObject.activeSelf)
+            if (current_data_structure_open_panel.transform.parent.tag.Equals(structure_tag))
             {
-                panel[i].transform.localScale = scale_down;
-                panel[i].gameObject.SetActive(false);
-                break;
+                RectTransform rect = current_data_structure_open_panel.GetComponent<RectTransform>();
+                scale(rect, scale_down);
+                target = rect;
+                current_data_structure_open_panel = null;
+
+                return;
+            }
+            else
+            {
+                current_data_structure_open_panel.SetActive(false);
+                current_data_structure_open_panel.transform.localScale = scale_down;
             }
         }
 
-    }
+        if (current_structure_variant_open_panel != null)
+        {
+            current_structure_variant_open_panel.SetActive(false);
+            current_structure_variant_open_panel.transform.localScale = scale_down;
+            current_structure_variant_open_panel = null;
+        }
 
+        if (current_method_options_open != null)
+        {
+            current_method_options_open.SetActive(false);
+            current_method_options_open.transform.localScale = scale_down;
+            current_method_options_open = null;
+        }
+
+        GameObject structure = GameObject.FindWithTag(structure_tag).transform.GetChild(1).gameObject;
+        current_data_structure_open_panel = structure;
+        structure.SetActive(true);
+        scale(structure.GetComponent<RectTransform>(), scale_up);
+    }
+    private void Show_Data_Structure_Variant_Methods(IDataStructure obj)
+    {
+        if (current_structure_variant_open_panel != null)
+        {
+            if (current_structure_variant_open_panel.GetComponentInParent<IDataStructure>() == obj)
+            {
+                RectTransform rect = current_structure_variant_open_panel.GetComponent<RectTransform>();
+                scale(rect, scale_down);
+                target = rect;
+                current_structure_variant_open_panel = null;
+                return;
+            }
+            else
+            {
+                current_structure_variant_open_panel.SetActive(false);
+                current_structure_variant_open_panel.transform.localScale = scale_down;
+            }
+        }
+
+        current_structure_variant_open_panel = obj.transform.GetChild(1).gameObject;
+        current_structure_variant_open_panel.SetActive(true);
+        scale(current_structure_variant_open_panel.GetComponent<RectTransform>(), scale_up);
+    }
     public void show_message(string message)
     {
+        TMPro.TextMeshProUGUI mess = message_panel.GetComponentInChildren<TMPro.TextMeshProUGUI>();
         mess.text = message;
 
         message_panel.SetActive(true);
-        mess_rect.DOScale(scale_up, .2f);
+        message_panel.GetComponent<RectTransform>().DOScale(scale_up, .2f);
     }
-
     public void show_method_options(RectTransform rect)
     {
-
         target = rect;
 
         if (!rect.gameObject.activeSelf)
         {
             rect.gameObject.SetActive(true);
+            current_method_options_open = rect.gameObject;
             scale(rect, scale_up);
         }
         else
         {
+            current_method_options_open = null;
+
             scale(rect, scale_down);
         }
-
     }
-
-    public void show_structure_options(string data_structure_tag)
-    {
-        d_structure = GameObject.FindGameObjectWithTag(data_structure_tag);
-        
-        options = d_structure.transform.GetChild(1).gameObject;
-
-
-        target = options.GetComponent<RectTransform>();
-
-
-
-        if (!options.activeSelf)
-        {
-            close(actions);
-            if (structures_tags.Contains(data_structure_tag))
-            {
-
-                close(structures);
-            }
-            options.SetActive(true);
-            scale(target, scale_up);
-        }
-        else
-        {
-            scale(target, scale_down);
-        }
-    }
-
-
-    public void scale(RectTransform target, Vector3 result_scale)
+    private void scale(RectTransform target, Vector3 result_scale)
     {
         if (result_scale.x < 1)
         {
@@ -112,17 +125,13 @@ public class UIHandler : MonoBehaviour
             target.DOScale(result_scale, duration: .2f);
         }
     }
-
     public void close_message()
     {
-        target = mess_rect;
-        if(target.gameObject.activeSelf)
-            target.DOScale(scale_down, duration: .05f).OnComplete(set_inactive);
+        target = message_panel.GetComponent<RectTransform>();
+        message_panel.GetComponent<RectTransform>().DOScale(scale_down, duration: .05f).OnComplete(set_inactive);
     }
-
     private void set_inactive()
     {
         target.gameObject.SetActive(false);
     }
-
 }
