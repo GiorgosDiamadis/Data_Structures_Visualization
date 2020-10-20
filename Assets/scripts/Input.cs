@@ -19,9 +19,6 @@ public class Input : MonoBehaviour
 
     public void avl_add()
     {
-
-
-
         if (GameHandler.Instance.is_running)
             return;
 
@@ -94,8 +91,6 @@ public class Input : MonoBehaviour
         if (GameHandler.Instance.is_running)
             return;
 
-
-
         data = get_data(input_field);
 
         if (data < Int64.MaxValue)
@@ -104,6 +99,37 @@ public class Input : MonoBehaviour
             {
                 IStack stack = transform.GetComponentInParent<IStack>();
                 StartCoroutine(stack.push(data));
+                GameHandler.Instance.is_running = true;
+                data = Int64.MaxValue;
+            }
+            else
+            {
+                UIHandler.Instance.show_message("You have reached maximum nodes");
+
+            }
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Please enter a valid number");
+        }
+
+        clear();
+    }
+
+    public void queue_enqueue()
+    {
+
+        if (GameHandler.Instance.is_running)
+            return;
+
+        data = get_data(input_field);
+
+        if (data < Int64.MaxValue)
+        {
+            if (GameHandler.Instance.Can_Add())
+            {
+                IQueue queue= transform.GetComponentInParent<IQueue>();
+                StartCoroutine(queue.Enqueue(data));
                 GameHandler.Instance.is_running = true;
                 data = Int64.MaxValue;
             }
