@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,6 +38,7 @@ public class AVLTree : BinaryTree
         else
         {
             BinaryTreeNode current = head;
+            BinaryTreeNode previous = head;
             Stack<BinaryTreeNode> parents = new Stack<BinaryTreeNode>();
             BinaryTreeNode new_node = new BinaryTreeNode(data);
             bool exists = false;
@@ -53,7 +53,6 @@ public class AVLTree : BinaryTree
                 head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                 yield return new WaitForSeconds(speed);
                 highlight_pseudocode(2, is_open: false);
-                head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
                 highlight_pseudocode(3, is_open: true);
                 yield return new WaitForSeconds(speed);
@@ -74,13 +73,17 @@ public class AVLTree : BinaryTree
 
                         parents.Push(current);
                         current = current.Get_Left();
+
                         highlight_pseudocode(5, is_open: true);
+                        print("h");
+                        previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                         if(current!=null)
                             current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                        previous = current;
                         yield return new WaitForSeconds(speed);
-                        if(current!=null)
-                            current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
                         highlight_pseudocode(5, is_open: false);
+
                         new_node.Change_Child_Type(BinaryTreeNode.Child_Type.Left);
 
                         highlight_pseudocode(3, is_open: true);
@@ -106,11 +109,12 @@ public class AVLTree : BinaryTree
                         new_node.Change_Child_Type(BinaryTreeNode.Child_Type.Right);
 
                         highlight_pseudocode(7, is_open: true);
+                        previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                         if(current!=null)
                             current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                        previous = current;
                         yield return new WaitForSeconds(speed);
-                        if(current!=null)
-                            current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
                         highlight_pseudocode(7, is_open: false);
 
                         highlight_pseudocode(3, is_open: true);
@@ -140,7 +144,6 @@ public class AVLTree : BinaryTree
 
                     highlight_pseudocode(8, is_open: true);
                     yield return new WaitForSeconds(speed);
-                    highlight_pseudocode(8, is_open: false);
                     
                     new_node.Set_Scene_Object(Instantiate(node_prefab, view.transform), data);
                     
@@ -151,6 +154,7 @@ public class AVLTree : BinaryTree
                     new_node.Get_GameObject().transform.Set_Child_Active(active: true, 1);
                     yield return new WaitForSeconds(speed);
                     new_node.Get_GameObject().transform.Set_Child_Active(active: false, 1);
+                    highlight_pseudocode(8, is_open: false);
 
                     new_node.Change_Height();
                     StartCoroutine(Rebalance(parents));
@@ -158,6 +162,7 @@ public class AVLTree : BinaryTree
             }
             else
             {
+                previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                 UIHandler.Instance.show_message("Cant have more than 5 levels");
             }
         }
@@ -176,6 +181,7 @@ public class AVLTree : BinaryTree
         highlight_pseudocode(0, is_open: false);
 
         BinaryTreeNode current = head;
+        BinaryTreeNode previous = head;
 
         Stack<BinaryTreeNode> parents = new Stack<BinaryTreeNode>();
 
@@ -192,7 +198,6 @@ public class AVLTree : BinaryTree
             head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(2, is_open: false);
-            head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
             highlight_pseudocode(3, is_open: true);
             yield return new WaitForSeconds(speed);
@@ -209,10 +214,14 @@ public class AVLTree : BinaryTree
                     highlight_pseudocode(4, is_open: false);
 
                     highlight_pseudocode(5, is_open: true);
+
+                    previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
                     current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    previous = current;
+
                     yield return new WaitForSeconds(speed);
                     highlight_pseudocode(5, is_open: false);
-                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
                     highlight_pseudocode(3, is_open: true);
                     yield return new WaitForSeconds(speed);
@@ -231,10 +240,12 @@ public class AVLTree : BinaryTree
                     highlight_pseudocode(6, is_open: false);
 
                     highlight_pseudocode(7, is_open: true);
+                    if (previous != null)
+                        previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                     current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    previous = current;
                     yield return new WaitForSeconds(speed);
                     highlight_pseudocode(7, is_open: false);
-                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
                     highlight_pseudocode(3, is_open: true);
                     yield return new WaitForSeconds(speed);
@@ -259,6 +270,7 @@ public class AVLTree : BinaryTree
 
             if (current == null)
             {
+                previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                 UIHandler.Instance.show_message("Key doesn't exist");
             }
             else
@@ -381,13 +393,13 @@ public class AVLTree : BinaryTree
         else
         {
             BinaryTreeNode current = head;
+            BinaryTreeNode previous = head;
             bool exists = false;
 
             highlight_pseudocode(2, is_open: true);
             head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(2, is_open: false);
-            head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
             highlight_pseudocode(3, is_open: true);
             yield return new WaitForSeconds(speed);
@@ -407,10 +419,14 @@ public class AVLTree : BinaryTree
                     highlight_pseudocode(4, is_open: false);
 
                     highlight_pseudocode(5, is_open: true);
-                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+                    if(current!=null)
+                        current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    previous = current;
+
                     yield return new WaitForSeconds(speed);
                     highlight_pseudocode(5, is_open: false);
-                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
                     highlight_pseudocode(3, is_open: true);
                     yield return new WaitForSeconds(speed);
@@ -429,10 +445,13 @@ public class AVLTree : BinaryTree
                     highlight_pseudocode(6, is_open: false);
 
                     highlight_pseudocode(7, is_open: true);
-                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                    if(current!=null)
+                        current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    previous = current;
+
                     yield return new WaitForSeconds(speed);
                     highlight_pseudocode(7, is_open: false);
-                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
                     highlight_pseudocode(3, is_open: true);
                     yield return new WaitForSeconds(speed);
@@ -451,6 +470,7 @@ public class AVLTree : BinaryTree
 
                     highlight_pseudocode(8, is_open: true);
                     UIHandler.Instance.show_message("Key exists");
+                    previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                     yield return new WaitForSeconds(speed);
                     highlight_pseudocode(8, is_open: false);
                     exists = true;
@@ -460,6 +480,8 @@ public class AVLTree : BinaryTree
             }
             if (!exists)
             {
+                if(previous!=null)
+                    previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                 UIHandler.Instance.show_message("Key doesnt exist");
             }
         }
@@ -584,24 +606,28 @@ public class AVLTree : BinaryTree
         Load_Pseudocode("rebalance");
         yield return new WaitForSeconds(speed);
 
-
+        BinaryTreeNode previous=null;
+        BinaryTreeNode current_parent = null;
         highlight_pseudocode(0, is_open: true);
         yield return new WaitForSeconds(speed);
         highlight_pseudocode(0, is_open: false);
 
         while (parents.Count != 0)
         {
-            BinaryTreeNode current_parent = parents.Pop();
+            previous = current_parent;
+            current_parent = parents.Pop();
+
             BinaryTreeNode v = current_parent;
             BinaryTreeNode w;
             BinaryTreeNode u;
-
+            
+            if(previous!=null)
+                previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
             current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             highlight_pseudocode(1, is_open: true);
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(1, is_open: false);
-            current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
 
 
@@ -628,6 +654,12 @@ public class AVLTree : BinaryTree
 
                 v = Reconstruct(v, w, u);
 
+                if (previous != null)
+                    previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+                if (current_parent != null)
+                    current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
                 yield return new WaitForSeconds(speed);
                 Update_Visual();
                 yield return new WaitForSeconds(2 * speed);
@@ -646,6 +678,11 @@ public class AVLTree : BinaryTree
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(0, is_open: false);
         }
+        if(previous!=null)
+            previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+        if (current_parent!= null)
+            current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
         GameHandler.Instance.is_running = false;
     }
 
