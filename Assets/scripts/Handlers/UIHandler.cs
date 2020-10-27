@@ -114,8 +114,9 @@ public class UIHandler : MonoBehaviour
             scale(rect, scale_down);
         }
     }
-    private void scale(RectTransform target, Vector3 result_scale)
+    public void scale(RectTransform target, Vector3 result_scale)
     {
+        this.target = target;
         if (result_scale.x < 1)
         {
             target.DOScale(result_scale, duration: .05f).OnComplete(set_inactive);
@@ -125,6 +126,7 @@ public class UIHandler : MonoBehaviour
             target.DOScale(result_scale, duration: .2f);
         }
     }
+
     public void close_message()
     {
         target = message_panel.GetComponent<RectTransform>();
