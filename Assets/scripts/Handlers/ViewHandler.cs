@@ -11,7 +11,7 @@ public class ViewHandler : MonoBehaviour
     private int num_nodes = 3;
 
     private int counter = 0;
-    private static GameObject view;
+    public static GameObject view;
     private static GameObject view_panel;
     private IDataStructure current_structure = null;
 

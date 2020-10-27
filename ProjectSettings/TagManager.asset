@@ -14,6 +14,13 @@ TagManager:
   - Binary tree
   - AVL Tree
   - Queue
+  - SLL Actions
+  - DLL Actions
+  - DCL Actions
+  - Stack A Actions
+  - SCL Actions
+  - Stack L Actions
+  - Graphs
   layers:
   - Default
   - TransparentFX

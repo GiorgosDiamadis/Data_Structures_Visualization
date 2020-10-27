@@ -83,11 +83,10 @@ public class BinaryTree : IDataStructure
 
         Stack<BinaryTreeNode> s = new Stack<BinaryTreeNode>();
         BinaryTreeNode curr = head;
-
+        BinaryTreeNode prev = head;
         highlight_pseudocode(0, is_open: true);
         curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
         yield return new WaitForSeconds(speed);
-        curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
         highlight_pseudocode(0, is_open: false);
 
 
@@ -115,9 +114,11 @@ public class BinaryTree : IDataStructure
                 if (curr != null)
                 {
                     highlight_pseudocode(4, is_open: true);
+                    if (prev != null)
+                        prev.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                    prev = curr;
                     curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                     yield return new WaitForSeconds(speed);
-                    curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                     highlight_pseudocode(4, is_open: false);
 
                 }
@@ -137,6 +138,10 @@ public class BinaryTree : IDataStructure
 
             highlight_pseudocode(5, is_open: true);
             curr = s.Pop();
+            
+            if(prev!=null)
+                prev.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            prev = curr;
 
             curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             yield return new WaitForSeconds(speed);
@@ -156,9 +161,11 @@ public class BinaryTree : IDataStructure
             {
 
                 highlight_pseudocode(6, is_open: true);
+                if (prev != null)
+                    prev.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                prev = curr;
                 curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                 yield return new WaitForSeconds(speed);
-                curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                 highlight_pseudocode(6, is_open: false);
 
             }
