@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class UIHandler : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class UIHandler : MonoBehaviour
     public static GameObject current_structure_variant_open_panel = null;
     public static GameObject current_data_structure_open_panel = null;
     public static GameObject current_method_options_open = null;
+    public Action<GameObject> show_popup;
     private RectTransform target = null;
 
     private static Vector3 scale_up = new Vector3(1, 1, 0);

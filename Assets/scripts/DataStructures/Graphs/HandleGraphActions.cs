@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HandleGraphActions : MonoBehaviour
 {
@@ -13,5 +11,10 @@ public class HandleGraphActions : MonoBehaviour
     public void Delete()
     {
         gr.Delete();
+    }
+    public void Add_Edge()
+    {
+        gr.Add_Edge();
+        UIHandler.Instance.show_popup.Invoke(Graphs.selected_graph.transform.Get_Child_Object(1));
     }
 }
