@@ -273,7 +273,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1254913735965476073}
+      - m_Target: {fileID: 7372071632097022876}
         m_MethodName: Add_Edge
         m_Mode: 1
         m_Arguments:
@@ -450,9 +450,9 @@ GameObject:
   - component: {fileID: 7372331671216330059}
   - component: {fileID: 7372331671216330053}
   - component: {fileID: 7372331671216330058}
-  - component: {fileID: 7987821583471362723}
   - component: {fileID: 269695376314458326}
   - component: {fileID: 963739672431526561}
+  - component: {fileID: 7372071632097022876}
   m_Layer: 5
   m_Name: graphnode
   m_TagString: Node
@@ -517,18 +517,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7987821583471362723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7372331671216330056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b3fef8e582c6c34fb18d681a4f74ea8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &269695376314458326
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -571,6 +559,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 72.43, y: 72.08}
   m_EdgeRadius: 0
+--- !u!114 &7372071632097022876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7372331671216330056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e13970467c0ff419f7acfd7c30cc2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7372331671764339303
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +812,6 @@ GameObject:
   - component: {fileID: 172570005657842131}
   - component: {fileID: 1204433554450856000}
   - component: {fileID: 2074106814969096222}
-  - component: {fileID: 1254913735965476073}
   m_Layer: 5
   m_Name: Actions
   m_TagString: Untagged
@@ -901,18 +900,6 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &1254913735965476073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7577724132985770110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db864e48fb6237c49af0c032ce0ced4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9006053736487405605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,7 +1018,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1254913735965476073}
+      - m_Target: {fileID: 7372071632097022876}
         m_MethodName: Delete
         m_Mode: 1
         m_Arguments:

@@ -36,7 +36,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     public int Max_counter { get => max_counter;}
 
 
-    private void Start()
+    private void Awake()
     {
 
         traverse_sprite = GameHandler.Instance.Traverse_sprite;

@@ -9007,7 +9007,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pseudocode_dir: 
   node_prefab: {fileID: 0}
-  arrow: {fileID: 0}
+  arrow: {fileID: 5195815460596032348, guid: 25cfefd32f3ad2943859a411e340fb05, type: 3}
   drag_area: {fileID: 1895914174}
 --- !u!1 &1790339842
 GameObject:
