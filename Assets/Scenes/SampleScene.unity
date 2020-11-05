@@ -7489,8 +7489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753a53e2c4944d545905f142e02da0c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graph_prefab: {fileID: 7372331671216330056, guid: 29f08139257f8d548b11a3a7ffdbebde,
-    type: 3}
 --- !u!1 &1530805907
 GameObject:
   m_ObjectHideFlags: 0
@@ -9009,6 +9007,8 @@ MonoBehaviour:
   node_prefab: {fileID: 0}
   arrow: {fileID: 5195815460596032348, guid: 25cfefd32f3ad2943859a411e340fb05, type: 3}
   drag_area: {fileID: 1895914174}
+  graph_prefab: {fileID: 7372331671216330056, guid: 29f08139257f8d548b11a3a7ffdbebde,
+    type: 3}
 --- !u!1 &1790339842
 GameObject:
   m_ObjectHideFlags: 0

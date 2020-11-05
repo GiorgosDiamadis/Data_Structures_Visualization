@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class GraphNode : MonoBehaviour, IPointerClickHandler
 {
     private static Graphs graphs;
-    private List<GraphNode> connections = null;
+    public List<GraphNode> connections = null;
     public int data;
     
     private void OnEnable()
@@ -36,10 +35,5 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
     public void Add_Connection(GraphNode node)
     {
         connections.Add(node);
-
-        for(int i = 0; i < connections.Count; i++)
-        {
-            print(connections[i].data);
-        }
     }
 }
