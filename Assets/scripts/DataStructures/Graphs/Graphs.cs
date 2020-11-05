@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,6 +41,17 @@ public class Graphs : IDataStructure
         on_select_node += Node_Selected;
         node_dropped += Create_Graph_Node;
     }
+    
+    public override void Init()
+    {
+        view.transform.Destroy_All_Children();
+        view.GetComponent<DropGraphNodeOrArrow>().enabled = true;
+        drop_area = view.GetComponent<Outline>();
+        edges = new List<Edge>();
+        adj_list = new List<GraphNode>();
+        drag_area.SetActive(true);
+        drop_area.enabled = true;
+    }
 
     private void Create_Graph_Node()
     {
@@ -64,67 +74,6 @@ public class Graphs : IDataStructure
         adj_list.Add(new_node.GetComponent<GraphNode>());
     }
 
-    public override void Init()
-    {
-        view.transform.Destroy_All_Children();
-        view.GetComponent<DropGraphNodeOrArrow>().enabled = true;
-        drop_area = view.GetComponent<Outline>();
-        edges = new List<Edge>();
-        adj_list = new List<GraphNode>();
-        drag_area.SetActive(true);
-        drop_area.enabled = true;
-    }
-
-    private void Update()
-    {
-        if (create_edge)
-        {
-            if (UnityEngine.Input.GetMouseButtonDown(0))
-            {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
-                Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-                RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-                if (hit.collider != null)
-                {
-                    GraphNode to = hit.collider.gameObject.GetComponent<GraphNode>();
-
-                    Create_Edge(from, to);
-
-                    selected_node.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-
-                    selected_node = null;
-
-                    from = null;
-                }
-                else
-                {
-                    selected_node.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-                    selected_node = null;
-                }
-                create_edge = false;
-            }
-        }
-    }
-
-    private void Create_Edge(GraphNode from, GraphNode to)
-    {
-        GameObject line = create_arrow();
-        line.transform.SetAsFirstSibling();
-
-        Quaternion rotation = Quaternion.LookRotation(to.transform.localPosition - from.transform.localPosition, transform.TransformDirection(Vector3.up));
-
-        line.transform.localRotation = new Quaternion(0, 0, rotation.z, rotation.w);
-
-        line.transform.localPosition = new Vector3((to.transform.localPosition.x + from.transform.localPosition.x) / 2, (to.transform.localPosition.y + from.transform.localPosition.y) / 2, 0);
-        float dist = Vector3.Distance(to.transform.localPosition, from.transform.localPosition);
-        line.transform.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, dist - 100);
-        
-        from.Add_Connection(to);
-        to.Add_Connection(from);
-
-        edges.Add(new Edge(from, to, line));
-    }
     #region Graph_Node_Selection_Deselection
 
     private void Node_Selected(GraphNode obj)
@@ -215,5 +164,57 @@ public class Graphs : IDataStructure
 
         create_edge = true;
     }
+
+    private void Update()
+    {
+        if (create_edge)
+        {
+            if (UnityEngine.Input.GetMouseButtonDown(0))
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
+                Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+                RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+                if (hit.collider != null)
+                {
+                    GraphNode to = hit.collider.gameObject.GetComponent<GraphNode>();
+
+                    Create_Edge(from, to);
+
+                    selected_node.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+                    selected_node = null;
+
+                    from = null;
+                }
+                else
+                {
+                    selected_node.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                    selected_node = null;
+                }
+                create_edge = false;
+            }
+        }
+    }
+
+    private void Create_Edge(GraphNode from, GraphNode to)
+    {
+        GameObject line = create_arrow();
+        line.transform.SetAsFirstSibling();
+
+        Quaternion rotation = Quaternion.LookRotation(to.transform.localPosition - from.transform.localPosition, transform.TransformDirection(Vector3.up));
+
+        line.transform.localRotation = new Quaternion(0, 0, rotation.z, rotation.w);
+
+        line.transform.localPosition = new Vector3((to.transform.localPosition.x + from.transform.localPosition.x) / 2, (to.transform.localPosition.y + from.transform.localPosition.y) / 2, 0);
+        float dist = Vector3.Distance(to.transform.localPosition, from.transform.localPosition);
+        line.transform.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, dist - 100);
+
+        from.Add_Connection(to);
+        to.Add_Connection(from);
+
+        edges.Add(new Edge(from, to, line));
+    }
+
     #endregion
 }
