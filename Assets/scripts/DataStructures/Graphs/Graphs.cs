@@ -4,28 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-class Edge
-{
-    public GraphNode from;
-    public GraphNode to;
-    public GameObject obj;
-    public int weight;
 
-    public Edge(GraphNode from, GraphNode to, GameObject obj, int weight = 1)
-    {
-        this.from = from;
-        this.to = to;
-        this.weight = weight;
-        this.obj = obj;
-    }
-}
 
 public class Graphs : IDataStructure
 {
     private Outline drop_area;
     public static Action<GraphNode> on_select_node;
+    public static Action<Edge> on_select_edge;
+
     public static Action node_dropped;
     private static GraphNode selected_node;
+    private static Edge selected_edge;
     private GraphNode from;
     private List<Edge> edges;
 
@@ -40,8 +29,64 @@ public class Graphs : IDataStructure
     {
         on_select_node += Node_Selected;
         node_dropped += Create_Graph_Node;
+        on_select_edge += Edge_Selected;
     }
-    
+
+    public void Remove_Edge(Edge edge)
+    {
+        edge.obj.Destroy_Object();
+
+        edge.from.connections.Remove(edge.to);
+        edge.to.connections.Remove(edge.from);
+        
+        edges.Remove(edge);
+    }
+
+    private void Edge_Selected(Edge obj)
+    {
+        if (selected_edge != null && obj != selected_edge)
+        {
+            Select_New_(obj);
+        }
+        else if (selected_edge != null && obj == selected_edge)
+        {
+            Deselect_();
+        }
+        else
+        {
+            Select_(obj);
+        }
+    }
+
+    private void Select_New_(Edge obj)
+    {
+        RectTransform actions = selected_edge.transform.Get_Child_Object(0).GetComponent<RectTransform>();
+        actions.gameObject.SetActive(false);
+        actions.localScale = new Vector3(.1f, .1f, .1f);
+
+        actions = obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        actions.gameObject.SetActive(true);
+
+        UIHandler.Instance.scale(actions, Vector3.one);
+        selected_edge = obj;
+    }
+
+    private void Select_(Edge obj)
+    {
+        RectTransform actions = obj.transform.Get_Child_Object(0).GetComponent<RectTransform>();
+        actions.gameObject.SetActive(true);
+
+        UIHandler.Instance.scale(actions, Vector3.one);
+        selected_edge = obj;
+    }
+
+    private void Deselect_()
+    {
+        RectTransform actions = selected_edge.transform.Get_Child_Object(0).GetComponent<RectTransform>();
+        UIHandler.Instance.scale(actions, new Vector3(.1f, .1f, .1f));
+        selected_node = null;
+    }
+
     public override void Init()
     {
         view.transform.Destroy_All_Children();
@@ -210,10 +255,17 @@ public class Graphs : IDataStructure
         float dist = Vector3.Distance(to.transform.localPosition, from.transform.localPosition);
         line.transform.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, dist - 100);
 
+
+        //Must change
         from.Add_Connection(to);
         to.Add_Connection(from);
 
-        edges.Add(new Edge(from, to, line));
+        Edge new_edge = line.GetComponent<Edge>();
+        new_edge.from = from;
+        new_edge.to = to;
+        new_edge.obj = line;
+
+        edges.Add(new_edge);
     }
 
     #endregion
