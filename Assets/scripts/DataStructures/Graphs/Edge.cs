@@ -15,6 +15,7 @@ public class Edge : MonoBehaviour, IPointerClickHandler
     {
         graphs = FindObjectOfType<Graphs>();
     }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)

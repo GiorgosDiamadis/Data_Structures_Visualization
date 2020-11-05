@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ViewHandler : MonoBehaviour
@@ -13,6 +14,7 @@ public class ViewHandler : MonoBehaviour
     private int counter = 0;
     public static GameObject view;
     private static GameObject view_panel;
+    public Action<IDataStructure> on_deselect;
     private IDataStructure current_structure = null;
 
     private GridLayoutGroup grid;
@@ -95,6 +97,8 @@ public class ViewHandler : MonoBehaviour
         if (current_structure != structure)
         {
             View_panel.transform.localScale = new Vector3(1f, 1f, 1f);
+
+            current_structure?.DeselectStructure();
             insertion_counter = 0;
             deletion_counter = 0;
             current_structure = structure;

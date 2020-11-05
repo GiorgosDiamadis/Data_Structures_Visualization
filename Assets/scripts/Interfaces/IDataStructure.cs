@@ -8,6 +8,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private string pseudocode_dir = "";
     public abstract void Init();
+    public virtual void DeselectStructure() { }
     protected static float speed;
 
     protected static GameObject view = null;
@@ -31,6 +32,8 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     protected GameObject new_node = null;
     protected TMPro.TextMeshProUGUI new_node_data = null;
+
+   
 
     public int Max_nodes { get => max_nodes;}
     public int Max_counter { get => max_counter;}
@@ -78,7 +81,6 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     {
         GameHandler.Instance.On_Data_Structure_Change?.Invoke(this);
         GameHandler.Instance.On_Data_Structure_Variant_Change?.Invoke(this);
-
     }
 
     protected bool exists(long data)

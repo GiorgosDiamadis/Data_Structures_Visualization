@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
-
 public class Graphs : IDataStructure
 {
     private Outline drop_area;
@@ -24,54 +21,70 @@ public class Graphs : IDataStructure
     [SerializeField] private GameObject graph_prefab= null  ;
     private bool create_edge = false;
 
-
+    #region Initialize
     private void Start()
     {
         on_select_node += Node_Selected;
-        node_dropped += Create_Graph_Node;
+        node_dropped += Create_Node;
         on_select_edge += Edge_Selected;
     }
 
-    public void Remove_Edge(Edge edge)
+  
+    public override void Init()
     {
-        edge.obj.Destroy_Object();
-
-        edge.from.connections.Remove(edge.to);
-        edge.to.connections.Remove(edge.from);
-        
-        edges.Remove(edge);
+        view.transform.Destroy_All_Children();
+        ViewHandler.Instance.Change_Grid(enabled: false);
+        view.GetComponent<DropGraphNodeOrArrow>().enabled = true;
+        drop_area = view.GetComponent<Outline>();
+        edges = new List<Edge>();
+        adj_list = new List<GraphNode>();
+        drag_area.SetActive(true);
+        drop_area.enabled = true;
     }
+    #endregion
+
+    public override void DeselectStructure()
+    {
+        base.DeselectStructure();
+        view.GetComponent<DropGraphNodeOrArrow>().enabled = false;
+        drag_area.SetActive(false);
+        drop_area.enabled = false;
+        edges = null;
+        adj_list = null;
+    }
+
+    #region Graph_Node_Edge_Selection_Deselection
 
     private void Edge_Selected(Edge obj)
     {
         if (selected_edge != null && obj != selected_edge)
         {
-            Select_New_(obj);
+            Select_New_Edge(obj);
         }
         else if (selected_edge != null && obj == selected_edge)
         {
-            Deselect_();
+            Deselect_Edge();
         }
         else
         {
-            Select_(obj);
+            Select_Edge(obj);
         }
     }
 
-    private void Select_New_(Edge obj)
+    private void Select_New_Edge(Edge obj)
     {
         RectTransform actions = selected_edge.transform.Get_Child_Object(0).GetComponent<RectTransform>();
         actions.gameObject.SetActive(false);
         actions.localScale = new Vector3(.1f, .1f, .1f);
 
-        actions = obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        actions = obj.transform.Get_Child_Object(0).GetComponent<RectTransform>();
         actions.gameObject.SetActive(true);
 
         UIHandler.Instance.scale(actions, Vector3.one);
         selected_edge = obj;
     }
 
-    private void Select_(Edge obj)
+    private void Select_Edge(Edge obj)
     {
         RectTransform actions = obj.transform.Get_Child_Object(0).GetComponent<RectTransform>();
         actions.gameObject.SetActive(true);
@@ -80,46 +93,13 @@ public class Graphs : IDataStructure
         selected_edge = obj;
     }
 
-    private void Deselect_()
+    private void Deselect_Edge()
     {
         RectTransform actions = selected_edge.transform.Get_Child_Object(0).GetComponent<RectTransform>();
         UIHandler.Instance.scale(actions, new Vector3(.1f, .1f, .1f));
-        selected_node = null;
+        selected_edge = null;
     }
 
-    public override void Init()
-    {
-        view.transform.Destroy_All_Children();
-        view.GetComponent<DropGraphNodeOrArrow>().enabled = true;
-        drop_area = view.GetComponent<Outline>();
-        edges = new List<Edge>();
-        adj_list = new List<GraphNode>();
-        drag_area.SetActive(true);
-        drop_area.enabled = true;
-    }
-
-    private void Create_Graph_Node()
-    {
-        GameObject new_node = Instantiate(graph_prefab);
-
-        new_node.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 90);
-        new_node.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 90);
-
-
-        new_node.transform.localPosition = Camera.main.ScreenToWorldPoint(new Vector3(UnityEngine.Input.mousePosition.x, UnityEngine.Input.mousePosition.y, UnityEngine.Input.mousePosition.z));
-        new_node.transform.SetParent(ViewHandler.view.transform, true);
-
-        new_node.transform.localScale = Vector3.one;
-        new_node.transform.localPosition = new_node.transform.localPosition.With(z: 0);
-
-        int data = (UnityEngine.Random.Range(-100, 100));
-        new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
-        new_node.GetComponent<GraphNode>().data = data;
-
-        adj_list.Add(new_node.GetComponent<GraphNode>());
-    }
-
-    #region Graph_Node_Selection_Deselection
 
     private void Node_Selected(GraphNode obj)
     {
@@ -172,34 +152,70 @@ public class Graphs : IDataStructure
     #endregion
 
     #region Graph_Actions
-    public void Delete()
+
+    private void Create_Node()
+    {
+        GameObject new_node = Instantiate(graph_prefab);
+
+        new_node.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 90);
+        new_node.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 90);
+
+
+        new_node.transform.localPosition = Camera.main.ScreenToWorldPoint(new Vector3(UnityEngine.Input.mousePosition.x, UnityEngine.Input.mousePosition.y, UnityEngine.Input.mousePosition.z));
+        new_node.transform.SetParent(ViewHandler.view.transform, true);
+
+        new_node.transform.localScale = Vector3.one;
+        new_node.transform.localPosition = new_node.transform.localPosition.With(z: 0);
+
+        int data = (UnityEngine.Random.Range(-100, 100));
+        new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
+        new_node.GetComponent<GraphNode>().data = data;
+
+        adj_list.Add(new_node.GetComponent<GraphNode>());
+    }
+
+    public void Delete_Node()
     {
         selected_node.transform.Get_Child_Object(1).Destroy_Object();
-        Destroy_Edges();
 
-        
-        foreach(GraphNode g in adj_list)
-        {
-            g.connections.Remove(selected_node);
-        }
+        Remove_All_Edges_From_Or_To(selected_node);
+        Remove_Node_From_Adj_List(selected_node);
 
         adj_list.Remove(selected_node);
         selected_node.gameObject.Destroy_Object();
-        
+
         selected_node = null;
     }
 
-    private void Destroy_Edges()
+    private void Remove_Node_From_Adj_List(GraphNode node)
+    {
+        foreach (GraphNode g in adj_list)
+        {
+            g.connections.Remove(node);
+        }
+    }
+
+    private void Remove_All_Edges_From_Or_To(GraphNode node)
     {
         for (int i = 0; i < edges.Count; i++)
         {
-            if (edges[i].from == selected_node || edges[i].to == selected_node)
+            if (edges[i].from == node || edges[i].to == node)
             {
                 edges[i].obj.Destroy_Object();
             }
         }
 
-        edges.RemoveAll(e => e.from == selected_node || e.to == selected_node);
+        edges.RemoveAll(e => e.from == node || e.to == node);
+    }
+
+    public void Remove_Edge(Edge edge)
+    {
+        edge.obj.Destroy_Object();
+
+        edge.from.connections.Remove(edge.to);
+        edge.to.connections.Remove(edge.from);
+
+        edges.Remove(edge);
     }
 
     public void Add_Edge(GraphNode from)

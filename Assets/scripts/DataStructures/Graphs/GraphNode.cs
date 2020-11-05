@@ -28,7 +28,7 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
 
     public void Delete()
     {
-        graphs.Delete();
+        graphs.Delete_Node();
     }
 
 
