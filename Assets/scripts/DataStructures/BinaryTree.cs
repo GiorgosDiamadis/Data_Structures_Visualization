@@ -5,9 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
-
 public class BinaryTree : IDataStructure
 {
     protected static int max_children = 31;
@@ -21,7 +18,6 @@ public class BinaryTree : IDataStructure
 
 
     public BinaryTreeNode head;
-    private static GameObject p;
 
     public override void Init()
     {
@@ -76,7 +72,7 @@ public class BinaryTree : IDataStructure
     }
     private IEnumerator In_Order_Cor()
     {
-        Load_Pseudocode_Nodes("In Order");
+        Load_Variables("In Order Traversal");
         Load_Pseudocode("inorder");
 
         yield return new WaitForSeconds(speed);
@@ -209,7 +205,7 @@ public class BinaryTree : IDataStructure
     private IEnumerator Post_Order_Cor()
     {
 
-        Load_Pseudocode_Nodes("Post Order");
+        Load_Variables("Post Order Traversal");
 
         Load_Pseudocode("postorder");
         yield return new WaitForSeconds(speed);
@@ -349,7 +345,7 @@ public class BinaryTree : IDataStructure
 
     private IEnumerator Pre_Order_Cor()
     {
-        Load_Pseudocode_Nodes("Pre Order");
+        Load_Variables("Pre Order Traversal");
 
         Load_Pseudocode("preorder");
         yield return new WaitForSeconds(speed);
@@ -436,7 +432,7 @@ public class BinaryTree : IDataStructure
     }
     private IEnumerator Level_Order_Cor()
     {
-        Load_Pseudocode_Nodes("Level Order"); 
+        Load_Variables("Level Order Traversal"); 
         Load_Pseudocode("levelorder");
 
         yield return new WaitForSeconds(speed);
@@ -497,24 +493,6 @@ public class BinaryTree : IDataStructure
         GameHandler.Instance.is_running = false;
     }
     #endregion
-    private void Load_Pseudocode_Nodes(string trav)
-    {
-        if (p == null || p.name != trav)
-        {
-            if(p!=null)
-                Destroy(p);
-
-            p = Resources.Load("prefabs/pseudocode/Traversal/Traversal") as GameObject;
-            p.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0).text = $"{trav} Traversal:";
-            p = Instantiate(p, pseudocode_panel.transform);
-            p.name = trav;
-            p.GetComponent<RectTransform>().DOScale(1f, speed);
-        }
-          
-    }
-
-
-
     
 
     private static void Create_Pseudocode_Nodes(BinaryTreeNode curr)

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Edge : MonoBehaviour, IPointerClickHandler
@@ -15,7 +13,6 @@ public class Edge : MonoBehaviour, IPointerClickHandler
     {
         graphs = FindObjectOfType<Graphs>();
     }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
@@ -23,11 +20,8 @@ public class Edge : MonoBehaviour, IPointerClickHandler
             Graphs.on_select_edge.Invoke(this);
         }
     }
-
-
     public void Remove()
     {
         graphs.Remove_Edge(this);
-
     }
 }

@@ -29,6 +29,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject arrow = null;
 
     protected static GameObject pseudocode = null;
+    protected static GameObject variable_panel;
 
     protected GameObject new_node = null;
     protected TMPro.TextMeshProUGUI new_node_data = null;
@@ -64,7 +65,21 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         pseudocode.transform.Set_Child_Active(is_open,index,0);
     }
 
+    protected void Load_Variables(string trav)
+    {
+        if (variable_panel == null || variable_panel.name != trav)
+        {
+            if (variable_panel != null)
+                Destroy(variable_panel);
 
+            variable_panel = Resources.Load("prefabs/pseudocode/Traversal/Traversal") as GameObject;
+            variable_panel.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0).text = trav;
+            variable_panel = Instantiate(variable_panel, pseudocode_panel.transform);
+            variable_panel.name = trav;
+            variable_panel.GetComponent<RectTransform>().DOScale(1f, speed);
+        }
+
+    }
     protected void Load_Pseudocode(string method)
     {
         if(pseudocode==null || pseudocode.name!= "pseudocode_" + method)
@@ -94,6 +109,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
         return arr;
     }
+
 
     protected GameObject create_cell(bool not_empty_data=false)
     {

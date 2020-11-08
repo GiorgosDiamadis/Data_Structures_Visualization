@@ -20,17 +20,29 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
             Graphs.on_select_node.Invoke(this);
         }
     }
-
     public void Add_Edge()
     {
         graphs.Add_Edge(from:this);
     }
-
     public void Delete()
     {
         graphs.Delete_Node();
     }
 
+    public void dfs()
+    {
+        StartCoroutine(graphs.DFS(this));
+    }
+
+    public void bfs()
+    {
+        StartCoroutine(graphs.BFS(this));
+    }
+
+    public void djkstr()
+    {
+        StartCoroutine(graphs.Dijkstra(this));
+    }
 
     public void Add_Connection(GraphNode node)
     {

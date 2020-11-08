@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,6 +42,8 @@ public class Graphs : IDataStructure
         drag_area.SetActive(true);
         drop_area.enabled = true;
     }
+
+ 
     #endregion
 
     public override void DeselectStructure()
@@ -282,6 +285,116 @@ public class Graphs : IDataStructure
         new_edge.obj = line;
 
         edges.Add(new_edge);
+    }
+
+    
+    public IEnumerator DFS(GraphNode from)
+    {
+        selected_node = null;
+        UIHandler.Instance.scale(from.transform.Get_Child_Object(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
+        from.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+
+        Load_Variables("DFS Traversal:");
+
+        if (pseudocode_panel.transform.childCount != 0)
+        {
+            pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
+        }
+
+        yield return new WaitForSeconds(speed);
+        
+        var visited = new List<GraphNode>();
+
+
+        var stack = new Stack<GraphNode>();
+        stack.Push(from);
+
+        while (stack.Count > 0)
+        {
+            var vertex = stack.Pop();
+
+            if (visited.Contains(vertex))
+                continue;
+
+            vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            Create_Graph_Node(vertex);
+            yield return new WaitForSeconds(2*speed);
+            vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            visited.Add(vertex);
+
+            int pos = adj_list.IndexOf(vertex);
+
+            foreach (var neighbor in adj_list[pos].connections)
+            {
+                if (!visited.Contains(neighbor))
+                {
+                    stack.Push(neighbor);
+                }
+            }
+        }
+
+    }
+
+    public IEnumerator BFS(GraphNode from)
+    {
+        selected_node = null;
+        UIHandler.Instance.scale(from.transform.Get_Child_Object(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
+        from.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+
+        Load_Variables("BFS Traversal:");
+
+        if (pseudocode_panel.transform.childCount != 0)
+        {
+            pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
+        }
+
+        yield return new WaitForSeconds(speed);
+
+        var visited = new List<GraphNode>();
+
+
+        var queue = new Queue<GraphNode>();
+        queue.Enqueue(from);
+
+        while (queue.Count > 0)
+        {
+            var vertex = queue.Dequeue();
+
+            if (visited.Contains(vertex))
+                continue;
+
+            vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            Create_Graph_Node(vertex);
+            yield return new WaitForSeconds(2 * speed);
+            vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            visited.Add(vertex);
+
+            int pos = adj_list.IndexOf(vertex);
+
+            foreach (var neighbor in adj_list[pos].connections)
+                if (!visited.Contains(neighbor))
+                    queue.Enqueue(neighbor);
+        }
+
+    }
+
+    private void Create_Graph_Node(GraphNode from)
+    {
+        int data = from.data;
+        GameObject node = Instantiate(graph_prefab);
+        node.transform.SetParent(pseudocode_panel.transform.Get_Child(0, 1));
+        node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
+        node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).fontSize = 20;
+        node.transform.localScale = new Vector3(1f,1f,1f);
+    }
+
+    public IEnumerator Dijkstra(GraphNode from)
+    {
+        yield return null;
     }
 
     #endregion
