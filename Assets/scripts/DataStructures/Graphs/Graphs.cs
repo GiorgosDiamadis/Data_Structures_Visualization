@@ -194,7 +194,7 @@ public class Graphs : IDataStructure
     {
         foreach (GraphNode g in adj_list)
         {
-            g.connections.Remove(node);
+            g.Remove_Pairs(with:node);
         }
     }
 
@@ -215,8 +215,8 @@ public class Graphs : IDataStructure
     {
         edge.obj.Destroy_Object();
 
-        edge.from.connections.Remove(edge.to);
-        edge.to.connections.Remove(edge.from);
+        edge.from.Remove_Pair(edge.to);
+        edge.to.Remove_Pair(edge.from);
 
         edges.Remove(edge);
     }
@@ -326,11 +326,11 @@ public class Graphs : IDataStructure
 
             int pos = adj_list.IndexOf(vertex);
 
-            foreach (var neighbor in adj_list[pos].connections)
+            foreach (var pair in adj_list[pos].connections)
             {
-                if (!visited.Contains(neighbor))
+                if (!visited.Contains(pair.to))
                 {
-                    stack.Push(neighbor);
+                    stack.Push(pair.to);
                 }
             }
         }
@@ -375,9 +375,9 @@ public class Graphs : IDataStructure
 
             int pos = adj_list.IndexOf(vertex);
 
-            foreach (var neighbor in adj_list[pos].connections)
-                if (!visited.Contains(neighbor))
-                    queue.Enqueue(neighbor);
+            foreach (var pair in adj_list[pos].connections)
+                if (!visited.Contains(pair.to))
+                    queue.Enqueue(pair.to);
         }
 
     }

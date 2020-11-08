@@ -1,17 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
+public class Pair
+{
+    public GraphNode from;
+    public GraphNode to;
+    public int weight;
+
+    public Pair(GraphNode from, GraphNode to, int weight)
+    {
+        this.from = from;
+        this.to = to;
+        this.weight = weight;
+    }
+}
+
 
 public class GraphNode : MonoBehaviour, IPointerClickHandler
 {
     private static Graphs graphs;
-    public List<GraphNode> connections = null;
+    public List<Pair> connections = null;
     public int data;
     
     private void OnEnable()
     {
         graphs = FindObjectOfType<Graphs>();
-        connections = new List<GraphNode>();
+        connections = new List<Pair>();
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -31,6 +47,9 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
 
     public void dfs()
     {
+        foreach (Pair p in connections)
+            print(p.to.data);
+
         StartCoroutine(graphs.DFS(this));
     }
 
@@ -44,8 +63,43 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
         StartCoroutine(graphs.Dijkstra(this));
     }
 
-    public void Add_Connection(GraphNode node)
+    public void Add_Connection(GraphNode node,int weight = 1)
     {
-        connections.Add(node);
+        connections.Add(new Pair(this,node,weight));
+    }
+
+    //When deleting an edge
+    public void Remove_Pair(GraphNode to)
+    {
+        Pair p = null;
+
+        foreach(Pair pa in connections)
+        {
+            if(pa.to == to)
+            {
+                p = pa;
+            }
+        }
+
+        connections.Remove(p);
+
+
+        foreach (Pair pa in to.connections)
+        {
+            if (pa.to == this)
+            {
+                p = pa;
+            }
+        }
+
+        connections.Remove(p);
+
+    }
+
+
+    //When deleting a node
+    public void Remove_Pairs(GraphNode with)
+    {
+        connections.RemoveAll(p => p.from == with || p.to == with);
     }
 }
