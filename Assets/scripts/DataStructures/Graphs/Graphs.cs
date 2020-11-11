@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,8 @@ public class Graphs : IDataStructure
         on_select_node += Node_Selected;
         node_dropped += Create_Node;
         on_select_edge += Edge_Selected;
+
+        
     }
 
   
@@ -43,7 +46,21 @@ public class Graphs : IDataStructure
         drop_area.enabled = true;
     }
 
- 
+    public void Add_Weight(Edge edge)
+    {
+        TMPro.TMP_InputField inf = edge.GetComponentInChildren<TMPro.TMP_InputField>();
+        int data = int.Parse(inf.text);
+
+        TMPro.TextMeshProUGUI tmpr = edge.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0);
+        tmpr.text = data.ToString();
+
+        UIHandler.Instance.scale(edge.transform.GetChild(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
+        
+        edge.from.Change_Weight(edge.to,data);
+        edge.to.Change_Weight(edge.from,data);
+    }
+
+
     #endregion
 
     public override void DeselectStructure()
@@ -76,11 +93,11 @@ public class Graphs : IDataStructure
 
     private void Select_New_Edge(Edge obj)
     {
-        RectTransform actions = selected_edge.transform.Get_Child_Object(0).GetComponent<RectTransform>();
+        RectTransform actions = selected_edge.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         actions.gameObject.SetActive(false);
         actions.localScale = new Vector3(.1f, .1f, .1f);
 
-        actions = obj.transform.Get_Child_Object(0).GetComponent<RectTransform>();
+        actions = obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         actions.gameObject.SetActive(true);
 
         UIHandler.Instance.scale(actions, Vector3.one);
@@ -89,7 +106,7 @@ public class Graphs : IDataStructure
 
     private void Select_Edge(Edge obj)
     {
-        RectTransform actions = obj.transform.Get_Child_Object(0).GetComponent<RectTransform>();
+        RectTransform actions = obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         actions.gameObject.SetActive(true);
 
         UIHandler.Instance.scale(actions, Vector3.one);
@@ -98,7 +115,7 @@ public class Graphs : IDataStructure
 
     private void Deselect_Edge()
     {
-        RectTransform actions = selected_edge.transform.Get_Child_Object(0).GetComponent<RectTransform>();
+        RectTransform actions = selected_edge.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         UIHandler.Instance.scale(actions, new Vector3(.1f, .1f, .1f));
         selected_edge = null;
     }
@@ -269,6 +286,7 @@ public class Graphs : IDataStructure
         Quaternion rotation = Quaternion.LookRotation(to.transform.localPosition - from.transform.localPosition, transform.TransformDirection(Vector3.up));
 
         line.transform.localRotation = new Quaternion(0, 0, rotation.z, rotation.w);
+        Quaternion t = new Quaternion(0, 0,-rotation.z, rotation.w);
 
         line.transform.localPosition = new Vector3((to.transform.localPosition.x + from.transform.localPosition.x) / 2, (to.transform.localPosition.y + from.transform.localPosition.y) / 2, 0);
         float dist = Vector3.Distance(to.transform.localPosition, from.transform.localPosition);
@@ -283,6 +301,9 @@ public class Graphs : IDataStructure
         new_edge.from = from;
         new_edge.to = to;
         new_edge.obj = line;
+
+        new_edge.transform.Get_Child(1).localRotation = t;
+
 
         edges.Add(new_edge);
     }
@@ -392,10 +413,75 @@ public class Graphs : IDataStructure
         node.transform.localScale = new Vector3(1f,1f,1f);
     }
 
-    public IEnumerator Dijkstra(GraphNode from)
+    public IEnumerator Dijkstra(GraphNode source, GraphNode destination)
     {
+        Dictionary<GraphNode, int> distance = new Dictionary<GraphNode, int>();
+        Stack<Pair> st = new Stack<Pair>();
+
+        foreach(GraphNode g in adj_list)
+        {
+
+            distance.Add(g, Int32.MaxValue);
+        }
+
+        distance[source] = 0;
+
+        bool stop = false;
+        while (distance.Count != 0)
+        {
+            if (stop)
+                break;
+            GraphNode g = Find_Cheapest(distance);
+
+            if (g.connections.Count != 0)
+            {
+                foreach (Pair p in g.connections)
+                {
+                    if (distance.ContainsKey(p.to) && (distance[g] + p.data < distance[p.to]))
+                    {
+                        distance[p.to] = distance[g] + p.data;
+                        st.Push(p);
+                        if(p.to == destination)
+                        {
+                            stop = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            distance.Remove(g);
+        }
+        foreach(Pair p  in st)
+        {
+            print(p.from.data + " " + p.to.data);
+        }
+        
         yield return null;
     }
 
+    private GraphNode Find_Cheapest(Dictionary<GraphNode, int> distance)
+    {
+        GraphNode min_node = null;
+        int min_dis = 0;
+        
+        foreach(KeyValuePair<GraphNode,int> kv in distance)
+        {
+            if(min_node == null)
+            {
+                min_node = kv.Key;
+                min_dis = kv.Value;
+            }
+            else
+            {
+                if(kv.Value < min_dis)
+                {
+                    min_node = kv.Key;
+                    min_dis = kv.Value;
+                }
+            }
+        }
+
+        return min_node;
+    }
     #endregion
 }

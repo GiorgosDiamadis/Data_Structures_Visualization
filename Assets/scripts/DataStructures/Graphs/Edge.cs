@@ -24,4 +24,9 @@ public class Edge : MonoBehaviour, IPointerClickHandler
     {
         graphs.Remove_Edge(this);
     }
+
+    public void Add_Weight()
+    {
+        graphs.Add_Weight(this);
+    }
 }
