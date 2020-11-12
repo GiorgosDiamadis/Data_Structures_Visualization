@@ -18,7 +18,7 @@ public class Graphs : IDataStructure
     private List<GraphNode> adj_list;
 
     [SerializeField] private GameObject drag_area = null;
-    [SerializeField] private GameObject graph_prefab= null  ;
+    [SerializeField] private GameObject graph_prefab = null;
     private bool create_edge = false;
 
     #region Initialize
@@ -29,7 +29,7 @@ public class Graphs : IDataStructure
         on_select_edge += Edge_Selected;
     }
 
-  
+
     public override void Init()
     {
         view.transform.Destroy_All_Children();
@@ -50,9 +50,9 @@ public class Graphs : IDataStructure
         tmpr.text = data.ToString();
 
         UIHandler.Instance.scale(edge.obj.transform.GetChild(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
-        
-        edge.from.Change_Weight(edge.to,data);
-        edge.to.Change_Weight(edge.from,data);
+
+        edge.from.Change_Weight(edge.to, data);
+        edge.to.Change_Weight(edge.from, data);
     }
 
 
@@ -205,16 +205,16 @@ public class Graphs : IDataStructure
     {
         foreach (GraphNode g in adj_list)
         {
-            g.Remove_Pairs(with:node);
+            g.Remove_Pairs(with: node);
         }
     }
 
     private void Remove_All_Edges_From_Or_To(GraphNode node)
     {
 
-        foreach(Edge e in node.connections)
+        foreach (Edge e in node.connections)
         {
-            if(e.from == node || e.to == node)
+            if (e.from == node || e.to == node)
             {
                 e.obj.Destroy_Object();
             }
@@ -280,7 +280,7 @@ public class Graphs : IDataStructure
         Quaternion rotation = Quaternion.LookRotation(to.transform.localPosition - from.transform.localPosition, transform.TransformDirection(Vector3.up));
 
         line.transform.localRotation = new Quaternion(0, 0, rotation.z, rotation.w);
-        Quaternion t = new Quaternion(0, 0,-rotation.z, rotation.w);
+        Quaternion t = new Quaternion(0, 0, -rotation.z, rotation.w);
 
         line.transform.localPosition = new Vector3((to.transform.localPosition.x + from.transform.localPosition.x) / 2, (to.transform.localPosition.y + from.transform.localPosition.y) / 2, 0);
         float dist = Vector3.Distance(to.transform.localPosition, from.transform.localPosition);
@@ -296,7 +296,7 @@ public class Graphs : IDataStructure
         to.Add_Connection(edge2);
     }
 
-    
+
     public IEnumerator DFS(GraphNode from)
     {
         selected_node = null;
@@ -312,7 +312,7 @@ public class Graphs : IDataStructure
         }
 
         yield return new WaitForSeconds(speed);
-        
+
         var visited = new List<GraphNode>();
 
 
@@ -328,7 +328,7 @@ public class Graphs : IDataStructure
 
             vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             Create_Graph_Node(vertex);
-            yield return new WaitForSeconds(2*speed);
+            yield return new WaitForSeconds(2 * speed);
             vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
             visited.Add(vertex);
@@ -398,7 +398,7 @@ public class Graphs : IDataStructure
         node.transform.SetParent(pseudocode_panel.transform.Get_Child(0, 1));
         node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
         node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).fontSize = 20;
-        node.transform.localScale = new Vector3(1f,1f,1f);
+        node.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
 
@@ -421,63 +421,50 @@ public class Graphs : IDataStructure
 
     public IEnumerator Dijkstra(GraphNode source, GraphNode destination)
     {
-        UIHandler.Instance.scale(source.transform.Get_Child_Object(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
-       
-        int[] distance = new int[adj_list.Count];
-        Dictionary<int, int> vtxs = new Dictionary<int, int>();
-        int[] parents = new int[adj_list.Count];
-        bool[] is_set = new bool[adj_list.Count];
-        int Vnumber = adj_list.Count;
+        Dictionary<GraphNode, int> distance = new Dictionary<GraphNode, int>();
+        Dictionary<GraphNode, bool> visited = new Dictionary<GraphNode, bool>();
 
-        for(int i = 0; i < adj_list.Count; i++)
+        foreach (GraphNode g in adj_list)
         {
-            distance[i] = Int32.MaxValue;
-            parents[i] = -1;
-            is_set[i] = false;
-            vtxs[adj_list[i].data] = i;
+            distance.Add(g, Int32.MaxValue);
+            visited.Add(g, false);
         }
 
-        distance[vtxs[source.data]] = 0;
+        distance[source] = 0;
 
-        for(int i = 0; i < Vnumber - 1; i++)
+        while (true)
         {
-            int u = minDistance(i, distance, is_set);
-            is_set[u] = true;
+            GraphNode node = Find_Cheapest_Unvisited(distance, visited);
 
-            for (int v = 0; v < Vnumber; v++)
+            if (node == null)
+                break;
+
+            foreach(Edge con in node.connections)
             {
-                int dis = distance[v];
-                if (!is_set[v] && dis != Int32.MaxValue && distance[u] != Int32.MaxValue
-                    && distance[u] + dis < distance[v])
+                if(!visited[con.to] && (distance[node] + con.weight < distance[con.to]))
                 {
-                    distance[v] = distance[u] + dis;
+                    distance[con.to] = distance[node] + con.weight;
+
+                    con.obj.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0).text = distance[con.to].ToString();
                 }
             }
         }
-
 
         yield return null;
     }
 
-    private GraphNode Find_Cheapest(Dictionary<GraphNode, int> distance)
+    private GraphNode Find_Cheapest_Unvisited(Dictionary<GraphNode, int> distance, Dictionary<GraphNode, bool> visited)
     {
         GraphNode min_node = null;
-        int min_dis = 0;
-        
-        foreach(KeyValuePair<GraphNode,int> kv in distance)
+        int min_dis = Int32.MaxValue;
+
+        foreach (KeyValuePair<GraphNode, int> kv in distance)
         {
-            if(min_node == null)
+            if (kv.Value < min_dis && !visited[kv.Key])
             {
                 min_node = kv.Key;
                 min_dis = kv.Value;
-            }
-            else
-            {
-                if(kv.Value < min_dis)
-                {
-                    min_node = kv.Key;
-                    min_dis = kv.Value;
-                }
+                visited[min_node] = true;
             }
         }
 
