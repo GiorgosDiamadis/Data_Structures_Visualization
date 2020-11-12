@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Edge : MonoBehaviour, IPointerClickHandler
+public class Edge : MonoBehaviour, IPointerClickHandler,IComparable<Edge>
 {
     public GraphNode from;
     public GraphNode to;
@@ -28,5 +29,15 @@ public class Edge : MonoBehaviour, IPointerClickHandler
     public void Add_Weight()
     {
         graphs.Add_Weight(this);
+    }
+
+    public int CompareTo(Edge other)
+    {
+        if (weight < other.weight)
+            return -1;
+        else if (weight > other.weight)
+            return 1;
+        else
+            return 0;
     }
 }

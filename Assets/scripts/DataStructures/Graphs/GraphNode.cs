@@ -3,41 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Pair:IComparable<Pair>
-{
-    public GraphNode from;
-    public GraphNode to;
-    public int data;
-
-    public Pair(GraphNode from, GraphNode to, int weight)
-    {
-        this.from = from;
-        this.to = to;
-        this.data = weight;
-    }
-
-    public int CompareTo(Pair other)
-    {
-        if (data < other.data)
-            return -1;
-        else if (data > other.data)
-            return 1;
-        else
-            return 0;
-    }
-}
-
 
 public class GraphNode : MonoBehaviour, IPointerClickHandler
 {
     private static Graphs graphs;
-    public List<Pair> connections = null;
+    public List<Edge> connections = null;
     public int data;
 
     private void OnEnable()
     {
         graphs = FindObjectOfType<Graphs>();
-        connections = new List<Pair>();
+        connections = new List<Edge>();
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -57,15 +33,14 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
 
     public void dfs()
     {
-        foreach (Pair p in connections)
-            print(p.to.data);
-
         StartCoroutine(graphs.DFS(this));
     }
 
     public void bfs()
     {
-        StartCoroutine(graphs.BFS(this));
+        foreach (Edge e in connections)
+            print(e.to.data);
+        //StartCoroutine(graphs.BFS(this));
     }
 
     public void djkstr()
@@ -93,28 +68,43 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
 
     public void Change_Weight(GraphNode to, int data)
     {
-        foreach (Pair p in connections)
+        foreach (Edge p in connections)
         {
             if (p.to == to)
             {
-                p.data = data;
+                p.weight = data;
                 break;
             }
         }
 
     }
 
-    public void Add_Connection(GraphNode node, int weight = 1)
+    public void Add_Connection(GameObject line,GraphNode from, GraphNode to)
     {
-        connections.Add(new Pair(this, node, weight));
+        Edge edge = line.GetComponent<Edge>();
+
+        edge.from = from;
+        edge.to = to;
+        edge.obj = line;
+        edge.weight = 1;
+        
+        connections.Add(edge);
+
+
+        foreach (Edge e in connections)
+            print(e.from.data + " " + e.to.data);
+
+        print("===============================");
     }
+
+
 
     //When deleting an edge
     public void Remove_Pair(GraphNode to)
     {
-        Pair p = null;
+        Edge p = null;
 
-        foreach (Pair pa in connections)
+        foreach (Edge pa in connections)
         {
             if (pa.to == to)
             {
@@ -125,7 +115,7 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
         connections.Remove(p);
 
 
-        foreach (Pair pa in to.connections)
+        foreach (Edge pa in to.connections)
         {
             if (pa.to == this)
             {

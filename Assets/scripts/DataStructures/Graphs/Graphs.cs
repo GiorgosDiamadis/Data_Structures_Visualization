@@ -292,20 +292,13 @@ public class Graphs : IDataStructure
         float dist = Vector3.Distance(to.transform.localPosition, from.transform.localPosition);
         line.transform.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, dist - 100);
 
+        line.transform.Get_Child(1).localRotation = t;
 
-        //Must change
-        from.Add_Connection(to);
-        to.Add_Connection(from);
-
-        Edge new_edge = line.GetComponent<Edge>();
-        new_edge.from = from;
-        new_edge.to = to;
-        new_edge.obj = line;
-
-        new_edge.transform.Get_Child(1).localRotation = t;
+        edges.Add(line.GetComponent<Edge>());
 
 
-        edges.Add(new_edge);
+        from.Add_Connection(line,from,to);
+        to.Add_Connection(line, to, from);
     }
 
     
@@ -396,9 +389,9 @@ public class Graphs : IDataStructure
 
             int pos = adj_list.IndexOf(vertex);
 
-            foreach (var pair in adj_list[pos].connections)
-                if (!visited.Contains(pair.to))
-                    queue.Enqueue(pair.to);
+            foreach (var edge in adj_list[pos].connections)
+                if (!visited.Contains(edge.to))
+                    queue.Enqueue(edge.to);
         }
 
     }
@@ -413,49 +406,61 @@ public class Graphs : IDataStructure
         node.transform.localScale = new Vector3(1f,1f,1f);
     }
 
+
+    int minDistance(int V, int[] dist, bool[] sptSet)
+    {
+        int min = Int32.MaxValue;
+        int min_index = 0;
+
+        for (int v = 0; v < V; v++)
+        {
+            if (sptSet[v] == false && dist[v] <= min)
+            {
+                min = dist[v]; min_index = v;
+
+            }
+
+        }
+        return min_index;
+    }
+
     public IEnumerator Dijkstra(GraphNode source, GraphNode destination)
     {
-        Dictionary<GraphNode, int> distance = new Dictionary<GraphNode, int>();
-        Stack<Pair> st = new Stack<Pair>();
+        UIHandler.Instance.scale(source.transform.Get_Child_Object(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
+       
+        int[] distance = new int[adj_list.Count];
+        Dictionary<int, int> vtxs = new Dictionary<int, int>();
+        int[] parents = new int[adj_list.Count];
+        bool[] is_set = new bool[adj_list.Count];
+        int Vnumber = adj_list.Count;
 
-        foreach(GraphNode g in adj_list)
+        for(int i = 0; i < adj_list.Count; i++)
         {
-
-            distance.Add(g, Int32.MaxValue);
+            distance[i] = Int32.MaxValue;
+            parents[i] = -1;
+            is_set[i] = false;
+            vtxs[adj_list[i].data] = i;
         }
 
-        distance[source] = 0;
+        distance[vtxs[source.data]] = 0;
 
-        bool stop = false;
-        while (distance.Count != 0)
+        for(int i = 0; i < Vnumber - 1; i++)
         {
-            if (stop)
-                break;
-            GraphNode g = Find_Cheapest(distance);
+            int u = minDistance(i, distance, is_set);
+            is_set[u] = true;
 
-            if (g.connections.Count != 0)
+            for (int v = 0; v < Vnumber; v++)
             {
-                foreach (Pair p in g.connections)
+                int dis = distance[v];
+                if (!is_set[v] && dis != Int32.MaxValue && distance[u] != Int32.MaxValue
+                    && distance[u] + dis < distance[v])
                 {
-                    if (distance.ContainsKey(p.to) && (distance[g] + p.data < distance[p.to]))
-                    {
-                        distance[p.to] = distance[g] + p.data;
-                        st.Push(p);
-                        if(p.to == destination)
-                        {
-                            stop = true;
-                            break;
-                        }
-                    }
+                    distance[v] = distance[u] + dis;
                 }
             }
-            distance.Remove(g);
         }
-        foreach(Pair p  in st)
-        {
-            print(p.from.data + " " + p.to.data);
-        }
-        
+
+
         yield return null;
     }
 
