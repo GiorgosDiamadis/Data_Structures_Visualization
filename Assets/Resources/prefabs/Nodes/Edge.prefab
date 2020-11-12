@@ -290,7 +290,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -465472163822034555}
+      - m_Target: {fileID: 1835652709290499649}
         m_MethodName: Add_Weight
         m_Mode: 1
         m_Arguments:
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -465472163822034555}
+      - m_Target: {fileID: 1835652709290499649}
         m_MethodName: Remove
         m_Mode: 1
         m_Arguments:
@@ -1161,7 +1161,7 @@ GameObject:
   - component: {fileID: 5195815460596032349}
   - component: {fileID: 5195815460596032351}
   - component: {fileID: 5195815460596032350}
-  - component: {fileID: -465472163822034555}
+  - component: {fileID: 1835652709290499649}
   m_Layer: 5
   m_Name: Edge
   m_TagString: Untagged
@@ -1226,7 +1226,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-465472163822034555
+--- !u!114 &1835652709290499649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1235,13 +1235,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5195815460596032348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 962b0394d642db84491df9ff0d173887, type: 3}
+  m_Script: {fileID: 11500000, guid: 7184bc6e010988d44bf5cb9e27c91ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  from: {fileID: 0}
-  to: {fileID: 0}
-  obj: {fileID: 0}
-  weight: 1
 --- !u!1 &7768516641184879454
 GameObject:
   m_ObjectHideFlags: 0

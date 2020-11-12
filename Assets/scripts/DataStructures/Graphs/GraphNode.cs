@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -38,9 +37,7 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
 
     public void bfs()
     {
-        foreach (Edge e in connections)
-            print(e.to.data);
-        //StartCoroutine(graphs.BFS(this));
+        StartCoroutine(graphs.BFS(this));
     }
 
     public void djkstr()
@@ -79,28 +76,15 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
 
     }
 
-    public void Add_Connection(GameObject line,GraphNode from, GraphNode to)
+    public void Add_Connection(Edge edge)
     {
-        Edge edge = line.GetComponent<Edge>();
-
-        edge.from = from;
-        edge.to = to;
-        edge.obj = line;
-        edge.weight = 1;
-        
         connections.Add(edge);
-
-
-        foreach (Edge e in connections)
-            print(e.from.data + " " + e.to.data);
-
-        print("===============================");
     }
 
 
 
     //When deleting an edge
-    public void Remove_Pair(GraphNode to)
+    public void Remove_Edge(GraphNode to)
     {
         Edge p = null;
 

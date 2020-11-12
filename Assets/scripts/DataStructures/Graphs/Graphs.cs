@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +14,6 @@ public class Graphs : IDataStructure
     private static GraphNode selected_node;
     private static Edge selected_edge;
     private GraphNode from;
-    private List<Edge> edges;
 
     private List<GraphNode> adj_list;
 
@@ -29,8 +27,6 @@ public class Graphs : IDataStructure
         on_select_node += Node_Selected;
         node_dropped += Create_Node;
         on_select_edge += Edge_Selected;
-
-        
     }
 
   
@@ -40,7 +36,6 @@ public class Graphs : IDataStructure
         ViewHandler.Instance.Change_Grid(enabled: false);
         view.GetComponent<DropGraphNodeOrArrow>().enabled = true;
         drop_area = view.GetComponent<Outline>();
-        edges = new List<Edge>();
         adj_list = new List<GraphNode>();
         drag_area.SetActive(true);
         drop_area.enabled = true;
@@ -48,13 +43,13 @@ public class Graphs : IDataStructure
 
     public void Add_Weight(Edge edge)
     {
-        TMPro.TMP_InputField inf = edge.GetComponentInChildren<TMPro.TMP_InputField>();
+        TMPro.TMP_InputField inf = edge.obj.GetComponentInChildren<TMPro.TMP_InputField>();
         int data = int.Parse(inf.text);
 
-        TMPro.TextMeshProUGUI tmpr = edge.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0);
+        TMPro.TextMeshProUGUI tmpr = edge.obj.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0);
         tmpr.text = data.ToString();
 
-        UIHandler.Instance.scale(edge.transform.GetChild(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
+        UIHandler.Instance.scale(edge.obj.transform.GetChild(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
         
         edge.from.Change_Weight(edge.to,data);
         edge.to.Change_Weight(edge.from,data);
@@ -69,7 +64,6 @@ public class Graphs : IDataStructure
         view.GetComponent<DropGraphNodeOrArrow>().enabled = false;
         drag_area.SetActive(false);
         drop_area.enabled = false;
-        edges = null;
         adj_list = null;
     }
 
@@ -93,11 +87,11 @@ public class Graphs : IDataStructure
 
     private void Select_New_Edge(Edge obj)
     {
-        RectTransform actions = selected_edge.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        RectTransform actions = obj.obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         actions.gameObject.SetActive(false);
         actions.localScale = new Vector3(.1f, .1f, .1f);
 
-        actions = obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        actions = obj.obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         actions.gameObject.SetActive(true);
 
         UIHandler.Instance.scale(actions, Vector3.one);
@@ -106,7 +100,7 @@ public class Graphs : IDataStructure
 
     private void Select_Edge(Edge obj)
     {
-        RectTransform actions = obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        RectTransform actions = obj.obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         actions.gameObject.SetActive(true);
 
         UIHandler.Instance.scale(actions, Vector3.one);
@@ -115,7 +109,7 @@ public class Graphs : IDataStructure
 
     private void Deselect_Edge()
     {
-        RectTransform actions = selected_edge.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        RectTransform actions = selected_edge.obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         UIHandler.Instance.scale(actions, new Vector3(.1f, .1f, .1f));
         selected_edge = null;
     }
@@ -217,25 +211,25 @@ public class Graphs : IDataStructure
 
     private void Remove_All_Edges_From_Or_To(GraphNode node)
     {
-        for (int i = 0; i < edges.Count; i++)
+
+        foreach(Edge e in node.connections)
         {
-            if (edges[i].from == node || edges[i].to == node)
+            if(e.from == node || e.to == node)
             {
-                edges[i].obj.Destroy_Object();
+                e.obj.Destroy_Object();
             }
         }
 
-        edges.RemoveAll(e => e.from == node || e.to == node);
+        node.connections.RemoveAll(e => e.from == node || e.to == node);
     }
 
     public void Remove_Edge(Edge edge)
     {
         edge.obj.Destroy_Object();
 
-        edge.from.Remove_Pair(edge.to);
-        edge.to.Remove_Pair(edge.from);
+        edge.from.Remove_Edge(edge.to);
+        edge.to.Remove_Edge(edge.from);
 
-        edges.Remove(edge);
     }
 
     public void Add_Edge(GraphNode from)
@@ -294,11 +288,12 @@ public class Graphs : IDataStructure
 
         line.transform.Get_Child(1).localRotation = t;
 
-        edges.Add(line.GetComponent<Edge>());
 
+        Edge edge1 = new Edge(from, to, line, 1);
+        Edge edge2 = new Edge(to, from, line, 1);
 
-        from.Add_Connection(line,from,to);
-        to.Add_Connection(line, to, from);
+        from.Add_Connection(edge1);
+        to.Add_Connection(edge2);
     }
 
     
