@@ -401,12 +401,12 @@ public class Graphs : IDataStructure
         node.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
-
-    public IEnumerator Dijkstra(GraphNode source)
+    public IEnumerator Dijkstra(GraphNode source,GraphNode destination)
     {
         Dictionary<GraphNode, int> distance = new Dictionary<GraphNode, int>();
         Dictionary<GraphNode, bool> visited = new Dictionary<GraphNode, bool>();
-        
+        Dictionary<GraphNode, GraphNode> parents = new Dictionary<GraphNode, GraphNode>();
+
         foreach (GraphNode g in FindObjectsOfType<GraphNode>())
         {
             foreach (Edge e in g.connections)
@@ -429,6 +429,7 @@ public class Graphs : IDataStructure
         {
             distance.Add(g, Int32.MaxValue);
             visited.Add(g, false);
+            parents.Add(g, null);
         }
 
         distance[source] = 0;
@@ -448,6 +449,8 @@ public class Graphs : IDataStructure
                 if((distance[node] + con.weight < distance[con.to]))
                 {
                     distance[con.to] = distance[node] + con.weight;
+                    parents[con.to] = node;
+
 
                     con.gameObject.GetComponent<Image>().color = Color.green;
                     yield return new WaitForSeconds(2.5f*speed);
@@ -458,6 +461,17 @@ public class Graphs : IDataStructure
             }
 
             node.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+        }
+
+
+        print(destination.data);
+        GraphNode u = parents[destination];
+
+
+        while (u != null)
+        {
+            print(u.data);
+            u = parents[u];
         }
 
     }
