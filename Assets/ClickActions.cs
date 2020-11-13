@@ -18,7 +18,7 @@ public class ClickActions : MonoBehaviour,IPointerClickHandler
             {
                 foreach(Edge e in g.connections)
                 {
-                    if(e.obj == gameObject)
+                    if(e.gameObject == gameObject)
                     {
                         edge = e;
                         break;

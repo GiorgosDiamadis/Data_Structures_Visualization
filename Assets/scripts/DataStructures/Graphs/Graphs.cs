@@ -43,13 +43,13 @@ public class Graphs : IDataStructure
 
     public void Add_Weight(Edge edge)
     {
-        TMPro.TMP_InputField inf = edge.obj.GetComponentInChildren<TMPro.TMP_InputField>();
+        TMPro.TMP_InputField inf = edge.gameObject.GetComponentInChildren<TMPro.TMP_InputField>();
         int data = int.Parse(inf.text);
 
-        TMPro.TextMeshProUGUI tmpr = edge.obj.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0);
+        TMPro.TextMeshProUGUI tmpr = edge.gameObject.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0);
         tmpr.text = data.ToString();
 
-        UIHandler.Instance.scale(edge.obj.transform.GetChild(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
+        UIHandler.Instance.scale(edge.gameObject.transform.GetChild(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
 
         edge.from.Change_Weight(edge.to, data);
         edge.to.Change_Weight(edge.from, data);
@@ -87,11 +87,11 @@ public class Graphs : IDataStructure
 
     private void Select_New_Edge(Edge obj)
     {
-        RectTransform actions = obj.obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        RectTransform actions = obj.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         actions.gameObject.SetActive(false);
         actions.localScale = new Vector3(.1f, .1f, .1f);
 
-        actions = obj.obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        actions = obj.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         actions.gameObject.SetActive(true);
 
         UIHandler.Instance.scale(actions, Vector3.one);
@@ -100,7 +100,7 @@ public class Graphs : IDataStructure
 
     private void Select_Edge(Edge obj)
     {
-        RectTransform actions = obj.obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        RectTransform actions = obj.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         actions.gameObject.SetActive(true);
 
         UIHandler.Instance.scale(actions, Vector3.one);
@@ -109,7 +109,7 @@ public class Graphs : IDataStructure
 
     private void Deselect_Edge()
     {
-        RectTransform actions = selected_edge.obj.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        RectTransform actions = selected_edge.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         UIHandler.Instance.scale(actions, new Vector3(.1f, .1f, .1f));
         selected_edge = null;
     }
@@ -205,7 +205,7 @@ public class Graphs : IDataStructure
     {
         foreach (GraphNode g in adj_list)
         {
-            g.Remove_Pairs(with: node);
+            g.Remove_Edges(with: node);
         }
     }
 
@@ -216,7 +216,7 @@ public class Graphs : IDataStructure
         {
             if (e.from == node || e.to == node)
             {
-                e.obj.Destroy_Object();
+                e.gameObject.Destroy_Object();
             }
         }
 
@@ -225,7 +225,7 @@ public class Graphs : IDataStructure
 
     public void Remove_Edge(Edge edge)
     {
-        edge.obj.Destroy_Object();
+        edge.gameObject.Destroy_Object();
 
         edge.from.Remove_Edge(edge.to);
         edge.to.Remove_Edge(edge.from);
@@ -402,27 +402,28 @@ public class Graphs : IDataStructure
     }
 
 
-    int minDistance(int V, int[] dist, bool[] sptSet)
-    {
-        int min = Int32.MaxValue;
-        int min_index = 0;
-
-        for (int v = 0; v < V; v++)
-        {
-            if (sptSet[v] == false && dist[v] <= min)
-            {
-                min = dist[v]; min_index = v;
-
-            }
-
-        }
-        return min_index;
-    }
-
-    public IEnumerator Dijkstra(GraphNode source, GraphNode destination)
+    public IEnumerator Dijkstra(GraphNode source)
     {
         Dictionary<GraphNode, int> distance = new Dictionary<GraphNode, int>();
         Dictionary<GraphNode, bool> visited = new Dictionary<GraphNode, bool>();
+        
+        foreach (GraphNode g in FindObjectsOfType<GraphNode>())
+        {
+            foreach (Edge e in g.connections)
+            {
+                e.gameObject.GetComponent<Image>().color = Color.white;
+            }
+        }
+
+
+        foreach (GraphNode g in FindObjectsOfType<GraphNode>())
+        {
+            g.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = "Infinity";
+            g.transform.Set_Child_Active(true, 2);
+            yield return new WaitForSeconds(speed / 2);
+        }
+
+        
 
         foreach (GraphNode g in adj_list)
         {
@@ -432,6 +433,7 @@ public class Graphs : IDataStructure
 
         distance[source] = 0;
 
+        source.gameObject.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = distance[source].ToString();
         while (true)
         {
             GraphNode node = Find_Cheapest_Unvisited(distance, visited);
@@ -439,18 +441,25 @@ public class Graphs : IDataStructure
             if (node == null)
                 break;
 
-            foreach(Edge con in node.connections)
+            node.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+
+            foreach (Edge con in node.connections)
             {
-                if(!visited[con.to] && (distance[node] + con.weight < distance[con.to]))
+                if((distance[node] + con.weight < distance[con.to]))
                 {
                     distance[con.to] = distance[node] + con.weight;
 
-                    con.obj.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0).text = distance[con.to].ToString();
+                    con.gameObject.GetComponent<Image>().color = Color.green;
+                    yield return new WaitForSeconds(2.5f*speed);
+                    con.gameObject.GetComponent<Image>().color = Color.white;
+
+                    con.to.gameObject.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = distance[con.to].ToString();
                 }
             }
+
+            node.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
         }
 
-        yield return null;
     }
 
     private GraphNode Find_Cheapest_Unvisited(Dictionary<GraphNode, int> distance, Dictionary<GraphNode, bool> visited)

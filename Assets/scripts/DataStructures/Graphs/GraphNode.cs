@@ -42,25 +42,7 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
 
     public void djkstr()
     {
-        GraphNode destination = null;
-
-        TMPro.TMP_InputField n = transform.GetComponentInChildren<TMPro.TMP_InputField>();
-
-        int d = int.Parse(n.text);
-
-
-
-        foreach(GraphNode g in FindObjectsOfType<GraphNode>())
-        {
-            if(g.data == d)
-            {
-                destination = g;
-                break;
-            }
-        }
-
-
-        StartCoroutine(graphs.Dijkstra(this,destination));
+        StartCoroutine(graphs.Dijkstra(this));
     }
 
     public void Change_Weight(GraphNode to, int data)
@@ -80,8 +62,6 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
     {
         connections.Add(edge);
     }
-
-
 
     //When deleting an edge
     public void Remove_Edge(GraphNode to)
@@ -113,7 +93,7 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
 
 
     //When deleting a node
-    public void Remove_Pairs(GraphNode with)
+    public void Remove_Edges(GraphNode with)
     {
         connections.RemoveAll(p => p.from == with || p.to == with);
     }
