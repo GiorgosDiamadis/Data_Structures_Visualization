@@ -35,6 +35,15 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
         StartCoroutine(graphs.DFS(this));
     }
 
+    public void Change_Value()
+    {
+        TMPro.TMP_InputField n = transform.Get_Component_In_Child<TMPro.TMP_InputField>(1,0);
+
+        int d = int.Parse(n.text);
+
+        data = d;
+        transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
+    }
     public void bfs()
     {
         StartCoroutine(graphs.BFS(this));
@@ -44,7 +53,7 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
     {
         GraphNode destination = null;
 
-        TMPro.TMP_InputField n = transform.GetComponentInChildren<TMPro.TMP_InputField>();
+        TMPro.TMP_InputField n = transform.Get_Component_In_Child<TMPro.TMP_InputField>(1,5);
 
         int d = int.Parse(n.text);
 

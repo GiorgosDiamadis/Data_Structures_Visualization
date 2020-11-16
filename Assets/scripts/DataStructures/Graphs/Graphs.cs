@@ -407,6 +407,8 @@ public class Graphs : IDataStructure
         Dictionary<GraphNode, bool> visited = new Dictionary<GraphNode, bool>();
         Dictionary<GraphNode, GraphNode> parents = new Dictionary<GraphNode, GraphNode>();
 
+        UIHandler.Instance.scale(source.transform.Get_Child_Object(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
+
         foreach (GraphNode g in FindObjectsOfType<GraphNode>())
         {
             foreach (Edge e in g.connections)
@@ -477,6 +479,16 @@ public class Graphs : IDataStructure
                 e.gameObject.GetComponent<Image>().color = Color.green;
             }
             u1 = parents[u1];
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        foreach (GraphNode g in FindObjectsOfType<GraphNode>())
+        {
+            foreach (Edge e in g.connections)
+            {
+                e.gameObject.GetComponent<Image>().color = Color.white;
+            }
         }
     }
 
