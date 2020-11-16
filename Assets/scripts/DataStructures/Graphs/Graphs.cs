@@ -401,7 +401,7 @@ public class Graphs : IDataStructure
         node.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
-    public IEnumerator Dijkstra(GraphNode source,GraphNode destination)
+    public IEnumerator Dijkstra(GraphNode source, GraphNode destination)
     {
         Dictionary<GraphNode, int> distance = new Dictionary<GraphNode, int>();
         Dictionary<GraphNode, bool> visited = new Dictionary<GraphNode, bool>();
@@ -423,37 +423,39 @@ public class Graphs : IDataStructure
             yield return new WaitForSeconds(speed / 2);
         }
 
-        
+
 
         foreach (GraphNode g in adj_list)
         {
             distance.Add(g, Int32.MaxValue);
             visited.Add(g, false);
-            parents.Add(g, null);
+            parents.Add(g, g);
         }
 
         distance[source] = 0;
+        parents[source] = null;
 
         source.gameObject.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = distance[source].ToString();
         while (true)
         {
             GraphNode node = Find_Cheapest_Unvisited(distance, visited);
 
-            if (node == null)
+            if (node == null || node == destination)
                 break;
 
             node.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
 
             foreach (Edge con in node.connections)
             {
-                if((distance[node] + con.weight < distance[con.to]))
+                if ((distance[node] + con.weight < distance[con.to]))
                 {
                     distance[con.to] = distance[node] + con.weight;
-                    parents[con.to] = node;
+
+                    parents[con.to]=(node);
 
 
                     con.gameObject.GetComponent<Image>().color = Color.green;
-                    yield return new WaitForSeconds(2.5f*speed);
+                    yield return new WaitForSeconds(2.5f * speed);
                     con.gameObject.GetComponent<Image>().color = Color.white;
 
                     con.to.gameObject.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = distance[con.to].ToString();
@@ -463,17 +465,33 @@ public class Graphs : IDataStructure
             node.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
         }
 
+        GraphNode u1 = destination;
 
-        print(destination.data);
-        GraphNode u = parents[destination];
-
-
-        while (u != null)
+        while(parents[u1]!=null && parents[u1] != u1)
         {
-            print(u.data);
-            u = parents[u];
-        }
 
+           GraphNode u2 = parents[u1];
+            if (u2 != null)
+            {
+                Edge e = Find_Edge(u1, u2);
+                e.gameObject.GetComponent<Image>().color = Color.green;
+            }
+            u1 = parents[u1];
+        }
+    }
+
+    private Edge Find_Edge(GraphNode g1, GraphNode g2)
+    {
+
+        foreach (GraphNode g in adj_list)
+        {
+            foreach (Edge e in g.connections)
+            {
+                if (e.from == g1 && e.to == g2)
+                    return e;
+            }
+        }
+        return null;
     }
 
     private GraphNode Find_Cheapest_Unvisited(Dictionary<GraphNode, int> distance, Dictionary<GraphNode, bool> visited)
