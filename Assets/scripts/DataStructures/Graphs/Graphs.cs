@@ -11,7 +11,7 @@ public class Graphs : IDataStructure
     public static Action<Edge> on_select_edge;
 
     public static Action node_dropped;
-    private static GraphNode selected_node;
+    public  GraphNode selected_node;
     private static Edge selected_edge;
     private GraphNode from;
 
@@ -117,17 +117,20 @@ public class Graphs : IDataStructure
 
     private void Node_Selected(GraphNode obj)
     {
-        if (selected_node != null && obj != selected_node)
+        if (!create_edge)
         {
-            Select_New_Graph(obj);
-        }
-        else if (selected_node != null && obj == selected_node)
-        {
-            Deselect_Graph();
-        }
-        else
-        {
-            Select_Graph(obj);
+            if (selected_node != null && obj != selected_node)
+            {
+                Select_New_Graph(obj);
+            }
+            else if (selected_node != null && obj == selected_node)
+            {
+                Deselect_Graph();
+            }
+            else
+            {
+                Select_Graph(obj);
+            }
         }
     }
 
@@ -181,11 +184,32 @@ public class Graphs : IDataStructure
         new_node.transform.localScale = Vector3.one;
         new_node.transform.localPosition = new_node.transform.localPosition.With(z: 0);
 
-        int data = (UnityEngine.Random.Range(-100, 100));
+
+        int data = (UnityEngine.Random.Range(-500, 500));
+
+        while (Data_Exists(data))
+        {
+            data = (UnityEngine.Random.Range(-500, 500));
+        }
+
+
         new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
         new_node.GetComponent<GraphNode>().data = data;
 
         adj_list.Add(new_node.GetComponent<GraphNode>());
+    }
+
+    public bool Data_Exists(int data)
+    {
+        foreach (GraphNode g in FindObjectsOfType<GraphNode>())
+        {
+            if (g.data == data)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void Delete_Node()
@@ -409,6 +433,9 @@ public class Graphs : IDataStructure
 
         UIHandler.Instance.scale(source.transform.Get_Child_Object(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
 
+        Load_Pseudocode("dijkstra");
+        yield return new WaitForSeconds(speed);
+
         foreach (GraphNode g in FindObjectsOfType<GraphNode>())
         {
             foreach (Edge e in g.connections)
@@ -489,6 +516,12 @@ public class Graphs : IDataStructure
             {
                 e.gameObject.GetComponent<Image>().color = Color.white;
             }
+        }
+
+        foreach (GraphNode g in FindObjectsOfType<GraphNode>())
+        {
+            g.transform.Set_Child_Active(false, 2);
+            g.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = "Infinity";
         }
     }
 

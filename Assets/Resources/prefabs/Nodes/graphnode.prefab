@@ -2581,6 +2581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: 0
+  initial_sprite: {fileID: 21300000, guid: a35b151eea1c2de43a63764c264c1d01, type: 3}
 --- !u!1 &7372331671764339303
 GameObject:
   m_ObjectHideFlags: 0

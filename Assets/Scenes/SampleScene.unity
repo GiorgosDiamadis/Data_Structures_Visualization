@@ -4238,7 +4238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 39.65, y: -34.95}
+  m_AnchoredPosition: {x: 38.65, y: -37.3265}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &713633598
@@ -7387,8 +7387,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.5, y: 3}
-  m_SizeDelta: {x: 1059, y: 780.1}
+  m_AnchoredPosition: {x: -2.5, y: 3}
+  m_SizeDelta: {x: 1061.7, y: 780.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1528521128
 MonoBehaviour:
@@ -7475,7 +7475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 1, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 5, y: 5}
+  m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
 --- !u!114 &1528521133
 MonoBehaviour:
@@ -8930,9 +8930,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d53fa76fa0155a478c9c62d757e774e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pseudocode_dir: 
+  pseudocode_dir: Graphs
   node_prefab: {fileID: 0}
   arrow: {fileID: 5195815460596032348, guid: 25cfefd32f3ad2943859a411e340fb05, type: 3}
+  selected_node: {fileID: 0}
   drag_area: {fileID: 1895914174}
   graph_prefab: {fileID: 7372331671216330056, guid: 29f08139257f8d548b11a3a7ffdbebde,
     type: 3}
@@ -10020,8 +10021,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -384.1, y: -152.94}
-  m_SizeDelta: {x: 79.3, y: 69.9}
+  m_AnchoredPosition: {x: -385.1, y: -150.57}
+  m_SizeDelta: {x: 77.3, y: 74.653}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1895914176
 MonoBehaviour:
@@ -10096,7 +10097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 1, g: 0, b: 0.09478474, a: 0.5}
-  m_EffectDistance: {x: 5, y: 5}
+  m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
 --- !u!1001 &1898773439
 PrefabInstance:

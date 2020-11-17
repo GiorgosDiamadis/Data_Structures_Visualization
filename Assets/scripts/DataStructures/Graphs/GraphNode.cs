@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.UI;
 
 public class GraphNode : MonoBehaviour, IPointerClickHandler
 {
     private static Graphs graphs;
     public List<Edge> connections = null;
     public int data;
+    [SerializeField] private Sprite initial_sprite;
 
     private void OnEnable()
     {
@@ -41,8 +42,19 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
 
         int d = int.Parse(n.text);
 
-        data = d;
-        transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
+        if (graphs.Data_Exists(d))
+        {
+            UIHandler.Instance.show_message("Data Already Exists!");
+        }
+        else
+        {
+            data = d;
+            transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
+            UIHandler.Instance.scale(transform.Get_Child_Object(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
+            transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            graphs.selected_node = null;
+        }
+
     }
     public void bfs()
     {
