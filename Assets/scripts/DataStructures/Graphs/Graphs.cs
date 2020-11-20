@@ -398,7 +398,7 @@ public class Graphs : IDataStructure
 
 
         Load_Variables("BFS Traversal:");
-
+        Load_Pseudocode("bfs");
         if (pseudocode_panel.transform.childCount != 0)
         {
             pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
@@ -408,29 +408,70 @@ public class Graphs : IDataStructure
 
         var visited = new List<GraphNode>();
 
-
         var queue = new Queue<GraphNode>();
+
         queue.Enqueue(from);
 
+        highlight_pseudocode(0, true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(0, false);
+
+
+
+
+        highlight_pseudocode(1, true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(1, false);
         while (queue.Count > 0)
         {
+            highlight_pseudocode(2, true);
+            yield return new WaitForSeconds(speed);
             var vertex = queue.Dequeue();
 
             if (visited.Contains(vertex))
                 continue;
 
+            highlight_pseudocode(2, false);
+
+
+
+            highlight_pseudocode(3, true);
             vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+
             Create_Graph_Node(vertex);
             yield return new WaitForSeconds(2 * speed);
+            highlight_pseudocode(3, false);
+
             vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
             visited.Add(vertex);
 
+
             int pos = adj_list.IndexOf(vertex);
 
+            highlight_pseudocode(4, true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(4, false);
             foreach (var edge in adj_list[pos].connections)
+            {
+                highlight_pseudocode(5, true);
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(5, false);
+
                 if (!visited.Contains(edge.to))
+                {
                     queue.Enqueue(edge.to);
+                }
+
+                highlight_pseudocode(4, true);
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(4, false);
+            }
+                
+
+            highlight_pseudocode(1, true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(1, false);
         }
 
     }
