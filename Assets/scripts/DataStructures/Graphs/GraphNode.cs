@@ -91,6 +91,8 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
             if (p.to == to)
             {
                 p.weight = data;
+                p.gameObject.GetComponent<Image>().color = Color.white;
+                graphs.selected_edge = null;
                 break;
             }
         }
@@ -129,7 +131,7 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
         }
 
         connections.Remove(p);
-
+        graphs.selected_edge = null;
     }
 
 

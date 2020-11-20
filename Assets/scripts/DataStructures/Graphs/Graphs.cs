@@ -12,7 +12,7 @@ public class Graphs : IDataStructure
 
     public static Action node_dropped;
     public  GraphNode selected_node;
-    private static Edge selected_edge;
+    public  Edge selected_edge;
     private GraphNode from;
 
     private List<GraphNode> adj_list;
@@ -87,7 +87,9 @@ public class Graphs : IDataStructure
 
     private void Select_New_Edge(Edge obj)
     {
-        RectTransform actions = obj.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        RectTransform actions = selected_edge.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
+        selected_edge.gameObject.GetComponent<Image>().color = Color.white;
+
         actions.gameObject.SetActive(false);
         actions.localScale = new Vector3(.1f, .1f, .1f);
 
@@ -96,6 +98,8 @@ public class Graphs : IDataStructure
 
         UIHandler.Instance.scale(actions, Vector3.one);
         selected_edge = obj;
+        selected_edge.gameObject.GetComponent<Image>().color = Color.red;
+        selected_edge.gameObject.transform.SetAsLastSibling();
     }
 
     private void Select_Edge(Edge obj)
@@ -105,12 +109,17 @@ public class Graphs : IDataStructure
 
         UIHandler.Instance.scale(actions, Vector3.one);
         selected_edge = obj;
+        selected_edge.gameObject.GetComponent<Image>().color = Color.red;
+        selected_edge.gameObject.transform.SetAsLastSibling();
+
     }
 
     private void Deselect_Edge()
     {
         RectTransform actions = selected_edge.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         UIHandler.Instance.scale(actions, new Vector3(.1f, .1f, .1f));
+        selected_edge.gameObject.GetComponent<Image>().color = Color.white;
+
         selected_edge = null;
     }
 
@@ -147,6 +156,7 @@ public class Graphs : IDataStructure
         UIHandler.Instance.scale(actions, Vector3.one);
         selected_node = obj;
         selected_node.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+        selected_node.transform.SetAsLastSibling();
     }
 
     private void Select_Graph(GraphNode obj)
@@ -157,6 +167,8 @@ public class Graphs : IDataStructure
         UIHandler.Instance.scale(actions, Vector3.one);
         selected_node = obj;
         selected_node.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+        selected_node.transform.SetAsLastSibling();
+
     }
 
     private void Deselect_Graph()
@@ -298,26 +310,34 @@ public class Graphs : IDataStructure
 
     private void Create_Edge(GraphNode from, GraphNode to)
     {
-        GameObject line = create_arrow();
-        line.transform.SetAsFirstSibling();
 
-        Quaternion rotation = Quaternion.LookRotation(to.transform.localPosition - from.transform.localPosition, transform.TransformDirection(Vector3.up));
+        if (Find_Edge(from,to) == null)
+        {
+            GameObject line = create_arrow();
+            line.transform.SetAsLastSibling();
 
-        line.transform.localRotation = new Quaternion(0, 0, rotation.z, rotation.w);
-        Quaternion t = new Quaternion(0, 0, -rotation.z, rotation.w);
+            Quaternion rotation = Quaternion.LookRotation(to.transform.localPosition - from.transform.localPosition, transform.TransformDirection(Vector3.up));
 
-        line.transform.localPosition = new Vector3((to.transform.localPosition.x + from.transform.localPosition.x) / 2, (to.transform.localPosition.y + from.transform.localPosition.y) / 2, 0);
-        float dist = Vector3.Distance(to.transform.localPosition, from.transform.localPosition);
-        line.transform.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, dist - 100);
+            line.transform.localRotation = new Quaternion(0, 0, rotation.z, rotation.w);
+            Quaternion t = new Quaternion(0, 0, -rotation.z, rotation.w);
 
-        line.transform.Get_Child(1).localRotation = t;
+            line.transform.localPosition = new Vector3((to.transform.localPosition.x + from.transform.localPosition.x) / 2, (to.transform.localPosition.y + from.transform.localPosition.y) / 2, 0);
+            float dist = Vector3.Distance(to.transform.localPosition, from.transform.localPosition);
+            line.transform.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, dist - 100);
+
+            line.transform.Get_Child(1).localRotation = t;
 
 
-        Edge edge1 = new Edge(from, to, line, 1);
-        Edge edge2 = new Edge(to, from, line, 1);
+            Edge edge1 = new Edge(from, to, line, 1);
+            Edge edge2 = new Edge(to, from, line, 1);
 
-        from.Add_Connection(edge1);
-        to.Add_Connection(edge2);
+            from.Add_Connection(edge1);
+            to.Add_Connection(edge2);
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Edge already exists!");
+        }
     }
 
 
@@ -427,6 +447,7 @@ public class Graphs : IDataStructure
 
     public IEnumerator Dijkstra(GraphNode source, GraphNode destination)
     {
+        selected_node = null;
         Dictionary<GraphNode, int> distance = new Dictionary<GraphNode, int>();
         Dictionary<GraphNode, bool> visited = new Dictionary<GraphNode, bool>();
         Dictionary<GraphNode, GraphNode> parents = new Dictionary<GraphNode, GraphNode>();
@@ -453,7 +474,9 @@ public class Graphs : IDataStructure
         }
 
 
+        highlight_pseudocode(1, is_open: true);
 
+        yield return new WaitForSeconds(speed);
         foreach (GraphNode g in adj_list)
         {
             distance.Add(g, Int32.MaxValue);
@@ -463,10 +486,18 @@ public class Graphs : IDataStructure
 
         distance[source] = 0;
         parents[source] = null;
+        highlight_pseudocode(1, is_open: false);
 
         source.gameObject.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = distance[source].ToString();
+
+        highlight_pseudocode(2, is_open: true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(2, is_open: false);
+
         while (true)
         {
+            highlight_pseudocode(3, is_open: true);
+            
             GraphNode node = Find_Cheapest_Unvisited(distance, visited);
 
             if (node == null || node == destination)
@@ -474,25 +505,44 @@ public class Graphs : IDataStructure
 
             node.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
 
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(3, is_open: false);
+
+           
             foreach (Edge con in node.connections)
             {
+                highlight_pseudocode(4, is_open: true);
+                con.gameObject.GetComponent<Image>().color = Color.green;
+                yield return new WaitForSeconds(speed);
+                highlight_pseudocode(4, is_open: false);
+
+                highlight_pseudocode(5, is_open: true);
+                yield return new WaitForSeconds(speed);
+
                 if ((distance[node] + con.weight < distance[con.to]))
                 {
                     distance[con.to] = distance[node] + con.weight;
 
                     parents[con.to]=(node);
-
-
-                    con.gameObject.GetComponent<Image>().color = Color.green;
-                    yield return new WaitForSeconds(2.5f * speed);
-                    con.gameObject.GetComponent<Image>().color = Color.white;
-
                     con.to.gameObject.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = distance[con.to].ToString();
                 }
+
+                highlight_pseudocode(5, is_open: false);
+
+                yield return new WaitForSeconds(speed);
+
+                con.gameObject.GetComponent<Image>().color = Color.white;
             }
 
             node.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            highlight_pseudocode(2, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(2, is_open: false);
         }
+
+
+        highlight_pseudocode(3, is_open: false);
 
         GraphNode u1 = destination;
 
