@@ -201,128 +201,85 @@ public class BinaryTree : IDataStructure
         StartCoroutine(Post_Order_Cor());
         GameHandler.Instance.is_running = true;
     }
-
+    static public Stack s1, s2;
     private IEnumerator Post_Order_Cor()
     {
-
         Load_Variables("Post Order Traversal");
 
         Load_Pseudocode("postorder");
+
         yield return new WaitForSeconds(speed);
 
-        BinaryTreeNode curr = null;
-        BinaryTreeNode prev = null;
+        s1 = new Stack();
+        s2 = new Stack();
 
-        Stack<BinaryTreeNode> S = new Stack<BinaryTreeNode>();
-        curr = head;
+        s1.Push(head);
 
-        S.Push(curr);
+
         highlight_pseudocode(0, is_open: true);
         yield return new WaitForSeconds(speed);
         highlight_pseudocode(0, is_open: false);
+
 
         highlight_pseudocode(1, is_open: true);
         yield return new WaitForSeconds(speed);
         highlight_pseudocode(1, is_open: false);
 
-
-        while (S.Count != 0)
+        while (s1.Count > 0)
         {
-            curr = S.Peek();
-            highlight_pseudocode(2, is_open: true);
+            BinaryTreeNode temp = (BinaryTreeNode)s1.Pop();
 
-            curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             yield return new WaitForSeconds(speed);
-            curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            s2.Push(temp);
+
+            if (temp.left != null)
+                s1.Push(temp.left);
+            if (temp.right != null)
+                s1.Push(temp.right);
+
+
+            highlight_pseudocode(2, is_open: true);
+            yield return new WaitForSeconds(speed);
             highlight_pseudocode(2, is_open: false);
-
-
             
+            highlight_pseudocode(3, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(3, is_open: false);
 
-            if (prev == null || prev.Get_Left() == curr || prev.right == curr)
-            {
-                highlight_pseudocode(3, is_open: true);
-                yield return new WaitForSeconds(speed);
-                highlight_pseudocode(3, is_open: false);
-
-                highlight_pseudocode(4, is_open: true);
-                yield return new WaitForSeconds(speed);
-                highlight_pseudocode(4, is_open: false);
-                if (curr.Get_Left() != null)
-                {
-                    S.Push(curr.Get_Left());
-
-                }
-                else if (curr.right != null)
-                {
-                    S.Push(curr.right);
-                }
-                else
-                {
-                    S.Pop();
-                    curr.scene_object.transform.Set_Child_Active(true, 1);
-
-                    Create_Pseudocode_Nodes(curr);
-
-                    yield return new WaitForSeconds(speed);
-                }
-            }
-            else if (curr.Get_Left() == prev)
-            {
-                highlight_pseudocode(5, is_open: true);
-                yield return new WaitForSeconds(speed);
-                highlight_pseudocode(5, is_open: false);
-
-                highlight_pseudocode(6, is_open: true);
-                yield return new WaitForSeconds(speed);
-                highlight_pseudocode(6, is_open: false);
-
-                if (curr.right != null)
-                {
-                    S.Push(curr.right);
-
-                }
-                else
-                {
-                    S.Pop();
-                    curr.scene_object.transform.Set_Child_Active(true, 1);
-
-                    Create_Pseudocode_Nodes(curr);
-
-                    yield return new WaitForSeconds(speed);
-
-                }
-            }
-            else if (curr.right == prev)
-            {
-                highlight_pseudocode(7, is_open: true);
-                yield return new WaitForSeconds(speed);
-                highlight_pseudocode(7, is_open: false);
-
-
-                highlight_pseudocode(8, is_open: true);
-
-                S.Pop();
-                curr.scene_object.transform.Set_Child_Active(true, 1);
-
-                Create_Pseudocode_Nodes(curr);
-
-                yield return new WaitForSeconds(speed);
-                highlight_pseudocode(8, is_open: false);
-
-            }
-
-            prev = curr;
             highlight_pseudocode(1, is_open: true);
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(1, is_open: false);
         }
-        yield return new WaitForSeconds(speed);
-        for (int i = 0; i < view.transform.childCount; i++)
-        {
-            view.transform.Set_Child_Active(false, i, 1);
-        }
 
+
+
+        highlight_pseudocode(4, is_open: true);
+        yield return new WaitForSeconds(speed);
+        highlight_pseudocode(4, is_open: false);
+        while (s2.Count > 0)
+        {
+            BinaryTreeNode temp = (BinaryTreeNode)s2.Pop();
+
+            highlight_pseudocode(5, is_open: true);
+            
+            temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            temp.scene_object.transform.Set_Child_Active(true, 1);
+            yield return new WaitForSeconds(speed);
+
+            temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            Create_Pseudocode_Nodes(temp);
+
+            highlight_pseudocode(5, is_open: false);
+
+
+            highlight_pseudocode(4, is_open: true);
+            yield return new WaitForSeconds(speed);
+            highlight_pseudocode(4, is_open: false);
+        }
         GameHandler.Instance.is_running = false;
     }
 
