@@ -46,15 +46,14 @@ public class List : IDataStructure
 
         max_counter = 3;
         max_nodes = 14;
-
     }
 
     public IEnumerator add_front(long data)
     {
-        UIHandler.Instance.close_message();
 
         if (!exists(data))
         {
+            UIHandler.Instance.close_message();
             Load_Pseudocode("add_front");
             yield return new WaitForSeconds(speed);
 
@@ -82,7 +81,7 @@ public class List : IDataStructure
                         view.transform.Set_Child_Active(true, 0, 2);
 
 
-                        if (!view.transform.Get_Child_Object(view.transform.childCount - 1,1).activeSelf)
+                        if (!view.transform.Get_Child_Object(view.transform.childCount - 1, 1).activeSelf)
                         {
                             view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
                         }
@@ -99,7 +98,7 @@ public class List : IDataStructure
                         if (!view.transform.Get_Child_Object(view.transform.childCount - 1, 1).activeSelf)
                         {
                             view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
-                            view.transform.Set_Child_Active(true,view.transform.childCount - 1, 2);
+                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 2);
 
                         }
                     }
@@ -110,15 +109,19 @@ public class List : IDataStructure
             GameHandler.Instance.handle_insertion.Invoke();
 
         }
+        else
+        {
+            UIHandler.Instance.show_message("Node already exists!");
+        }
         GameHandler.Instance.is_running = false;
     }
 
     public IEnumerator add_position(long data, int position)
     {
-        UIHandler.Instance.close_message();
 
         if (!exists(data))
         {
+            UIHandler.Instance.close_message();
             Load_Pseudocode("add_position");
             yield return new WaitForSeconds(speed);
 
@@ -152,9 +155,9 @@ public class List : IDataStructure
                             view.transform.Set_Child_Active(true, 0, 2);
 
 
-                            if (!view.transform.Get_Child_Object(view.transform.childCount-1,1).activeSelf)
+                            if (!view.transform.Get_Child_Object(view.transform.childCount - 1, 1).activeSelf)
                             {
-                                view.transform.Set_Child_Active(true, view.transform.childCount-1, 1);
+                                view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
                             }
                         }
                         else
@@ -167,9 +170,9 @@ public class List : IDataStructure
 
 
 
-                            if (!view.transform.Get_Child_Object(view.transform.childCount-1,1).activeSelf)
+                            if (!view.transform.Get_Child_Object(view.transform.childCount - 1, 1).activeSelf)
                             {
-                                view.transform.Set_Child_Active(true, view.transform.childCount-1, 1);
+                                view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
                                 view.transform.Set_Child_Active(true, view.transform.childCount - 1, 2);
 
                             }
@@ -283,19 +286,19 @@ public class List : IDataStructure
                         if (!is_double)
                         {
 
-                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3,1).activeSelf)
+                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).activeSelf)
                             {
                                 view.transform.Set_Child_Active(true, 0, 2);
 
                             }
 
-                            view.transform.Set_Child_Active(false, view.transform.childCount-3, 1);
+                            view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
                             view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
 
                         }
                         else
                         {
-                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3,1).activeSelf)
+                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).activeSelf)
                             {
                                 view.transform.Set_Child_Active(true, 0, 2);
                                 view.transform.Set_Child_Active(true, 0, 1);
@@ -303,13 +306,13 @@ public class List : IDataStructure
                             }
                             else
                             {
-                                view.transform.Set_Child_Active(false, view.transform.childCount-3, 1);
-                                view.transform.Set_Child_Active(false, view.transform.childCount-3, 2);
+                                view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
+                                view.transform.Set_Child_Active(false, view.transform.childCount - 3, 2);
 
                             }
 
-                            view.transform.Set_Child_Active(true, view.transform.childCount-1, 1);
-                            view.transform.Set_Child_Active(true, view.transform.childCount-1, 2);
+                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
+                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 2);
 
 
                         }
@@ -319,15 +322,23 @@ public class List : IDataStructure
                 }
             }
         }
+        else
+        {
+            UIHandler.Instance.show_message("Node already exists!");
+        }
+
+
         GameHandler.Instance.is_running = false;
     }
 
     public IEnumerator add_node(long data)
     {
-        UIHandler.Instance.close_message();
+
 
         if (!exists(data))
         {
+            UIHandler.Instance.close_message();
+
             Load_Pseudocode("add");
             yield return new WaitForSeconds(speed);
 
@@ -425,18 +436,18 @@ public class List : IDataStructure
                         if (!is_double)
                         {
 
-                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3,1).gameObject.activeSelf)
+                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
                             {
                                 view.transform.Set_Child_Active(true, 0, 2);
                             }
-                            view.transform.Set_Child_Active(false, view.transform.childCount-3, 1);
-                            view.transform.Set_Child_Active(true, view.transform.childCount-1, 1);
+                            view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
+                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
 
                         }
                         else
                         {
 
-                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3,1).gameObject.activeSelf)
+                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
                             {
                                 view.transform.Set_Child_Active(true, 0, 2);
                                 view.transform.Set_Child_Active(true, 0, 1);
@@ -444,7 +455,7 @@ public class List : IDataStructure
                             }
                             else
                             {
-                                view.transform.Set_Child_Active(false, view.transform.childCount-3, 1);
+                                view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
                                 view.transform.Set_Child_Active(false, view.transform.childCount - 3, 2);
 
                             }
@@ -458,9 +469,13 @@ public class List : IDataStructure
 
                 }
             }
-
-
         }
+        else
+        {
+            UIHandler.Instance.show_message("Node already exists");
+        }
+
+
         GameHandler.Instance.is_running = false;
     }
     public IEnumerator delete_node(long data)
@@ -475,7 +490,6 @@ public class List : IDataStructure
 
         GameObject child, previous;
         child = null;
-
         GameObject head = view.transform.GetChild(0).gameObject;
 
         highlight_pseudocode(0, true);
@@ -491,6 +505,8 @@ public class List : IDataStructure
 
         if (head.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text == data.ToString())
         {
+
+            found = true;
             highlight_pseudocode(1, true);
 
             yield return new WaitForSeconds(speed);
@@ -503,7 +519,7 @@ public class List : IDataStructure
 
             view.transform.Destroy_Child(0);
 
-            if(view.transform.childCount>0)
+            if (view.transform.childCount > 0)
                 view.transform.Destroy_Child(0);
 
             spr.sprite = initial_sprite;
@@ -513,7 +529,7 @@ public class List : IDataStructure
             {
                 if (!is_double)
                 {
-                    view.transform.Set_Child_Active(true,0, 2);
+                    view.transform.Set_Child_Active(true, 0, 2);
                 }
                 else
                 {
@@ -591,7 +607,7 @@ public class List : IDataStructure
                     {
                         if (!is_double)
                         {
-                            view.transform.Set_Child_Active(true, view.transform.childCount-1, 1);
+                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
                         }
                         else
                         {
@@ -627,6 +643,12 @@ public class List : IDataStructure
 
             }
         }
+
+        if (!found)
+        {
+            UIHandler.Instance.show_message("Node doesn't exist");
+        }
+
         GameHandler.Instance.is_running = false;
     }
 
@@ -639,7 +661,7 @@ public class List : IDataStructure
 
 
         GameObject child, previous = null;
-
+        bool found = false;
         GameObject head = view.transform.GetChild(0).gameObject;
         previous = head;
 
@@ -660,9 +682,12 @@ public class List : IDataStructure
             highlight_pseudocode(1, false);
 
             highlight_pseudocode(3, true);
+            UIHandler.Instance.show_message("Node found!");
             yield return new WaitForSeconds(speed);
             spr.sprite = initial_sprite;
             highlight_pseudocode(3, false);
+            found = true;
+
         }
         else
         {
@@ -695,6 +720,10 @@ public class List : IDataStructure
 
                     if (child_data.text == data.ToString())
                     {
+
+                        UIHandler.Instance.show_message("Node found!");
+                        found = true;
+
                         break;
                     }
                     previous = child;
@@ -703,8 +732,14 @@ public class List : IDataStructure
             highlight_pseudocode(3, true);
             yield return new WaitForSeconds(speed);
             spr.sprite = initial_sprite;
+            if (!found)
+            {
+                UIHandler.Instance.show_message("Node doesn't exist!");
 
+            }
             highlight_pseudocode(3, false);
+
+
         }
         GameHandler.Instance.is_running = false;
     }
