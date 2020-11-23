@@ -5430,6 +5430,7 @@ GameObject:
   - component: {fileID: 887765351}
   - component: {fileID: 887765354}
   - component: {fileID: 887765353}
+  - component: {fileID: 887765355}
   m_Layer: 5
   m_Name: Pseudocode
   m_TagString: Untagged
@@ -5543,6 +5544,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 341.8, y: 782.18}
   m_EdgeRadius: 0
+--- !u!225 &887765355
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887765349}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &914496328
 GameObject:
   m_ObjectHideFlags: 0
@@ -7374,7 +7387,7 @@ RectTransform:
   m_GameObject: {fileID: 1417365246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children:
   - {fileID: 1353783008}
   - {fileID: 1866623622}
@@ -7383,8 +7396,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -73.35004, y: 105.30302}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchoredPosition: {x: -404, y: 284}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1417365248
 MonoBehaviour:
