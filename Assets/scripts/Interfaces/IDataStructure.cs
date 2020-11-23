@@ -21,7 +21,6 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     protected static Sprite red_cell = null;
     protected static Sprite green_cell = null;
 
-
     protected int init_number = 3;
     protected int max_counter;
     protected int max_nodes;
@@ -94,6 +93,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
+
         GameHandler.Instance.On_Data_Structure_Change?.Invoke(this);
         GameHandler.Instance.On_Data_Structure_Variant_Change?.Invoke(this);
     }
