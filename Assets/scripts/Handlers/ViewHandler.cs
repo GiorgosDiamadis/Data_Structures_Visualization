@@ -10,7 +10,7 @@ public class ViewHandler : MonoBehaviour
     private int deletion_counter = 0;
 
     private int num_nodes = 3;
-    private int max_nodes = -1;
+
     private int counter = 0;
     public static GameObject view;
     private static GameObject view_panel;
@@ -64,9 +64,9 @@ public class ViewHandler : MonoBehaviour
         num_nodes--;
 
 
-        if (deletion_counter == counter && view.transform.localScale.x + 0.2f < 1.1f)
+        if (deletion_counter == counter && View_panel.transform.localScale.x + 0.2f < 1.1f)
         {
-            view.transform.localScale = new Vector3(view.transform.localScale.x + 0.2f, view.transform.localScale.y + 0.2f, 0);
+            View_panel.transform.localScale = new Vector3(View_panel.transform.localScale.x + 0.2f, View_panel.transform.localScale.y + 0.2f, 0);
             deletion_counter = 0;
         }
         else if (deletion_counter == counter)
@@ -81,9 +81,9 @@ public class ViewHandler : MonoBehaviour
 
         num_nodes++;
 
-        if (insertion_counter == counter && view.transform.localScale.x - 0.2f > 0.4f && view.transform.childCount > 5)
+        if (insertion_counter == counter && View_panel.transform.localScale.x - 0.2f > 0.4f && View.transform.childCount > 5)
         {
-            view.transform.localScale = new Vector3(view.transform.localScale.x - 0.2f, view.transform.localScale.y - 0.2f, 0);
+            View_panel.transform.localScale = new Vector3(View_panel.transform.localScale.x - 0.2f, View_panel.transform.localScale.y - 0.2f, 0);
             insertion_counter = 0;
         }
         else if (insertion_counter == counter)
@@ -92,22 +92,11 @@ public class ViewHandler : MonoBehaviour
         }
     }
 
-
-    public bool Can_Add()
-    {
-        return max_nodes - num_nodes > 0;
-    }
-
-    public bool Can_Delete()
-    {
-        return num_nodes > 0;
-    }
-
     private void On_Structure_Change(IDataStructure structure)
     {
         if (current_structure != structure)
         {
-            view.transform.localScale = new Vector3(1f, 1f, 1f);
+            View_panel.transform.localScale = new Vector3(1f, 1f, 1f);
 
             current_structure?.DeselectStructure();
             insertion_counter = 0;
@@ -115,7 +104,7 @@ public class ViewHandler : MonoBehaviour
             current_structure = structure;
             current_structure.Init();
             counter = current_structure.Max_counter;
-            max_nodes = current_structure.Max_nodes;
+            GameHandler.Instance.max_nodes = current_structure.Max_nodes;
         }
     }
 }

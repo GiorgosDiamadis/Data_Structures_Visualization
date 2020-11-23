@@ -18,6 +18,10 @@ public class GameHandler : MonoBehaviour
     public Action handle_deletion;
     public bool is_running = false;
 
+
+    private int MAX_NODES;
+    private int num_nodes=3;
+    
     [SerializeField] private float speed = 0.1f;
 
     public Sprite Red_cell { get => red_cell;}
@@ -26,7 +30,7 @@ public class GameHandler : MonoBehaviour
     public  Sprite Initial_sprite { get => initial_sprite;}
     public float Speed { get => speed;}
     public  GameObject Pseudocode_panel { get => pseudocode_panel; }
-
+    public int max_nodes { get => MAX_NODES; set => MAX_NODES = value; }
     public Action<IDataStructure> On_Data_Structure_Variant_Change { get; internal set; }
 
     private void Awake()
@@ -47,5 +51,16 @@ public class GameHandler : MonoBehaviour
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
         red_cell = Resources.Load<Sprite>("NeonShapes/PNG/RedSquare");
         green_cell = Resources.Load<Sprite>("NeonShapes/PNG/GreenSquare");
+    }
+
+
+    public bool Can_Add()
+    {
+        return MAX_NODES - num_nodes > 0;
+    }
+    //Needs to be removed and be shown with pseudocode
+    public bool Can_Delete()
+    {
+        return num_nodes > 0;
     }
 }

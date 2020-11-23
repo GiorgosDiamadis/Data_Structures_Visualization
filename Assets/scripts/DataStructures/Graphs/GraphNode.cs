@@ -8,7 +8,7 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
     private static Graphs graphs;
     public List<Edge> connections = null;
     public int data;
-    [SerializeField] private Sprite initial_sprite = null;
+    [SerializeField] private Sprite initial_sprite;
 
     private void OnEnable()
     {
