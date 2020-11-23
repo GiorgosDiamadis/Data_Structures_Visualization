@@ -14,9 +14,8 @@ public class Graphs : IDataStructure
     public  GraphNode selected_node;
     public  Edge selected_edge;
     private GraphNode from;
-    public bool is_digraph = false;
 
-    private static List<GraphNode> adj_list;
+    private List<GraphNode> adj_list;
 
     [SerializeField] private GameObject drag_area = null;
     [SerializeField] private GameObject graph_prefab = null;
@@ -40,8 +39,6 @@ public class Graphs : IDataStructure
         adj_list = new List<GraphNode>();
         drag_area.SetActive(true);
         drop_area.enabled = true;
-        print("fg");
-
     }
 
     public void Add_Weight(Edge edge)
@@ -60,18 +57,6 @@ public class Graphs : IDataStructure
 
 
     #endregion
-
-    public void Undirected()
-    {
-        is_digraph = false;
-    }
-
-
-    public void Directed()
-    {
-        is_digraph = true;
-    }
-
 
     public override void DeselectStructure()
     {
