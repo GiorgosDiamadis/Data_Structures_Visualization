@@ -26,7 +26,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     protected int max_counter;
     protected int max_nodes;
     [SerializeField] protected GameObject node_prefab = null;
-    [SerializeField] private GameObject arrow = null;
+    [SerializeField] protected GameObject arrow = null;
 
     protected static GameObject pseudocode = null;
     protected static GameObject variable_panel;
