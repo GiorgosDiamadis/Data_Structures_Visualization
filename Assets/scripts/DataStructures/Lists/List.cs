@@ -210,6 +210,7 @@ public class List : IDataStructure
                     if (child.tag.Equals("Node"))
                     {
 
+                        highlight_pseudocode(2, false);
                         highlight_pseudocode(1, true);
 
                         yield return new WaitForSeconds(speed);
@@ -232,7 +233,6 @@ public class List : IDataStructure
 
                         yield return new WaitForSeconds(speed);
 
-                        highlight_pseudocode(2, false);
 
                         if (child_data.text == data.ToString())
                         {
@@ -242,7 +242,6 @@ public class List : IDataStructure
                             break;
                         }
 
-                        yield return new WaitForSeconds(speed);
 
                         previous = child;
 
@@ -250,6 +249,7 @@ public class List : IDataStructure
                         k++;
                     }
                 }
+                highlight_pseudocode(2, false);
 
                 spr.sprite = initial_sprite;
 
@@ -376,6 +376,8 @@ public class List : IDataStructure
 
                     if (child.tag.Equals("Node"))
                     {
+                        highlight_pseudocode(2, false);
+
                         // While highlighter
                         highlight_pseudocode(1, true);
 
@@ -400,7 +402,6 @@ public class List : IDataStructure
 
                         yield return new WaitForSeconds(speed);
 
-                        highlight_pseudocode(2, false);
 
                         if (child_data.text == data.ToString())
                         {
@@ -410,8 +411,6 @@ public class List : IDataStructure
                             break;
                         }
 
-                        yield return new WaitForSeconds(speed);
-
                         previous = child;
                     }
                 }
@@ -420,6 +419,7 @@ public class List : IDataStructure
                     spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
 
                 spr.sprite = initial_sprite;
+                highlight_pseudocode(2, false);
 
                 if (!found)
                 {
@@ -548,6 +548,8 @@ public class List : IDataStructure
                 child = view.transform.GetChild(i).gameObject;
                 if (child.tag.Equals("Node"))
                 {
+                    highlight_pseudocode(2, false);
+
                     // While highlighter
                     highlight_pseudocode(1, true);
 
@@ -572,23 +574,22 @@ public class List : IDataStructure
 
                     yield return new WaitForSeconds(speed);
 
-                    highlight_pseudocode(2, false);
 
                     if (child_data.text == data.ToString())
                     {
-                        yield return new WaitForSeconds(speed);
-                        spr.sprite = initial_sprite;
+                        //yield return new WaitForSeconds(speed);
+                        //spr.sprite = initial_sprite;
                         found = true;
                         break;
                     }
-                    yield return new WaitForSeconds(speed);
 
                     previous = child;
                 }
             }
+            highlight_pseudocode(2, false);
 
             spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            spr.sprite = initial_sprite;
+            //spr.sprite = initial_sprite;
 
             if (found)
             {
@@ -626,8 +627,12 @@ public class List : IDataStructure
 
                 if (view.transform.childCount == 1)
                 {
-                    view.transform.Set_Child_Active(false, 0, 1);
-                    view.transform.Set_Child_Active(false, 0, 2);
+                    if (is_circular)
+                    {
+                        view.transform.Set_Child_Active(false, 0, 1);
+                        view.transform.Set_Child_Active(false, 0, 2);
+                    }
+                    
                 }
 
                 highlight_pseudocode(3, false);

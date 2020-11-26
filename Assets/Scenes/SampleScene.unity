@@ -3987,7 +3987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &660591568
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7284,7 +7284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -404, y: 284}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1417365248
@@ -7623,7 +7623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9158,8 +9158,6 @@ MonoBehaviour:
   graph_prefab: {fileID: 7372331671216330056, guid: 29f08139257f8d548b11a3a7ffdbebde,
     type: 3}
   is_digraph: 0
-  double_edge: {fileID: 7001747166336806902, guid: e2f6ee5ab1cdb224796f5dc53f040285,
-    type: 3}
 --- !u!1 &1790339842
 GameObject:
   m_ObjectHideFlags: 0

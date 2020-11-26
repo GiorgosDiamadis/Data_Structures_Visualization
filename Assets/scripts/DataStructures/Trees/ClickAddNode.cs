@@ -13,7 +13,7 @@ public class ClickAddNode : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        input_field.gameObject.SetActive(true);
+        input_field.gameObject.SetActive(!input_field.gameObject.activeSelf);
         clicked = eventData.pointerPress.gameObject;
     }
 
