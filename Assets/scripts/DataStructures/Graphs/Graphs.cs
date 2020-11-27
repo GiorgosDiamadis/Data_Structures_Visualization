@@ -14,7 +14,7 @@ namespace Graphs
 
         public GraphNode selected_node;
         private GraphNode from;
-        public  List<GraphNode> adj_list;
+        public List<GraphNode> adj_list;
 
         public Edge selected_edge;
 
@@ -35,7 +35,7 @@ namespace Graphs
             on_select_edge += Edge_Selected;
         }
 
-     
+
 
         public override void Init()
         {
@@ -82,7 +82,7 @@ namespace Graphs
             view.transform.Destroy_All_Children();
             adj_list = new List<GraphNode>();
         }
-        
+
         #region Graph_Node_Edge_Selection_Deselection
 
         private void Edge_Selected(Edge obj)
@@ -305,18 +305,17 @@ namespace Graphs
                 line.transform.Get_Child(1).localRotation = t;
 
 
-
                 if (!is_digraph)
                 {
-                    Edge edge1 = new Edge(from, to, line, 1);
-                    Edge edge2 = new Edge(to, from, line, 1);
+                    Edge edge1 = new Edge(from, to, line, 1,from.transform.localPosition,to.transform.localPosition);
+                    Edge edge2 = new Edge(to, from, line, 1,to.transform.localPosition,from.transform.localPosition);
 
                     from.Add_Edge(edge1);
                     to.Add_Edge(edge2);
                 }
                 else
                 {
-                    Edge edge1 = new Edge(from, to, line, 1);
+                    Edge edge1 = new Edge(from, to, line, 1, from.transform.localPosition, to.transform.localPosition);
                     from.Add_Edge(edge1);
                     if (from.transform.localPosition.IsBehind(to.transform.localPosition))
                     {
@@ -331,22 +330,15 @@ namespace Graphs
 
                     if (edge2 != null)
                     {
-                        float y = edge1.gameObject.transform.localPosition.y;
-                        float x = edge1.gameObject.transform.localPosition.x;
-                        float rotz = edge1.gameObject.transform.localRotation.z;
+                        float g = edge1.gameObject.transform.GetChild(4).transform.position.x;
+                        float u = edge1.gameObject.transform.GetChild(4).transform.position.y;
 
-                        if (rotz == 0)
-                        {
-                            edge1.gameObject.transform.localPosition = edge1.gameObject.transform.localPosition.With(y: y + 25);
-                            edge2.gameObject.transform.localPosition = edge1.gameObject.transform.localPosition.With(y: y - 25);
-                        }
-                        else
-                        {
-                            float m = Convert.ToSingle(Math.Tan(rotz));
-                            edge1.gameObject.transform.localPosition = edge1.gameObject.transform.localPosition.With(y: y + m * 20, x: x + m * 20);
-                            edge2.gameObject.transform.localPosition = edge1.gameObject.transform.localPosition.With(y: y - m * 20, x: x - m * 20);
-                        }
+                        edge1.gameObject.transform.position = edge1.gameObject.transform.position.With(x: g, y: u);
+                        
+                        g = edge2.gameObject.transform.GetChild(5).transform.position.x;
+                        u = edge2.gameObject.transform.GetChild(5).transform.position.y;
 
+                        edge2.gameObject.transform.position = edge2.gameObject.transform.position.With(x: g, y: u);
                     }
 
                 }
@@ -763,7 +755,6 @@ namespace Graphs
 
         private Edge Find_Edge(GraphNode g1, GraphNode g2)
         {
-
             foreach (GraphNode g in adj_list)
             {
                 foreach (Edge e in g.connections)

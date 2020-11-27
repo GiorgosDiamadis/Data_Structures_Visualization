@@ -7,16 +7,22 @@ namespace Graphs
     {
         public GraphNode from;
         public GraphNode to;
-        public GameObject gameObject;
-        public Graphs graphs;
+        
         public int weight;
 
-        public Edge(GraphNode from, GraphNode to, GameObject obj, int weight)
+        public GameObject gameObject;
+        public Vector3 start;
+        public Vector3 end;
+        public Graphs graphs;
+
+        public Edge(GraphNode from, GraphNode to, GameObject gameObject,int weight,  Vector3 start, Vector3 end)
         {
             this.from = from;
             this.to = to;
-            this.gameObject = obj;
             this.weight = weight;
+            this.gameObject = gameObject;
+            this.start = start;
+            this.end = end;
         }
 
         public void Add_Weight()

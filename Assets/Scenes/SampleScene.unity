@@ -3987,7 +3987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &660591568
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9154,6 +9154,7 @@ MonoBehaviour:
   node_prefab: {fileID: 0}
   arrow: {fileID: 5195815460596032348, guid: 25cfefd32f3ad2943859a411e340fb05, type: 3}
   selected_node: {fileID: 0}
+  adj_list: []
   drag_area: {fileID: 1895914174}
   graph_prefab: {fileID: 7372331671216330056, guid: 29f08139257f8d548b11a3a7ffdbebde,
     type: 3}
