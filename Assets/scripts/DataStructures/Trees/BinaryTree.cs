@@ -280,6 +280,11 @@ public class BinaryTree : IDataStructure
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(4, is_open: false);
         }
+        yield return new WaitForSeconds(speed);
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+            view.transform.Set_Child_Active(false, i, 1);
+        }
         GameHandler.Instance.is_running = false;
     }
 
