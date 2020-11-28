@@ -17,7 +17,7 @@ namespace Graphs
         public List<GraphNode> adj_list;
 
         public Edge selected_edge;
-
+        public GameObject change_graph;
         [SerializeField] private GameObject drag_area = null;
         [SerializeField] private GameObject graph_prefab = null;
 
@@ -46,7 +46,8 @@ namespace Graphs
             adj_list = new List<GraphNode>();
             drag_area.SetActive(true);
             drop_area.enabled = true;
-
+            change_graph.SetActive(true);
+            is_digraph = false;
             Color c = view.GetComponent<Image>().color;
             view.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 255);
 
@@ -72,6 +73,8 @@ namespace Graphs
             view.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 0);
             drop_area.enabled = false;
             adj_list = null;
+            change_graph.SetActive(false);
+
         }
 
         #endregion
@@ -106,6 +109,13 @@ namespace Graphs
             RectTransform actions = selected_edge.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
             selected_edge.gameObject.GetComponent<Image>().color = Color.white;
 
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.white;
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.white;
+
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.white;
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.white;
+
+
             actions.gameObject.SetActive(false);
             actions.localScale = new Vector3(.1f, .1f, .1f);
 
@@ -115,6 +125,13 @@ namespace Graphs
             UIHandler.Instance.scale(actions, Vector3.one);
             selected_edge = obj;
             selected_edge.gameObject.GetComponent<Image>().color = Color.red;
+
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2,0).color = Color.red;
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1) .color = Color.red;
+
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.red;
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.red;
+
             selected_edge.gameObject.transform.SetAsLastSibling();
         }
 
@@ -126,6 +143,12 @@ namespace Graphs
             UIHandler.Instance.scale(actions, Vector3.one);
             selected_edge = obj;
             selected_edge.gameObject.GetComponent<Image>().color = Color.red;
+
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.red;
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.red;
+
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.red;
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.red;
             selected_edge.gameObject.transform.SetAsLastSibling();
 
         }
@@ -135,6 +158,12 @@ namespace Graphs
             RectTransform actions = selected_edge.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
             UIHandler.Instance.scale(actions, new Vector3(.1f, .1f, .1f));
             selected_edge.gameObject.GetComponent<Image>().color = Color.white;
+
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.white;
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.white;
+
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.white;
+            selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.white;
 
             selected_edge = null;
         }
