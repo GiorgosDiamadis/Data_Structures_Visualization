@@ -16,7 +16,7 @@ public class GameHandler : MonoBehaviour
     public Action<IDataStructure> On_Data_Structure_Change;
     public Action handle_insertion;
     public Action handle_deletion;
-    public bool is_running = false;
+    public bool algorithm_running = false;
 
     [SerializeField] private float speed = 0.1f;
 

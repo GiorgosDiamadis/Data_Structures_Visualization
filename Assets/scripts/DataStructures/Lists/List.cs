@@ -113,7 +113,7 @@ public class List : IDataStructure
         {
             UIHandler.Instance.show_message("Node already exists!");
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 
     public IEnumerator add_position(long data, int position)
@@ -328,7 +328,7 @@ public class List : IDataStructure
         }
 
 
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 
     public IEnumerator add_node(long data)
@@ -476,7 +476,7 @@ public class List : IDataStructure
         }
 
 
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
     public IEnumerator delete_node(long data)
     {
@@ -654,7 +654,7 @@ public class List : IDataStructure
             UIHandler.Instance.show_message("Node doesn't exist");
         }
 
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 
     public IEnumerator search(long data)
@@ -746,6 +746,6 @@ public class List : IDataStructure
 
 
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 }

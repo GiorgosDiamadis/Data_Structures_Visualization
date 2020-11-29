@@ -391,6 +391,7 @@ namespace Graphs
             {
                 pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
             }
+            GameHandler.Instance.algorithm_running = true;
 
             Load_Variables("DFS Traversal:");
             Load_Pseudocode("dfs");
@@ -470,6 +471,8 @@ namespace Graphs
             }
 
             highlight_pseudocode(2, false);
+            GameHandler.Instance.algorithm_running = false;
+
         }
 
         public IEnumerator BFS(GraphNode from)
@@ -486,6 +489,7 @@ namespace Graphs
             {
                 pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
             }
+            GameHandler.Instance.algorithm_running = true;
 
             yield return new WaitForSeconds(speed);
 
@@ -559,6 +563,8 @@ namespace Graphs
 
             }
             highlight_pseudocode(2, false);
+            GameHandler.Instance.algorithm_running = false;
+
         }
 
         private void Create_Graph_Node(GraphNode from)
@@ -579,7 +585,8 @@ namespace Graphs
             }
             else
             {
-                if (pseudocode_panel.transform.childCount != 0)
+                GameHandler.Instance.algorithm_running = true;
+                if (pseudocode_panel.transform.childCount != 0 && pseudocode_panel.transform.Get_Child(0).gameObject.name != "pseudocode_dijkstra")
                 {
                     pseudocode_panel.transform.Get_Child(0).gameObject.Destroy_Object();
                 }
@@ -780,6 +787,8 @@ namespace Graphs
                     g.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = "Infinity";
                 }
             }
+            GameHandler.Instance.algorithm_running = false;
+
         }
 
         private Edge Find_Edge(GraphNode g1, GraphNode g2)

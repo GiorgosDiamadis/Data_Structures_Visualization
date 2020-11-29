@@ -116,6 +116,7 @@ public class ViewHandler : MonoBehaviour
             current_structure.Init();
             counter = current_structure.Max_counter;
             max_nodes = current_structure.Max_nodes;
+            GameHandler.Instance.algorithm_running = false;
         }
     }
 }

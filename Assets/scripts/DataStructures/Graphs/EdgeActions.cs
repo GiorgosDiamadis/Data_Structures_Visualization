@@ -45,6 +45,12 @@ namespace Graphs
         {
             edge.Add_Weight();
             edge.gameObject.GetComponent<Image>().color = Color.white;
+
+            edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.white;
+            edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.white;
+
+            edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.white;
+            edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.white;
             graphs.selected_edge = null;
         }
     }

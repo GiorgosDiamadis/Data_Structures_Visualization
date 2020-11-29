@@ -33,10 +33,10 @@ public class BinaryTree : IDataStructure
         GameObject node =  create_node(data:6);
         Add_To_Array(node);
 
-        Get_Node_Positions_From_Tree_Prefab();
+        StartCoroutine (Get_Node_Positions_From_Tree_Prefab());
     }
 
-    private void Get_Node_Positions_From_Tree_Prefab()
+    private IEnumerator Get_Node_Positions_From_Tree_Prefab()
     {
 
         for (int i = 0; i < e.transform.childCount; i++)
@@ -53,11 +53,13 @@ public class BinaryTree : IDataStructure
         {
             scales[i] = e.transform.Get_Child(i, 3).localScale;
         }
+
+        yield return null;
     }
     #region Traversals
     public void In_Order_Traversal()
     {
-        if (GameHandler.Instance.is_running)
+        if (GameHandler.Instance.algorithm_running)
             return;
 
         head = null;
@@ -68,7 +70,7 @@ public class BinaryTree : IDataStructure
 
         Create_Tree_From_Array();
         StartCoroutine(In_Order_Cor());
-        GameHandler.Instance.is_running = true;
+        GameHandler.Instance.algorithm_running = true;
     }
     private IEnumerator In_Order_Cor()
     {
@@ -182,13 +184,13 @@ public class BinaryTree : IDataStructure
         {
             view.transform.Set_Child_Active(false, i, 1);
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 
     public void Post_Order_Traversal()
     {
 
-        if (GameHandler.Instance.is_running)
+        if (GameHandler.Instance.algorithm_running)
             return;
 
         head = null;
@@ -199,7 +201,7 @@ public class BinaryTree : IDataStructure
 
         Create_Tree_From_Array();
         StartCoroutine(Post_Order_Cor());
-        GameHandler.Instance.is_running = true;
+        GameHandler.Instance.algorithm_running = true;
     }
     static public Stack s1, s2;
     private IEnumerator Post_Order_Cor()
@@ -229,9 +231,7 @@ public class BinaryTree : IDataStructure
         {
             BinaryTreeNode temp = (BinaryTreeNode)s1.Pop();
 
-            temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
-            yield return new WaitForSeconds(speed);
-            temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            
 
             s2.Push(temp);
 
@@ -241,10 +241,12 @@ public class BinaryTree : IDataStructure
                 s1.Push(temp.right);
 
 
+
+            temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             highlight_pseudocode(2, is_open: true);
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(2, is_open: false);
-            
+
             highlight_pseudocode(3, is_open: true);
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(3, is_open: false);
@@ -252,6 +254,7 @@ public class BinaryTree : IDataStructure
             highlight_pseudocode(1, is_open: true);
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(1, is_open: false);
+            temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
         }
 
 
@@ -265,13 +268,13 @@ public class BinaryTree : IDataStructure
 
             highlight_pseudocode(5, is_open: true);
             
-            temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+            //temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             temp.scene_object.transform.Set_Child_Active(true, 1);
+            Create_Pseudocode_Nodes(temp);
             yield return new WaitForSeconds(speed);
 
-            temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            //temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
-            Create_Pseudocode_Nodes(temp);
 
             highlight_pseudocode(5, is_open: false);
 
@@ -285,13 +288,13 @@ public class BinaryTree : IDataStructure
         {
             view.transform.Set_Child_Active(false, i, 1);
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 
     public void Pre_Order_Traversal()
     {
 
-        if (GameHandler.Instance.is_running)
+        if (GameHandler.Instance.algorithm_running)
             return;
 
         head = null;
@@ -302,7 +305,7 @@ public class BinaryTree : IDataStructure
 
         Create_Tree_From_Array();
         StartCoroutine(Pre_Order_Cor());
-        GameHandler.Instance.is_running = true;
+        GameHandler.Instance.algorithm_running = true;
     }
 
     private IEnumerator Pre_Order_Cor()
@@ -374,12 +377,12 @@ public class BinaryTree : IDataStructure
         {
             view.transform.Set_Child_Active(false, i, 1);
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 
     public void Level_Order_Traversal()
     {
-        if (GameHandler.Instance.is_running)
+        if (GameHandler.Instance.algorithm_running)
             return;
 
         head = null;
@@ -390,7 +393,7 @@ public class BinaryTree : IDataStructure
 
         Create_Tree_From_Array();
         StartCoroutine(Level_Order_Cor());
-        GameHandler.Instance.is_running = true;
+        GameHandler.Instance.algorithm_running = true;
     }
     private IEnumerator Level_Order_Cor()
     {
@@ -452,7 +455,7 @@ public class BinaryTree : IDataStructure
         {
             view.transform.Set_Child_Active(false, i, 1);
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
     #endregion
     

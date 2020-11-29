@@ -28,9 +28,9 @@ public class QueueWithArray : IDataStructure, IQueue
 
     public void Dequeue()
     {
-        if (GameHandler.Instance.is_running)
+        if (GameHandler.Instance.algorithm_running)
             return;
-        GameHandler.Instance.is_running = true;
+        GameHandler.Instance.algorithm_running = true;
         StartCoroutine(dequeue_cor());
     }
 
@@ -68,7 +68,7 @@ public class QueueWithArray : IDataStructure, IQueue
                 view.transform.GetChild(i).SetSiblingIndex(i - 1);
             }
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
 
     }
 
@@ -102,16 +102,16 @@ public class QueueWithArray : IDataStructure, IQueue
 
             next_enqueue++;
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 
 
     public void Peek()
     {
-        if (GameHandler.Instance.is_running)
+        if (GameHandler.Instance.algorithm_running)
             return;
 
-        GameHandler.Instance.is_running = true;
+        GameHandler.Instance.algorithm_running = true;
 
         StartCoroutine(peek_cor());
     }
@@ -143,6 +143,6 @@ public class QueueWithArray : IDataStructure, IQueue
             view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = green_cell;
             highlight_pseudocode(1, false);
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 }

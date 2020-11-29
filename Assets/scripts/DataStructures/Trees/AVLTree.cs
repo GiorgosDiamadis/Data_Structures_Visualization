@@ -31,7 +31,7 @@ public class AVLTree : BinaryTree
             highlight_pseudocode(1, is_open: true);
             head = new BinaryTreeNode(data);
             head.Set_Scene_Object(Instantiate(node_prefab, view.transform), data);
-            GameHandler.Instance.is_running = false;
+            GameHandler.Instance.algorithm_running = false;
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(1, is_open: false);
         }
@@ -125,7 +125,7 @@ public class AVLTree : BinaryTree
                     {
                         UIHandler.Instance.show_message("Key already exists");
                         exists = true;
-                        GameHandler.Instance.is_running = false;
+                        GameHandler.Instance.algorithm_running = false;
                         break;
                     }
                 }
@@ -485,7 +485,7 @@ public class AVLTree : BinaryTree
                 UIHandler.Instance.show_message("Key doesnt exist");
             }
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
     #endregion
 
@@ -683,7 +683,7 @@ public class AVLTree : BinaryTree
 
         if (current_parent!= null)
             current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 
     private void DeColor_Nodes(BinaryTreeNode current_parent, BinaryTreeNode w, BinaryTreeNode u)

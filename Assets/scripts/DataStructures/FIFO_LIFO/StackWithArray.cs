@@ -31,10 +31,10 @@ public class StackWithArray : IDataStructure, IStack
 
     public void peek()
     {
-        if (GameHandler.Instance.is_running)
+        if (GameHandler.Instance.algorithm_running)
             return;
 
-        GameHandler.Instance.is_running = true;
+        GameHandler.Instance.algorithm_running = true;
 
         StartCoroutine(peek_cor());
     }
@@ -62,7 +62,7 @@ public class StackWithArray : IDataStructure, IStack
             view.transform.GetChild(next_empty - 1).GetComponentInChildren<SpriteRenderer>().sprite = green_cell;
             highlight_pseudocode(1, false);
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 
     public IEnumerator push(long data)
@@ -96,14 +96,14 @@ public class StackWithArray : IDataStructure, IStack
 
             next_empty++;
         }
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
     }
 
     public void pop()
     {
-        if (GameHandler.Instance.is_running)
+        if (GameHandler.Instance.algorithm_running)
             return;
-        GameHandler.Instance.is_running = true;
+        GameHandler.Instance.algorithm_running = true;
         StartCoroutine(pop_cor());
     }
 
@@ -139,7 +139,7 @@ public class StackWithArray : IDataStructure, IStack
             view.transform.GetChild(next_empty).GetChild(0).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "";
         }
 
-        GameHandler.Instance.is_running = false;
+        GameHandler.Instance.algorithm_running = false;
 
     }
 

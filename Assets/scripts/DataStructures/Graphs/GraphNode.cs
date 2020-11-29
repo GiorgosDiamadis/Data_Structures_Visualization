@@ -135,13 +135,15 @@ namespace Graphs
 
         public void dfs()
         {
-            StartCoroutine(graphs.DFS(this));
+            if(!GameHandler.Instance.algorithm_running)
+                StartCoroutine(graphs.DFS(this));
         }
 
 
         public void bfs()
         {
-            StartCoroutine(graphs.BFS(this));
+            if(!GameHandler.Instance.algorithm_running)
+                StartCoroutine(graphs.BFS(this));
         }
 
         public void djkstr()
@@ -164,7 +166,8 @@ namespace Graphs
             }
 
 
-            StartCoroutine(graphs.Dijkstra(this, destination));
+            if(!GameHandler.Instance.algorithm_running)
+                StartCoroutine(graphs.Dijkstra(this, destination));
         }
     }
 }
