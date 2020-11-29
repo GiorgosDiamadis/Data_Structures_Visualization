@@ -589,7 +589,7 @@ public class List : IDataStructure
             highlight_pseudocode(2, false);
 
             spr = child.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            //spr.sprite = initial_sprite;
+
 
             if (found)
             {
@@ -641,6 +641,7 @@ public class List : IDataStructure
             }
             else
             {
+                spr.sprite = initial_sprite;
                 highlight_pseudocode(3, true);
 
                 yield return new WaitForSeconds(speed);

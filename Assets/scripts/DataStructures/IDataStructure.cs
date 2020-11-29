@@ -117,7 +117,12 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         new_node_data = new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0,0);
 
         if (not_empty_data)
-            new_node_data.text = (UnityEngine.Random.Range(-100, 100)).ToString();
+        {
+            int x = UnityEngine.Random.Range(-500, 500);
+            long data2 = long.Parse(x.ToString());
+            new_node_data.text =data2.ToString();
+
+        }
         else
             new_node_data.text = "";
 
@@ -134,7 +139,13 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         if (empty_data)
             new_node_data.text = " ";
         else if (!data.HasValue)
-            new_node_data.text = (UnityEngine.Random.Range(-100, 100)).ToString();
+        {
+            int x = UnityEngine.Random.Range(-500, 500);
+            long data2 = long.Parse(x.ToString());
+
+            new_node_data.text = data2.ToString();
+
+        }
         else if(data.HasValue)
             new_node_data.text = (data.Value).ToString();
         
