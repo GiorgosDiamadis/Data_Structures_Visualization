@@ -32,23 +32,11 @@ public class UIHandler : MonoBehaviour
     {
         if (current_data_structure_open_panel != null)
         {
-            if (current_data_structure_open_panel.transform.parent.tag.Equals(structure_tag))
-            {
-                RectTransform rect = current_data_structure_open_panel.GetComponent<RectTransform>();
-                scale(rect, scale_down);
-                target = rect;
-                current_data_structure_open_panel = null;
-
-                return;
-            }
-            else
-            {
-                current_data_structure_open_panel.SetActive(false);
-                current_data_structure_open_panel.transform.localScale = scale_down;
-            }
+            current_data_structure_open_panel.SetActive(false);
+            current_data_structure_open_panel.transform.localScale = scale_down;
         }
 
-        if (current_structure_variant_open_panel != null)
+        if (current_structure_variant_open_panel != null && current_structure_variant_open_panel.name!= "Text (TMP)")
         {
             current_structure_variant_open_panel.SetActive(false);
             current_structure_variant_open_panel.transform.localScale = scale_down;
@@ -61,8 +49,9 @@ public class UIHandler : MonoBehaviour
             current_method_options_open.transform.localScale = scale_down;
             current_method_options_open = null;
         }
+        GameObject o = GameObject.FindWithTag(structure_tag);
+        GameObject structure = o.transform.parent.Get_Child(o.transform.GetSiblingIndex() + 1).gameObject;
 
-        GameObject structure = GameObject.FindWithTag(structure_tag).transform.GetChild(1).gameObject;
         current_data_structure_open_panel = structure;
         structure.SetActive(true);
         scale(structure.GetComponent<RectTransform>(), scale_up);
@@ -87,8 +76,15 @@ public class UIHandler : MonoBehaviour
         }
 
         current_structure_variant_open_panel = obj.transform.GetChild(1).gameObject;
-        current_structure_variant_open_panel.SetActive(true);
-        scale(current_structure_variant_open_panel.GetComponent<RectTransform>(), scale_up);
+        if(current_structure_variant_open_panel.name != "Text (TMP)")
+        {
+            current_structure_variant_open_panel.SetActive(true);
+            scale(current_structure_variant_open_panel.GetComponent<RectTransform>(), scale_up);
+        }
+        else
+        {
+            current_structure_variant_open_panel = null;
+        }
     }
     public void show_message(string message)
     {
