@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 using System;
+using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class UIHandler : MonoBehaviour
         {
             current_data_structure_open_panel.SetActive(false);
             current_data_structure_open_panel.transform.localScale = scale_down;
+            current_data_structure_open_panel = null;
         }
 
         if (current_structure_variant_open_panel != null && current_structure_variant_open_panel.name!= "Text (TMP)")
@@ -49,12 +51,22 @@ public class UIHandler : MonoBehaviour
             current_method_options_open.transform.localScale = scale_down;
             current_method_options_open = null;
         }
+
         GameObject o = GameObject.FindWithTag(structure_tag);
         GameObject structure = o.transform.parent.Get_Child(o.transform.GetSiblingIndex() + 1).gameObject;
 
         current_data_structure_open_panel = structure;
         structure.SetActive(true);
         scale(structure.GetComponent<RectTransform>(), scale_up);
+
+        foreach(UIGraphics g in FindObjectsOfType<UIGraphics>())
+        {
+            if (g.transform.Get_Component_In_Child<Image>(0).color == g.highlighted)
+            {
+                g.transform.Get_Component_In_Child<Image>(0).color = g.normal;
+            }
+        }
+
     }
     private void Show_Data_Structure_Variant_Methods(IDataStructure obj)
     {
