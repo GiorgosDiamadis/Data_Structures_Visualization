@@ -13,7 +13,7 @@ public class UIGraphics : MonoBehaviour,IPointerClickHandler
 
     private void Start()
     {
-        normal = transform.Get_Component_In_Child<Image>(0).color;
+        normal = GetComponent<Image>().color;
         all = FindObjectsOfType<UIGraphics>();
     }
 
@@ -24,20 +24,20 @@ public class UIGraphics : MonoBehaviour,IPointerClickHandler
         {
             if (g != this)
             {
-                if(g.transform.Get_Component_In_Child<Image>(0).color == highlighted)
+                if(g.GetComponent<Image>().color == highlighted)
                 {
-                    g.transform.Get_Component_In_Child<Image>(0).color = normal;
+                    g.GetComponent<Image>().color = normal;
                 }
             }
         }
 
-        if(transform.Get_Component_In_Child<Image>(0).color == normal)
+        if(GetComponent<Image>().color == normal)
         {
-            transform.Get_Component_In_Child<Image>(0).color = new Color(highlighted.r, highlighted.g, highlighted.b, highlighted.a);
+            GetComponent<Image>().color = new Color(highlighted.r, highlighted.g, highlighted.b, highlighted.a);
         }
         else
         {
-            transform.Get_Component_In_Child<Image>(0).color = normal;
+            GetComponent<Image>().color = normal;
         }
     }
 }

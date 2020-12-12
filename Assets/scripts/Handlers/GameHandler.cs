@@ -10,6 +10,8 @@ public class GameHandler : MonoBehaviour
 
     private static Sprite traverse_sprite = null;
     private static Sprite initial_sprite = null;
+    private static Sprite toadd_sprite = null;
+
     private static Sprite red_cell = null;
     private static Sprite green_cell = null;
 
@@ -19,7 +21,8 @@ public class GameHandler : MonoBehaviour
     public bool algorithm_running = false;
 
     [SerializeField] private float speed = 0.1f;
-
+        
+    public  Sprite Toadd_sprite { get => toadd_sprite; set => toadd_sprite = value; }
     public Sprite Red_cell { get => red_cell;}
     public Sprite Green_cell { get => green_cell;}
     public  Sprite Traverse_sprite { get => traverse_sprite;}
@@ -47,5 +50,6 @@ public class GameHandler : MonoBehaviour
         initial_sprite = Resources.Load<Sprite>("NeonShapes/PNG/GreenCircle");
         red_cell = Resources.Load<Sprite>("NeonShapes/PNG/RedSquare");
         green_cell = Resources.Load<Sprite>("NeonShapes/PNG/GreenSquare");
+        Toadd_sprite = Resources.Load<Sprite>("NeonShapes/PNG/BlueCircle");
     }
 }

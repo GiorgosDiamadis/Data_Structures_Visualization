@@ -49,16 +49,26 @@ public class AnimatorController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        foreach (AnimatorController a in all)
-        {
-            if (a != this)
-            {
-                a.animator.SetTrigger("normal");
-                a.current = "normal";
-            }
-        }
 
-        animator.SetTrigger("selected");
-        current = "selected";
+        if(current == "selected")
+        {
+            animator.SetTrigger("normal");
+            current = "normal";
+        }
+        else
+        {
+            foreach (AnimatorController a in all)
+            {
+                if (a != this)
+                {
+                    a.animator.SetTrigger("normal");
+                    a.current = "normal";
+                }
+            }
+
+            animator.SetTrigger("selected");
+            current = "selected";
+        }
+        
     }
 }

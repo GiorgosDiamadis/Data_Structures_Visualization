@@ -16,7 +16,8 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     
     protected static Sprite traverse_sprite = null;
     protected static Sprite initial_sprite = null;
-    
+    protected static Sprite toadd_sprite = null;
+
 
     protected static Sprite red_cell = null;
     protected static Sprite green_cell = null;
@@ -49,7 +50,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         speed = GameHandler.Instance.Speed;
         red_cell= GameHandler.Instance.Red_cell;
         green_cell = GameHandler.Instance.Green_cell;
-
+        toadd_sprite = GameHandler.Instance.Toadd_sprite;
         pseudocode_panel = GameHandler.Instance.Pseudocode_panel;
 
         GameHandler.Instance.On_Data_Structure_Change += Destroy_Pseudocode;
@@ -131,10 +132,15 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     }
 
-    protected GameObject create_node(long? data = null, bool empty_data = false)
+    protected GameObject create_node(long? data = null,  Vector3? position = null,bool empty_data = false)
     {
         new_node = Instantiate(node_prefab, view.transform);
         new_node_data = new_node.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+       
+        if (position.HasValue)
+        {
+            new_node.transform.localPosition = position.Value;
+        }
 
         if (empty_data)
             new_node_data.text = " ";

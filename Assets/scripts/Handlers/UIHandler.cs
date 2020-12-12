@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class UIHandler : MonoBehaviour
 {
     public static UIHandler Instance;
-    public static GameObject current_structure_variant_open_panel = null;
-    public static GameObject current_data_structure_open_panel = null;
-    public static GameObject current_method_options_open = null;
+    public static GameObject structure_variant = null;
+    public static GameObject selected_structure = null;
+    public static GameObject method_options = null;
     private RectTransform target = null;
 
     private static Vector3 scale_up = new Vector3(1, 1, 0);
@@ -31,71 +31,79 @@ public class UIHandler : MonoBehaviour
     }
     public void Show_Data_Structure_Variants(string structure_tag)
     {
-        if (current_data_structure_open_panel != null)
+
+        GameObject structure = GameObject.FindWithTag(structure_tag);
+        GameObject structure_panel = structure.transform.parent.Get_Child(structure.transform.GetSiblingIndex() + 1).gameObject;
+
+        if(selected_structure == null)
         {
-            current_data_structure_open_panel.SetActive(false);
-            current_data_structure_open_panel.transform.localScale = scale_down;
-            current_data_structure_open_panel = null;
+            selected_structure = structure_panel;
+            selected_structure.SetActive(true);
+            scale(selected_structure.GetComponent<RectTransform>(), scale_up);
+        }
+        else if (selected_structure == structure_panel)
+        {
+            scale(selected_structure.GetComponent<RectTransform>(), scale_down);
+            selected_structure = null;
+        }
+        else
+        {
+            selected_structure.SetActive(false);
+            selected_structure.transform.localScale = scale_down;
+
+            selected_structure = structure_panel;
+            selected_structure.SetActive(true);
+            scale(selected_structure.GetComponent<RectTransform>(), scale_up);
         }
 
-        if (current_structure_variant_open_panel != null && current_structure_variant_open_panel.name!= "Text (TMP)")
+        if (structure_variant != null)
         {
-            current_structure_variant_open_panel.SetActive(false);
-            current_structure_variant_open_panel.transform.localScale = scale_down;
-            current_structure_variant_open_panel = null;
+            structure_variant.SetActive(false);
+            structure_variant.transform.localScale = scale_down;
+            structure_variant = null;
         }
 
-        if (current_method_options_open != null)
+        if(method_options != null)
         {
-            current_method_options_open.SetActive(false);
-            current_method_options_open.transform.localScale = scale_down;
-            current_method_options_open = null;
+            method_options.SetActive(false);
+            method_options.transform.localScale = scale_down;
+            method_options = null;
         }
-
-        GameObject o = GameObject.FindWithTag(structure_tag);
-        GameObject structure = o.transform.parent.Get_Child(o.transform.GetSiblingIndex() + 1).gameObject;
-
-        current_data_structure_open_panel = structure;
-        structure.SetActive(true);
-        scale(structure.GetComponent<RectTransform>(), scale_up);
 
         foreach(UIGraphics g in FindObjectsOfType<UIGraphics>())
         {
-            if (g.transform.Get_Component_In_Child<Image>(0).color == g.highlighted)
-            {
-                g.transform.Get_Component_In_Child<Image>(0).color = g.normal;
-            }
+            g.GetComponent<Image>().color = g.normal;
         }
-
+        
     }
     private void Show_Data_Structure_Variant_Methods(IDataStructure obj)
     {
-        if (current_structure_variant_open_panel != null)
+        if (structure_variant != null)
         {
-            if (current_structure_variant_open_panel.GetComponentInParent<IDataStructure>() == obj)
+            if (structure_variant.GetComponentInParent<IDataStructure>() == obj)
             {
-                RectTransform rect = current_structure_variant_open_panel.GetComponent<RectTransform>();
+                RectTransform rect = structure_variant.GetComponent<RectTransform>();
                 scale(rect, scale_down);
                 target = rect;
-                current_structure_variant_open_panel = null;
+                structure_variant = null;
                 return;
             }
             else
             {
-                current_structure_variant_open_panel.SetActive(false);
-                current_structure_variant_open_panel.transform.localScale = scale_down;
+                structure_variant.SetActive(false);
+                structure_variant.transform.localScale = scale_down;
             }
         }
 
-        current_structure_variant_open_panel = obj.transform.GetChild(1).gameObject;
-        if(current_structure_variant_open_panel.name != "Text (TMP)")
+        structure_variant = obj.transform.GetChild(1).gameObject;
+        if(structure_variant.name != "Text (TMP)")
         {
-            current_structure_variant_open_panel.SetActive(true);
-            scale(current_structure_variant_open_panel.GetComponent<RectTransform>(), scale_up);
+            structure_variant.SetActive(true);
+            scale(structure_variant.GetComponent<RectTransform>(), scale_up);
         }
         else
         {
-            current_structure_variant_open_panel = null;
+            structure_variant = null;
         }
     }
     public void show_message(string message)
@@ -113,12 +121,12 @@ public class UIHandler : MonoBehaviour
         if (!rect.gameObject.activeSelf)
         {
             rect.gameObject.SetActive(true);
-            current_method_options_open = rect.gameObject;
+            method_options = rect.gameObject;
             scale(rect, scale_up);
         }
         else
         {
-            current_method_options_open = null;
+            method_options = null;
 
             scale(rect, scale_down);
         }
