@@ -4,13 +4,13 @@ using UnityEngine;
 public static class TransformExtensions
 {
 
-    public static void Destroy_Child(this Transform queried,params int[] index)
+    public static void Destroy_Child(this Transform queried, params int[] index)
     {
         Transform child = queried.Get_Child(index);
         child.gameObject.Destroy_Object();
     }
 
-    public static Transform Get_Child(this Transform queried,params int[] index)
+    public static Transform Get_Child(this Transform queried, params int[] index)
     {
         Transform child = queried;
         for (int i = 0; i < index.Length; i++)
@@ -20,14 +20,14 @@ public static class TransformExtensions
         return child;
     }
 
-    public static T Get_Component_In_Child<T>(this Transform queried,params int[] index) where T : Component
+    public static T Get_Component_In_Child<T>(this Transform queried, params int[] index) where T : Component
     {
         Transform child = queried.Get_Child(index);
         T requested_component = child.GetComponent<T>();
         return requested_component;
     }
 
-    public static GameObject Get_Child_Object(this Transform queried,params int[] index)
+    public static GameObject Get_Child_Object(this Transform queried, params int[] index)
     {
         Transform child = queried.Get_Child(index);
 
@@ -41,7 +41,7 @@ public static class TransformExtensions
         return child;
     }
 
-    public static void Set_Child_Active(this Transform queried, bool active,params int[] index)
+    public static void Set_Child_Active(this Transform queried, bool active, params int[] index)
     {
         Transform child = queried.Get_Child(index);
 
@@ -62,11 +62,16 @@ public static class TransformExtensions
         }
     }
 
-    public static bool Does_Data_Exist(this Transform queried, long data)
+    public static bool Does_Data_Exist(this Transform queried, long data, bool include_end = true)
     {
         GameObject child;
+        int k = -1;
+        if (include_end)
+            k = queried.transform.childCount;
+        else
+            k = queried.transform.childCount - 1;
 
-        for (int i = 0; i < queried.transform.childCount; i++)
+        for (int i = 0; i < k; i++)
         {
             child = queried.transform.GetChild(i).gameObject;
 

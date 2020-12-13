@@ -99,9 +99,9 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         GameHandler.Instance.On_Data_Structure_Variant_Change?.Invoke(this);
     }
 
-    protected bool exists(long data)
+    protected bool exists(long data,bool include_end = true)
     {
-        return view.transform.Does_Data_Exist(data);
+        return view.transform.Does_Data_Exist(data,include_end);
     }
 
     protected GameObject create_arrow()

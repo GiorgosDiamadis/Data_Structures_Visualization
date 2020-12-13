@@ -119,9 +119,13 @@ public class List : IDataStructure
     public IEnumerator add_position(long data, int position)
     {
 
-        if (!exists(data))
+            GameObject to_add = create_node(data, position: new Vector3(0, 200, 0));
+        if (!exists(data,include_end:false))
         {
             UIHandler.Instance.close_message();
+
+            ViewHandler.Instance.Change_Grid(enabled: false);
+            to_add.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
             Load_Pseudocode("add_position");
             yield return new WaitForSeconds(speed);
 
@@ -129,7 +133,10 @@ public class List : IDataStructure
             {
                 highlight_pseudocode(0, true);
                 yield return new WaitForSeconds(speed);
-                create_node(data);
+
+                ViewHandler.Instance.Change_Grid(enabled: true);
+                to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
                 highlight_pseudocode(0, false);
                 GameHandler.Instance.handle_insertion.Invoke();
             }
@@ -137,9 +144,10 @@ public class List : IDataStructure
             {
                 highlight_pseudocode(0, true);
                 yield return new WaitForSeconds(speed);
-                GameObject new_node = create_node(data);
+                ViewHandler.Instance.Change_Grid(enabled: true);
+                to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                to_add.transform.SetAsFirstSibling();
 
-                new_node.transform.SetAsFirstSibling();
                 GameObject arrow = create_arrow();
 
                 arrow.transform.SetSiblingIndex(1);
@@ -203,7 +211,7 @@ public class List : IDataStructure
 
                 int k = 0;
                 int i = 1;
-                for (; i < view.transform.childCount && k < position - 1; i++)
+                for (; i < view.transform.childCount - 1 && k < position - 1; i++)
                 {
                     child = view.transform.GetChild(i).gameObject;
 
@@ -259,23 +267,24 @@ public class List : IDataStructure
 
                     yield return new WaitForSeconds(speed);
 
-                    if (i == view.transform.childCount)
+                    if (i == view.transform.childCount - 1)
                     {
                         GameObject arrow = create_arrow();
-                        GameObject new_node = create_node(data);
-
-                        new_node.transform.SetSiblingIndex(i + 1);
+                        ViewHandler.Instance.Change_Grid(enabled: true);
+                        to_add.transform.SetSiblingIndex(i + 1);
+                        to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                         arrow.transform.SetSiblingIndex(i);
                     }
                     else
                     {
                         GameObject arrow = create_arrow();
-                        GameObject new_node = create_node(data);
+                        to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
                         if (i % 2 != 0)
                             i++;
+                        ViewHandler.Instance.Change_Grid(enabled: true);
 
-                        new_node.transform.SetSiblingIndex(i);
+                        to_add.transform.SetSiblingIndex(i);
                         arrow.transform.SetSiblingIndex(i + 1);
                     }
 
@@ -324,6 +333,7 @@ public class List : IDataStructure
         }
         else
         {
+            //to_add.Destroy_Object();
             UIHandler.Instance.show_message("Node already exists!");
         }
 
@@ -333,163 +343,163 @@ public class List : IDataStructure
 
     public IEnumerator add_node(long data)
     {
-        UIHandler.Instance.close_message();
 
-        GameObject to_add = create_node(data,position:new Vector3(0,200,0));
-        ViewHandler.Instance.Change_Grid(enabled: false);
-        to_add. transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
-
-        Load_Pseudocode("add");
-        yield return new WaitForSeconds(speed);
-
-        if (view.transform.childCount == 0)
+        if (!exists(data))
         {
-            highlight_pseudocode(0, true);
+            UIHandler.Instance.close_message();
+
+            GameObject to_add = create_node(data, position: new Vector3(0, 200, 0));
+            ViewHandler.Instance.Change_Grid(enabled: false);
+            to_add.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
+
+            Load_Pseudocode("add");
             yield return new WaitForSeconds(speed);
-            ViewHandler.Instance.Change_Grid(enabled: true);
 
-            highlight_pseudocode(0, false);
-
-            GameHandler.Instance.handle_insertion.Invoke();
-        }
-        else
-        {
-
-            bool found = false;
-
-            GameObject child, previous;
-            child = null;
-
-            GameObject head = view.transform.GetChild(0).gameObject;
-
-            highlight_pseudocode(0, true);
-
-            Image spr = head.transform.GetChild(0).GetComponent<Image>();
-            spr.sprite = traverse_sprite;
-            previous = head;
-
-            yield return new WaitForSeconds(speed);
-            highlight_pseudocode(0, false);
-
-            for (int i = 1; i < view.transform.childCount-1; i++)
+            if (view.transform.childCount == 0)
             {
-                child = view.transform.GetChild(i).gameObject;
+                highlight_pseudocode(0, true);
+                yield return new WaitForSeconds(speed);
+                ViewHandler.Instance.Change_Grid(enabled: true);
 
-                if (child.tag.Equals("Node"))
-                {
-                    highlight_pseudocode(2, false);
+                highlight_pseudocode(0, false);
 
-                    // While highlighter
-                    highlight_pseudocode(1, true);
-
-                    yield return new WaitForSeconds(speed);
-
-                    highlight_pseudocode(1, false);
-
-                    //=========
-                    spr = child.transform.GetChild(0).GetComponent<Image>();
-
-
-                    highlight_pseudocode(2, true);
-
-
-                    if (previous != null)
-                    {
-                        previous.transform.GetChild(0).GetComponent<Image>().sprite = initial_sprite;
-                    }
-
-                    spr.sprite = traverse_sprite;
-                    TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
-
-                    yield return new WaitForSeconds(speed);
-
-
-                    if (child_data.text == data.ToString())
-                    {
-
-                        highlight_pseudocode(2, false);
-
-                        highlight_pseudocode(1, true);
-
-
-                        yield return new WaitForSeconds(speed);
-                        spr.sprite = initial_sprite;
-                        found = true;
-                        highlight_pseudocode(1, false);
-                        break;
-                    }
-
-                    found = false;
-                    previous = child;
-                }
+                GameHandler.Instance.handle_insertion.Invoke();
             }
-
-            if (child != null)
-                spr = child.transform.GetChild(0).GetComponent<Image>();
-
-            spr.sprite = initial_sprite;
-            highlight_pseudocode(2, false);
-
-            if (!found)
+            else
             {
-                highlight_pseudocode(3, true);
+
+                bool found = false;
+
+                GameObject child, previous;
+                child = null;
+
+                GameObject head = view.transform.GetChild(0).gameObject;
+
+                highlight_pseudocode(0, true);
+
+                Image spr = head.transform.GetChild(0).GetComponent<Image>();
+                spr.sprite = traverse_sprite;
+                previous = head;
 
                 yield return new WaitForSeconds(speed);
-               
-                GameObject arr = create_arrow();
-                ViewHandler.Instance.Change_Grid(enabled: true);
-                to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-                arr.transform.SetSiblingIndex(view.transform.childCount-2);
+                highlight_pseudocode(0, false);
 
-                highlight_pseudocode(3, false);
-
-                if (is_circular)
+                for (int i = 1; i < view.transform.childCount - 1; i++)
                 {
-                    if (!is_double)
-                    {
+                    child = view.transform.GetChild(i).gameObject;
 
-                        if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
+                    if (child.tag.Equals("Node"))
+                    {
+                        highlight_pseudocode(2, false);
+
+                        // While highlighter
+                        highlight_pseudocode(1, true);
+
+                        yield return new WaitForSeconds(speed);
+
+                        highlight_pseudocode(1, false);
+
+                        //=========
+                        spr = child.transform.GetChild(0).GetComponent<Image>();
+
+
+                        highlight_pseudocode(2, true);
+
+
+                        if (previous != null)
                         {
-                            view.transform.Set_Child_Active(true, 0, 2);
+                            previous.transform.GetChild(0).GetComponent<Image>().sprite = initial_sprite;
                         }
-                        view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
-                        view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
 
-                    }
-                    else
-                    {
+                        spr.sprite = traverse_sprite;
+                        TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
 
-                        if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
+                        yield return new WaitForSeconds(speed);
+
+
+                        if (child_data.text == data.ToString())
                         {
-                            view.transform.Set_Child_Active(true, 0, 2);
-                            view.transform.Set_Child_Active(true, 0, 1);
+
+                            highlight_pseudocode(2, false);
+
+                            highlight_pseudocode(1, true);
+
+
+                            yield return new WaitForSeconds(speed);
+                            spr.sprite = initial_sprite;
+                            found = true;
+                            highlight_pseudocode(1, false);
+                            break;
+                        }
+
+                        found = false;
+                        previous = child;
+                    }
+                }
+
+                if (child != null)
+                    spr = child.transform.GetChild(0).GetComponent<Image>();
+
+                spr.sprite = initial_sprite;
+                highlight_pseudocode(2, false);
+
+                if (!found)
+                {
+                    highlight_pseudocode(3, true);
+
+                    yield return new WaitForSeconds(speed);
+
+                    GameObject arr = create_arrow();
+                    ViewHandler.Instance.Change_Grid(enabled: true);
+                    to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                    arr.transform.SetSiblingIndex(view.transform.childCount - 2);
+
+                    highlight_pseudocode(3, false);
+
+                    if (is_circular)
+                    {
+                        if (!is_double)
+                        {
+
+                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
+                            {
+                                view.transform.Set_Child_Active(true, 0, 2);
+                            }
+                            view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
+                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
 
                         }
                         else
                         {
-                            view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
-                            view.transform.Set_Child_Active(false, view.transform.childCount - 3, 2);
 
+                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
+                            {
+                                view.transform.Set_Child_Active(true, 0, 2);
+                                view.transform.Set_Child_Active(true, 0, 1);
+
+                            }
+                            else
+                            {
+                                view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
+                                view.transform.Set_Child_Active(false, view.transform.childCount - 3, 2);
+
+                            }
+
+                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
+                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 2);
                         }
-
-                        view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
-                        view.transform.Set_Child_Active(true, view.transform.childCount - 1, 2);
                     }
+
+                    GameHandler.Instance.handle_insertion.Invoke();
+
                 }
-
-                GameHandler.Instance.handle_insertion.Invoke();
-
-            }
-            else
-            {
-                highlight_pseudocode(3, true);
-
-                UIHandler.Instance.show_message("Node already exists!");
-                to_add.Destroy_Object();
-                yield return new WaitForSeconds(speed);
-                highlight_pseudocode(3, false); 
             }
         }
+        else
+        {
+            UIHandler.Instance.show_message("Node already exists!");
+        }
+        
 
 
         GameHandler.Instance.algorithm_running = false;
