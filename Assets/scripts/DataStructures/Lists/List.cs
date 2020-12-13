@@ -700,6 +700,17 @@ public class List : IDataStructure
             yield return null;
         yield return new WaitForFixedUpdate();
     }
+
+    IEnumerator Wait()
+    {
+        if (step_by_step)
+            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+        else
+            yield return new WaitForSeconds(speed);
+    }
+
+
+    bool step_by_step = true;
     public IEnumerator search(long data)
     {
         UIHandler.Instance.close_message();
@@ -718,19 +729,20 @@ public class List : IDataStructure
         Image spr = head.transform.GetChild(0).GetComponent<Image>();
         spr.sprite = traverse_sprite;
 
-        yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+        yield return StartCoroutine(Wait());
+
         highlight_pseudocode(0, false);
 
 
         if (head.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text == data.ToString())
         {
             highlight_pseudocode(1, true);
-            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, false);
 
             highlight_pseudocode(3, true);
             UIHandler.Instance.show_message("Node found!");
-            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+            yield return StartCoroutine(Wait());
             spr.sprite = initial_sprite;
             highlight_pseudocode(3, false);
             found = true;
@@ -746,7 +758,7 @@ public class List : IDataStructure
                 {
                     highlight_pseudocode(1, true);
                     print("while");
-                    yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(1, false);
 
                     spr = child.transform.GetChild(0).GetComponent<Image>();
@@ -764,7 +776,7 @@ public class List : IDataStructure
                     spr.sprite = traverse_sprite;
                     print("i++");
 
-                    yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(2, false);
 
                     if (child_data.text == data.ToString())
@@ -780,11 +792,11 @@ public class List : IDataStructure
             }
 
             highlight_pseudocode(1, true);
-            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, false);
 
             highlight_pseudocode(3, true);
-            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+            yield return StartCoroutine(Wait());
             spr.sprite = initial_sprite;
             if (!found)
             {

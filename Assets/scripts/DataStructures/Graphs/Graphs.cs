@@ -45,11 +45,11 @@ namespace Graphs
             drop_area = view.GetComponent<Outline>();
             adj_list = new List<GraphNode>();
             drag_area.SetActive(true);
-            drop_area.enabled = true;
+            //drop_area.enabled = true;
             change_graph.SetActive(true);
             is_digraph = false;
-            Color c = view.GetComponent<Image>().color;
-            view.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 255);
+            //Color c = view.GetComponent<Image>().color;
+            //view.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 255);
 
 
         }
@@ -69,9 +69,9 @@ namespace Graphs
             view.GetComponent<DropGraphNode>().enabled = false;
             drag_area.SetActive(false);
 
-            Color c = view.GetComponent<Image>().color;
-            view.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 0);
-            drop_area.enabled = false;
+            //Color c = view.GetComponent<Image>().color;
+            //view.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 0);
+            //drop_area.enabled = false;
             adj_list = null;
             change_graph.SetActive(false);
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -485,6 +486,8 @@ public class AVLTree : BinaryTree
                 UIHandler.Instance.show_message("Key doesnt exist");
             }
         }
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = false;
     }
     #endregion
@@ -683,6 +686,9 @@ public class AVLTree : BinaryTree
 
         if (current_parent!= null)
             current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = false;
     }
 
