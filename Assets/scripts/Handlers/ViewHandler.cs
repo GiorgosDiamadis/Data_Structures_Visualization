@@ -48,13 +48,14 @@ public class ViewHandler : MonoBehaviour
     public void Change_Grid(GridLayoutGroup.Axis axis = GridLayoutGroup.Axis.Horizontal,
         GridLayoutGroup.Constraint constraint = GridLayoutGroup.Constraint.FixedRowCount,
         int constraint_count=1,
-        Vector2 spacing=default(Vector2),bool enabled=true)
+        Vector2 spacing=default(Vector2),bool enabled=true,Vector2 size = default(Vector2))
     {
         grid.startAxis = axis;
         grid.constraint = constraint;
         grid.constraintCount = constraint_count;
         grid.spacing = spacing;
         grid.enabled = enabled;
+        grid.cellSize = size;
     }
 
     private void Handle_Deletion()

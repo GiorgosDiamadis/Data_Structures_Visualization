@@ -20,10 +20,10 @@ public class StackWithList : IDataStructure, IStack
             }
         }
 
-        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Horizontal, GridLayoutGroup.Constraint.FixedColumnCount, 1);
+        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Horizontal, GridLayoutGroup.Constraint.FixedColumnCount, 1,size:new Vector2(75,75));
 
         max_counter = 2;
-        max_nodes = 12;
+        max_nodes = 8;
     }
 
     public void peek()

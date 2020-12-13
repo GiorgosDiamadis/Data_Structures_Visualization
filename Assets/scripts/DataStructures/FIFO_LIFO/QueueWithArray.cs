@@ -23,7 +23,7 @@ public class QueueWithArray : IDataStructure, IQueue
         next_enqueue = 3;
         max_nodes = 10;
 
-        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1);
+        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1, size: new Vector2(100, 100));
     }
 
 

@@ -89,7 +89,7 @@ public class QueueWithList : IDataStructure,IQueue
             GameObject node = create_node(data);
             node.transform.SetAsFirstSibling();
         }
-        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f );
 
         GameHandler.Instance.handle_insertion.Invoke();
         GameHandler.Instance.algorithm_running = false;
@@ -109,7 +109,7 @@ public class QueueWithList : IDataStructure,IQueue
             }
         }
 
-        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1);
+        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1, size: new Vector2(100, 100));
 
         max_counter = 3;
         max_nodes = 14;
