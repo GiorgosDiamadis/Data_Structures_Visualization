@@ -116,20 +116,24 @@ public class UIHandler : MonoBehaviour
     }
     public void show_method_options(RectTransform rect)
     {
-        target = rect;
-
-        if (!rect.gameObject.activeSelf)
+        if (!GameHandler.Instance.algorithm_running)
         {
-            rect.gameObject.SetActive(true);
-            method_options = rect.gameObject;
-            scale(rect, scale_up);
-        }
-        else
-        {
-            method_options = null;
+            target = rect;
 
-            scale(rect, scale_down);
+            if (!rect.gameObject.activeSelf)
+            {
+                rect.gameObject.SetActive(true);
+                method_options = rect.gameObject;
+                scale(rect, scale_up);
+            }
+            else
+            {
+                method_options = null;
+
+                scale(rect, scale_down);
+            }
         }
+       
     }
     public void scale(RectTransform target, Vector3 result_scale)
     {

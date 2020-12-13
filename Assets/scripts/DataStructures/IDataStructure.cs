@@ -53,10 +53,10 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         toadd_sprite = GameHandler.Instance.Toadd_sprite;
         pseudocode_panel = GameHandler.Instance.Pseudocode_panel;
 
-        GameHandler.Instance.On_Data_Structure_Change += Destroy_Pseudocode;
+        //GameHandler.Instance.On_Data_Structure_Change += Destroy_Pseudocode;
     }
 
-    private void Destroy_Pseudocode(IDataStructure obj)
+    public void Destroy_Pseudocode(IDataStructure obj)
     {
         pseudocode_panel.transform.Destroy_All_Children();
     }
@@ -95,8 +95,11 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameHandler.Instance.On_Data_Structure_Change?.Invoke(this);
-        GameHandler.Instance.On_Data_Structure_Variant_Change?.Invoke(this);
+        if(ViewHandler.Instance.current_structure!=this)
+        {
+            GameHandler.Instance.On_Data_Structure_Change?.Invoke(this);
+            GameHandler.Instance.On_Data_Structure_Variant_Change?.Invoke(this);
+        }
     }
 
     protected bool exists(long data,bool include_end = true)

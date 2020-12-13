@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class QueueWithList : IDataStructure,IQueue
     {
         if (GameHandler.Instance.algorithm_running)
             return;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = true;
         StartCoroutine(dequeue_cor());
     }
@@ -29,11 +32,11 @@ public class QueueWithList : IDataStructure,IQueue
         if (view.transform.childCount > 0)
         {
             highlight_pseudocode(1, true);
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = traverse_sprite;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = traverse_sprite;
 
             yield return new WaitForSeconds(speed);
 
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = initial_sprite;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = initial_sprite;
             highlight_pseudocode(1, false);
             view.transform.Destroy_Child(0);
 
@@ -51,6 +54,7 @@ public class QueueWithList : IDataStructure,IQueue
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(2, false);
         }
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
 
         GameHandler.Instance.algorithm_running = false;
     }
@@ -85,6 +89,8 @@ public class QueueWithList : IDataStructure,IQueue
             GameObject node = create_node(data);
             node.transform.SetAsFirstSibling();
         }
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
         GameHandler.Instance.handle_insertion.Invoke();
         GameHandler.Instance.algorithm_running = false;
     }
@@ -103,7 +109,7 @@ public class QueueWithList : IDataStructure,IQueue
             }
         }
 
-        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1, new Vector2(10f, 10f));
+        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1);
 
         max_counter = 3;
         max_nodes = 14;
@@ -113,6 +119,8 @@ public class QueueWithList : IDataStructure,IQueue
     {
         if (GameHandler.Instance.algorithm_running)
             return;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = true;
 
         StartCoroutine(peek_cor());
@@ -139,12 +147,14 @@ public class QueueWithList : IDataStructure,IQueue
         }
         else
         {
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = traverse_sprite;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = traverse_sprite;
             highlight_pseudocode(1, true);
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(1, false);
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = initial_sprite;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = initial_sprite;
         }
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = false;
     }
 }

@@ -19,25 +19,28 @@ public class UIGraphics : MonoBehaviour,IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
-        foreach(UIGraphics g in all)
+        if (!GameHandler.Instance.algorithm_running)
         {
-            if (g != this)
+            foreach (UIGraphics g in all)
             {
-                if(g.GetComponent<Image>().color == highlighted)
+                if (g != this)
                 {
-                    g.GetComponent<Image>().color = normal;
+                    if (g.GetComponent<Image>().color == highlighted)
+                    {
+                        g.GetComponent<Image>().color = normal;
+                    }
                 }
             }
-        }
 
-        if(GetComponent<Image>().color == normal)
-        {
-            GetComponent<Image>().color = new Color(highlighted.r, highlighted.g, highlighted.b, highlighted.a);
+            if (GetComponent<Image>().color == normal)
+            {
+                GetComponent<Image>().color = new Color(highlighted.r, highlighted.g, highlighted.b, highlighted.a);
+            }
+            else
+            {
+                GetComponent<Image>().color = normal;
+            }
         }
-        else
-        {
-            GetComponent<Image>().color = normal;
-        }
+        
     }
 }

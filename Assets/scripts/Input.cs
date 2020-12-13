@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using DG.Tweening;
 
 public class Input : MonoBehaviour
 {
@@ -27,8 +28,11 @@ public class Input : MonoBehaviour
         if (data < Int64.MaxValue)
         {
                 AVLTree avl = transform.GetComponentInParent<AVLTree>();
+                
                 GameHandler.Instance.algorithm_running = true;
-                StartCoroutine(avl.add(data));
+            avl.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
+            StartCoroutine(avl.add(data));
                 data = Int64.MaxValue;
         }
         else
@@ -50,7 +54,9 @@ public class Input : MonoBehaviour
         {
                 AVLTree avl = transform.GetComponentInParent<AVLTree>();
                 GameHandler.Instance.algorithm_running = true;
-                StartCoroutine(avl.search(data));
+            avl.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
+            StartCoroutine(avl.search(data));
                 data = Int64.MaxValue;
             
         }
@@ -72,7 +78,9 @@ public class Input : MonoBehaviour
         if (data < Int64.MaxValue)
         {
                 AVLTree avl = transform.GetComponentInParent<AVLTree>();
-                StartCoroutine(avl.delete(data));
+            avl.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
+            StartCoroutine(avl.delete(data));
                 GameHandler.Instance.algorithm_running = true;
                 data = Int64.MaxValue;
             
@@ -98,6 +106,10 @@ public class Input : MonoBehaviour
             if (ViewHandler.Instance.Can_Add())
             {
                 IStack stack = transform.GetComponentInParent<IStack>();
+                GameObject st = GameObject.Find("Stacks");
+                st.transform.Get_Component_In_Child<RectTransform>(0,1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+                st.transform.Get_Component_In_Child<RectTransform>(1, 1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
                 StartCoroutine(stack.push(data));
                 GameHandler.Instance.algorithm_running = true;
                 data = Int64.MaxValue;
@@ -129,6 +141,9 @@ public class Input : MonoBehaviour
             if (ViewHandler.Instance.Can_Add())
             {
                 IQueue queue= transform.GetComponentInParent<IQueue>();
+                GameObject st = GameObject.Find("Queues");
+                st.transform.Get_Component_In_Child<RectTransform>(0, 1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+                st.transform.Get_Component_In_Child<RectTransform>(1, 1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
                 StartCoroutine(queue.Enqueue(data));
                 GameHandler.Instance.algorithm_running = true;
                 data = Int64.MaxValue;
@@ -161,6 +176,7 @@ public class Input : MonoBehaviour
             {
                 List list = transform.GetComponentInParent<List>();
                 GameHandler.Instance.algorithm_running = true;
+                list.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
                 StartCoroutine(list.add_node(data));
                 data = Int64.MaxValue;
             }
@@ -193,6 +209,7 @@ public class Input : MonoBehaviour
         {
             List list = transform.GetComponentInParent<List>();
             GameHandler.Instance.algorithm_running = true;
+            list.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
             StartCoroutine(list.add_position(data, position));
             data = Int64.MaxValue;
         }
@@ -234,6 +251,7 @@ public class Input : MonoBehaviour
             {
                 List list = transform.GetComponentInParent<List>();
                 GameHandler.Instance.algorithm_running = true;
+                list.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
                 StartCoroutine(list.add_front(data));
                 data = Int64.MaxValue;
             }
@@ -259,6 +277,7 @@ public class Input : MonoBehaviour
         if (data < Int64.MaxValue)
         {
             List list = transform.GetComponentInParent<List>();
+            list.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
             StartCoroutine(list.search(data));
             GameHandler.Instance.algorithm_running = true;
             data = Int64.MaxValue;
@@ -284,6 +303,7 @@ public class Input : MonoBehaviour
             if (ViewHandler.Instance.Can_Delete())
             {
                 List list = transform.GetComponentInParent<List>();
+                list.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
                 StartCoroutine(list.delete_node(data));
 
                 GameHandler.Instance.algorithm_running = true;

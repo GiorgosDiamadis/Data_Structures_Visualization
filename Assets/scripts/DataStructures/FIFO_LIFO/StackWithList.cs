@@ -1,6 +1,7 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class StackWithList : IDataStructure, IStack
 {
@@ -19,7 +20,7 @@ public class StackWithList : IDataStructure, IStack
             }
         }
 
-        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Horizontal, GridLayoutGroup.Constraint.FixedColumnCount, 1, new Vector2(10f, 10f));
+        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Horizontal, GridLayoutGroup.Constraint.FixedColumnCount, 1);
 
         max_counter = 2;
         max_nodes = 12;
@@ -29,6 +30,8 @@ public class StackWithList : IDataStructure, IStack
     {
         if (GameHandler.Instance.algorithm_running)
             return;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = true;
 
         StartCoroutine(peek_cor());
@@ -55,12 +58,14 @@ public class StackWithList : IDataStructure, IStack
         }
         else
         {
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = traverse_sprite;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = traverse_sprite;
             highlight_pseudocode(1, true);
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(1, false);
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = initial_sprite;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = initial_sprite;
         }
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = false;
     }
 
@@ -101,6 +106,8 @@ public class StackWithList : IDataStructure, IStack
             GameObject node = create_node(data);
             node.transform.SetAsFirstSibling();
         }
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
         GameHandler.Instance.handle_insertion.Invoke();
         GameHandler.Instance.algorithm_running = false;
     }
@@ -109,6 +116,8 @@ public class StackWithList : IDataStructure, IStack
     {
         if (GameHandler.Instance.algorithm_running)
             return;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = true;
         StartCoroutine(pop_cor());
     }
@@ -129,11 +138,11 @@ public class StackWithList : IDataStructure, IStack
         if (view.transform.childCount > 0)
         {
             highlight_pseudocode(1, true);
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = traverse_sprite;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = traverse_sprite;
 
             yield return new WaitForSeconds(speed);
 
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = initial_sprite;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = initial_sprite;
             highlight_pseudocode(1, false);
             view.transform.Destroy_Child(0);
 
@@ -151,6 +160,7 @@ public class StackWithList : IDataStructure, IStack
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(2, false);
         }
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
 
         GameHandler.Instance.algorithm_running = false;
     }

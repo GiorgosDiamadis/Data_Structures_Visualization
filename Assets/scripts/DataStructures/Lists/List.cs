@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -114,6 +115,8 @@ public class List : IDataStructure
             UIHandler.Instance.show_message("Node already exists!");
         }
         GameHandler.Instance.algorithm_running = false;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
     }
 
     public IEnumerator add_position(long data, int position)
@@ -339,6 +342,8 @@ public class List : IDataStructure
 
 
         GameHandler.Instance.algorithm_running = false;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
     }
 
     public IEnumerator add_node(long data)
@@ -503,6 +508,8 @@ public class List : IDataStructure
 
 
         GameHandler.Instance.algorithm_running = false;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
     }
     public IEnumerator delete_node(long data)
     {
@@ -682,12 +689,20 @@ public class List : IDataStructure
         }
 
         GameHandler.Instance.algorithm_running = false;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
     }
 
+
+    IEnumerator WaitForKeyDown(KeyCode keyCode)
+    {
+        while (!UnityEngine.Input.GetKeyDown(keyCode))
+            yield return null;
+        yield return new WaitForFixedUpdate();
+    }
     public IEnumerator search(long data)
     {
         UIHandler.Instance.close_message();
-
         Load_Pseudocode("search");
         yield return new WaitForSeconds(speed);
 
@@ -703,19 +718,19 @@ public class List : IDataStructure
         Image spr = head.transform.GetChild(0).GetComponent<Image>();
         spr.sprite = traverse_sprite;
 
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
         highlight_pseudocode(0, false);
 
 
         if (head.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text == data.ToString())
         {
             highlight_pseudocode(1, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
             highlight_pseudocode(1, false);
 
             highlight_pseudocode(3, true);
             UIHandler.Instance.show_message("Node found!");
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
             spr.sprite = initial_sprite;
             highlight_pseudocode(3, false);
             found = true;
@@ -730,7 +745,8 @@ public class List : IDataStructure
                 if (child.tag.Equals("Node"))
                 {
                     highlight_pseudocode(1, true);
-                    yield return new WaitForSeconds(speed);
+                    print("while");
+                    yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
                     highlight_pseudocode(1, false);
 
                     spr = child.transform.GetChild(0).GetComponent<Image>();
@@ -746,8 +762,9 @@ public class List : IDataStructure
 
 
                     spr.sprite = traverse_sprite;
+                    print("i++");
 
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
                     highlight_pseudocode(2, false);
 
                     if (child_data.text == data.ToString())
@@ -761,8 +778,13 @@ public class List : IDataStructure
                     previous = child;
                 }
             }
+
+            highlight_pseudocode(1, true);
+            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+            highlight_pseudocode(1, false);
+
             highlight_pseudocode(3, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
             spr.sprite = initial_sprite;
             if (!found)
             {
@@ -774,5 +796,6 @@ public class List : IDataStructure
 
         }
         GameHandler.Instance.algorithm_running = false;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
     }
 }

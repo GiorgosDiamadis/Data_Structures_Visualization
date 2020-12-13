@@ -15,7 +15,7 @@ public class ViewHandler : MonoBehaviour
     public static GameObject view;
     private static GameObject view_panel;
     public Action<IDataStructure> on_deselect;
-    private IDataStructure current_structure = null;
+    public IDataStructure current_structure = null;
 
     private GridLayoutGroup grid;
 
@@ -114,6 +114,7 @@ public class ViewHandler : MonoBehaviour
             deletion_counter = 0;
             current_structure = structure;
             current_structure.Init();
+            current_structure.Destroy_Pseudocode(current_structure);
             counter = current_structure.Max_counter;
             max_nodes = current_structure.Max_nodes;
             GameHandler.Instance.algorithm_running = false;

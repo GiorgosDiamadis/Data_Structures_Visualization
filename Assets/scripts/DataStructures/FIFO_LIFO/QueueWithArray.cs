@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +23,7 @@ public class QueueWithArray : IDataStructure, IQueue
         next_enqueue = 3;
         max_nodes = 10;
 
-        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1, new Vector2(30f, 30f));
+        ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1);
     }
 
 
@@ -30,6 +31,8 @@ public class QueueWithArray : IDataStructure, IQueue
     {
         if (GameHandler.Instance.algorithm_running)
             return;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(0.001f, 0.001f, 0.001f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = true;
         StartCoroutine(dequeue_cor());
     }
@@ -53,13 +56,13 @@ public class QueueWithArray : IDataStructure, IQueue
         }
         else
         {
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = red_cell;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = red_cell;
             highlight_pseudocode(1, true);
 
             yield return new WaitForSeconds(speed);
 
             highlight_pseudocode(1, false);
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = green_cell;
+            view.transform.Get_Component_In_Child<Image>(0,0).sprite = green_cell;
             view.transform.GetChild(0).GetChild(0).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = string.Empty;
             next_enqueue--;
 
@@ -68,6 +71,7 @@ public class QueueWithArray : IDataStructure, IQueue
                 view.transform.GetChild(i).SetSiblingIndex(i - 1);
             }
         }
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
         GameHandler.Instance.algorithm_running = false;
 
     }
@@ -93,15 +97,16 @@ public class QueueWithArray : IDataStructure, IQueue
         else
         {
 
-            view.transform.GetChild(next_enqueue).GetComponentInChildren<SpriteRenderer>().sprite = red_cell;
+            view.transform.GetChild(next_enqueue).GetComponentInChildren<Image>().sprite = red_cell;
             highlight_pseudocode(1, true);
             yield return new WaitForSeconds(speed);
             highlight_pseudocode(1, false);
-            view.transform.GetChild(next_enqueue).GetComponentInChildren<SpriteRenderer>().sprite = green_cell;
+            view.transform.GetChild(next_enqueue).GetComponentInChildren<Image>().sprite = green_cell;
             view.transform.GetChild(next_enqueue).GetChild(0).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = data.ToString();
 
             next_enqueue++;
         }
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
         GameHandler.Instance.algorithm_running = false;
     }
 
@@ -111,6 +116,7 @@ public class QueueWithArray : IDataStructure, IQueue
         if (GameHandler.Instance.algorithm_running)
             return;
 
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(0.001f, 0.001f, 0.001f), duration: .2f);
         GameHandler.Instance.algorithm_running = true;
 
         StartCoroutine(peek_cor());
@@ -138,11 +144,12 @@ public class QueueWithArray : IDataStructure, IQueue
         else
         {
             highlight_pseudocode(1, true);
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = red_cell;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = red_cell;
             yield return new WaitForSeconds(speed);
-            view.transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sprite = green_cell;
+            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = green_cell;
             highlight_pseudocode(1, false);
         }
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
         GameHandler.Instance.algorithm_running = false;
     }
 }
