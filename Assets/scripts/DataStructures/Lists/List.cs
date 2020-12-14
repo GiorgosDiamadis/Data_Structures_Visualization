@@ -136,8 +136,7 @@ public class List : IDataStructure
             {
                 highlight_pseudocode(0, true);
                 yield return new WaitForSeconds(speed);
-
-                ViewHandler.Instance.Change_Grid(enabled: true);
+                ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
                 to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
                 highlight_pseudocode(0, false);
@@ -147,7 +146,8 @@ public class List : IDataStructure
             {
                 highlight_pseudocode(0, true);
                 yield return new WaitForSeconds(speed);
-                ViewHandler.Instance.Change_Grid(enabled: true);
+                ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
+
                 to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                 to_add.transform.SetAsFirstSibling();
 
@@ -273,7 +273,8 @@ public class List : IDataStructure
                     if (i == view.transform.childCount - 1)
                     {
                         GameObject arrow = create_arrow();
-                        ViewHandler.Instance.Change_Grid(enabled: true);
+                        ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
+
                         to_add.transform.SetSiblingIndex(i + 1);
                         to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                         arrow.transform.SetSiblingIndex(i);
@@ -285,7 +286,7 @@ public class List : IDataStructure
 
                         if (i % 2 != 0)
                             i++;
-                        ViewHandler.Instance.Change_Grid(enabled: true);
+                        ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
 
                         to_add.transform.SetSiblingIndex(i);
                         arrow.transform.SetSiblingIndex(i + 1);
@@ -455,7 +456,7 @@ public class List : IDataStructure
                     yield return new WaitForSeconds(speed);
 
                     GameObject arr = create_arrow();
-                    ViewHandler.Instance.Change_Grid(enabled: true);
+                    ViewHandler.Instance.Change_Grid(enabled: true,size:new Vector2(100f,100f));
                     to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                     arr.transform.SetSiblingIndex(view.transform.childCount - 2);
 
