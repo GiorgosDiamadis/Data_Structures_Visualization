@@ -31,6 +31,7 @@ public class GameHandler : MonoBehaviour
     public  GameObject Pseudocode_panel { get => pseudocode_panel; }
 
     public Action<IDataStructure> On_Data_Structure_Variant_Change { get; internal set; }
+    public bool step_by_step = true;
 
     private void Awake()
     {

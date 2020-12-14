@@ -26,7 +26,7 @@ public class QueueWithList : IDataStructure,IQueue
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
         if (view.transform.childCount > 0)
@@ -34,7 +34,7 @@ public class QueueWithList : IDataStructure,IQueue
             highlight_pseudocode(1, true);
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = traverse_sprite;
 
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
 
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = initial_sprite;
             highlight_pseudocode(1, false);
@@ -49,10 +49,6 @@ public class QueueWithList : IDataStructure,IQueue
         else
         {
             UIHandler.Instance.show_message("Queue is empty!");
-
-            highlight_pseudocode(2, true);
-            yield return new WaitForSeconds(speed);
-            highlight_pseudocode(2, false);
         }
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
 
@@ -67,13 +63,13 @@ public class QueueWithList : IDataStructure,IQueue
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
         if (view.transform.childCount > 0)
         {
             highlight_pseudocode(1, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, false);
 
             GameObject arrow = create_arrow();
@@ -83,7 +79,7 @@ public class QueueWithList : IDataStructure,IQueue
         else
         {
             highlight_pseudocode(2, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(2, false);
 
             GameObject node = create_node(data);
@@ -135,21 +131,21 @@ public class QueueWithList : IDataStructure,IQueue
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
         if (view.transform.childCount == 0)
         {
-            UIHandler.Instance.show_message("Queue is empty!");
             highlight_pseudocode(2, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(2, false);
+            UIHandler.Instance.show_message("Queue is empty!");
         }
         else
         {
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = traverse_sprite;
             highlight_pseudocode(1, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, false);
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = initial_sprite;
         }

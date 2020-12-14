@@ -44,22 +44,19 @@ public class QueueWithArray : IDataStructure, IQueue
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
         if (view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0,0,0).text == string.Empty)
         {
-            highlight_pseudocode(2, true);
             UIHandler.Instance.show_message("Queue is empty!");
-            yield return new WaitForSeconds(speed);
-            highlight_pseudocode(2, false);
         }
         else
         {
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = red_cell;
             highlight_pseudocode(1, true);
 
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
 
             highlight_pseudocode(1, false);
             view.transform.Get_Component_In_Child<Image>(0,0).sprite = green_cell;
@@ -84,24 +81,21 @@ public class QueueWithArray : IDataStructure, IQueue
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
         if (next_enqueue == 10)
         {
-            highlight_pseudocode(2, true);
             UIHandler.Instance.show_message("Queue is full!");
-            yield return new WaitForSeconds(speed);
-            highlight_pseudocode(2, false);
         }
         else
         {
 
-            view.transform.GetChild(next_enqueue).GetComponentInChildren<Image>().sprite = red_cell;
+            view.transform.Get_Component_In_Child<Image>(next_enqueue,0).sprite = red_cell;
             highlight_pseudocode(1, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, false);
-            view.transform.GetChild(next_enqueue).GetComponentInChildren<Image>().sprite = green_cell;
+            view.transform.Get_Component_In_Child<Image>(next_enqueue, 0).sprite = green_cell;
             view.transform.GetChild(next_enqueue).GetChild(0).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = data.ToString();
 
             next_enqueue++;
@@ -125,27 +119,23 @@ public class QueueWithArray : IDataStructure, IQueue
     private IEnumerator peek_cor()
     {
         UIHandler.Instance.close_message();
-        yield return new WaitForSeconds(speed);
 
         Load_Pseudocode("peek");
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
         if (view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text == string.Empty)
         {
-            highlight_pseudocode(1, true);
             UIHandler.Instance.show_message("Queue is empty!");
-            yield return new WaitForSeconds(speed);
-            highlight_pseudocode(1, false);
         }
         else
         {
             highlight_pseudocode(1, true);
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = red_cell;
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = green_cell;
             highlight_pseudocode(1, false);
         }

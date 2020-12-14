@@ -59,7 +59,7 @@ public class List : IDataStructure
             yield return new WaitForSeconds(speed);
 
             highlight_pseudocode(0, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             GameObject new_node = create_node(data);
 
             new_node.transform.SetAsFirstSibling();
@@ -135,7 +135,7 @@ public class List : IDataStructure
             if (view.transform.childCount == 0)
             {
                 highlight_pseudocode(0, true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
                 to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
@@ -145,7 +145,7 @@ public class List : IDataStructure
             else if (position == 0)
             {
                 highlight_pseudocode(0, true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
 
                 to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
@@ -209,7 +209,7 @@ public class List : IDataStructure
                 spr.sprite = traverse_sprite;
                 previous = head;
 
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(0, false);
 
                 int k = 0;
@@ -224,7 +224,7 @@ public class List : IDataStructure
                         highlight_pseudocode(2, false);
                         highlight_pseudocode(1, true);
 
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
 
                         highlight_pseudocode(1, false);
 
@@ -242,12 +242,12 @@ public class List : IDataStructure
                         spr.sprite = traverse_sprite;
                         TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
 
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
 
 
                         if (child_data.text == data.ToString())
                         {
-                            yield return new WaitForSeconds(speed);
+                            yield return StartCoroutine(Wait());
                             spr.sprite = initial_sprite;
                             found = true;
                             break;
@@ -268,7 +268,7 @@ public class List : IDataStructure
                 {
                     highlight_pseudocode(3, true);
 
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
 
                     if (i == view.transform.childCount - 1)
                     {
@@ -364,7 +364,7 @@ public class List : IDataStructure
             if (view.transform.childCount == 0)
             {
                 highlight_pseudocode(0, true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 ViewHandler.Instance.Change_Grid(enabled: true);
 
                 highlight_pseudocode(0, false);
@@ -387,7 +387,7 @@ public class List : IDataStructure
                 spr.sprite = traverse_sprite;
                 previous = head;
 
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(0, false);
 
                 for (int i = 1; i < view.transform.childCount - 1; i++)
@@ -401,7 +401,7 @@ public class List : IDataStructure
                         // While highlighter
                         highlight_pseudocode(1, true);
 
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
 
                         highlight_pseudocode(1, false);
 
@@ -420,7 +420,7 @@ public class List : IDataStructure
                         spr.sprite = traverse_sprite;
                         TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
 
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
 
 
                         if (child_data.text == data.ToString())
@@ -431,7 +431,7 @@ public class List : IDataStructure
                             highlight_pseudocode(1, true);
 
 
-                            yield return new WaitForSeconds(speed);
+                            yield return StartCoroutine(Wait());
                             spr.sprite = initial_sprite;
                             found = true;
                             highlight_pseudocode(1, false);
@@ -453,7 +453,7 @@ public class List : IDataStructure
                 {
                     highlight_pseudocode(3, true);
 
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
 
                     GameObject arr = create_arrow();
                     ViewHandler.Instance.Change_Grid(enabled: true,size:new Vector2(100f,100f));
@@ -532,7 +532,7 @@ public class List : IDataStructure
         spr.sprite = traverse_sprite;
         previous = head;
 
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
 
@@ -543,13 +543,13 @@ public class List : IDataStructure
             found = true;
             highlight_pseudocode(1, true);
 
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
 
             highlight_pseudocode(1, false);
 
             highlight_pseudocode(3, true);
 
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
 
             view.transform.Destroy_Child(0);
 
@@ -587,7 +587,7 @@ public class List : IDataStructure
                     // While highlighter
                     highlight_pseudocode(1, true);
 
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
 
                     highlight_pseudocode(1, false);
 
@@ -606,12 +606,12 @@ public class List : IDataStructure
                     spr.sprite = traverse_sprite;
                     TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
 
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
 
 
                     if (child_data.text == data.ToString())
                     {
-                        //yield return new WaitForSeconds(speed);
+                        //yield return StartCoroutine(Wait());
                         //spr.sprite = initial_sprite;
                         found = true;
                         break;
@@ -630,7 +630,7 @@ public class List : IDataStructure
                 position++;
                 highlight_pseudocode(3, true);
 
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
 
 
                 view.transform.Destroy_Child(position);
@@ -678,7 +678,7 @@ public class List : IDataStructure
                 spr.sprite = initial_sprite;
                 highlight_pseudocode(3, true);
 
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(3, false);
 
             }
@@ -695,23 +695,6 @@ public class List : IDataStructure
     }
 
 
-    IEnumerator WaitForKeyDown(KeyCode keyCode)
-    {
-        while (!UnityEngine.Input.GetKeyDown(keyCode))
-            yield return null;
-        yield return new WaitForFixedUpdate();
-    }
-
-    IEnumerator Wait()
-    {
-        if (step_by_step)
-            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
-        else
-            yield return new WaitForSeconds(speed);
-    }
-
-
-    bool step_by_step = true;
     public IEnumerator search(long data)
     {
         UIHandler.Instance.close_message();
@@ -758,7 +741,6 @@ public class List : IDataStructure
                 if (child.tag.Equals("Node"))
                 {
                     highlight_pseudocode(1, true);
-                    print("while");
                     yield return StartCoroutine(Wait());
                     highlight_pseudocode(1, false);
 
@@ -775,7 +757,6 @@ public class List : IDataStructure
 
 
                     spr.sprite = traverse_sprite;
-                    print("i++");
 
                     yield return StartCoroutine(Wait());
                     highlight_pseudocode(2, false);
@@ -783,7 +764,7 @@ public class List : IDataStructure
                     if (child_data.text == data.ToString())
                     {
 
-                        UIHandler.Instance.show_message("Node found!");
+                        
                         found = true;
 
                         break;
@@ -798,13 +779,18 @@ public class List : IDataStructure
 
             highlight_pseudocode(3, true);
             yield return StartCoroutine(Wait());
+            highlight_pseudocode(3, false);
+
             spr.sprite = initial_sprite;
             if (!found)
             {
                 UIHandler.Instance.show_message("Node doesn't exist!");
 
             }
-            highlight_pseudocode(3, false);
+            else
+            {
+                UIHandler.Instance.show_message("Node found!");
+            }
 
 
         }

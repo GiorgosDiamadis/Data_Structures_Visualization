@@ -56,6 +56,21 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
         //GameHandler.Instance.On_Data_Structure_Change += Destroy_Pseudocode;
     }
 
+    private IEnumerator WaitForKeyDown(KeyCode keyCode)
+    {
+        while (!UnityEngine.Input.GetKeyDown(keyCode))
+            yield return null;
+        yield return new WaitForFixedUpdate();
+    }
+
+    protected IEnumerator Wait()
+    {
+        if (GameHandler.Instance.step_by_step)
+            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+        else
+            yield return new WaitForSeconds(speed);
+    }
+
     public void Destroy_Pseudocode(IDataStructure obj)
     {
         pseudocode_panel.transform.Destroy_All_Children();
