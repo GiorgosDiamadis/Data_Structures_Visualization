@@ -407,12 +407,12 @@ namespace Graphs
 
 
             highlight_pseudocode(0, is_open: true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(0, is_open: false);
 
 
             highlight_pseudocode(1, is_open: true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, is_open: false);
 
 
@@ -420,7 +420,7 @@ namespace Graphs
             while (stack.Count > 0)
             {
                 highlight_pseudocode(2, true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 var vertex = stack.Pop();
 
                 if (visited.Contains(vertex))
@@ -433,7 +433,7 @@ namespace Graphs
                 vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
 
                 Create_Graph_Node(vertex);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(3, false);
 
 
@@ -443,13 +443,13 @@ namespace Graphs
 
 
                 highlight_pseudocode(4, true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(4, false);
                 foreach (var pair in adj_list[pos].connections)
                 {
 
                     highlight_pseudocode(5, true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(5, false);
                     if (!visited.Contains(pair.to))
                     {
@@ -458,12 +458,12 @@ namespace Graphs
 
 
                     highlight_pseudocode(4, true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(4, false);
                 }
 
                 highlight_pseudocode(1, is_open: true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(1, is_open: false);
 
                 vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
@@ -500,19 +500,19 @@ namespace Graphs
             queue.Enqueue(from);
 
             highlight_pseudocode(0, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(0, false);
 
 
 
 
             highlight_pseudocode(1, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, false);
             while (queue.Count > 0)
             {
                 highlight_pseudocode(2, true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 var vertex = queue.Dequeue();
 
                 if (visited.Contains(vertex))
@@ -526,7 +526,7 @@ namespace Graphs
                 vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
 
                 Create_Graph_Node(vertex);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(3, false);
 
 
@@ -536,12 +536,12 @@ namespace Graphs
                 int pos = adj_list.IndexOf(vertex);
 
                 highlight_pseudocode(4, true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(4, false);
                 foreach (var edge in adj_list[pos].connections)
                 {
                     highlight_pseudocode(5, true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(5, false);
 
                     if (!visited.Contains(edge.to))
@@ -550,13 +550,13 @@ namespace Graphs
                     }
 
                     highlight_pseudocode(4, true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(4, false);
                 }
 
 
                 highlight_pseudocode(1, true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(1, false);
 
                 vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
@@ -621,7 +621,7 @@ namespace Graphs
 
                 highlight_pseudocode(1, is_open: true);
 
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 foreach (GraphNode g in adj_list)
                 {
                     distance.Add(g, Int32.MaxValue);
@@ -636,7 +636,7 @@ namespace Graphs
                 source.gameObject.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = distance[source].ToString();
 
                 highlight_pseudocode(2, is_open: true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(2, is_open: false);
 
                 while (true)
@@ -650,7 +650,7 @@ namespace Graphs
 
                     node.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
 
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(3, is_open: false);
 
 
@@ -674,11 +674,11 @@ namespace Graphs
                             }
                         }
 
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
                         highlight_pseudocode(4, is_open: false);
 
                         highlight_pseudocode(5, is_open: true);
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
 
                         if ((distance[node] + con.weight < distance[con.to]))
                         {
@@ -690,7 +690,7 @@ namespace Graphs
 
                         highlight_pseudocode(5, is_open: false);
 
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
 
                         con.gameObject.GetComponent<Image>().color = Color.white;
 
@@ -713,12 +713,12 @@ namespace Graphs
                     node.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
                     highlight_pseudocode(2, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(2, is_open: false);
                 }
 
                 highlight_pseudocode(3, is_open: true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(3, is_open: false);
 
                 GraphNode u1 = destination;
@@ -730,7 +730,7 @@ namespace Graphs
 
                     u1.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                     u2.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     u1.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                     u2.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
@@ -756,7 +756,7 @@ namespace Graphs
                     u1 = parents[u1];
                 }
 
-                yield return new WaitForSeconds(3f);
+                yield return StartCoroutine(Wait());
 
                 foreach (GraphNode g in FindObjectsOfType<GraphNode>())
                 {

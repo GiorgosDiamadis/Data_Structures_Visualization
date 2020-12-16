@@ -10,6 +10,7 @@ public class UIHandler : MonoBehaviour
     public static GameObject selected_structure = null;
     public static GameObject method_options = null;
     private RectTransform target = null;
+    [SerializeField] private TMPro.TextMeshProUGUI ux;
 
     private static Vector3 scale_up = new Vector3(1, 1, 0);
     private static Vector3 scale_down = new Vector3(.1f, .1f, 0);
@@ -157,4 +158,11 @@ public class UIHandler : MonoBehaviour
     {
         target.gameObject.SetActive(false);
     }
+    
+    public void UXinfo(string message,bool open)
+    {
+        ux.gameObject.SetActive(open);
+        ux.text = message;
+    }
+
 }

@@ -49,7 +49,7 @@ public class StackWithArray : IDataStructure, IStack
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
         if (next_empty == 0)
@@ -60,7 +60,7 @@ public class StackWithArray : IDataStructure, IStack
         {
             highlight_pseudocode(1, true);
             view.transform.Get_Component_In_Child<Image>(next_empty-1, 0).sprite = red_cell;
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             view.transform.Get_Component_In_Child<Image>(next_empty-1, 0).sprite = green_cell;
             highlight_pseudocode(1, false);
         }
@@ -78,14 +78,14 @@ public class StackWithArray : IDataStructure, IStack
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
         if (next_empty == 10)
         {
             UIHandler.Instance.show_message("Stack is full!");
             highlight_pseudocode(2, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(2, false);
         }
         else
@@ -93,7 +93,7 @@ public class StackWithArray : IDataStructure, IStack
 
             view.transform.Get_Component_In_Child<Image>(next_empty, 0).sprite = red_cell;
             highlight_pseudocode(1, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, false);
             view.transform.Get_Component_In_Child<Image>(next_empty, 0).sprite = green_cell;
             view.transform.GetChild(next_empty).GetChild(0).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = data.ToString();
@@ -124,14 +124,14 @@ public class StackWithArray : IDataStructure, IStack
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
         if (next_empty == 0)
         {
             UIHandler.Instance.show_message("Stack is empty!");
             highlight_pseudocode(2, true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
 
             highlight_pseudocode(2, false);
         }
@@ -142,7 +142,7 @@ public class StackWithArray : IDataStructure, IStack
             next_empty--;
             view.transform.Get_Component_In_Child<Image>(next_empty, 0).sprite = red_cell;
 
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
 
             highlight_pseudocode(1, false);
             view.transform.Get_Component_In_Child<Image>(next_empty,0).sprite = green_cell;

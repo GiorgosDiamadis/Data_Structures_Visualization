@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System;
+using UnityEngine.UI;
 
 public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 {
@@ -66,9 +67,18 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     protected IEnumerator Wait()
     {
         if (GameHandler.Instance.step_by_step)
-            yield return StartCoroutine(WaitForKeyDown(KeyCode.Space));
+            yield return StartCoroutine(WaitForKeyDown(KeyCode.R));
         else
             yield return new WaitForSeconds(speed);
+    }
+
+    public GameObject create_ux_node(long data)
+    {
+        GameObject to_add = create_node(data, position: new Vector3(0, 200, 0));
+        ViewHandler.Instance.Change_Grid(enabled: false);
+        to_add.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
+
+        return to_add;
     }
 
     public void Destroy_Pseudocode(IDataStructure obj)

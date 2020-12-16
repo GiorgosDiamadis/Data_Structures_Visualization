@@ -55,6 +55,9 @@ public class List : IDataStructure
         if (!exists(data))
         {
             UIHandler.Instance.close_message();
+            GameObject to_add = create_ux_node(data);
+            UIHandler.Instance.UXinfo("Adding " + data + " at front",true);
+
             Load_Pseudocode("add_front");
             yield return new WaitForSeconds(speed);
 
@@ -69,7 +72,8 @@ public class List : IDataStructure
                 GameObject arrow = create_arrow();
                 arrow.transform.SetSiblingIndex(1);
             }
-
+            ViewHandler.Instance.Change_Grid(enabled: true,size:new Vector2(100,100));
+            to_add.Destroy_Object();
             highlight_pseudocode(0, false);
 
             if (view.transform.childCount > 2)
@@ -115,6 +119,8 @@ public class List : IDataStructure
             UIHandler.Instance.show_message("Node already exists!");
         }
         GameHandler.Instance.algorithm_running = false;
+        UIHandler.Instance.UXinfo("", false);
+
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
 
     }
@@ -122,13 +128,12 @@ public class List : IDataStructure
     public IEnumerator add_position(long data, int position)
     {
 
-            GameObject to_add = create_node(data, position: new Vector3(0, 200, 0));
-        if (!exists(data,include_end:false))
+        if (!exists(data, include_end: false))
         {
             UIHandler.Instance.close_message();
+            UIHandler.Instance.UXinfo("Adding " + data + " at position " + position, true);
+            GameObject to_add = create_ux_node(data);
 
-            ViewHandler.Instance.Change_Grid(enabled: false);
-            to_add.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
             Load_Pseudocode("add_position");
             yield return new WaitForSeconds(speed);
 
@@ -343,6 +348,8 @@ public class List : IDataStructure
 
 
         GameHandler.Instance.algorithm_running = false;
+        UIHandler.Instance.UXinfo("", false);
+
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
 
     }
@@ -353,168 +360,98 @@ public class List : IDataStructure
         if (!exists(data))
         {
             UIHandler.Instance.close_message();
+            UIHandler.Instance.UXinfo("Adding " + data + " at the end", true);
+            GameObject to_add = create_ux_node(data);
 
-            GameObject to_add = create_node(data, position: new Vector3(0, 200, 0));
-            ViewHandler.Instance.Change_Grid(enabled: false);
-            to_add.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
 
             Load_Pseudocode("add");
             yield return new WaitForSeconds(speed);
 
-            if (view.transform.childCount == 0)
+            if (view.transform.childCount == 1)
             {
                 highlight_pseudocode(0, true);
                 yield return StartCoroutine(Wait());
-                ViewHandler.Instance.Change_Grid(enabled: true);
-
+                ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100, 100));
                 highlight_pseudocode(0, false);
 
                 GameHandler.Instance.handle_insertion.Invoke();
             }
             else
             {
-
-                bool found = false;
-
-                GameObject child, previous;
-                child = null;
-
-                GameObject head = view.transform.GetChild(0).gameObject;
-
                 highlight_pseudocode(0, true);
-
-                Image spr = head.transform.GetChild(0).GetComponent<Image>();
-                spr.sprite = traverse_sprite;
-                previous = head;
 
                 yield return StartCoroutine(Wait());
                 highlight_pseudocode(0, false);
 
-                for (int i = 1; i < view.transform.childCount - 1; i++)
+
+                highlight_pseudocode(1, true);
+
+                yield return StartCoroutine(Wait());
+                highlight_pseudocode(1, false);
+
+                GameObject arr = create_arrow();
+                ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
+                to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                arr.transform.SetSiblingIndex(view.transform.childCount - 2);
+
+
+
+                if (is_circular)
                 {
-                    child = view.transform.GetChild(i).gameObject;
-
-                    if (child.tag.Equals("Node"))
+                    if (!is_double)
                     {
-                        highlight_pseudocode(2, false);
 
-                        // While highlighter
-                        highlight_pseudocode(1, true);
-
-                        yield return StartCoroutine(Wait());
-
-                        highlight_pseudocode(1, false);
-
-                        //=========
-                        spr = child.transform.GetChild(0).GetComponent<Image>();
-
-
-                        highlight_pseudocode(2, true);
-
-
-                        if (previous != null)
+                        if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
                         {
-                            previous.transform.GetChild(0).GetComponent<Image>().sprite = initial_sprite;
+                            view.transform.Set_Child_Active(true, 0, 2);
                         }
+                        view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
+                        view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
 
-                        spr.sprite = traverse_sprite;
-                        TMPro.TextMeshProUGUI child_data = child.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
-
-                        yield return StartCoroutine(Wait());
-
-
-                        if (child_data.text == data.ToString())
-                        {
-
-                            highlight_pseudocode(2, false);
-
-                            highlight_pseudocode(1, true);
-
-
-                            yield return StartCoroutine(Wait());
-                            spr.sprite = initial_sprite;
-                            found = true;
-                            highlight_pseudocode(1, false);
-                            break;
-                        }
-
-                        found = false;
-                        previous = child;
                     }
-                }
-
-                if (child != null)
-                    spr = child.transform.GetChild(0).GetComponent<Image>();
-
-                spr.sprite = initial_sprite;
-                highlight_pseudocode(2, false);
-
-                if (!found)
-                {
-                    highlight_pseudocode(3, true);
-
-                    yield return StartCoroutine(Wait());
-
-                    GameObject arr = create_arrow();
-                    ViewHandler.Instance.Change_Grid(enabled: true,size:new Vector2(100f,100f));
-                    to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-                    arr.transform.SetSiblingIndex(view.transform.childCount - 2);
-
-                    highlight_pseudocode(3, false);
-
-                    if (is_circular)
+                    else
                     {
-                        if (!is_double)
-                        {
 
-                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
-                            {
-                                view.transform.Set_Child_Active(true, 0, 2);
-                            }
-                            view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
-                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
+                        if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
+                        {
+                            view.transform.Set_Child_Active(true, 0, 2);
+                            view.transform.Set_Child_Active(true, 0, 1);
 
                         }
                         else
                         {
+                            view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
+                            view.transform.Set_Child_Active(false, view.transform.childCount - 3, 2);
 
-                            if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
-                            {
-                                view.transform.Set_Child_Active(true, 0, 2);
-                                view.transform.Set_Child_Active(true, 0, 1);
-
-                            }
-                            else
-                            {
-                                view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
-                                view.transform.Set_Child_Active(false, view.transform.childCount - 3, 2);
-
-                            }
-
-                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
-                            view.transform.Set_Child_Active(true, view.transform.childCount - 1, 2);
                         }
+
+                        view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
+                        view.transform.Set_Child_Active(true, view.transform.childCount - 1, 2);
                     }
-
-                    GameHandler.Instance.handle_insertion.Invoke();
-
                 }
+
+                GameHandler.Instance.handle_insertion.Invoke();
+
+
             }
         }
         else
         {
             UIHandler.Instance.show_message("Node already exists!");
         }
-        
+
 
 
         GameHandler.Instance.algorithm_running = false;
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+        UIHandler.Instance.UXinfo("", false);
 
     }
+
     public IEnumerator delete_node(long data)
     {
         UIHandler.Instance.close_message();
+        UIHandler.Instance.UXinfo("Deleting " + data, true);
 
         Load_Pseudocode("delete");
         yield return new WaitForSeconds(speed);
@@ -688,6 +625,7 @@ public class List : IDataStructure
         {
             UIHandler.Instance.show_message("Node doesn't exist");
         }
+        UIHandler.Instance.UXinfo("", false);
 
         GameHandler.Instance.algorithm_running = false;
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
@@ -698,6 +636,8 @@ public class List : IDataStructure
     public IEnumerator search(long data)
     {
         UIHandler.Instance.close_message();
+        UIHandler.Instance.UXinfo("Searching for " + data, true);
+
         Load_Pseudocode("search");
         yield return new WaitForSeconds(speed);
 
@@ -764,7 +704,7 @@ public class List : IDataStructure
                     if (child_data.text == data.ToString())
                     {
 
-                        
+
                         found = true;
 
                         break;
@@ -795,6 +735,8 @@ public class List : IDataStructure
 
         }
         GameHandler.Instance.algorithm_running = false;
+        UIHandler.Instance.UXinfo("", false);
+
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
     }
 }
