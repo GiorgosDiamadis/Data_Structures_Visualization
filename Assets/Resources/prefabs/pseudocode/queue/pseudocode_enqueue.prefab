@@ -598,7 +598,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 343.1, y: 60.1}
+  m_SizeDelta: {x: 343.1, y: 80.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5455480127037209517
 CanvasRenderer:
@@ -626,7 +626,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\tNode node =  new Node\n\trear.next = node\n\trear = node"
+  m_text: "\tNode node =  new Node\n\tlast.next = node\n\tnode.prev = last\n\tlast
+    = node"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
   m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
@@ -672,7 +673,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 41
+  m_firstOverflowCharacterIndex: 59
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -696,12 +697,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 5913076273798592944}
-    characterCount: 53
+    characterCount: 71
     spriteCount: 0
-    spaceCount: 14
-    wordCount: 10
+    spaceCount: 18
+    wordCount: 13
     linkCount: 0
-    lineCount: 3
+    lineCount: 4
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

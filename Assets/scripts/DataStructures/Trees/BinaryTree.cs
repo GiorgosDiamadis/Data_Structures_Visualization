@@ -30,7 +30,7 @@ public class BinaryTree : IDataStructure
             tree[i] = Int64.MaxValue;
         }
 
-        GameObject node =  create_node(data:6);
+        GameObject node =  create_node();
         Add_To_Array(node);
 
         StartCoroutine (Get_Node_Positions_From_Tree_Prefab());
@@ -70,6 +70,8 @@ public class BinaryTree : IDataStructure
 
         Create_Tree_From_Array();
         StartCoroutine(In_Order_Cor());
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = true;
     }
     private IEnumerator In_Order_Cor()
@@ -179,12 +181,14 @@ public class BinaryTree : IDataStructure
             highlight_pseudocode(1, is_open: false);
         }
 
-        yield return StartCoroutine(Wait());
+
         for (int i = 0; i < view.transform.childCount; i++)
         {
             view.transform.Set_Child_Active(false, i, 1);
         }
         GameHandler.Instance.algorithm_running = false;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
     }
 
     public void Post_Order_Traversal()
@@ -201,6 +205,8 @@ public class BinaryTree : IDataStructure
 
         Create_Tree_From_Array();
         StartCoroutine(Post_Order_Cor());
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = true;
     }
     static public Stack s1, s2;
@@ -235,21 +241,38 @@ public class BinaryTree : IDataStructure
 
             s2.Push(temp);
 
-            if (temp.left != null)
-                s1.Push(temp.left);
-            if (temp.right != null)
-                s1.Push(temp.right);
-
-
-
             temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             highlight_pseudocode(2, is_open: true);
             yield return StartCoroutine(Wait());
             highlight_pseudocode(2, is_open: false);
 
             highlight_pseudocode(3, is_open: true);
+            if (temp.left != null)
+            {
+                temp.left.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
+                s1.Push(temp.left);
+            }
             yield return StartCoroutine(Wait());
+            if  (temp.left != null)
+            {
+                temp.left.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            }
             highlight_pseudocode(3, is_open: false);
+
+            highlight_pseudocode(4, is_open: true);
+            if (temp.right != null)
+            {
+                temp.right.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
+                s1.Push(temp.right);
+            }
+            yield return StartCoroutine(Wait());
+            if (temp.left != null)
+            {
+                temp.right.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            }
+            highlight_pseudocode(4, is_open: false);
 
             highlight_pseudocode(1, is_open: true);
             yield return StartCoroutine(Wait());
@@ -259,36 +282,35 @@ public class BinaryTree : IDataStructure
 
 
 
-        highlight_pseudocode(4, is_open: true);
+        highlight_pseudocode(5, is_open: true);
         yield return StartCoroutine(Wait());
-        highlight_pseudocode(4, is_open: false);
+        highlight_pseudocode(5, is_open: false);
         while (s2.Count > 0)
         {
             BinaryTreeNode temp = (BinaryTreeNode)s2.Pop();
 
-            highlight_pseudocode(5, is_open: true);
+            highlight_pseudocode(6, is_open: true);
             
-            //temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             temp.scene_object.transform.Set_Child_Active(true, 1);
             Create_Pseudocode_Nodes(temp);
             yield return StartCoroutine(Wait());
 
-            //temp.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+            highlight_pseudocode(6, is_open: false);
 
 
-            highlight_pseudocode(5, is_open: false);
-
-
-            highlight_pseudocode(4, is_open: true);
+            highlight_pseudocode(5, is_open: true);
             yield return StartCoroutine(Wait());
-            highlight_pseudocode(4, is_open: false);
+            highlight_pseudocode(5, is_open: false);
         }
-        yield return StartCoroutine(Wait());
+
         for (int i = 0; i < view.transform.childCount; i++)
         {
             view.transform.Set_Child_Active(false, i, 1);
         }
         GameHandler.Instance.algorithm_running = false;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
     }
 
     public void Pre_Order_Traversal()
@@ -305,6 +327,8 @@ public class BinaryTree : IDataStructure
 
         Create_Tree_From_Array();
         StartCoroutine(Pre_Order_Cor());
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = true;
     }
 
@@ -351,33 +375,46 @@ public class BinaryTree : IDataStructure
 
 
             highlight_pseudocode(3, is_open: true);
+
+            if (curr.Get_Right() != null)
+            {
+                curr.Get_Right().scene_object.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
+                nodeStack.Push(curr.Get_Right());
+            }
+
             yield return StartCoroutine(Wait());
+
+            if (curr.Get_Right() != null)
+                curr.Get_Right().scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
             highlight_pseudocode(3, is_open: false);
             
             highlight_pseudocode(4, is_open: true);
-            yield return StartCoroutine(Wait());
-            highlight_pseudocode(4, is_open: false);
-
-            if (curr.right != null)
-            {
-                nodeStack.Push(curr.right);
-            }
             if (curr.Get_Left() != null)
             {
+                curr.Get_Left().scene_object.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
                 nodeStack.Push(curr.Get_Left());
             }
+
+            yield return StartCoroutine(Wait());
+
+            if (curr.Get_Left() != null)
+                curr.Get_Left().scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            highlight_pseudocode(4, is_open: false);
+
 
             highlight_pseudocode(1, is_open: true);
             yield return StartCoroutine(Wait());
             highlight_pseudocode(1, is_open: false);
         }
 
-        yield return StartCoroutine(Wait());
         for (int i = 0; i < view.transform.childCount; i++)
         {
             view.transform.Set_Child_Active(false, i, 1);
         }
         GameHandler.Instance.algorithm_running = false;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
     }
 
     public void Level_Order_Traversal()
@@ -393,6 +430,8 @@ public class BinaryTree : IDataStructure
 
         Create_Tree_From_Array();
         StartCoroutine(Level_Order_Cor());
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+
         GameHandler.Instance.algorithm_running = true;
     }
     private IEnumerator Level_Order_Cor()
@@ -430,20 +469,29 @@ public class BinaryTree : IDataStructure
 
 
             highlight_pseudocode(3, is_open: true);
+            if(curr.Get_Left() != null)
+            {
+                curr.Get_Left().scene_object.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
+                queue.Enqueue(curr.Get_Left());
+            }
             yield return StartCoroutine(Wait());
+            if(curr.Get_Left()!=null)
+                curr.Get_Left().scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
             highlight_pseudocode(3, is_open: false);
 
             highlight_pseudocode(4, is_open: true);
-            yield return StartCoroutine(Wait());
-            highlight_pseudocode(4, is_open: false);
-            if (curr.Get_Left() != null)
-            {
-                queue.Enqueue(curr.Get_Left());
-            }
             if (curr.right != null)
             {
-                queue.Enqueue(curr.right);
+                curr.Get_Right().scene_object.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
+                queue.Enqueue(curr.Get_Right());
             }
+            yield return StartCoroutine(Wait());
+            
+            if(curr.Get_Right()!=null)
+                curr.Get_Right().scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+            highlight_pseudocode(4, is_open: false);
+            
+           
 
             highlight_pseudocode(1, is_open: true);
             yield return StartCoroutine(Wait());
@@ -456,11 +504,13 @@ public class BinaryTree : IDataStructure
             view.transform.Set_Child_Active(false, i, 1);
         }
         GameHandler.Instance.algorithm_running = false;
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
     }
     #endregion
-    
 
-    private static void Create_Pseudocode_Nodes(BinaryTreeNode curr)
+
+    private  void Create_Pseudocode_Nodes(BinaryTreeNode curr)
     {
         GameObject n = Instantiate(new GameObject());
 

@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 343.1, y: 31.84}
+  m_SizeDelta: {x: 342, y: 62.09}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &536148400953085839
 CanvasRenderer:
@@ -64,10 +64,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Node current = head
+  m_text: 'Node current = head
+
+    left = false
+
+    Node prev = null'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
+  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,8 +97,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.42
-  m_fontSizeBase: 19.42
+  m_fontSize: 16.74
+  m_fontSizeBase: 16.74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -133,12 +138,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 536148400953085838}
-    characterCount: 19
+    characterCount: 49
     spriteCount: 0
-    spaceCount: 3
-    wordCount: 3
+    spaceCount: 10
+    wordCount: 8
     linkCount: 0
-    lineCount: 1
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -273,8 +278,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.5899658, y: -30.16}
-  m_SizeDelta: {x: 344.64, y: 349.14}
+  m_AnchoredPosition: {x: -0.5899658, y: -26.131}
+  m_SizeDelta: {x: 344.64, y: 268.555}
   m_Pivot: {x: 0.50000006, y: 0.50000006}
 --- !u!222 &536148401554564920
 CanvasRenderer:
@@ -297,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -371,7 +376,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -2.300003}
+  m_AnchoredPosition: {x: 0, y: -2.3000183}
   m_SizeDelta: {x: 0, y: 4.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4028144836044954733
@@ -519,7 +524,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 343.1, y: 25.04}
+  m_SizeDelta: {x: 342, y: 20.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4875672750898201514
 CanvasRenderer:
@@ -547,10 +552,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\tif data < current.data"
+  m_text: "\tif data < current.data:"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
+  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -575,8 +581,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.42
-  m_fontSizeBase: 19.42
+  m_fontSize: 16.74
+  m_fontSizeBase: 16.74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -616,7 +622,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 4727943899772286910}
-    characterCount: 23
+    characterCount: 24
     spriteCount: 0
     spaceCount: 4
     wordCount: 5
@@ -675,7 +681,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 343.1, y: 68.7}
+  m_SizeDelta: {x: 342, y: 60.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &688942086013402315
 CanvasRenderer:
@@ -705,8 +711,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\thead = new Node\n\thead.data = data\n\treturn"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
+  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -731,8 +738,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.42
-  m_fontSizeBase: 19.42
+  m_fontSize: 16.74
+  m_fontSizeBase: 16.74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -904,7 +911,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 343.1, y: 29.33}
+  m_SizeDelta: {x: 342, y: 60.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8497704514878600201
 CanvasRenderer:
@@ -932,10 +939,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\t\tcurrent = current.left"
+  m_text: "\t\tprev = current\n\t\tcurrent = current.left\n\t\tleft = true"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
+  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -960,8 +968,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.42
-  m_fontSizeBase: 19.42
+  m_fontSize: 16.74
+  m_fontSizeBase: 16.74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1001,12 +1009,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 8059997087235338006}
-    characterCount: 24
+    characterCount: 55
     spriteCount: 0
-    spaceCount: 4
-    wordCount: 4
+    spaceCount: 14
+    wordCount: 8
     linkCount: 0
-    lineCount: 1
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -1206,7 +1214,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 348.37, y: 34.03}
+  m_SizeDelta: {x: 342, y: 62.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6820345039640748988
 CanvasRenderer:
@@ -1234,10 +1242,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\t\tcurrent = current.right"
+  m_text: "\t\tprev = current\n\t\tcurrent = current.right\n\t\tleft = false"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
+  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1262,8 +1271,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.42
-  m_fontSizeBase: 19.42
+  m_fontSize: 16.74
+  m_fontSizeBase: 16.74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1303,12 +1312,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 691027163571328891}
-    characterCount: 25
+    characterCount: 57
     spriteCount: 0
-    spaceCount: 4
-    wordCount: 4
+    spaceCount: 14
+    wordCount: 8
     linkCount: 0
-    lineCount: 1
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -1362,7 +1371,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 343.1, y: 28.72}
+  m_SizeDelta: {x: 342, y: 21.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5455480127037209517
 CanvasRenderer:
@@ -1390,12 +1399,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'while (current!=null)
+  m_text: 'while current!=null:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
+  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1420,8 +1430,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.42
-  m_fontSizeBase: 19.42
+  m_fontSize: 16.74
+  m_fontSizeBase: 16.74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1461,7 +1471,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 5913076273798592944}
-    characterCount: 22
+    characterCount: 21
     spriteCount: 0
     spaceCount: 2
     wordCount: 3
@@ -1520,7 +1530,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 348.4, y: 70.2}
+  m_SizeDelta: {x: 342, y: 141.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9145629370477431340
 CanvasRenderer:
@@ -1548,14 +1558,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'node = new Node
-
-    node.data = data
-
-    RebalanceTree()'
+  m_text: "node = new Node\nnode.data = data\nif left is true:\n\tprev.left = node\nelse:\n\tprev.right
+    = node\nRebalanceTree()"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
+  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1580,8 +1588,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.42
-  m_fontSizeBase: 19.42
+  m_fontSize: 16.74
+  m_fontSizeBase: 16.74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1597,7 +1605,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 93
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -1621,12 +1629,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3388742387105369803}
-    characterCount: 48
+    characterCount: 108
     spriteCount: 0
-    spaceCount: 7
-    wordCount: 7
+    spaceCount: 20
+    wordCount: 18
     linkCount: 0
-    lineCount: 3
+    lineCount: 7
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -1899,7 +1907,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 348.37, y: 29.34}
+  m_SizeDelta: {x: 342, y: 20.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4900073242069648880
 CanvasRenderer:
@@ -1927,10 +1935,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\telse if data  > current.data"
+  m_text: "\telse if data  > current.data:"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
+  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1955,8 +1964,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.42
-  m_fontSizeBase: 19.42
+  m_fontSize: 16.74
+  m_fontSizeBase: 16.74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1996,7 +2005,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 8937271989506496163}
-    characterCount: 29
+    characterCount: 30
     spriteCount: 0
     spaceCount: 6
     wordCount: 6
@@ -2055,7 +2064,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 343.1, y: 25.83}
+  m_SizeDelta: {x: 342, y: 21.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4879331881111536516
 CanvasRenderer:
@@ -2083,10 +2092,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: if head == null
+  m_text: 'if head == null:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
+  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2111,8 +2121,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.42
-  m_fontSizeBase: 19.42
+  m_fontSize: 16.74
+  m_fontSizeBase: 16.74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2152,7 +2162,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 8463582079675405372}
-    characterCount: 15
+    characterCount: 16
     spriteCount: 0
     spaceCount: 3
     wordCount: 3

@@ -40,19 +40,32 @@ public class QueueWithArray : IDataStructure, IQueue
     private IEnumerator dequeue_cor()
     {
         UIHandler.Instance.close_message();
-        Load_Pseudocode("dequeue");
-        yield return new WaitForSeconds(speed);
-
-        highlight_pseudocode(0, true);
-        yield return StartCoroutine(Wait());
-        highlight_pseudocode(0, false);
+      
 
         if (view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0,0,0).text == string.Empty)
         {
+
+            Load_Pseudocode("dequeue");
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
+
             UIHandler.Instance.show_message("Queue is empty!");
         }
         else
         {
+            Load_Pseudocode("dequeue");
+            UIHandler.Instance.UXinfo("Dequeueing " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
+
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
+
+
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = red_cell;
             highlight_pseudocode(1, true);
 
@@ -70,13 +83,14 @@ public class QueueWithArray : IDataStructure, IQueue
         }
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
         GameHandler.Instance.algorithm_running = false;
+        UIHandler.Instance.UXinfo("", false);
 
     }
 
     public IEnumerator Enqueue(long data)
     {
         UIHandler.Instance.close_message();
-
+        UIHandler.Instance.UXinfo("Enqueueing " + data,true);
         Load_Pseudocode("enqueue");
         yield return new WaitForSeconds(speed);
 
@@ -102,6 +116,8 @@ public class QueueWithArray : IDataStructure, IQueue
         }
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
         GameHandler.Instance.algorithm_running = false;
+        UIHandler.Instance.UXinfo("" ,false);
+
     }
 
 
@@ -120,19 +136,28 @@ public class QueueWithArray : IDataStructure, IQueue
     {
         UIHandler.Instance.close_message();
 
-        Load_Pseudocode("peek");
-        yield return new WaitForSeconds(speed);
-
-        highlight_pseudocode(0, true);
-        yield return StartCoroutine(Wait());
-        highlight_pseudocode(0, false);
+        
 
         if (view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text == string.Empty)
         {
+            Load_Pseudocode("peek");
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
             UIHandler.Instance.show_message("Queue is empty!");
         }
         else
         {
+            Load_Pseudocode("peek");
+            UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
+
             highlight_pseudocode(1, true);
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = red_cell;
             yield return StartCoroutine(Wait());
@@ -141,5 +166,7 @@ public class QueueWithArray : IDataStructure, IQueue
         }
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
         GameHandler.Instance.algorithm_running = false;
+        UIHandler.Instance.UXinfo("", false);
+
     }
 }

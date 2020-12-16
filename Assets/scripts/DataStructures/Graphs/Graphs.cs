@@ -393,7 +393,7 @@ namespace Graphs
             }
             GameHandler.Instance.algorithm_running = true;
 
-            Load_Variables("DFS Traversal:");
+            Load_Variables("Depth First Search:");
             Load_Pseudocode("dfs");
 
             yield return new WaitForSeconds(speed);
@@ -430,9 +430,11 @@ namespace Graphs
 
 
                 highlight_pseudocode(3, true);
-                vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                //vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
 
                 Create_Graph_Node(vertex);
+                vertex.gameObject.transform.Set_Child_Active(true, 3);
+                vertex.gameObject.transform.GetChild(3).localScale = new Vector3(66, 66, 1);
                 yield return StartCoroutine(Wait());
                 highlight_pseudocode(3, false);
 
@@ -449,12 +451,15 @@ namespace Graphs
                 {
 
                     highlight_pseudocode(5, true);
-                    yield return StartCoroutine(Wait());
-                    highlight_pseudocode(5, false);
                     if (!visited.Contains(pair.to))
                     {
+                        pair.to.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
                         stack.Push(pair.to);
                     }
+                    yield return StartCoroutine(Wait());
+                    highlight_pseudocode(5, false);
+                        pair.to.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
 
 
                     highlight_pseudocode(4, true);
@@ -472,7 +477,11 @@ namespace Graphs
 
             highlight_pseudocode(2, false);
             GameHandler.Instance.algorithm_running = false;
-
+            foreach (GraphNode g in FindObjectsOfType<GraphNode>())
+            {
+                if (g.GetComponent<GraphNode>().enabled)
+                    g.gameObject.transform.Set_Child_Active(false, 3);
+            }
         }
 
         public IEnumerator BFS(GraphNode from)
@@ -482,7 +491,7 @@ namespace Graphs
             from.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
 
-            Load_Variables("BFS Traversal:");
+            Load_Variables("Breadth First Search:");
             Load_Pseudocode("bfs");
 
             if (pseudocode_panel.transform.childCount != 0)
@@ -523,9 +532,12 @@ namespace Graphs
 
 
                 highlight_pseudocode(3, true);
-                vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                //vertex.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
 
                 Create_Graph_Node(vertex);
+                vertex.gameObject.transform.Set_Child_Active(true, 3);
+                vertex.gameObject.transform.GetChild(3).localScale = new Vector3(66,66,1);
+
                 yield return StartCoroutine(Wait());
                 highlight_pseudocode(3, false);
 
@@ -541,13 +553,17 @@ namespace Graphs
                 foreach (var edge in adj_list[pos].connections)
                 {
                     highlight_pseudocode(5, true);
-                    yield return StartCoroutine(Wait());
-                    highlight_pseudocode(5, false);
-
                     if (!visited.Contains(edge.to))
                     {
+                        edge.to.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
                         queue.Enqueue(edge.to);
                     }
+                    yield return StartCoroutine(Wait());
+                    edge.to.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+
+                    highlight_pseudocode(5, false);
+
+                    
 
                     highlight_pseudocode(4, true);
                     yield return StartCoroutine(Wait());
@@ -564,7 +580,11 @@ namespace Graphs
             }
             highlight_pseudocode(2, false);
             GameHandler.Instance.algorithm_running = false;
-
+            foreach(GraphNode g in FindObjectsOfType<GraphNode>())
+            {
+                if(g.GetComponent<GraphNode>().enabled)
+                    g.gameObject.transform.Set_Child_Active(false, 3);
+            }
         }
 
         private void Create_Graph_Node(GraphNode from)
@@ -574,6 +594,9 @@ namespace Graphs
             node.transform.SetParent(pseudocode_panel.transform.Get_Child(0, 1));
             node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
             node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).fontSize = 20;
+            node.transform.Set_Child_Active(true, 3);
+            node.gameObject.GetComponent<GraphNode>().enabled = false;
+            node.transform.GetChild(3).transform.localScale = new Vector3(40, 40, 1);
             node.transform.localScale = new Vector3(1f, 1f, 1f);
         }
 
@@ -688,9 +711,9 @@ namespace Graphs
                             con.to.gameObject.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = distance[con.to].ToString();
                         }
 
-                        highlight_pseudocode(5, is_open: false);
 
                         yield return StartCoroutine(Wait());
+                        highlight_pseudocode(5, is_open: false);
 
                         con.gameObject.GetComponent<Image>().color = Color.white;
 
@@ -728,11 +751,6 @@ namespace Graphs
 
                     GraphNode u2 = parents[u1];
 
-                    u1.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
-                    u2.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
-                    yield return StartCoroutine(Wait());
-                    u1.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-                    u2.gameObject.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
                     if (u2 != null)
                     {
@@ -756,7 +774,10 @@ namespace Graphs
                     u1 = parents[u1];
                 }
 
-                yield return StartCoroutine(Wait());
+                if(GameHandler.Instance.step_by_step)
+                    yield return StartCoroutine(Wait());
+                else
+                    yield return new WaitForSeconds(3*speed);
 
                 foreach (GraphNode g in FindObjectsOfType<GraphNode>())
                 {

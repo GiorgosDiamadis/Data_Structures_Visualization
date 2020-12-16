@@ -19,11 +19,18 @@ public class AVLTree : BinaryTree
     public IEnumerator add(long data)
     {
         UIHandler.Instance.close_message();
+
+        GameObject toadd = create_ux_node(data);
+        toadd.transform.Destroy_Child(2);
+        toadd.transform.Destroy_Child(2);
+
+        UIHandler.Instance.UXinfo("Adding " + data, true);
+
         Load_Pseudocode("add");
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, is_open: true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, is_open: false);
 
 
@@ -33,7 +40,7 @@ public class AVLTree : BinaryTree
             head = new BinaryTreeNode(data);
             head.Set_Scene_Object(Instantiate(node_prefab, view.transform), data);
             GameHandler.Instance.algorithm_running = false;
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, is_open: false);
         }
         else
@@ -52,11 +59,11 @@ public class AVLTree : BinaryTree
 
                 highlight_pseudocode(2, is_open: true);
                 head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(2, is_open: false);
 
                 highlight_pseudocode(3, is_open: true);
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(3, is_open: false);
 
 
@@ -67,7 +74,7 @@ public class AVLTree : BinaryTree
                     {
 
                         highlight_pseudocode(4, is_open: true);
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
                         highlight_pseudocode(4, is_open: false);
 
            
@@ -81,26 +88,26 @@ public class AVLTree : BinaryTree
                         if(current!=null)
                             current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                         previous = current;
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
 
                         highlight_pseudocode(5, is_open: false);
 
                         new_node.Change_Child_Type(BinaryTreeNode.Child_Type.Left);
 
                         highlight_pseudocode(3, is_open: true);
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
                         highlight_pseudocode(3, is_open: false);
                     }
                     else if (data > current.Get_Data())
                     {
 
                         highlight_pseudocode(4, is_open: true);
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
                         highlight_pseudocode(4, is_open: false);
 
 
                         highlight_pseudocode(6, is_open: true);
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
                         highlight_pseudocode(6, is_open: false);
 
                       
@@ -114,12 +121,12 @@ public class AVLTree : BinaryTree
                         if(current!=null)
                             current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                         previous = current;
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
 
                         highlight_pseudocode(7, is_open: false);
 
                         highlight_pseudocode(3, is_open: true);
-                        yield return new WaitForSeconds(speed);
+                        yield return StartCoroutine(Wait());
                         highlight_pseudocode(3, is_open: false);
                     }
                     else if (data == current.Get_Data())
@@ -144,16 +151,17 @@ public class AVLTree : BinaryTree
                         new_node_parent.Change_Right_To(new_right: new_node);
 
                     highlight_pseudocode(8, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     
                     new_node.Set_Scene_Object(Instantiate(node_prefab, view.transform), data);
-                    
-                    
+                    toadd.Destroy_Object();
+                    UIHandler.Instance.UXinfo("", false);
+
 
                     Update_Visual();
 
                     new_node.Get_GameObject().transform.Set_Child_Active(active: true, 1);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     new_node.Get_GameObject().transform.Set_Child_Active(active: false, 1);
                     highlight_pseudocode(8, is_open: false);
 
@@ -167,18 +175,19 @@ public class AVLTree : BinaryTree
                 UIHandler.Instance.show_message("Cant have more than 5 levels");
             }
         }
-
+       
 
     }
 
     public IEnumerator delete(long data)
     {
         UIHandler.Instance.close_message();
+        UIHandler.Instance.UXinfo("Deleting " + data, true);
         Load_Pseudocode("delete");
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, is_open: true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, is_open: false);
 
         BinaryTreeNode current = head;
@@ -190,18 +199,18 @@ public class AVLTree : BinaryTree
         {
             highlight_pseudocode(1, is_open: true);
             UIHandler.Instance.show_message("Tree is empty.");
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, is_open: false);
         }
         else
         {
             highlight_pseudocode(2, is_open: true);
             head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(2, is_open: false);
 
             highlight_pseudocode(3, is_open: true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(3, is_open: false);
             
             while (current != null)
@@ -211,7 +220,7 @@ public class AVLTree : BinaryTree
                     parents.Push(current);
                     current = current.Get_Left();
                     highlight_pseudocode(4, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(4, is_open: false);
 
                     highlight_pseudocode(5, is_open: true);
@@ -221,11 +230,11 @@ public class AVLTree : BinaryTree
                     current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                     previous = current;
 
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(5, is_open: false);
 
                     highlight_pseudocode(3, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(3, is_open: false);
                 }
                 else if (data > current.Get_Data())
@@ -233,11 +242,11 @@ public class AVLTree : BinaryTree
                     parents.Push(current);
                     current = current.Get_Right();
                     highlight_pseudocode(4, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(4, is_open: false);
 
                     highlight_pseudocode(6, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(6, is_open: false);
 
                     highlight_pseudocode(7, is_open: true);
@@ -245,25 +254,25 @@ public class AVLTree : BinaryTree
                         previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                     current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                     previous = current;
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(7, is_open: false);
 
                     highlight_pseudocode(3, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(3, is_open: false);
                 }
                 else if (data == current.Get_Data())
                 {
                     highlight_pseudocode(4, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(4, is_open: false);
 
                     highlight_pseudocode(6, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(6, is_open: false);
 
                     highlight_pseudocode(8, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(8, is_open: false);
                     break;
                 }
@@ -371,25 +380,34 @@ public class AVLTree : BinaryTree
 
             StartCoroutine(Rebalance(parents));
         }
+
+        UIHandler.Instance.UXinfo("", false);
     }
 
     public IEnumerator search(long data)
     {
         UIHandler.Instance.close_message();
-
+        UIHandler.Instance.UXinfo("Searching for  " + data, true);
         Load_Pseudocode("search");
         yield return new WaitForSeconds(speed);
 
         highlight_pseudocode(0, is_open: true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, is_open: false);
 
         if (head == null)
         {
             highlight_pseudocode(1, is_open: true);
-            UIHandler.Instance.show_message("Tree is empty.");
-            yield return new WaitForSeconds(speed);
+            
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, is_open: false);
+
+            highlight_pseudocode(9, is_open: true);
+            UIHandler.Instance.show_message("Tree is empty.");
+
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(9, is_open: false);
+
         }
         else
         {
@@ -399,11 +417,11 @@ public class AVLTree : BinaryTree
 
             highlight_pseudocode(2, is_open: true);
             head.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(2, is_open: false);
 
             highlight_pseudocode(3, is_open: true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(3, is_open: false);
 
 
@@ -416,7 +434,7 @@ public class AVLTree : BinaryTree
                     current = current.Get_Left();
 
                     highlight_pseudocode(4, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(4, is_open: false);
 
                     highlight_pseudocode(5, is_open: true);
@@ -426,11 +444,11 @@ public class AVLTree : BinaryTree
                         current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                     previous = current;
 
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(5, is_open: false);
 
                     highlight_pseudocode(3, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(3, is_open: false);
                 }
                 else if (data > current.Get_Data())
@@ -438,11 +456,11 @@ public class AVLTree : BinaryTree
                     current = current.Get_Right();
 
                     highlight_pseudocode(4, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(4, is_open: false);
 
                     highlight_pseudocode(6, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(6, is_open: false);
 
                     highlight_pseudocode(7, is_open: true);
@@ -451,28 +469,28 @@ public class AVLTree : BinaryTree
                         current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                     previous = current;
 
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(7, is_open: false);
 
                     highlight_pseudocode(3, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(3, is_open: false);
                 }
                 else if (data == current.Get_Data())
                 {
 
                     highlight_pseudocode(4, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(4, is_open: false);
 
                     highlight_pseudocode(6, is_open: true);
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(6, is_open: false);
 
                     highlight_pseudocode(8, is_open: true);
                     UIHandler.Instance.show_message("Key exists");
                     previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-                    yield return new WaitForSeconds(speed);
+                    yield return StartCoroutine(Wait());
                     highlight_pseudocode(8, is_open: false);
                     exists = true;
                     break;
@@ -481,13 +499,19 @@ public class AVLTree : BinaryTree
             }
             if (!exists)
             {
-                if(previous!=null)
+
+                highlight_pseudocode(9, is_open: true);
+
+                yield return StartCoroutine(Wait());
+                highlight_pseudocode(9, is_open: false);
+
+                if (previous!=null)
                     previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                 UIHandler.Instance.show_message("Key doesnt exist");
             }
         }
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
-
+        UIHandler.Instance.UXinfo("", false);
         GameHandler.Instance.algorithm_running = false;
     }
     #endregion
@@ -612,7 +636,7 @@ public class AVLTree : BinaryTree
         BinaryTreeNode previous=null;
         BinaryTreeNode current_parent = null;
         highlight_pseudocode(0, is_open: true);
-        yield return new WaitForSeconds(speed);
+        yield return StartCoroutine(Wait());
         highlight_pseudocode(0, is_open: false);
 
         while (parents.Count != 0)
@@ -629,7 +653,7 @@ public class AVLTree : BinaryTree
 
             current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
             highlight_pseudocode(1, is_open: true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(1, is_open: false);
 
 
@@ -637,12 +661,12 @@ public class AVLTree : BinaryTree
             current_parent.Change_Height();
 
             highlight_pseudocode(2, is_open: true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(2, is_open: false);
 
 
             highlight_pseudocode(3, is_open: true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(3, is_open: false);
 
             if (!current_parent.Is_Balanced())
@@ -663,9 +687,9 @@ public class AVLTree : BinaryTree
                 if (current_parent != null)
                     current_parent.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
-                yield return new WaitForSeconds(speed);
+                yield return StartCoroutine(Wait());
                 Update_Visual();
-                yield return new WaitForSeconds(2 * speed);
+                yield return StartCoroutine(Wait());
                 highlight_pseudocode(4, is_open: false);
 
 
@@ -674,11 +698,12 @@ public class AVLTree : BinaryTree
                 v.Get_Left().Change_Height();
                 v.Get_Right().Change_Height();
                 v.Change_Height();
+                UIHandler.Instance.UXinfo("", false);
             }
             v = v.Get_Parent();
 
             highlight_pseudocode(0, is_open: true);
-            yield return new WaitForSeconds(speed);
+            yield return StartCoroutine(Wait());
             highlight_pseudocode(0, is_open: false);
         }
         if(previous!=null)
@@ -740,7 +765,7 @@ public class AVLTree : BinaryTree
                 head = w;
                 w.Change_Parent_To(new_parent: null);
             }
-
+            UIHandler.Instance.UXinfo("Double right rotation", true);
             return w;
         }
         else if (w.Get_Child_Type() == BinaryTreeNode.Child_Type.Right &&
@@ -770,6 +795,8 @@ public class AVLTree : BinaryTree
                 head = w;
                 w.Change_Parent_To(new_parent: null);
             }
+            UIHandler.Instance.UXinfo("Double left rotation", true);
+
             return w;
         }
         else if (u.Get_Child_Type() == BinaryTreeNode.Child_Type.Left)
@@ -803,6 +830,7 @@ public class AVLTree : BinaryTree
                 head = u;
                 u.Change_Parent_To(new_parent: null);
             }
+            UIHandler.Instance.UXinfo("Right left rotation", true);
 
             return u;
 
@@ -810,6 +838,7 @@ public class AVLTree : BinaryTree
         else
         {
             v.Change_Left_To(new_left: u.Get_Right());
+            UIHandler.Instance.UXinfo("Left right rotation", true);
 
             w.Change_Right_To(new_right: u.Get_Left());
 

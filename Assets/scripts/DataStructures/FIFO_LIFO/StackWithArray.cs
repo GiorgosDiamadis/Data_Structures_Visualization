@@ -44,20 +44,30 @@ public class StackWithArray : IDataStructure, IStack
     private IEnumerator peek_cor()
     {
         UIHandler.Instance.close_message();
-
-        Load_Pseudocode("peek");
-        yield return new WaitForSeconds(speed);
-
-        highlight_pseudocode(0, true);
-        yield return StartCoroutine(Wait());
-        highlight_pseudocode(0, false);
+       
 
         if (next_empty == 0)
         {
+            Load_Pseudocode("peek");
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
+
             UIHandler.Instance.show_message("Stack is empty!");
         }
         else
         {
+            UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
+
+            Load_Pseudocode("peek");
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
+
             highlight_pseudocode(1, true);
             view.transform.Get_Component_In_Child<Image>(next_empty-1, 0).sprite = red_cell;
             yield return StartCoroutine(Wait());
@@ -67,12 +77,14 @@ public class StackWithArray : IDataStructure, IStack
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
 
         GameHandler.Instance.algorithm_running = false;
+        UIHandler.Instance.UXinfo("", false);
     }
 
     public IEnumerator push(long data)
     {
         UIHandler.Instance.close_message();
 
+        UIHandler.Instance.UXinfo("Pushing " + data, true);
 
         Load_Pseudocode("push");
         yield return new WaitForSeconds(speed);
@@ -84,9 +96,6 @@ public class StackWithArray : IDataStructure, IStack
         if (next_empty == 10)
         {
             UIHandler.Instance.show_message("Stack is full!");
-            highlight_pseudocode(2, true);
-            yield return StartCoroutine(Wait());
-            highlight_pseudocode(2, false);
         }
         else
         {
@@ -101,10 +110,10 @@ public class StackWithArray : IDataStructure, IStack
             next_empty++;
         }
 
-        print(transform.parent.name);
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
         GameHandler.Instance.algorithm_running = false;
-       
+            UIHandler.Instance.UXinfo("", false);
+
     }
 
     public void pop()
@@ -120,23 +129,29 @@ public class StackWithArray : IDataStructure, IStack
     private IEnumerator pop_cor()
     {
         UIHandler.Instance.close_message();
-        Load_Pseudocode("pop");
-        yield return new WaitForSeconds(speed);
-
-        highlight_pseudocode(0, true);
-        yield return StartCoroutine(Wait());
-        highlight_pseudocode(0, false);
+       
 
         if (next_empty == 0)
         {
-            UIHandler.Instance.show_message("Stack is empty!");
-            highlight_pseudocode(2, true);
-            yield return StartCoroutine(Wait());
+            Load_Pseudocode("pop");
+            yield return new WaitForSeconds(speed);
 
-            highlight_pseudocode(2, false);
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
+
+            UIHandler.Instance.show_message("Stack is empty!");
         }
         else
         {
+            UIHandler.Instance.UXinfo("Popping " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(next_empty-1, 0, 0).text, true);
+
+            Load_Pseudocode("pop");
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
 
             highlight_pseudocode(1, true);
             next_empty--;
@@ -148,11 +163,11 @@ public class StackWithArray : IDataStructure, IStack
             view.transform.Get_Component_In_Child<Image>(next_empty,0).sprite = green_cell;
             view.transform.GetChild(next_empty).GetChild(0).GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "";
         }
-        print(transform.parent.name);
+
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
 
         GameHandler.Instance.algorithm_running = false;
-
+        UIHandler.Instance.UXinfo("", false);
     }
 
 }

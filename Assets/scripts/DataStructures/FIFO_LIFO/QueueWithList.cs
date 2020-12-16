@@ -21,16 +21,18 @@ public class QueueWithList : IDataStructure,IQueue
 
         UIHandler.Instance.close_message();
 
-
-        Load_Pseudocode("dequeue");
-        yield return new WaitForSeconds(speed);
-
-        highlight_pseudocode(0, true);
-        yield return StartCoroutine(Wait());
-        highlight_pseudocode(0, false);
+        
 
         if (view.transform.childCount > 0)
         {
+            UIHandler.Instance.UXinfo("Dequeueing " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
+            Load_Pseudocode("dequeue");
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
+
             highlight_pseudocode(1, true);
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = traverse_sprite;
 
@@ -48,17 +50,27 @@ public class QueueWithList : IDataStructure,IQueue
         }
         else
         {
+            Load_Pseudocode("dequeue");
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
+
             UIHandler.Instance.show_message("Queue is empty!");
         }
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
 
         GameHandler.Instance.algorithm_running = false;
+        UIHandler.Instance.UXinfo("", false);
     }
 
     public IEnumerator Enqueue(long data)
     {
         UIHandler.Instance.close_message();
-
+        UIHandler.Instance.UXinfo("Enqueueing " + data, true);
+        GameObject to_add = create_ux_node(data);
+        
         Load_Pseudocode("enqueue");
         yield return new WaitForSeconds(speed);
 
@@ -66,7 +78,7 @@ public class QueueWithList : IDataStructure,IQueue
         yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
-        if (view.transform.childCount > 0)
+        if (view.transform.childCount > 1)
         {
             highlight_pseudocode(1, true);
             yield return StartCoroutine(Wait());
@@ -88,6 +100,11 @@ public class QueueWithList : IDataStructure,IQueue
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f );
 
         GameHandler.Instance.handle_insertion.Invoke();
+        
+        ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100, 100));
+        UIHandler.Instance.UXinfo("", false);
+        to_add.Destroy_Object();
+
         GameHandler.Instance.algorithm_running = false;
     }
 
@@ -126,23 +143,30 @@ public class QueueWithList : IDataStructure,IQueue
     {
 
         UIHandler.Instance.close_message();
-
-        Load_Pseudocode("peek");
-        yield return new WaitForSeconds(speed);
-
-        highlight_pseudocode(0, true);
-        yield return StartCoroutine(Wait());
-        highlight_pseudocode(0, false);
+        
 
         if (view.transform.childCount == 0)
         {
-            highlight_pseudocode(2, true);
+
+            Load_Pseudocode("peek");
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
-            highlight_pseudocode(2, false);
+            highlight_pseudocode(0, false);
             UIHandler.Instance.show_message("Queue is empty!");
         }
         else
         {
+            UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
+
+            Load_Pseudocode("peek");
+            yield return new WaitForSeconds(speed);
+
+            highlight_pseudocode(0, true);
+            yield return StartCoroutine(Wait());
+            highlight_pseudocode(0, false);
+
             view.transform.Get_Component_In_Child<Image>(0, 0).sprite = traverse_sprite;
             highlight_pseudocode(1, true);
             yield return StartCoroutine(Wait());
