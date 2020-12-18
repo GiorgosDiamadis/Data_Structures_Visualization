@@ -125,6 +125,11 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
             GameHandler.Instance.On_Data_Structure_Change?.Invoke(this);
             GameHandler.Instance.On_Data_Structure_Variant_Change?.Invoke(this);
         }
+        else
+        {
+            ViewHandler.Instance.current_structure.DeselectStructure();
+            ViewHandler.Instance.current_structure = null;
+        }
     }
 
     protected bool exists(long data,bool include_end = true)
