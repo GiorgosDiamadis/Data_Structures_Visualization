@@ -115,6 +115,7 @@ public class ViewHandler : MonoBehaviour
             deletion_counter = 0;
             current_structure = structure;
             current_structure.Init();
+            UIHandler.Instance.UXinfo("", false);
             current_structure.Destroy_Pseudocode(current_structure);
             counter = current_structure.Max_counter;
             max_nodes = current_structure.Max_nodes;

@@ -2,8 +2,6 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Graphs
-{
     public class EdgeActions : MonoBehaviour, IPointerClickHandler
     {
         private static Graphs graphs;
@@ -54,4 +52,4 @@ namespace Graphs
             graphs.selected_edge = null;
         }
     }
-}
+

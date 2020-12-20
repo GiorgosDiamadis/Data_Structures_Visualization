@@ -165,4 +165,11 @@ public class UIHandler : MonoBehaviour
         ux.text = message;
     }
 
+    public void Structure_Deselected()
+    {
+        structure_variant = null;
+        method_options = null;
+        selected_structure = null;
+        target = null;
+    }
 }

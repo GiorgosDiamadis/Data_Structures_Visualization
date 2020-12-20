@@ -5,7 +5,7 @@ using DG.Tweening;
 using System;
 using UnityEngine.UI;
 
-public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
+public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private string pseudocode_dir = "";
     public abstract void Init();
@@ -14,7 +14,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     protected static GameObject view = null;
     protected static GameObject pseudocode_panel = null;
-    
+
     protected static Sprite traverse_sprite = null;
     protected static Sprite initial_sprite = null;
     protected static Sprite toadd_sprite = null;
@@ -36,20 +36,20 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     protected GameObject new_node = null;
     protected TMPro.TextMeshProUGUI new_node_data = null;
 
-   
 
-    public int Max_nodes { get => max_nodes;}
-    public int Max_counter { get => max_counter;}
+
+    public int Max_nodes { get => max_nodes; }
+    public int Max_counter { get => max_counter; }
 
 
     private void Awake()
     {
 
         traverse_sprite = GameHandler.Instance.Traverse_sprite;
-        initial_sprite =GameHandler.Instance.Initial_sprite;
+        initial_sprite = GameHandler.Instance.Initial_sprite;
         view = ViewHandler.Instance.View;
         speed = GameHandler.Instance.Speed;
-        red_cell= GameHandler.Instance.Red_cell;
+        red_cell = GameHandler.Instance.Red_cell;
         green_cell = GameHandler.Instance.Green_cell;
         toadd_sprite = GameHandler.Instance.Toadd_sprite;
         pseudocode_panel = GameHandler.Instance.Pseudocode_panel;
@@ -88,7 +88,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     protected void highlight_pseudocode(int index, bool is_open)
     {
-        pseudocode.transform.Set_Child_Active(is_open,index,0);
+        pseudocode.transform.Set_Child_Active(is_open, index, 0);
     }
 
     protected void Load_Variables(string trav)
@@ -108,7 +108,7 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     }
     protected void Load_Pseudocode(string method)
     {
-        if(pseudocode==null || pseudocode.name!= "pseudocode_" + method)
+        if (pseudocode == null || pseudocode.name != "pseudocode_" + method)
         {
             Destroy(pseudocode);
             pseudocode = Resources.Load("prefabs/pseudocode/" + pseudocode_dir + "/pseudocode_" + method) as GameObject;
@@ -118,23 +118,20 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
             pseudocode.GetComponent<RectTransform>().DOScale(1f, speed);
         }
     }
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(ViewHandler.Instance.current_structure!=this)
+        if (ViewHandler.Instance.current_structure != this)
         {
             GameHandler.Instance.On_Data_Structure_Change?.Invoke(this);
             GameHandler.Instance.On_Data_Structure_Variant_Change?.Invoke(this);
         }
-        else
-        {
-            ViewHandler.Instance.current_structure.DeselectStructure();
-            ViewHandler.Instance.current_structure = null;
-        }
+        
     }
 
-    protected bool exists(long data,bool include_end = true)
+    protected bool exists(long data, bool include_end = true)
     {
-        return view.transform.Does_Data_Exist(data,include_end);
+        return view.transform.Does_Data_Exist(data, include_end);
     }
 
     protected GameObject create_arrow()
@@ -145,16 +142,16 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
     }
 
 
-    protected GameObject create_cell(bool not_empty_data=false)
+    protected GameObject create_cell(bool not_empty_data = false)
     {
         new_node = Instantiate(node_prefab, view.transform);
-        new_node_data = new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0,0);
+        new_node_data = new_node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0);
 
         if (not_empty_data)
         {
             int x = UnityEngine.Random.Range(-500, 500);
             long data2 = long.Parse(x.ToString());
-            new_node_data.text =data2.ToString();
+            new_node_data.text = data2.ToString();
 
         }
         else
@@ -165,11 +162,11 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
 
     }
 
-    protected GameObject create_node(long? data = null,  Vector3? position = null,bool empty_data = false)
+    protected GameObject create_node(long? data = null, Vector3? position = null, bool empty_data = false)
     {
         new_node = Instantiate(node_prefab, view.transform);
         new_node_data = new_node.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
-       
+
         if (position.HasValue)
         {
             new_node.transform.localPosition = position.Value;
@@ -185,9 +182,9 @@ public abstract class IDataStructure:MonoBehaviour, IPointerClickHandler
             new_node_data.text = data2.ToString();
 
         }
-        else if(data.HasValue)
+        else if (data.HasValue)
             new_node_data.text = (data.Value).ToString();
-        
+
 
         return new_node;
 

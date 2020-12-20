@@ -63,21 +63,22 @@ public class StackWithList : IDataStructure, IStack
         }
         else
         {
+            
             Load_Pseudocode("peek");
             yield return new WaitForSeconds(speed);
-            UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
+            UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(view.transform.childCount - 1, 0, 0).text, true);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
             highlight_pseudocode(0, false);
 
-            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = traverse_sprite;
+            view.transform.Get_Component_In_Child<Image>(view.transform.childCount - 1, 0).sprite = traverse_sprite;
 
             highlight_pseudocode(1, true);
             yield return StartCoroutine(Wait());
             highlight_pseudocode(1, false);
 
-            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = initial_sprite;
+            view.transform.Get_Component_In_Child<Image>(view.transform.childCount - 1, 0).sprite = initial_sprite;
         }
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
         UIHandler.Instance.UXinfo("", false);
@@ -110,10 +111,10 @@ public class StackWithList : IDataStructure, IStack
             highlight_pseudocode(3, false);
 
             GameObject arrow = create_arrow();
-            arrow.transform.SetAsFirstSibling();
+            arrow.transform.SetAsLastSibling();
 
             GameObject node = create_node(data);
-            node.transform.SetAsFirstSibling();
+            node.transform.SetAsLastSibling();
         }
         else
         {
@@ -122,7 +123,7 @@ public class StackWithList : IDataStructure, IStack
             highlight_pseudocode(2, false);
 
             GameObject node = create_node(data);
-            node.transform.SetAsFirstSibling();
+            node.transform.SetAsLastSibling();
         }
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
 
@@ -154,7 +155,7 @@ public class StackWithList : IDataStructure, IStack
         if (view.transform.childCount > 0)
         {
 
-            UIHandler.Instance.UXinfo("Popping " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
+            UIHandler.Instance.UXinfo("Popping " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(view.transform.childCount - 1, 0, 0).text, true);
 
             Load_Pseudocode("pop");
             yield return new WaitForSeconds(speed);
@@ -163,16 +164,16 @@ public class StackWithList : IDataStructure, IStack
             yield return StartCoroutine(Wait());
             highlight_pseudocode(0, false);
             highlight_pseudocode(1, true);
-            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = traverse_sprite;
+            view.transform.Get_Component_In_Child<Image>(view.transform.childCount - 1, 0).sprite = traverse_sprite;
 
             yield return StartCoroutine(Wait());
 
-            view.transform.Get_Component_In_Child<Image>(0, 0).sprite = initial_sprite;
+            view.transform.Get_Component_In_Child<Image>(view.transform.childCount - 1, 0).sprite = initial_sprite;
             highlight_pseudocode(1, false);
-            view.transform.Destroy_Child(0);
+            view.transform.Destroy_Child(view.transform.childCount - 1);
 
             if (view.transform.childCount > 0)
-                view.transform.Destroy_Child(0);
+                view.transform.Destroy_Child(view.transform.childCount - 1);
 
             GameHandler.Instance.handle_deletion.Invoke();
 
@@ -186,10 +187,6 @@ public class StackWithList : IDataStructure, IStack
             yield return StartCoroutine(Wait());
             highlight_pseudocode(0, false);
             UIHandler.Instance.show_message("Stack is empty!");
-
-            highlight_pseudocode(2, true);
-            yield return StartCoroutine(Wait());
-            highlight_pseudocode(2, false);
         }
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
 

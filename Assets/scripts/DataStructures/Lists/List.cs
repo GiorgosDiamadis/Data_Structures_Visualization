@@ -127,8 +127,7 @@ public class List : IDataStructure
 
     public IEnumerator add_position(long data, int position)
     {
-
-        if (!exists(data, include_end: false))
+        if (!exists(data))
         {
             UIHandler.Instance.close_message();
             UIHandler.Instance.UXinfo("Adding " + data + " at position " + position, true);
@@ -271,6 +270,13 @@ public class List : IDataStructure
 
                 if (!found)
                 {
+
+                    highlight_pseudocode(1, true);
+
+                    yield return StartCoroutine(Wait());
+                    highlight_pseudocode(1, false);
+
+
                     highlight_pseudocode(3, true);
 
                     yield return StartCoroutine(Wait());
@@ -343,6 +349,7 @@ public class List : IDataStructure
         else
         {
             //to_add.Destroy_Object();
+           
             UIHandler.Instance.show_message("Node already exists!");
         }
 
@@ -564,6 +571,12 @@ public class List : IDataStructure
 
             if (found)
             {
+
+                highlight_pseudocode(1, true);
+
+                yield return StartCoroutine(Wait());
+                highlight_pseudocode(1, false);
+
                 position++;
                 highlight_pseudocode(3, true);
 
@@ -612,6 +625,12 @@ public class List : IDataStructure
             }
             else
             {
+
+                highlight_pseudocode(1, true);
+
+                yield return StartCoroutine(Wait());
+                highlight_pseudocode(1, false);
+
                 spr.sprite = initial_sprite;
                 highlight_pseudocode(3, true);
 

@@ -269,7 +269,7 @@ public class BinaryTree : IDataStructure
             yield return StartCoroutine(Wait());
             if (temp.left != null)
             {
-                temp.right.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                temp.left.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
             }
             highlight_pseudocode(4, is_open: false);
@@ -543,14 +543,14 @@ public class BinaryTree : IDataStructure
             current = queue.Dequeue();
             position = current.position;
 
-            if (tree[2 * position + 1] < Int64.MaxValue)
+            if (2*position+1 < tree.Length && tree[2 * position + 1] < Int64.MaxValue)
             {
                 current.left = new BinaryTreeNode(tree[2 * position + 1], 2 * position + 1);
                 current.Get_Left().scene_object = Find_In_View(tree[2 * position + 1]);
                 queue.Enqueue(current.Get_Left());
             }
 
-            if (tree[2 * position + 2] < Int64.MaxValue)
+            if (2 * position + 2 < tree.Length && tree[2 * position + 2] < Int64.MaxValue)
             {
                 current.right = new BinaryTreeNode(tree[2 * position + 2], 2 * position + 2);
                 current.right.scene_object = Find_In_View(tree[2 * position + 2]);
@@ -749,6 +749,8 @@ public class BinaryTree : IDataStructure
     {
         int pos = Get_Array_Position(node_to_be_changed);
         tree[pos] = new_value;
+       
         node_to_be_changed.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = new_value.ToString();
+        Create_Tree_From_Array();
     }
 }

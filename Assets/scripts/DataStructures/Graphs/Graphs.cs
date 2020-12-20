@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Graphs
-{
     public class Graphs : IDataStructure
     {
         public static Action<GraphNode> on_select_node;
@@ -835,4 +833,3 @@ namespace Graphs
         }
         #endregion
     }
-}

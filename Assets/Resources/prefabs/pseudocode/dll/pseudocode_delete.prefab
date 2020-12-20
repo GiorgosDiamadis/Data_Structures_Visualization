@@ -65,7 +65,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "if temp.value==value:\n\ttemp.next.prev = temp.prev\n\ttemp.prev.next
-    = temp.next\t\n\tdelete temp\nelse\n\tnot found"
+    = temp.next\t\n\tdelete temp\nelse:\n\tnot found"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
   m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 97
+  m_firstOverflowCharacterIndex: 98
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: -1.0696411}
   m_textInfo:
     textComponent: {fileID: 536148400192419137}
-    characterCount: 107
+    characterCount: 108
     spriteCount: 0
     spaceCount: 17
     wordCount: 19

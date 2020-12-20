@@ -276,8 +276,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.3460083, y: -95.32706}
-  m_SizeDelta: {x: 349.71, y: 208.878}
+  m_AnchoredPosition: {x: -0.3460083, y: -97.193}
+  m_SizeDelta: {x: 349.71, y: 246.193}
   m_Pivot: {x: 0.50000006, y: 0.50000006}
 --- !u!222 &536148401554564920
 CanvasRenderer:
@@ -864,7 +864,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\tif temp.left is not null:\n\t\ts1.push(temp.left)"
+  m_text: "\tif temp.left!=null:\n\t\ts1.push(temp.left)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
   m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
@@ -934,10 +934,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 5480179668389632794}
-    characterCount: 47
+    characterCount: 41
     spriteCount: 0
-    spaceCount: 8
-    wordCount: 11
+    spaceCount: 5
+    wordCount: 9
     linkCount: 0
     lineCount: 2
     pageCount: 1
@@ -1397,7 +1397,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\tif temp.right is not null:\n\t\ts1.push(temp.right)"
+  m_text: "\tif temp.right!=null:\n\t\ts1.push(temp.right)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
   m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
@@ -1443,7 +1443,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 28
+  m_firstOverflowCharacterIndex: 22
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -1467,10 +1467,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 6214322632527053005}
-    characterCount: 49
+    characterCount: 43
     spriteCount: 0
-    spaceCount: 8
-    wordCount: 11
+    spaceCount: 5
+    wordCount: 9
     linkCount: 0
     lineCount: 2
     pageCount: 1

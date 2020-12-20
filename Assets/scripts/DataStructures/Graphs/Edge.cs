@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Graphs
-{
     public class Edge
     {
         public GraphNode from;
@@ -44,4 +42,4 @@ namespace Graphs
     }
 
 
-}
+

@@ -4,8 +4,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-namespace Graphs
-{
     public class GraphNode : MonoBehaviour, IPointerClickHandler
     {
         private static Graphs graphs;
@@ -170,5 +168,5 @@ namespace Graphs
                 StartCoroutine(graphs.Dijkstra(this, destination));
         }
     }
-}
+
 

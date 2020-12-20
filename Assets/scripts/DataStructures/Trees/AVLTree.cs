@@ -83,7 +83,7 @@ public class AVLTree : BinaryTree
                         current = current.Get_Left();
 
                         highlight_pseudocode(5, is_open: true);
-                        print("h");
+
                         previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                         if(current!=null)
                             current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
