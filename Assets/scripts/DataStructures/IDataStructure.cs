@@ -121,7 +121,7 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (ViewHandler.Instance.current_structure != this)
+        if (ViewHandler.Instance.current_structure != this && !GameHandler.Instance.algorithm_running)
         {
             GameHandler.Instance.On_Data_Structure_Change?.Invoke(this);
             GameHandler.Instance.On_Data_Structure_Variant_Change?.Invoke(this);

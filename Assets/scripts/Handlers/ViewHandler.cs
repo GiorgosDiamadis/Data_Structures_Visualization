@@ -110,6 +110,7 @@ public class ViewHandler : MonoBehaviour
         {
             view.transform.localScale = new Vector3(1f, 1f, 1f);
 
+            StopAllCoroutines();
             current_structure?.DeselectStructure();
             insertion_counter = 0;
             deletion_counter = 0;

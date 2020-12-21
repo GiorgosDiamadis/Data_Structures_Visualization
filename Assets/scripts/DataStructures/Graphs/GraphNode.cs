@@ -148,7 +148,7 @@ using UnityEngine.UI;
         {
             GraphNode destination = null;
 
-            TMPro.TMP_InputField n = transform.Get_Component_In_Child<TMPro.TMP_InputField>(1, 5);
+            TMPro.TMP_InputField n = transform.Get_Component_In_Child<TMPro.TMP_InputField>(1, 6);
 
             int d = int.Parse(n.text);
 
