@@ -18,6 +18,9 @@ public class AnimatorController : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!GameHandler.Instance.algorithm_running)
+        {
+
         if (current == "normal")
         {
             foreach (AnimatorController a in all)
@@ -36,19 +39,26 @@ public class AnimatorController : MonoBehaviour, IPointerEnterHandler, IPointerE
             animator.SetTrigger("highlight");
             current = "highlight";
         }
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!GameHandler.Instance.algorithm_running)
+        {
+
         if (current == "highlight")
         {
             animator.SetTrigger("normal");
             current = "normal";
         }
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!GameHandler.Instance.algorithm_running)
+        {
 
         if(current == "selected")
         {
@@ -68,6 +78,7 @@ public class AnimatorController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
             animator.SetTrigger("selected");
             current = "selected";
+        }
         }
         
     }

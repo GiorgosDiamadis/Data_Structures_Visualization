@@ -75,8 +75,8 @@ MonoBehaviour:
 
     vtx.next = null'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
-  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+  m_fontAsset: {fileID: 11400000, guid: e2eafd2e6cd95324799b3bae1cab25c3, type: 2}
+  m_sharedMaterial: {fileID: -771755758253040391, guid: e2eafd2e6cd95324799b3bae1cab25c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 77
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -305,8 +305,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'while temp.next != null && i<position-1:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
-  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+  m_fontAsset: {fileID: 11400000, guid: e2eafd2e6cd95324799b3bae1cab25c3, type: 2}
+  m_sharedMaterial: {fileID: -771755758253040391, guid: e2eafd2e6cd95324799b3bae1cab25c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -536,8 +536,8 @@ MonoBehaviour:
   m_text: "if position is 0:\n\tVertex vtx = new Vertex\n\tvtx.data = data\n\tvtx.next
     = head\n\thead = vtx\n\treturn\nindex = 0, temp = head, i = 0"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
-  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+  m_fontAsset: {fileID: 11400000, guid: e2eafd2e6cd95324799b3bae1cab25c3, type: 2}
+  m_sharedMaterial: {fileID: -771755758253040391, guid: e2eafd2e6cd95324799b3bae1cab25c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -580,7 +580,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 97
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -942,8 +942,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\ttemp = temp.next\r\n\ti = i+1"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
-  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+  m_fontAsset: {fileID: 11400000, guid: e2eafd2e6cd95324799b3bae1cab25c3, type: 2}
+  m_sharedMaterial: {fileID: -771755758253040391, guid: e2eafd2e6cd95324799b3bae1cab25c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -986,7 +986,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 19
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0

@@ -9,6 +9,7 @@ public class UIHandler : MonoBehaviour
     public static GameObject structure_variant = null;
     public static GameObject selected_structure = null;
     public static GameObject method_options = null;
+    public GameObject divider;
     private RectTransform target = null;
     [SerializeField] private TMPro.TextMeshProUGUI ux;
 
@@ -30,8 +31,12 @@ public class UIHandler : MonoBehaviour
         }
         GameHandler.Instance.On_Data_Structure_Variant_Change += Show_Data_Structure_Variant_Methods;
     }
+
+    
     public void Show_Data_Structure_Variants(string structure_tag)
     {
+        if (!GameHandler.Instance.algorithm_running)
+        {
 
         GameObject structure = GameObject.FindWithTag(structure_tag);
         GameObject structure_panel = structure.transform.parent.Get_Child(structure.transform.GetSiblingIndex() + 1).gameObject;
@@ -74,6 +79,7 @@ public class UIHandler : MonoBehaviour
         foreach(UIGraphics g in FindObjectsOfType<UIGraphics>())
         {
             g.GetComponent<Image>().color = g.normal;
+        }
         }
         
     }

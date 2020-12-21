@@ -19,7 +19,6 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
     protected static Sprite initial_sprite = null;
     protected static Sprite toadd_sprite = null;
 
-
     protected static Sprite red_cell = null;
     protected static Sprite green_cell = null;
 
@@ -40,7 +39,6 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
 
     public int Max_nodes { get => max_nodes; }
     public int Max_counter { get => max_counter; }
-
 
     private void Awake()
     {
@@ -83,11 +81,14 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
 
     public void Destroy_Pseudocode(IDataStructure obj)
     {
+        GameObject div = GameObject.Find("Divider");
+        div.GetComponent<Image>().color = new Color(255, 0, 0, 0);
         pseudocode_panel.transform.Destroy_All_Children();
     }
 
     protected void highlight_pseudocode(int index, bool is_open)
     {
+        
         pseudocode.transform.Set_Child_Active(is_open, index, 0);
     }
 
@@ -111,6 +112,10 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
         if (pseudocode == null || pseudocode.name != "pseudocode_" + method)
         {
             Destroy(pseudocode);
+            GameObject div = GameObject.Find("Divider");
+            Color c = div.GetComponent<Image>().color;
+            c.a = 100;
+            div.GetComponent<Image>().color = c;
             pseudocode = Resources.Load("prefabs/pseudocode/" + pseudocode_dir + "/pseudocode_" + method) as GameObject;
             pseudocode = Instantiate(pseudocode, pseudocode_panel.transform);
             pseudocode.name = "pseudocode_" + method;

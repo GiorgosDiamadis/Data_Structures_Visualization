@@ -243,6 +243,43 @@ public class Graphs : IDataStructure
         new_node.GetComponent<GraphNode>().data = data;
 
         adj_list.Add(new_node.GetComponent<GraphNode>());
+
+        if (new_node.transform.localPosition.x < -588.5f)
+        {
+            new_node.transform.transform.localPosition = new_node.transform.localPosition.With(x: -588.5f);
+        }
+
+        if (new_node.transform.localPosition.x > 586f)
+        {
+            new_node.transform.transform.localPosition = new_node.transform.localPosition.With(x: 586f);
+        }
+        if (new_node.transform.localPosition.y < -358f)
+        {
+            new_node.transform.transform.localPosition = new_node.transform.localPosition.With( y: -358f);
+        }
+        if (new_node.transform.localPosition.y > 389f)
+        {
+            new_node.transform.transform.localPosition = new_node.transform.localPosition.With(y: 389f);
+        }
+
+        if (new_node.transform.localPosition.x > 438.5f)
+        {
+            new_node.transform.Get_Component_In_Child<Transform>(1).localPosition = new_node.transform.Get_Component_In_Child<Transform>(1).localPosition.With(x:- 183f); 
+        }
+
+        if(new_node.transform.localPosition.y > 122f)
+        {
+            new_node.transform.Get_Component_In_Child<Transform>(1).localPosition = new_node.transform.Get_Component_In_Child<Transform>(1).localPosition.With(y: -47f);
+
+        }
+
+
+        if (new_node.transform.localPosition.y < -302f)
+        {
+            new_node.transform.Get_Component_In_Child<Transform>(1).localPosition = new_node.transform.Get_Component_In_Child<Transform>(1).localPosition.With(y: 160f);
+
+        }
+
     }
 
 

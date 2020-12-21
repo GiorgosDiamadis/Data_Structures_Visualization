@@ -67,8 +67,8 @@ MonoBehaviour:
   m_text: "\t\tif dis[nbour] + node.W < dis[nbour]:\n\t\t        dis[nbour] = node.W
     + dis[nbour]\n\t\t        pq.update(nbour,dis[nbour])"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
-  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+  m_fontAsset: {fileID: 11400000, guid: e2eafd2e6cd95324799b3bae1cab25c3, type: 2}
+  m_sharedMaterial: {fileID: -771755758253040391, guid: e2eafd2e6cd95324799b3bae1cab25c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -329,8 +329,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\tnode = pq.del_minimum()\n\tif node is destination:\n\t\tstop"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
-  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+  m_fontAsset: {fileID: 11400000, guid: e2eafd2e6cd95324799b3bae1cab25c3, type: 2}
+  m_sharedMaterial: {fileID: -771755758253040391, guid: e2eafd2e6cd95324799b3bae1cab25c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 50
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -716,8 +716,8 @@ MonoBehaviour:
 
     *******************************/'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
-  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+  m_fontAsset: {fileID: 11400000, guid: e2eafd2e6cd95324799b3bae1cab25c3, type: 2}
+  m_sharedMaterial: {fileID: -771755758253040391, guid: e2eafd2e6cd95324799b3bae1cab25c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -873,8 +873,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'while pq is not empty:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
-  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+  m_fontAsset: {fileID: 11400000, guid: e2eafd2e6cd95324799b3bae1cab25c3, type: 2}
+  m_sharedMaterial: {fileID: -771755758253040391, guid: e2eafd2e6cd95324799b3bae1cab25c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1031,8 +1031,8 @@ MonoBehaviour:
   m_text: "pr_queue pq = new pr_queue\nforeach n in graph do: \n\tdis[n] = INFTY\n\tpq.enqueue(n,dis[n])\ndis[src]
     = 0\npq.update(src,dis[src])"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
-  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+  m_fontAsset: {fileID: 11400000, guid: e2eafd2e6cd95324799b3bae1cab25c3, type: 2}
+  m_sharedMaterial: {fileID: -771755758253040391, guid: e2eafd2e6cd95324799b3bae1cab25c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1188,8 +1188,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\tforeach nbour of node:"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30c3552c5dd948a4e85061c1adea4591, type: 2}
-  m_sharedMaterial: {fileID: -6757909253764615041, guid: 30c3552c5dd948a4e85061c1adea4591,
+  m_fontAsset: {fileID: 11400000, guid: e2eafd2e6cd95324799b3bae1cab25c3, type: 2}
+  m_sharedMaterial: {fileID: -771755758253040391, guid: e2eafd2e6cd95324799b3bae1cab25c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1459,7 +1459,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -2.2999954}
+  m_AnchoredPosition: {x: 0, y: -2.300003}
   m_SizeDelta: {x: 0, y: 4.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3497593124823474384
