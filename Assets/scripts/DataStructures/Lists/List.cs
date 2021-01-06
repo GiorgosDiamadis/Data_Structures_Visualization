@@ -218,6 +218,8 @@ public class List : IDataStructure
 
                 int k = 0;
                 int i = 1;
+
+
                 for (; i < view.transform.childCount - 1 && k < position - 1; i++)
                 {
                     child = view.transform.GetChild(i).gameObject;
@@ -228,6 +230,7 @@ public class List : IDataStructure
                         highlight_pseudocode(2, false);
                         highlight_pseudocode(1, true);
 
+                        
                         yield return StartCoroutine(Wait());
 
                         highlight_pseudocode(1, false);
@@ -264,6 +267,8 @@ public class List : IDataStructure
                         k++;
                     }
                 }
+
+
                 highlight_pseudocode(2, false);
 
                 spr.sprite = initial_sprite;
@@ -272,17 +277,18 @@ public class List : IDataStructure
                 {
 
                     highlight_pseudocode(1, true);
-
                     yield return StartCoroutine(Wait());
                     highlight_pseudocode(1, false);
 
-
+                    
                     highlight_pseudocode(3, true);
 
                     yield return StartCoroutine(Wait());
 
+
                     if (i == view.transform.childCount - 1)
                     {
+                       
                         GameObject arrow = create_arrow();
                         ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
 

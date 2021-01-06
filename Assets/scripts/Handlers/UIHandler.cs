@@ -12,7 +12,6 @@ public class UIHandler : MonoBehaviour
     public GameObject divider;
     private RectTransform target = null;
     [SerializeField] private TMPro.TextMeshProUGUI ux;
-
     private static Vector3 scale_up = new Vector3(1, 1, 0);
     private static Vector3 scale_down = new Vector3(.1f, .1f, 0);
 

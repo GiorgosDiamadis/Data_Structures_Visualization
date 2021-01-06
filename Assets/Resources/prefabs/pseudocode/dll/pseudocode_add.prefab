@@ -109,7 +109,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 336.8, y: 139.59}
+  m_SizeDelta: {x: 336.8, y: 159.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &536148400192419142
 CanvasRenderer:
@@ -341,8 +341,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -1.9809875}
-  m_SizeDelta: {x: 342.8, y: 201.245}
+  m_AnchoredPosition: {x: 0, y: -4.66}
+  m_SizeDelta: {x: 342.8, y: 254.73}
   m_Pivot: {x: 0.50000006, y: 0.50000006}
 --- !u!222 &536148401554564920
 CanvasRenderer:
@@ -441,7 +441,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 336.8, y: 82.38}
+  m_SizeDelta: {x: 336.8, y: 94.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2327964377710162786
 CanvasRenderer:
@@ -516,7 +516,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 60
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
