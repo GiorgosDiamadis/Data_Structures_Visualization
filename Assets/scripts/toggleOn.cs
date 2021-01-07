@@ -28,14 +28,14 @@ public class toggleOn : MonoBehaviour
         GameHandler.Instance.step_by_step = t.isOn;
         Color c = transform.Get_Component_In_Child<Image>(0).color;
 
-        if(c == Color.white)
-        {
-            transform.Get_Component_In_Child<Image>(0).color = Color.green;
-        }
-        else
-        {
-            transform.Get_Component_In_Child<Image>(0).color = Color.white;
+        //if(c == Color.white)
+        //{
+        //    transform.Get_Component_In_Child<Image>(0).color = Color.green;
+        //}
+        //else
+        //{
+        //    transform.Get_Component_In_Child<Image>(0).color = Color.white;
 
-        }
+        //}
     }
 }

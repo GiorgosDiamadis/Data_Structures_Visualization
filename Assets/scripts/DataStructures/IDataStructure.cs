@@ -82,7 +82,7 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
     public void Destroy_Pseudocode(IDataStructure obj)
     {
         GameObject div = GameObject.Find("Divider");
-        div.GetComponent<Image>().color = new Color(255, 0, 0, 0);
+        div.GetComponent<Image>().color = new Color(0, 0, 0, 0);
         pseudocode_panel.transform.Destroy_All_Children();
     }
 
