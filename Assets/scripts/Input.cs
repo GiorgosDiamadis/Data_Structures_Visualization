@@ -234,13 +234,15 @@ public class Input : MonoBehaviour
         if (inp_f.text.Length != 0)
         {
             data = int.Parse(inp_f.text);
+
+            if (data > 1000)
+            {
+                while (data > 1000)
+                    data = data / 10;
+            }
         }
 
-        if(data > 1000)
-        {
-            while(data > 1000)
-                data =  data / 10;
-        }
+       
 
         return data;
     }

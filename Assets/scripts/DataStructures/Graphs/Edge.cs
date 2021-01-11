@@ -11,6 +11,7 @@ using UnityEngine.UI;
         public GameObject gameObject;
         public Vector3 start;
         public Vector3 end;
+        public Vector3 startPos;
         public Graphs graphs;
 
         public Edge(GraphNode from, GraphNode to, GameObject gameObject,int weight,  Vector3 start, Vector3 end)
@@ -21,6 +22,7 @@ using UnityEngine.UI;
             this.gameObject = gameObject;
             this.start = start;
             this.end = end;
+            this.startPos = gameObject.transform.position;
         }
 
         public void Add_Weight()
