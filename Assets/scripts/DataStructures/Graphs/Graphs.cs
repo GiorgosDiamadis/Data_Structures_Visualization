@@ -96,13 +96,13 @@ public class Graphs : IDataStructure
     private void Select_New_Edge(Edge obj)
     {
         RectTransform actions = selected_edge.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
-        selected_edge.gameObject.GetComponent<Image>().color = Color.black;
+        selected_edge.gameObject.GetComponent<Image>().color = Color.gray;
 
-        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.black;
-        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.black;
+        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.gray;
+        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.gray;
 
-        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.black;
-        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.black;
+        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.gray;
+        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.gray;
 
 
         actions.gameObject.SetActive(false);
@@ -146,13 +146,13 @@ public class Graphs : IDataStructure
     {
         RectTransform actions = selected_edge.gameObject.transform.Get_Child_Object(1).GetComponent<RectTransform>();
         UIHandler.Instance.scale(actions, new Vector3(.1f, .1f, .1f));
-        selected_edge.gameObject.GetComponent<Image>().color = Color.black;
+        selected_edge.gameObject.GetComponent<Image>().color = Color.gray;
 
-        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.black;
-        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.black;
+        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.gray;
+        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.gray;
 
-        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.black;
-        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.black;
+        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.gray;
+        selected_edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.gray;
 
         selected_edge = null;
     }
@@ -669,7 +669,7 @@ public class Graphs : IDataStructure
             {
                 foreach (Edge e in g.connections)
                 {
-                    e.gameObject.GetComponent<Image>().color = Color.black;
+                    e.gameObject.GetComponent<Image>().color = Color.gray;
                 }
             }
 
@@ -755,20 +755,20 @@ public class Graphs : IDataStructure
                     yield return StartCoroutine(Wait());
                     highlight_pseudocode(5, is_open: false);
 
-                    con.gameObject.GetComponent<Image>().color = Color.black;
+                    con.gameObject.GetComponent<Image>().color = Color.gray;
 
                     if (is_digraph)
                     {
                         if (con.gameObject.transform.GetChild(2).gameObject.activeSelf)
                         {
-                            con.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.black;
-                            con.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.black;
+                            con.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.gray;
+                            con.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.gray;
 
                         }
                         else if (con.gameObject.transform.GetChild(3).gameObject.activeSelf)
                         {
-                            con.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.black;
-                            con.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.black;
+                            con.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.gray;
+                            con.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.gray;
                         }
                     }
                 }
@@ -832,20 +832,20 @@ public class Graphs : IDataStructure
             {
                 foreach (Edge e in g.connections)
                 {
-                    e.gameObject.GetComponent<Image>().color = Color.black;
+                    e.gameObject.GetComponent<Image>().color = Color.gray;
 
                     if (is_digraph)
                     {
                         if (e.gameObject.transform.GetChild(2).gameObject.activeSelf)
                         {
-                            e.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.black;
-                            e.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.black;
+                            e.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.gray;
+                            e.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.gray;
 
                         }
                         else if (e.gameObject.transform.GetChild(3).gameObject.activeSelf)
                         {
-                            e.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.black;
-                            e.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.black;
+                            e.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.gray;
+                            e.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.gray;
                         }
                     }
                 }
