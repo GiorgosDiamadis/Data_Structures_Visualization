@@ -1,27 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class QuizManager : MonoBehaviour
 {
-    private List<Question> questions;
-    private List<int> displayed_questions;
     [SerializeField] private GameObject answer_prefab;
-    private int max_index;
+    
+    private List<Question> questions;
+    private Dictionary<int,int> user_answers;
 
+
+    private List<int> displayed_questions;
+    private int max_index;
+    public int selected_btn = -1;
+    private int current_question = -1;
 
     void Start()
     {
         questions = new List<Question>();
         displayed_questions = new List<int>();
+        user_answers = new Dictionary<int, int>();
+
         Load_Questions();
         Select_Next_Question();
     }
 
     public void Select_Next_Question()
     {
-        
-        if(displayed_questions.Count < questions.Count)
+        if (current_question != -1)
+        {
+            user_answers[current_question] = selected_btn;
+        }
+
+        if (displayed_questions.Count < questions.Count)
         {
             int next = Random.Range(0, max_index);
 
@@ -29,15 +39,14 @@ public class QuizManager : MonoBehaviour
             {
                 next = Random.Range(0, max_index);
             }
-
-            Display_Question(next);
+            current_question = next;
+            Display_Question(current_question);
         }
         else
         {
             Show_Results();
         }
     }
-
 
 
     private void Display_Question(int index)
@@ -73,6 +82,21 @@ public class QuizManager : MonoBehaviour
 
     private void Show_Results()
     {
+        int valid = 0;
+        
 
+        for(int i = 0; i < questions.Count; i++)
+        {
+            int correct = questions[i].CorrectAnswers();
+
+            if (user_answers[i] == correct)
+            {
+                valid++;
+            }
+        }
+
+        float result = (valid*(1.0f)/ questions.Count*(1.0f)) * 100.0f;
+
+        print("Result = " + result.ToString("0.##") + "%");
     }
 }

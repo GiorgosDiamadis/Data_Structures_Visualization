@@ -49,14 +49,14 @@ public class Question : ScriptableObject
     [SerializeField] private int _mistakes = 0;
     public int Mistakes { get { return _mistakes; } }
 
-    public List<int> CorrectAnswers()
+    public int CorrectAnswers()
     {
-        List<int> CorrectAnswers = new List<int>();
+        int CorrectAnswers = -1;
         for (int i = 0; i < Answers.Length; i++)
         {
             if (Answers[i].IsCorrect)
             {
-                CorrectAnswers.Add(i);
+                CorrectAnswers=i;
             }
         }
 

@@ -15,18 +15,18 @@ MonoBehaviour:
   _info: 2
   _answers:
   - _info: answer1
-    _isCorrect: 0
+    _isCorrect: 1
   - _info: answer2
     _isCorrect: 0
   - _info: answer3
-    _isCorrect: 1
+    _isCorrect: 0
   - _info: answer4
     _isCorrect: 0
   - _info: answer5
     _isCorrect: 0
   _useTimer: 0
   _timer: 0
-  _answerType: 0
+  _answerType: 1
   _addMistakes: 1
   _addMistakes1: 0
   _mistakes: 0
