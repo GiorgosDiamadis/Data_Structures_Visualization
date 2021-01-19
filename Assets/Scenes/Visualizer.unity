@@ -4640,7 +4640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   algorithm_running: 0
-  speed: 0.5
+  speed: 1
   step_by_step: 0
 --- !u!1001 &541182362
 PrefabInstance:
@@ -14036,6 +14036,7 @@ MonoBehaviour:
     type: 3}
   arrow: {fileID: 0}
   e: {fileID: 5423148681795926632, guid: ab210211459f4664ca4bff676e028e05, type: 3}
+  is_avl: 0
 --- !u!114 &1799723594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14210,6 +14211,7 @@ MonoBehaviour:
     type: 3}
   arrow: {fileID: 0}
   e: {fileID: 5423148681795926632, guid: ab210211459f4664ca4bff676e028e05, type: 3}
+  is_avl: 1
   green: {fileID: 2100000, guid: 260b70842d5b19147a7e19c2de86151b, type: 2}
   blue: {fileID: 2100000, guid: f9dd1510d1ddab24285a42e2f8a2c89b, type: 2}
   red: {fileID: 2100000, guid: ff6bc5e2beb551647b559651e9cc2af0, type: 2}

@@ -629,7 +629,11 @@ public class Graphs : IDataStructure
         node.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).fontSize = 20;
         node.transform.Set_Child_Active(true, 3);
         node.gameObject.GetComponent<GraphNode>().enabled = false;
-        node.transform.GetChild(3).transform.localScale = new Vector3(40, 40, 1);
+        node.transform.GetChild(0).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 62);
+        node.transform.GetChild(0).GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 62);
+        print(node.transform.GetChild(0).gameObject);
+
+        node.transform.GetChild(3).transform.localScale = new Vector3(50, 50, 1);
         node.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 

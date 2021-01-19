@@ -15,7 +15,7 @@ public class BinaryTree : IDataStructure
     protected float[] rotations_right = new float[15];
 
     protected Vector3[] scales = new Vector3[15];
-
+    public bool is_avl;
 
     public BinaryTreeNode head;
 
@@ -24,16 +24,35 @@ public class BinaryTree : IDataStructure
         view.transform.Destroy_All_Children();
         ViewHandler.Instance.Change_Grid(enabled: false);
         tree = new long[max_children];
-
         for (int i = 0; i < max_children; i++)
         {
             tree[i] = Int64.MaxValue;
         }
 
-        GameObject node =  create_node();
+        if (!is_avl)
+        {
+            Instantiate(e, view.transform);
+            Tree_From_View();
+        }
+        else
+        {
+
+        GameObject node = create_node();
         Add_To_Array(node);
 
-        StartCoroutine (Get_Node_Positions_From_Tree_Prefab());
+        StartCoroutine(Get_Node_Positions_From_Tree_Prefab());
+        }
+    }
+
+    private void Tree_From_View()
+    {
+        long[] v = new long[max_children];
+        for(int i = 0; i < view.transform.GetChild(0).childCount; i++)
+        {
+            v[i] = long.Parse(view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0,i, 0, 0).text);
+        }
+
+        Create_Tree_From_Array(v);
     }
 
     private IEnumerator Get_Node_Positions_From_Tree_Prefab()
@@ -62,13 +81,11 @@ public class BinaryTree : IDataStructure
         if (GameHandler.Instance.algorithm_running)
             return;
 
-        head = null;
         if (pseudocode_panel.transform.childCount != 0)
         {
             pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
         }
 
-        Create_Tree_From_Array();
         StartCoroutine(In_Order_Cor());
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
 
@@ -182,9 +199,9 @@ public class BinaryTree : IDataStructure
         }
 
 
-        for (int i = 0; i < view.transform.childCount; i++)
+        for (int i = 0; i < view.transform.GetChild(0).childCount; i++)
         {
-            view.transform.Set_Child_Active(false, i, 1);
+            view.transform.Set_Child_Active(false, 0, i, 1);
         }
         GameHandler.Instance.algorithm_running = false;
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
@@ -197,13 +214,11 @@ public class BinaryTree : IDataStructure
         if (GameHandler.Instance.algorithm_running)
             return;
 
-        head = null;
         if (pseudocode_panel.transform.childCount != 0)
         {
             pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
         }
 
-        Create_Tree_From_Array();
         StartCoroutine(Post_Order_Cor());
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
 
@@ -304,9 +319,9 @@ public class BinaryTree : IDataStructure
             highlight_pseudocode(5, is_open: false);
         }
 
-        for (int i = 0; i < view.transform.childCount; i++)
+        for (int i = 0; i < view.transform.GetChild(0).childCount; i++)
         {
-            view.transform.Set_Child_Active(false, i, 1);
+            view.transform.Set_Child_Active(false, 0, i, 1);
         }
         GameHandler.Instance.algorithm_running = false;
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
@@ -319,13 +334,11 @@ public class BinaryTree : IDataStructure
         if (GameHandler.Instance.algorithm_running)
             return;
 
-        head = null;
         if (pseudocode_panel.transform.childCount != 0)
         {
             pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
         }
 
-        Create_Tree_From_Array();
         StartCoroutine(Pre_Order_Cor());
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
 
@@ -408,9 +421,9 @@ public class BinaryTree : IDataStructure
             highlight_pseudocode(1, is_open: false);
         }
 
-        for (int i = 0; i < view.transform.childCount; i++)
+        for (int i = 0; i < view.transform.GetChild(0).childCount; i++)
         {
-            view.transform.Set_Child_Active(false, i, 1);
+            view.transform.Set_Child_Active(false, 0, i, 1);
         }
         GameHandler.Instance.algorithm_running = false;
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
@@ -421,14 +434,12 @@ public class BinaryTree : IDataStructure
     {
         if (GameHandler.Instance.algorithm_running)
             return;
-
-        head = null;
         if (pseudocode_panel.transform.childCount != 0)
         {
             pseudocode_panel.transform.Get_Child(0, 1).Destroy_All_Children();
         }
 
-        Create_Tree_From_Array();
+        //Create_Tree_From_Array(tree);
         StartCoroutine(Level_Order_Cor());
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
 
@@ -442,6 +453,7 @@ public class BinaryTree : IDataStructure
         yield return new WaitForSeconds(speed);
 
         Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
+        print(head.scene_object);
         queue.Enqueue(head);
         
         highlight_pseudocode(0, is_open: true);
@@ -499,9 +511,9 @@ public class BinaryTree : IDataStructure
         }
 
         //yield return StartCoroutine(Wait());
-        for (int i = 0; i < view.transform.childCount; i++)
+        for (int i = 0; i < view.transform.GetChild(0).childCount; i++)
         {
-            view.transform.Set_Child_Active(false, i, 1);
+            view.transform.Set_Child_Active(false, 0,i, 1);
         }
         GameHandler.Instance.algorithm_running = false;
         transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
@@ -527,11 +539,11 @@ public class BinaryTree : IDataStructure
         n.transform.localScale = new Vector3(1f,1f,1f);
     }
 
-    public void Create_Tree_From_Array()
+    public void Create_Tree_From_Array(long[] tree)
     {
         head = new BinaryTreeNode(tree[0], 0);
         head.scene_object = Find_In_View(tree[0]);
-
+        print(head.scene_object);
         BinaryTreeNode current;
         Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
 
@@ -547,6 +559,8 @@ public class BinaryTree : IDataStructure
             {
                 current.left = new BinaryTreeNode(tree[2 * position + 1], 2 * position + 1);
                 current.Get_Left().scene_object = Find_In_View(tree[2 * position + 1]);
+                //print(current.Get_Left().scene_object + " " + tree[2 * position + 1]);
+
                 queue.Enqueue(current.Get_Left());
             }
 
@@ -554,6 +568,8 @@ public class BinaryTree : IDataStructure
             {
                 current.right = new BinaryTreeNode(tree[2 * position + 2], 2 * position + 2);
                 current.right.scene_object = Find_In_View(tree[2 * position + 2]);
+                //print(current.right.scene_object + " " + tree[2 * position + 2]);
+
                 queue.Enqueue(current.right);
 
             }
@@ -597,11 +613,22 @@ public class BinaryTree : IDataStructure
 
     public GameObject Find_In_View(long v)
     {
-        for (int i = 0; i < view.transform.childCount; i++)
+        for (int i = 0; i < (is_avl==false ? view.transform.GetChild(0).childCount : view.transform.childCount); i++)
         {
-            if (long.Parse(view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(i, 0, 0).text) == v)
+            if(is_avl == false)
             {
-                return view.transform.GetChild(i).gameObject;
+
+            if (long.Parse(view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0,i, 0, 0).text) == v)
+            {
+                return view.transform.Get_Child(0,i).gameObject;
+            }
+            }
+            else
+            {
+                if (long.Parse(view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(i, 0, 0).text) == v)
+                {
+                    return view.transform.GetChild(i).gameObject;
+                }
             }
         }
         return null;
@@ -751,6 +778,6 @@ public class BinaryTree : IDataStructure
         tree[pos] = new_value;
        
         node_to_be_changed.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = new_value.ToString();
-        Create_Tree_From_Array();
+        Create_Tree_From_Array(tree);
     }
 }

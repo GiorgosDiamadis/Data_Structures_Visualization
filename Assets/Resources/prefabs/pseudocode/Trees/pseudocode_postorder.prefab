@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 342, y: 67.29}
+  m_SizeDelta: {x: 342, y: 43.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &536148400953085839
 CanvasRenderer:
@@ -64,9 +64,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 's1 = new Stack
-
-    s2 = new Stack
+  m_text: 's1 = new Stack, s2 = new Stack
 
     s1.push(head)'
   m_isRightToLeft: 0
@@ -114,7 +112,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 30
+  m_firstOverflowCharacterIndex: 31
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -138,12 +136,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 536148400953085838}
-    characterCount: 43
+    characterCount: 44
     spriteCount: 0
     spaceCount: 8
     wordCount: 9
     linkCount: 0
-    lineCount: 3
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

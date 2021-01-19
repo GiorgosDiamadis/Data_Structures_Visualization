@@ -20,7 +20,7 @@ public class GameHandler : MonoBehaviour
     public Action handle_deletion;
     public bool algorithm_running = false;
 
-    [SerializeField] private float speed = 0.1f;
+    [SerializeField] private float speed;
         
     public  Sprite Toadd_sprite { get => toadd_sprite; set => toadd_sprite = value; }
     public Sprite Red_cell { get => red_cell;}

@@ -11,6 +11,7 @@ public class AVLTree : BinaryTree
     [SerializeField] private Material red = null;
     public override void Init()
     {
+        is_avl = true;
         base.Init();
         head = new BinaryTreeNode(tree[0], Find_In_View(tree[0]));
     }
