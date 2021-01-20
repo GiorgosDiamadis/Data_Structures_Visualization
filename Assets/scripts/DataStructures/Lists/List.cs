@@ -59,7 +59,7 @@ public class List : IDataStructure
             UIHandler.Instance.UXinfo("Adding " + data + " at front",true);
 
             Load_Pseudocode("add_front");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -134,7 +134,7 @@ public class List : IDataStructure
             GameObject to_add = create_ux_node(data);
 
             Load_Pseudocode("add_position");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             if (view.transform.childCount == 0)
             {
@@ -378,7 +378,7 @@ public class List : IDataStructure
 
 
             Load_Pseudocode("add");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             if (view.transform.childCount == 1)
             {
@@ -467,7 +467,7 @@ public class List : IDataStructure
         UIHandler.Instance.UXinfo("Deleting " + data, true);
 
         Load_Pseudocode("delete");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         bool found = false;
         int position = -1;
@@ -664,7 +664,7 @@ public class List : IDataStructure
         UIHandler.Instance.UXinfo("Searching for " + data, true);
 
         Load_Pseudocode("search");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
 
         GameObject child, previous = null;

@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
     public static GameHandler Instance;
-
+    public Slider slider;
 
     private static GameObject pseudocode_panel;
 
@@ -20,7 +21,7 @@ public class GameHandler : MonoBehaviour
     public Action handle_deletion;
     public bool algorithm_running = false;
 
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
         
     public  Sprite Toadd_sprite { get => toadd_sprite; set => toadd_sprite = value; }
     public Sprite Red_cell { get => red_cell;}
@@ -32,6 +33,17 @@ public class GameHandler : MonoBehaviour
 
     public Action<IDataStructure> On_Data_Structure_Variant_Change { get; internal set; }
     public bool step_by_step = false;
+
+    public void Change_Speed()
+    {
+        speed = slider.value;
+        slider.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(slider.transform.childCount - 1).text = speed.ToString("0.##");
+    }
+
+    public void Stop_Execution()
+    {
+
+    }
 
     private void Awake()
     {

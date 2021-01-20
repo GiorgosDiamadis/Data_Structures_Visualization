@@ -47,7 +47,7 @@ public class StackWithList : IDataStructure, IStack
         if (view.transform.childCount == 0)
         {
             Load_Pseudocode("peek");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -65,7 +65,7 @@ public class StackWithList : IDataStructure, IStack
         {
             
             Load_Pseudocode("peek");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
             UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(view.transform.childCount - 1, 0, 0).text, true);
 
             highlight_pseudocode(0, true);
@@ -93,7 +93,7 @@ public class StackWithList : IDataStructure, IStack
         GameObject to_add = create_ux_node(data);
 
         Load_Pseudocode("push");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         highlight_pseudocode(0, true);
         yield return StartCoroutine(Wait());
@@ -158,7 +158,7 @@ public class StackWithList : IDataStructure, IStack
             UIHandler.Instance.UXinfo("Popping " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(view.transform.childCount - 1, 0, 0).text, true);
 
             Load_Pseudocode("pop");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
             
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -181,7 +181,7 @@ public class StackWithList : IDataStructure, IStack
         else
         {
             Load_Pseudocode("pop");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());

@@ -28,7 +28,7 @@ public class AVLTree : BinaryTree
         UIHandler.Instance.UXinfo("Adding " + data, true);
 
         Load_Pseudocode("add");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         highlight_pseudocode(0, is_open: true);
         yield return StartCoroutine(Wait());
@@ -185,7 +185,7 @@ public class AVLTree : BinaryTree
         UIHandler.Instance.close_message();
         UIHandler.Instance.UXinfo("Deleting " + data, true);
         Load_Pseudocode("delete");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         highlight_pseudocode(0, is_open: true);
         yield return StartCoroutine(Wait());
@@ -390,7 +390,7 @@ public class AVLTree : BinaryTree
         UIHandler.Instance.close_message();
         UIHandler.Instance.UXinfo("Searching for  " + data, true);
         Load_Pseudocode("search");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         highlight_pseudocode(0, is_open: true);
         yield return StartCoroutine(Wait());
@@ -632,7 +632,7 @@ public class AVLTree : BinaryTree
     private IEnumerator Rebalance(Stack<BinaryTreeNode> parents)
     {
         Load_Pseudocode("rebalance");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         BinaryTreeNode previous=null;
         BinaryTreeNode current_parent = null;

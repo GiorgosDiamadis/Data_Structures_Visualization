@@ -27,7 +27,7 @@ public class QueueWithList : IDataStructure,IQueue
         {
             UIHandler.Instance.UXinfo("Dequeueing " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
             Load_Pseudocode("dequeue");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -51,7 +51,7 @@ public class QueueWithList : IDataStructure,IQueue
         else
         {
             Load_Pseudocode("dequeue");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -72,7 +72,7 @@ public class QueueWithList : IDataStructure,IQueue
         GameObject to_add = create_ux_node(data);
         
         Load_Pseudocode("enqueue");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         highlight_pseudocode(0, true);
         yield return StartCoroutine(Wait());
@@ -149,7 +149,7 @@ public class QueueWithList : IDataStructure,IQueue
         {
 
             Load_Pseudocode("peek");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -161,7 +161,7 @@ public class QueueWithList : IDataStructure,IQueue
             UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
 
             Load_Pseudocode("peek");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());

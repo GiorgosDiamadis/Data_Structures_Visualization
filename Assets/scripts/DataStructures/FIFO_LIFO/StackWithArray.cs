@@ -49,7 +49,7 @@ public class StackWithArray : IDataStructure, IStack
         if (next_empty == 0)
         {
             Load_Pseudocode("peek");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -62,7 +62,7 @@ public class StackWithArray : IDataStructure, IStack
             UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
 
             Load_Pseudocode("peek");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -87,7 +87,7 @@ public class StackWithArray : IDataStructure, IStack
         UIHandler.Instance.UXinfo("Pushing " + data, true);
 
         Load_Pseudocode("push");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         highlight_pseudocode(0, true);
         yield return StartCoroutine(Wait());
@@ -134,7 +134,7 @@ public class StackWithArray : IDataStructure, IStack
         if (next_empty == 0)
         {
             Load_Pseudocode("pop");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -147,7 +147,7 @@ public class StackWithArray : IDataStructure, IStack
             UIHandler.Instance.UXinfo("Popping " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(next_empty-1, 0, 0).text, true);
 
             Load_Pseudocode("pop");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());

@@ -2,7 +2,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class Input : MonoBehaviour
+public class InputF : MonoBehaviour
 {
     private TMPro.TMP_InputField input_field = null;
     private long data = Int64.MaxValue;

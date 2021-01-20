@@ -46,7 +46,7 @@ public class QueueWithArray : IDataStructure, IQueue
         {
 
             Load_Pseudocode("dequeue");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -59,7 +59,7 @@ public class QueueWithArray : IDataStructure, IQueue
             Load_Pseudocode("dequeue");
             UIHandler.Instance.UXinfo("Dequeueing " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
 
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -92,7 +92,7 @@ public class QueueWithArray : IDataStructure, IQueue
         UIHandler.Instance.close_message();
         UIHandler.Instance.UXinfo("Enqueueing " + data,true);
         Load_Pseudocode("enqueue");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         highlight_pseudocode(0, true);
         yield return StartCoroutine(Wait());
@@ -141,7 +141,7 @@ public class QueueWithArray : IDataStructure, IQueue
         if (view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text == string.Empty)
         {
             Load_Pseudocode("peek");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());
@@ -152,7 +152,7 @@ public class QueueWithArray : IDataStructure, IQueue
         {
             Load_Pseudocode("peek");
             UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             highlight_pseudocode(0, true);
             yield return StartCoroutine(Wait());

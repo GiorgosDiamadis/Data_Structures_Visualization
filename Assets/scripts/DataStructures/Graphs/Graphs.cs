@@ -429,7 +429,7 @@ public class Graphs : IDataStructure
         Load_Variables("Depth First Search:");
         Load_Pseudocode("dfs");
 
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         var visited = new List<GraphNode>();
 
@@ -533,7 +533,7 @@ public class Graphs : IDataStructure
         }
         GameHandler.Instance.algorithm_running = true;
 
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         var visited = new List<GraphNode>();
 
@@ -667,7 +667,7 @@ public class Graphs : IDataStructure
             UIHandler.Instance.scale(source.transform.Get_Child_Object(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));
 
             Load_Pseudocode("dijkstra");
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.5f);
 
             foreach (GraphNode g in FindObjectsOfType<GraphNode>())
             {
@@ -682,7 +682,7 @@ public class Graphs : IDataStructure
             {
                 g.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(2).text = "Infinity";
                 g.transform.Set_Child_Active(true, 2);
-                yield return new WaitForSeconds(speed / 2);
+                yield return new WaitForSeconds(0.5f / 2);
             }
 
 
@@ -830,7 +830,7 @@ public class Graphs : IDataStructure
             if (GameHandler.Instance.step_by_step)
                 yield return StartCoroutine(Wait());
             else
-                yield return new WaitForSeconds(3 * speed);
+                yield return new WaitForSeconds(3 * 0.5f);
 
             foreach (GraphNode g in FindObjectsOfType<GraphNode>())
             {

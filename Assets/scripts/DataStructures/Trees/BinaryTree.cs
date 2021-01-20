@@ -96,7 +96,7 @@ public class BinaryTree : IDataStructure
         Load_Variables("In Order Traversal");
         Load_Pseudocode("inorder");
 
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         Stack<BinaryTreeNode> s = new Stack<BinaryTreeNode>();
         BinaryTreeNode curr = head;
@@ -231,7 +231,7 @@ public class BinaryTree : IDataStructure
 
         Load_Pseudocode("postorder");
 
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         s1 = new Stack();
         s2 = new Stack();
@@ -350,7 +350,7 @@ public class BinaryTree : IDataStructure
         Load_Variables("Pre Order Traversal");
 
         Load_Pseudocode("preorder");
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         highlight_pseudocode(0, is_open: true);
         yield return StartCoroutine(Wait());
@@ -450,7 +450,7 @@ public class BinaryTree : IDataStructure
         Load_Variables("Level Order Traversal"); 
         Load_Pseudocode("levelorder");
 
-        yield return new WaitForSeconds(speed);
+        yield return new WaitForSeconds(0.5f);
 
         Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
         print(head.scene_object);

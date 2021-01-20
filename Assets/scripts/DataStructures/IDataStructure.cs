@@ -10,7 +10,7 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
     [SerializeField] private string pseudocode_dir = "";
     public abstract void Init();
     public virtual void DeselectStructure() { }
-    protected static float speed;
+    public static float speed;
 
     protected static GameObject view = null;
     protected static GameObject pseudocode_panel = null;
@@ -67,7 +67,7 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
         if (GameHandler.Instance.step_by_step)
             yield return StartCoroutine(WaitForKeyDown(KeyCode.R));
         else
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(GameHandler.Instance.speed);
     }
 
     public GameObject create_ux_node(long data)
