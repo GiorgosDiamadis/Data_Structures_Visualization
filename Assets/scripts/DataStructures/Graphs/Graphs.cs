@@ -18,7 +18,7 @@ public class Graphs : IDataStructure
     public GameObject change_graph;
     [SerializeField] private GameObject drag_area = null;
     [SerializeField] private GameObject graph_prefab = null;
-
+    public GameObject droptooltip;
     private Outline drop_area;
 
     public bool create_edge = false;
@@ -33,7 +33,22 @@ public class Graphs : IDataStructure
         on_select_edge += Edge_Selected;
     }
 
+    public override void Stop_Execution()
+    {
+        base.Stop_Execution();
 
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+            if (view.transform.GetChild(i).tag == "Node")
+            {
+                view.transform.Get_Component_In_Child<Image>(i, 0).sprite = initial_sprite;
+                view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(i, 4).text= "";
+                view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(i, 2).text = "";
+                view.transform.Set_Child_Active(false, i, 3);
+            }
+        }
+
+    }
 
     public override void Init()
     {
@@ -45,6 +60,7 @@ public class Graphs : IDataStructure
         drag_area.SetActive(true);
         change_graph.SetActive(true);
         is_digraph = false;
+        droptooltip.SetActive(true);
     }
 
     public bool Data_Exists(int d)
@@ -63,6 +79,7 @@ public class Graphs : IDataStructure
         drag_area.SetActive(false);
         adj_list = null;
         change_graph.SetActive(false);
+        droptooltip.SetActive(false);
 
     }
 
@@ -319,6 +336,7 @@ public class Graphs : IDataStructure
     {
         if (create_edge)
         {
+
             if (UnityEngine.Input.GetMouseButtonDown(0))
             {
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
@@ -349,6 +367,8 @@ public class Graphs : IDataStructure
 
     private void Create_Edge(GraphNode from, GraphNode to)
     {
+        if (from == to)
+            return;
 
         if (Find_Edge(from, to) == null)
         {

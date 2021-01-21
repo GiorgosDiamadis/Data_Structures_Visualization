@@ -26,7 +26,15 @@ public class QueueWithArray : IDataStructure, IQueue
         ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1, size: new Vector2(100, 100));
     }
 
+    public override void Stop_Execution()
+    {
+        base.Stop_Execution();
 
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+                view.transform.Get_Component_In_Child<Image>(i, 0).sprite = green_cell;
+        }
+    }
     public void Dequeue()
     {
         if (GameHandler.Instance.algorithm_running)

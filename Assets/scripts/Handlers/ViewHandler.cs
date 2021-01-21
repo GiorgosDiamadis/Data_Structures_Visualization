@@ -45,6 +45,23 @@ public class ViewHandler : MonoBehaviour
         GameHandler.Instance.handle_deletion += Handle_Deletion;
     }
 
+    public void Stop_Execution()
+    {
+        if(GameHandler.Instance.algorithm_running == true)
+        {
+
+        current_structure?.Stop_Execution();
+        GameHandler.Instance.algorithm_running = false;
+        GameObject pseudocode_panel = GameObject.Find("Pseudocode");
+
+        for (int i = 0; i < pseudocode_panel.transform.GetChild(pseudocode_panel.transform.childCount - 1).childCount; i++)
+        {
+            pseudocode_panel.transform.GetChild(pseudocode_panel.transform.childCount-1).transform.Set_Child_Active(false, i, 0);
+        }
+        UIHandler.Instance.UXinfo("", false);
+        }
+    }
+
     public void Change_Grid(GridLayoutGroup.Axis axis = GridLayoutGroup.Axis.Horizontal,
         GridLayoutGroup.Constraint constraint = GridLayoutGroup.Constraint.FixedRowCount,
         int constraint_count=1,

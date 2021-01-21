@@ -42,13 +42,13 @@ using UnityEngine.UI;
         public void Add_Weight()
         {
             edge.Add_Weight();
-            edge.gameObject.GetComponent<Image>().color = Color.black;
+            edge.gameObject.GetComponent<Image>().color = Color.gray;
 
-            edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.black;
-            edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.black;
+            edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.gray;
+            edge.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.gray;
 
-            edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.black;
-            edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.black;
+            edge.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.gray;
+            edge.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.gray;
             graphs.selected_edge = null;
         }
     }

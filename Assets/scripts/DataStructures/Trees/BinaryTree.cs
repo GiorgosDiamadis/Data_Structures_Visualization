@@ -54,6 +54,37 @@ public class BinaryTree : IDataStructure
 
         Create_Tree_From_Array(v);
     }
+    public override void Stop_Execution()
+    {
+        base.Stop_Execution();
+
+        for (int i = 0; i < (is_avl==false?view.transform.Get_Child(0).childCount : view.transform.childCount); i++)
+        {
+            if(is_avl == false)
+                view.transform.Get_Component_In_Child<Image>(0,i, 0).sprite = initial_sprite;
+            else
+                view.transform.Get_Component_In_Child<Image>(i, 0).sprite = initial_sprite;
+
+        }
+
+        for (int i = 0; i < (is_avl == false ? view.transform.Get_Child(0).childCount : view.transform.childCount); i++)
+        {
+            if(is_avl == false)
+                view.transform.Set_Child_Active(false, 0, i, 1);
+            else
+                view.transform.Set_Child_Active(false, i, 1);
+
+        }
+
+        if (is_avl)
+        {
+            if (view.transform.GetChild(view.transform.childCount - 1).childCount < 5)
+            {
+                view.transform.Destroy_Child(view.transform.childCount - 1);
+            }
+        }
+    }
+
 
     private IEnumerator Get_Node_Positions_From_Tree_Prefab()
     {

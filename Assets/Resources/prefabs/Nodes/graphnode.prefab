@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 5701716085349108645}
   - component: {fileID: 3287384286540055202}
   - component: {fileID: 1442398578432220315}
+  - component: {fileID: 7923163947685513117}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -457,6 +458,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7923163947685513117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556777426341516726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81a9e081a4afa64dae6b9d42bc38c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Find shortest path from this node to another node
+  tooltipRect: {fileID: 0}
+  descriptionText: {fileID: 0}
+  tooltipAnimator: {fileID: 0}
 --- !u!1 &566192720865982154
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,6 +848,7 @@ GameObject:
   - component: {fileID: 2648503432794953175}
   - component: {fileID: 7836813770474477950}
   - component: {fileID: 5626268377137801919}
+  - component: {fileID: 346046969109220753}
   m_Layer: 5
   m_Name: BFS
   m_TagString: Untagged
@@ -948,6 +966,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &346046969109220753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832658465602886829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81a9e081a4afa64dae6b9d42bc38c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Breadth First Search traversal starting from this node
+  tooltipRect: {fileID: 0}
+  descriptionText: {fileID: 0}
+  tooltipAnimator: {fileID: 0}
 --- !u!1 &2937183165818117247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,6 +1306,7 @@ GameObject:
   - component: {fileID: 5276834151500680526}
   - component: {fileID: 3005507184658593340}
   - component: {fileID: 6843973818847029249}
+  - component: {fileID: 7434164252275270366}
   m_Layer: 5
   m_Name: InputField (TMP)
   m_TagString: Untagged
@@ -1432,6 +1467,22 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &7434164252275270366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3349901406748393731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81a9e081a4afa64dae6b9d42bc38c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Change the value of this node
+  tooltipRect: {fileID: 0}
+  descriptionText: {fileID: 0}
+  tooltipAnimator: {fileID: 0}
 --- !u!1 &3802737804955465984
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,6 +1651,7 @@ GameObject:
   - component: {fileID: 3091138422985109804}
   - component: {fileID: 2617572741234252734}
   - component: {fileID: 2455311258536959531}
+  - component: {fileID: 2111552199948036179}
   m_Layer: 5
   m_Name: DFS
   m_TagString: Untagged
@@ -1717,6 +1769,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2111552199948036179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4090177596678874690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81a9e081a4afa64dae6b9d42bc38c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Depth First Search traversal starting from this node
+  tooltipRect: {fileID: 0}
+  descriptionText: {fileID: 0}
+  tooltipAnimator: {fileID: 0}
 --- !u!1 &4549762525324618621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,6 +2434,7 @@ GameObject:
   - component: {fileID: 3332766329096146274}
   - component: {fileID: 4377324975761951545}
   - component: {fileID: 4195919347730886610}
+  - component: {fileID: 3988608383516391388}
   m_Layer: 5
   m_Name: Add Edge
   m_TagString: Untagged
@@ -2483,6 +2552,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3988608383516391388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976900378837137125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81a9e081a4afa64dae6b9d42bc38c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Click on another node to create an edge
+  tooltipRect: {fileID: 0}
+  descriptionText: {fileID: 0}
+  tooltipAnimator: {fileID: 0}
 --- !u!1 &6208978399406489271
 GameObject:
   m_ObjectHideFlags: 0

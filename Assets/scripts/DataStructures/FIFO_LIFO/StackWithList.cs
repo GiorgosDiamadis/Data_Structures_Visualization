@@ -5,7 +5,22 @@ using DG.Tweening;
 
 public class StackWithList : IDataStructure, IStack
 {
+    public override void Stop_Execution()
+    {
+        base.Stop_Execution();
+        if (!view.transform.GetChild(view.transform.childCount - 2).name.Contains("Arrow"))
+        {
+            view.transform.Destroy_Child(view.transform.childCount - 1);
+        }
 
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+            if (view.transform.GetChild(i).tag == "Node")
+            {
+                view.transform.Get_Component_In_Child<Image>(i, 0).sprite = initial_sprite;
+            }
+        }
+    }
     public override void Init()
     {
         view.transform.Destroy_All_Children();

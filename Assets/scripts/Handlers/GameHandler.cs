@@ -6,7 +6,7 @@ public class GameHandler : MonoBehaviour
 {
     public static GameHandler Instance;
     public Slider slider;
-
+    public GameObject tooltip;
     private static GameObject pseudocode_panel;
 
     private static Sprite traverse_sprite = null;
@@ -33,17 +33,16 @@ public class GameHandler : MonoBehaviour
 
     public Action<IDataStructure> On_Data_Structure_Variant_Change { get; internal set; }
     public bool step_by_step = false;
+    public bool show_tooltip = true;
+  
 
     public void Change_Speed()
     {
         speed = slider.value;
         slider.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(slider.transform.childCount - 1).text = speed.ToString("0.##");
-    }
-
-    public void Stop_Execution()
-    {
 
     }
+
 
     private void Awake()
     {

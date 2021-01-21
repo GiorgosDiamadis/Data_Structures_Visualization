@@ -7,13 +7,34 @@ using UnityEngine.UI;
 public class DragNode: MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public bool dragOnSurfaces = true;
+    public bool show_outline = true;
+    public GameObject view;
+    public GameObject droptooltip;
+    public Color outline ;
+    public Color initial;
+
+
     private Dictionary<int, GameObject> m_DraggingIcons = new Dictionary<int, GameObject>();
     private Dictionary<int, RectTransform> m_DraggingPlanes = new Dictionary<int, RectTransform>();
     private CanvasGroup canvasGroup;
 
+    private void Update()
+    {
+        if (UnityEngine.Input.GetKey(KeyCode.D))
+        {
+            view.GetComponent<Image>().color = outline;
+        }
+        else
+        {
+            view.GetComponent<Image>().color = initial;
+
+        }
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         var canvas = FindInParents<Canvas>(gameObject);
+
         if (canvas == null)
             return;
         // We have clicked something that can be dragged.

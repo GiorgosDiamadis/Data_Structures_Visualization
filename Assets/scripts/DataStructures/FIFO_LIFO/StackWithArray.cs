@@ -8,7 +8,16 @@ public class StackWithArray : IDataStructure, IStack
 {
 
     private int next_empty = -1;
+    public override void Stop_Execution()
+    {
+        base.Stop_Execution();
 
+        for (int i = 0; i < view.transform.childCount; i++)
+        {
+                view.transform.Get_Component_In_Child<Image>(i, 0).sprite = green_cell;
+            
+        }
+    }
     public override void Init()
     {
         view.transform.Destroy_All_Children();

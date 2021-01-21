@@ -10,6 +10,11 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
     [SerializeField] private string pseudocode_dir = "";
     public abstract void Init();
     public virtual void DeselectStructure() { }
+    public virtual void Stop_Execution()
+    {
+        StopAllCoroutines();
+        transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+    }
     public static float speed;
 
     protected static GameObject view = null;
