@@ -2,46 +2,48 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-    public class EdgeActions : MonoBehaviour, IPointerClickHandler
+public class EdgeActions : MonoBehaviour, IPointerClickHandler
+{
+    private static Graphs graphs;
+    private Edge edge = null;
+
+    private void Start()
     {
-        private static Graphs graphs;
-        private Edge edge = null;
-
-        private void Start()
+        graphs = FindObjectOfType<Graphs>();
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            graphs = FindObjectOfType<Graphs>();
-        }
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (eventData.button == PointerEventData.InputButton.Right)
+            foreach (GraphNode g in FindObjectsOfType<GraphNode>())
             {
-                foreach (GraphNode g in FindObjectsOfType<GraphNode>())
+                foreach (Edge e in g.connections)
                 {
-                    foreach (Edge e in g.connections)
+                    if (e.gameObject == gameObject)
                     {
-                        if (e.gameObject == gameObject)
-                        {
-                            edge = e;
-                            break;
-                        }
+                        edge = e;
+                        break;
                     }
-
                 }
 
-                Graphs.on_select_edge.Invoke(edge);
             }
+
+            Graphs.on_select_edge.Invoke(edge);
         }
+    }
 
-        public void Remove()
+    public void Remove()
+    {
+        graphs.Remove_Edge(edge);
+        edge = null;
+
+    }
+
+    public void Add_Weight()
+    {
+        if (edge.Add_Weight())
         {
-            graphs.Remove_Edge(edge);
-            edge = null;
 
-        }
-
-        public void Add_Weight()
-        {
-            edge.Add_Weight();
             edge.gameObject.GetComponent<Image>().color = Color.gray;
 
             edge.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.gray;
@@ -52,4 +54,5 @@ using UnityEngine.UI;
             graphs.selected_edge = null;
         }
     }
+}
 

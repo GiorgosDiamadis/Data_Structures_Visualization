@@ -9,9 +9,9 @@ public class ChangeValue : MonoBehaviour,IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
 
-        transform.GetChild(child).gameObject.SetActive(false);
-       
+        //transform.GetChild(child).gameObject.SetActive(!transform.GetChild(child).gameObject.activeSelf);
 
+        print(inputField.gameObject.activeSelf);
         inputField.gameObject.SetActive(!inputField.gameObject.activeSelf);
     }
    public void Change_Value()

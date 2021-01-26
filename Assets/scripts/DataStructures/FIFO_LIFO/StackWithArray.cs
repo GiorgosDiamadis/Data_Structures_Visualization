@@ -68,7 +68,7 @@ public class StackWithArray : IDataStructure, IStack
         }
         else
         {
-            UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0, 0).text, true);
+            UIHandler.Instance.UXinfo("Peeking " + view.transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(next_empty-1, 0, 0).text, true);
 
             Load_Pseudocode("peek");
             yield return new WaitForSeconds(0.5f);

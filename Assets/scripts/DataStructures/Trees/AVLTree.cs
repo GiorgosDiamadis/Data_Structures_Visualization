@@ -25,6 +25,8 @@ public class AVLTree : BinaryTree
         toadd.transform.Destroy_Child(2);
         toadd.transform.Destroy_Child(2);
 
+        toadd.transform.localPosition = toadd.transform.localPosition.With(y: 149.5f);
+
         UIHandler.Instance.UXinfo("Adding " + data, true);
 
         Load_Pseudocode("add");
@@ -228,7 +230,8 @@ public class AVLTree : BinaryTree
 
                     previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
-                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    if(current!=null)
+                        current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                     previous = current;
 
                     yield return StartCoroutine(Wait());
@@ -253,7 +256,8 @@ public class AVLTree : BinaryTree
                     highlight_pseudocode(7, is_open: true);
                     if (previous != null)
                         previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-                    current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
+                    if(current!=null)
+                        current.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = traverse_sprite;
                     previous = current;
                     yield return StartCoroutine(Wait());
                     highlight_pseudocode(7, is_open: false);
@@ -281,8 +285,12 @@ public class AVLTree : BinaryTree
 
             if (current == null)
             {
-                previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                if(previous!=null)
+                    previous.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                 UIHandler.Instance.show_message("Key doesn't exist");
+                transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(1f, 1f, 1f), duration: .2f);
+
+                GameHandler.Instance.algorithm_running = false;
             }
             else
             {
@@ -375,11 +383,12 @@ public class AVLTree : BinaryTree
 
                     }
                 }
+                Update_Visual();
+
+                StartCoroutine(Rebalance(parents));
             }
 
-            Update_Visual();
-
-            StartCoroutine(Rebalance(parents));
+            
         }
 
         UIHandler.Instance.UXinfo("", false);
