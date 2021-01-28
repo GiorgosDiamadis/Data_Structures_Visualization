@@ -8,9 +8,10 @@ public class StackWithList : IDataStructure, IStack
     public override void Stop_Execution()
     {
         base.Stop_Execution();
-        if (!view.transform.GetChild(view.transform.childCount - 2).name.Contains("Arrow"))
+
+        if (UIHandler.Instance.ux.transform.childCount != 0)
         {
-            view.transform.Destroy_Child(view.transform.childCount - 1);
+            UIHandler.Instance.ux.transform.Destroy_All_Children();
         }
 
         for (int i = 0; i < view.transform.childCount; i++)
@@ -37,8 +38,8 @@ public class StackWithList : IDataStructure, IStack
 
         ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1,size:new Vector2(100,100));
 
-        max_counter = 2;
-        max_nodes = 8;
+        max_counter = 3;
+        max_nodes = 14;
     }
 
     public void peek()
@@ -105,7 +106,7 @@ public class StackWithList : IDataStructure, IStack
     {
         UIHandler.Instance.close_message();
         UIHandler.Instance.UXinfo("Pushing " + data, true);
-        GameObject to_add = create_ux_node(data);
+        GameObject to_add = create_ux_node(data,UIHandler.Instance.ux.transform);
 
         Load_Pseudocode("push");
         yield return new WaitForSeconds(0.5f);

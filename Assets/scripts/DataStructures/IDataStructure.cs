@@ -75,9 +75,14 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
             yield return new WaitForSeconds(GameHandler.Instance.speed);
     }
 
-    public GameObject create_ux_node(long data)
+    public GameObject create_ux_node(long data,Transform parent = null)
     {
-        GameObject to_add = create_node(data, position: new Vector3(0, 200, 0));
+        GameObject to_add;
+        if(parent == null)
+            to_add = create_node(data, position: new Vector3(0, 82.25f, 0));
+        else
+            to_add = create_node(data, position: new Vector3(0, 82.25f, 0),parent:parent);
+
         ViewHandler.Instance.Change_Grid(enabled: false);
         to_add.transform.Get_Component_In_Child<Image>(0).sprite = toadd_sprite;
 
@@ -172,9 +177,12 @@ public abstract class IDataStructure : MonoBehaviour, IPointerClickHandler
 
     }
 
-    protected GameObject create_node(long? data = null, Vector3? position = null, bool empty_data = false)
+    protected GameObject create_node(long? data = null, Vector3? position = null, Transform parent = null, bool empty_data = false)
     {
-        new_node = Instantiate(node_prefab, view.transform);
+        if (parent == null)
+            new_node = Instantiate(node_prefab, view.transform);
+        else
+            new_node = Instantiate(node_prefab, parent);
         new_node_data = new_node.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
 
         if (position.HasValue)

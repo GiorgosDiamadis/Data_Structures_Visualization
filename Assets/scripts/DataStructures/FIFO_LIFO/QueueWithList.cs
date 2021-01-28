@@ -19,9 +19,9 @@ public class QueueWithList : IDataStructure,IQueue
     public override void Stop_Execution()
     {
         base.Stop_Execution();
-        if (!view.transform.GetChild(view.transform.childCount - 2).name.Contains("Arrow"))
+        if (UIHandler.Instance.ux.transform.childCount != 0)
         {
-            view.transform.Destroy_Child(view.transform.childCount - 1);
+            UIHandler.Instance.ux.transform.Destroy_All_Children();
         }
 
         for (int i = 0; i < view.transform.childCount; i++)
@@ -86,7 +86,7 @@ public class QueueWithList : IDataStructure,IQueue
     {
         UIHandler.Instance.close_message();
         UIHandler.Instance.UXinfo("Enqueueing " + data, true);
-        GameObject to_add = create_ux_node(data);
+        GameObject to_add = create_ux_node(data,UIHandler.Instance.ux.transform);
         
         Load_Pseudocode("enqueue");
         yield return new WaitForSeconds(0.5f);

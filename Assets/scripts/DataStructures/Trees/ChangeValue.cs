@@ -14,14 +14,31 @@ public class ChangeValue : MonoBehaviour,IPointerClickHandler
         print(inputField.gameObject.activeSelf);
         inputField.gameObject.SetActive(!inputField.gameObject.activeSelf);
     }
-   public void Change_Value()
+    public void Change_Value()
     {
-        inputField.gameObject.SetActive(false);
-        long value = long.Parse(inputField.text);
-        if (!avl)
-            FindObjectOfType<BinaryTree>().Value_Changed(node_to_be_changed: gameObject, new_value: value);
+
+        if (inputField.text.Length != 0)
+        {
+            inputField.gameObject.SetActive(false);
+            long value = long.Parse(inputField.text);
+
+
+            if (value > 1000)
+            {
+                while (value > 1000)
+                    value = value / 10;
+            }
+            if (!avl)
+                FindObjectOfType<BinaryTree>().Value_Changed(node_to_be_changed: gameObject, new_value: value);
+            else
+                FindObjectOfType<AVLTree>().Value_Changed(node_to_be_changed: gameObject, new_value: value);
+        }
         else
-            FindObjectOfType<AVLTree>().Value_Changed(node_to_be_changed: gameObject, new_value: value);
+        {
+            UIHandler.Instance.show_message("Enter a number!");
+        }
+        
+       
 
     }
 }

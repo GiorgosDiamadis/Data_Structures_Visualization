@@ -55,7 +55,7 @@ public class List : IDataStructure
         if (!exists(data))
         {
             UIHandler.Instance.close_message();
-            GameObject to_add = create_ux_node(data);
+            GameObject to_add = create_ux_node(data,UIHandler.Instance.ux.transform);
             UIHandler.Instance.UXinfo("Adding " + data + " at front",true);
 
             Load_Pseudocode("add_front");
@@ -128,9 +128,9 @@ public class List : IDataStructure
     public override void Stop_Execution()
     {
         base.Stop_Execution();
-        if (!view.transform.GetChild(view.transform.childCount -2).name.Contains("Arrow"))
+        if(UIHandler.Instance.ux.transform.childCount != 0)
         {
-            view.transform.Destroy_Child(view.transform.childCount - 1);
+            UIHandler.Instance.ux.transform.Destroy_All_Children();
         }
 
         for (int i = 0; i < view.transform.childCount; i++)
@@ -148,7 +148,7 @@ public class List : IDataStructure
         {
             UIHandler.Instance.close_message();
             UIHandler.Instance.UXinfo("Adding " + data + " at position " + position, true);
-            GameObject to_add = create_ux_node(data);
+            GameObject to_add = create_ux_node(data, UIHandler.Instance.ux.transform);
 
             Load_Pseudocode("add_position");
             yield return new WaitForSeconds(0.5f);
@@ -158,6 +158,7 @@ public class List : IDataStructure
                 highlight_pseudocode(0, true);
                 yield return StartCoroutine(Wait());
                 ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
+                to_add.transform.SetParent(view.transform);
                 to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
                 highlight_pseudocode(0, false);
@@ -168,7 +169,7 @@ public class List : IDataStructure
                 highlight_pseudocode(0, true);
                 yield return StartCoroutine(Wait());
                 ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
-
+                to_add.transform.SetParent(view.transform);
                 to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                 to_add.transform.SetAsFirstSibling();
 
@@ -237,7 +238,7 @@ public class List : IDataStructure
                 int i = 1;
 
 
-                for (; i < view.transform.childCount - 1 && k < position - 1; i++)
+                for (; i < view.transform.childCount  && k < position - 1; i++)
                 {
                     child = view.transform.GetChild(i).gameObject;
 
@@ -303,18 +304,17 @@ public class List : IDataStructure
                     yield return StartCoroutine(Wait());
 
 
-                    if (i == view.transform.childCount - 1)
+                    if (i == view.transform.childCount)
                     {
                        
-                        GameObject arrow = create_arrow();
+                        create_arrow();
                         ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
-
-                        to_add.transform.SetSiblingIndex(i + 1);
+                        to_add.transform.SetParent(view.transform);
                         to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-                        arrow.transform.SetSiblingIndex(i);
                     }
                     else
                     {
+                        to_add.transform.SetParent(view.transform);
                         GameObject arrow = create_arrow();
                         to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
@@ -322,6 +322,7 @@ public class List : IDataStructure
                             i++;
                         ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
 
+                        
                         to_add.transform.SetSiblingIndex(i);
                         arrow.transform.SetSiblingIndex(i + 1);
                     }
@@ -391,7 +392,7 @@ public class List : IDataStructure
         {
             UIHandler.Instance.close_message();
             UIHandler.Instance.UXinfo("Adding " + data + " at the end", true);
-            GameObject to_add = create_ux_node(data);
+            GameObject to_add = create_ux_node(data, UIHandler.Instance.ux.transform);
 
 
             Load_Pseudocode("add");
@@ -421,6 +422,7 @@ public class List : IDataStructure
 
                 GameObject arr = create_arrow();
                 ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
+                to_add.transform.SetParent(view.transform);
                 to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                 arr.transform.SetSiblingIndex(view.transform.childCount - 2);
 
