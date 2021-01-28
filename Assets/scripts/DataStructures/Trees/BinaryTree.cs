@@ -506,7 +506,9 @@ public class BinaryTree : IDataStructure
             curr.scene_object.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
 
             curr.scene_object.transform.Set_Child_Active(true, 1);
+           
             Create_Pseudocode_Nodes(curr);
+
             yield return StartCoroutine(Wait());
             highlight_pseudocode(2, is_open: false);
 
@@ -555,8 +557,7 @@ public class BinaryTree : IDataStructure
 
     private  void Create_Pseudocode_Nodes(BinaryTreeNode curr)
     {
-        GameObject n = Instantiate(new GameObject());
-
+        GameObject n = new GameObject();
         n.AddComponent<Image>();
         n.GetComponent<Image>().color = new Vector4(0, 0, 0, 0);
 
