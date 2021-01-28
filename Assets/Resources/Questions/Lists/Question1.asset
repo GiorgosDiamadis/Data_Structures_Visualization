@@ -12,17 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
   m_Name: Question1
   m_EditorClassIdentifier: 
-  _info: gfb
+  _info: In circular linked list, insertion of node requires modification of?
   _answers:
-  - _info: answer1
+  - _info: One pointer
+    _isCorrect: 0
+  - _info: Two pointers
     _isCorrect: 1
-  - _info: answer2
+  - _info: Three pointers
     _isCorrect: 0
-  - _info: answer3
-    _isCorrect: 0
-  - _info: answer4
-    _isCorrect: 0
-  - _info: answer5
+  - _info: None
     _isCorrect: 0
   _useTimer: 0
   _timer: 0

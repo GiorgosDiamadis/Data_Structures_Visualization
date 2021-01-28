@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
-  m_Name: Question2
+  m_Name: Question6
   m_EditorClassIdentifier: 
-  _info: Which of this not about linked list ?
+  _info: ' A linked list is different from an array, because why?'
   _answers:
-  - _info: A nonlinear collection of data elements
+  - _info: A linked list can handle more types of information than an array
+    _isCorrect: 0
+  - _info: An array cannot be sorted but a linked list can be
+    _isCorrect: 0
+  - _info: An array is fixed in size but a linked list is dynamically sizable
     _isCorrect: 1
-  - _info: It use more memory than arrays because of the storage used by their pointers.
-    _isCorrect: 0
-  - _info: It can be used to implement several other common abstract data types example
-      stack, queue, tree
-    _isCorrect: 0
-  - _info: Each record of a linked list is often called an 'element' or 'node'
+  - _info: An array stores pointers but a linked list doesn't
     _isCorrect: 0
   _useTimer: 0
   _timer: 0

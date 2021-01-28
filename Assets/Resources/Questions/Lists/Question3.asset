@@ -12,17 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
   m_Name: Question3
   m_EditorClassIdentifier: 
-  _info: asd
+  _info: Nodes in a linked list contain two things
   _answers:
-  - _info: answer1
+  - _info: Direction and a pointer
+    _isCorrect: 0
+  - _info: 'Data and a pointer '
     _isCorrect: 1
-  - _info: answer2
+  - _info: A Pointer and a reference
     _isCorrect: 0
-  - _info: answer3
-    _isCorrect: 0
-  - _info: answer4
-    _isCorrect: 0
-  - _info: answer5
+  - _info: A pointer and a node
     _isCorrect: 0
   _useTimer: 0
   _timer: 0

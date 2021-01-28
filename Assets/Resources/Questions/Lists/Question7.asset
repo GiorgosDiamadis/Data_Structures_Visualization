@@ -10,18 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
-  m_Name: Question2
+  m_Name: Question7
   m_EditorClassIdentifier: 
-  _info: Which of this not about linked list ?
+  _info: What is a circular linked list?
   _answers:
-  - _info: A nonlinear collection of data elements
+  - _info: The last node in the linked list points to the first
     _isCorrect: 1
-  - _info: It use more memory than arrays because of the storage used by their pointers.
+  - _info: The last node in the linked list points to itself
     _isCorrect: 0
-  - _info: It can be used to implement several other common abstract data types example
-      stack, queue, tree
-    _isCorrect: 0
-  - _info: Each record of a linked list is often called an 'element' or 'node'
+  - _info: A specialized linked list for storing geometic information such as circles
     _isCorrect: 0
   _useTimer: 0
   _timer: 0
