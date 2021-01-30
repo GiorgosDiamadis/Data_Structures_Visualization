@@ -10,7 +10,7 @@ namespace Michsky.UI.ModernUIPack
         public GameObject tooltipContent;
 
         // Settings
-        [Range(0.05f, 0.5f)] public float tooltipSmoothness = 0.1f;
+        [Range(0.05f, 0.5f)] public float tooltipSmoothness = 0.8f;
         public bool allowUpdating = false;
 
         // Bounds

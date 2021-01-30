@@ -341,6 +341,7 @@ GameObject:
   - component: {fileID: 3287384286540055202}
   - component: {fileID: 1442398578432220315}
   - component: {fileID: 7923163947685513117}
+  - component: {fileID: 3494807139153051860}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -474,6 +475,18 @@ MonoBehaviour:
   tooltipRect: {fileID: 0}
   descriptionText: {fileID: 0}
   tooltipAnimator: {fileID: 0}
+--- !u!225 &3494807139153051860
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556777426341516726}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &566192720865982154
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,6 +862,7 @@ GameObject:
   - component: {fileID: 7836813770474477950}
   - component: {fileID: 5626268377137801919}
   - component: {fileID: 346046969109220753}
+  - component: {fileID: 4555744909284292576}
   m_Layer: 5
   m_Name: BFS
   m_TagString: Untagged
@@ -982,6 +996,18 @@ MonoBehaviour:
   tooltipRect: {fileID: 0}
   descriptionText: {fileID: 0}
   tooltipAnimator: {fileID: 0}
+--- !u!225 &4555744909284292576
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832658465602886829}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2937183165818117247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1652,6 +1678,7 @@ GameObject:
   - component: {fileID: 2617572741234252734}
   - component: {fileID: 2455311258536959531}
   - component: {fileID: 2111552199948036179}
+  - component: {fileID: 3733985943686206189}
   m_Layer: 5
   m_Name: DFS
   m_TagString: Untagged
@@ -1785,6 +1812,18 @@ MonoBehaviour:
   tooltipRect: {fileID: 0}
   descriptionText: {fileID: 0}
   tooltipAnimator: {fileID: 0}
+--- !u!225 &3733985943686206189
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4090177596678874690}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4549762525324618621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,6 +2474,7 @@ GameObject:
   - component: {fileID: 4377324975761951545}
   - component: {fileID: 4195919347730886610}
   - component: {fileID: 3988608383516391388}
+  - component: {fileID: 8461259428401552649}
   m_Layer: 5
   m_Name: Add Edge
   m_TagString: Untagged
@@ -2568,6 +2608,18 @@ MonoBehaviour:
   tooltipRect: {fileID: 0}
   descriptionText: {fileID: 0}
   tooltipAnimator: {fileID: 0}
+--- !u!225 &8461259428401552649
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976900378837137125}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6208978399406489271
 GameObject:
   m_ObjectHideFlags: 0
@@ -2786,6 +2838,7 @@ GameObject:
   - component: {fileID: 5483832196309971193}
   - component: {fileID: 5872704768659078711}
   - component: {fileID: 6434986727095859645}
+  - component: {fileID: 7350014340905842825}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2903,6 +2956,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!225 &7350014340905842825
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7091038048674551929}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7175200550412154685
 GameObject:
   m_ObjectHideFlags: 0
@@ -3136,6 +3201,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e13970467c0ff419f7acfd7c30cc2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cg:
+  - {fileID: 7350014340905842825}
+  - {fileID: 8461259428401552649}
+  - {fileID: 3733985943686206189}
+  - {fileID: 4555744909284292576}
+  - {fileID: 3494807139153051860}
   data: 0
   initial_sprite: {fileID: 21300000, guid: a35b151eea1c2de43a63764c264c1d01, type: 3}
 --- !u!1 &7372331671764339303

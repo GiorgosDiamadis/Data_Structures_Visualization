@@ -3223,6 +3223,7 @@ GameObject:
   - component: {fileID: 322018316}
   - component: {fileID: 322018318}
   - component: {fileID: 322018317}
+  - component: {fileID: 322018319}
   m_Layer: 5
   m_Name: Speed_text
   m_TagString: Untagged
@@ -3246,8 +3247,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.8, y: 18.48}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -2.8, y: 25.33}
+  m_SizeDelta: {x: 200, y: 36.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &322018317
 MonoBehaviour:
@@ -3367,6 +3368,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 322018315}
   m_CullTransparentMesh: 0
+--- !u!114 &322018319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322018315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81a9e081a4afa64dae6b9d42bc38c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Change the execution speed of each step of the algorithm
+  tooltipRect: {fileID: 0}
+  descriptionText: {fileID: 0}
+  tooltipAnimator: {fileID: 0}
 --- !u!1 &325474825
 GameObject:
   m_ObjectHideFlags: 0
