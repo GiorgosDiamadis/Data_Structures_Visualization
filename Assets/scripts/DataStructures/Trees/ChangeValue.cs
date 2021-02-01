@@ -8,10 +8,6 @@ public class ChangeValue : MonoBehaviour,IPointerClickHandler
     [SerializeField] private bool avl;
     public void OnPointerClick(PointerEventData eventData)
     {
-
-        //transform.GetChild(child).gameObject.SetActive(!transform.GetChild(child).gameObject.activeSelf);
-
-        print(inputField.gameObject.activeSelf);
         inputField.gameObject.SetActive(!inputField.gameObject.activeSelf);
     }
     public void Change_Value()

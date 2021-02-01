@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
   m_Name: Question1
   m_EditorClassIdentifier: 
-  _info: gfb
+  _info: The number of edges from the node to the deepest leaf is called _________
+    of the tree.
   _answers:
-  - _info: answer1
+  - _info: Height
     _isCorrect: 1
-  - _info: answer2
+  - _info: Depth
     _isCorrect: 0
-  - _info: answer3
+  - _info: Length
     _isCorrect: 0
-  - _info: answer4
-    _isCorrect: 0
-  - _info: answer5
+  - _info: Width
     _isCorrect: 0
   _useTimer: 0
   _timer: 0

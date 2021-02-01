@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
   m_Name: Question2
   m_EditorClassIdentifier: 
-  _info: dcv
+  _info: The difference between queue and stack is ____
   _answers:
-  - _info: answer1
+  - _info: queues requires dynamic memory but stack do not
+    _isCorrect: 0
+  - _info: stack requires dynamic memory but queue do not
+    _isCorrect: 0
+  - _info: queue use two ends of the structure, stack use only one
     _isCorrect: 1
-  - _info: answer2
-    _isCorrect: 0
-  - _info: answer3
-    _isCorrect: 0
-  - _info: answer4
+  - _info: stack use two ends of the structure, queue use only one
     _isCorrect: 0
   - _info: answer5
     _isCorrect: 0

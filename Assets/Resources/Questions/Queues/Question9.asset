@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
-  m_Name: Question1
+  m_Name: Question9
   m_EditorClassIdentifier: 
-  _info: Which one of the following is an application of Queue Data Structure?
+  _info: A normal queue, if implemented using an array of size MAX_SIZE, gets full
+    when?
   _answers:
-  - _info: When a resource is shared among multiple consumers.
+  - _info: "Rear = MAX_SIZE \u2013 1"
     _isCorrect: 1
-  - _info: When data is transferred asynchronously (data not necessarily received
-      at same rate as sent) between two processes
+  - _info: Front = (rear + 1)mod MAX_SIZE
     _isCorrect: 0
-  - _info: Load Balancing
+  - _info: Front = rear + 1
     _isCorrect: 0
-  - _info: All of the above
-    _isCorrect: 1
+  - _info: Rear = front
+    _isCorrect: 0
   _useTimer: 0
   _timer: 0
   _answerType: 1

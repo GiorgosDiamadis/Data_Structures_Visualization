@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
   m_Name: Question3
   m_EditorClassIdentifier: 
-  _info: asd
+  _info: 'Consider the following operations: Push(1),Pop(),Push(2),Push(3),Pop().
+    How many elements are left in the stack?'
   _answers:
-  - _info: answer1
+  - _info: 0
+    _isCorrect: 0
+  - _info: 1
     _isCorrect: 1
-  - _info: answer2
+  - _info: 2
     _isCorrect: 0
-  - _info: answer3
-    _isCorrect: 0
-  - _info: answer4
-    _isCorrect: 0
-  - _info: answer5
+  - _info: 3
     _isCorrect: 0
   _useTimer: 0
   _timer: 0

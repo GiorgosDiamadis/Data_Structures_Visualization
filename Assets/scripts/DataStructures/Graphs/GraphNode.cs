@@ -43,17 +43,29 @@ public class GraphNode : MonoBehaviour, IPointerClickHandler
 
     public void Change_Value()
     {
-        tooltip_raycast(false);
+        
         TMPro.TMP_InputField n = transform.Get_Component_In_Child<TMPro.TMP_InputField>(1, 0);
 
-        int d = int.Parse(n.text);
+        if(n.text.Length == 0)
+        {
+            UIHandler.Instance.show_message("Enter a number!");
+            return;
+        }
+       int d = int.Parse(n.text);
+
+        if (d > 1000)
+        {
+            while (d > 1000)
+                d = d / 10;
+        }
 
         if (graphs.Data_Exists(d))
         {
-            UIHandler.Instance.show_message("Data Already Exists!");
+            UIHandler.Instance.show_message("Node already exists!");
         }
         else
         {
+            tooltip_raycast(false);
             data = d;
             transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = data.ToString();
             UIHandler.Instance.scale(transform.Get_Child_Object(1).GetComponent<RectTransform>(), new Vector3(.1f, .1f, .1f));

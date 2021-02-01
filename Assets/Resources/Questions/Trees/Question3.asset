@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
   m_Name: Question3
   m_EditorClassIdentifier: 
-  _info: asd
+  _info: What is a complete binary tree?
   _answers:
-  - _info: answer1
+  - _info: What is a complete binary tree?
+    _isCorrect: 0
+  - _info: A binary tree, which is completely filled, with the possible exception
+      of the bottom level, which is filled from right to left
+    _isCorrect: 0
+  - _info: A binary tree, which is completely filled, with the possible exception
+      of the bottom level, which is filled from right to left
     _isCorrect: 1
-  - _info: answer2
-    _isCorrect: 0
-  - _info: answer3
-    _isCorrect: 0
-  - _info: answer4
-    _isCorrect: 0
-  - _info: answer5
+  - _info: A tree In which all nodes have degree 2
     _isCorrect: 0
   _useTimer: 0
   _timer: 0

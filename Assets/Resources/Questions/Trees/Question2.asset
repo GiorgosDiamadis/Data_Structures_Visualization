@@ -12,17 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
   m_Name: Question2
   m_EditorClassIdentifier: 
-  _info: dcv
+  _info: What is a full binary tree?
   _answers:
-  - _info: answer1
+  - _info: Each node has exactly zero or two children
     _isCorrect: 1
-  - _info: answer2
+  - _info: Each node has exactly two children
     _isCorrect: 0
-  - _info: answer3
+  - _info: All the leaves are at the same level
     _isCorrect: 0
-  - _info: answer4
-    _isCorrect: 0
-  - _info: answer5
+  - _info: Each node has exactly one or two children
     _isCorrect: 0
   _useTimer: 0
   _timer: 0
