@@ -12,18 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
   m_Name: Question1
   m_EditorClassIdentifier: 
-  _info: gfb
+  _info: Which of the following is an advantage of adjacency list representation
+    over adjacency matrix representation of a graph?
   _answers:
-  - _info: answer1
+  - _info: In adjacency list representation, space is saved for sparse graphs.
+    _isCorrect: 0
+  - _info: DFS and BSF can be done in O(V + E) time for adjacency list representation.
+      These operations take O(V^2) time in adjacency matrix representation. Here
+      is V and E are number of vertices and edges respectively.
+    _isCorrect: 0
+  - _info: Adding a vertex in adjacency list representation is easier than adjacency
+      matrix representation.
+    _isCorrect: 0
+  - _info: All of the above
     _isCorrect: 1
-  - _info: answer2
-    _isCorrect: 0
-  - _info: answer3
-    _isCorrect: 0
-  - _info: answer4
-    _isCorrect: 0
-  - _info: answer5
-    _isCorrect: 0
   _useTimer: 0
   _timer: 0
   _answerType: 1

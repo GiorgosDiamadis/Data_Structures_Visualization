@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
-  m_Name: Question2
+  m_Name: Question4
   m_EditorClassIdentifier: 
-  _info: "dcvHow many undirected graphs (not necessarily connected) can be constructed
-    out of a given set V= {V 1, V 2,\u2026V n} of n vertices ?"
+  _info: 'Which of the following statements is/are TRUE for an undirected graph?
+    P: Number of odd degree vertices is even Q: Sum of degrees of all vertices is
+    even'
   _answers:
-  - _info: n(n-l)/2
+  - _info: E
     _isCorrect: 0
-  - _info: 2^n
-    _isCorrect: 0
-  - _info: n!
-    _isCorrect: 0
-  - _info: 2^(n(n-1)/2)
+  - _info: 2E
     _isCorrect: 1
+  - _info: V
+    _isCorrect: 0
+  - _info: 2V
+    _isCorrect: 0
   _useTimer: 0
   _timer: 0
   _answerType: 1

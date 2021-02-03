@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097d91262a31744e947c15d6f5d3f54, type: 3}
   m_Name: Question3
   m_EditorClassIdentifier: 
-  _info: asd
+  _info: 'Which of the following statements is/are TRUE for an undirected graph?
+    P: Number of odd degree vertices is even Q: Sum of degrees of all vertices is
+    even'
   _answers:
-  - _info: answer1
+  - _info: P Only
+    _isCorrect: 0
+  - _info: Q Only
+    _isCorrect: 0
+  - _info: Both P and Q
     _isCorrect: 1
-  - _info: answer2
-    _isCorrect: 0
-  - _info: answer3
-    _isCorrect: 0
-  - _info: answer4
-    _isCorrect: 0
-  - _info: answer5
+  - _info: Neither P nor Q
     _isCorrect: 0
   _useTimer: 0
   _timer: 0
