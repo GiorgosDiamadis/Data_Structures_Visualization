@@ -8,7 +8,7 @@ public class QuizManager : MonoBehaviour
     [SerializeField] private GameObject scoring_panel;
     [SerializeField] private GameObject category_prefab;
     [SerializeField] private TMPro.TextMeshProUGUI final_score;
-
+    [SerializeField] private TMPro.TextMeshProUGUI question_index;
 
     private List<Question> questions;
     private Dictionary<int,int> user_answers;
@@ -55,6 +55,9 @@ public class QuizManager : MonoBehaviour
         displayed_questions.Add(index);
         transform.Get_Component_In_Child<TMPro.TextMeshProUGUI>(0, 0).text = questions[index].Info;
         Question current_question = questions[index];
+
+        question_index.text = "Question " + (index+1) + "/" + questions.Count;
+
 
         foreach(Answer answer in current_question.Answers)
         {
