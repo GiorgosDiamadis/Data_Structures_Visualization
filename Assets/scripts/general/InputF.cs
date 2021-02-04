@@ -27,13 +27,13 @@ public class InputF : MonoBehaviour
 
         if (data < Int64.MaxValue)
         {
-                AVLTree avl = transform.GetComponentInParent<AVLTree>();
-                
-                GameHandler.Instance.algorithm_running = true;
+            AVLTree avl = transform.GetComponentInParent<AVLTree>();
+
+            GameHandler.Instance.algorithm_running = true;
             avl.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
 
             StartCoroutine(avl.add(data));
-                data = Int64.MaxValue;
+            data = Int64.MaxValue;
         }
         else
         {
@@ -52,13 +52,13 @@ public class InputF : MonoBehaviour
 
         if (data < Int64.MaxValue)
         {
-                AVLTree avl = transform.GetComponentInParent<AVLTree>();
-                GameHandler.Instance.algorithm_running = true;
+            AVLTree avl = transform.GetComponentInParent<AVLTree>();
+            GameHandler.Instance.algorithm_running = true;
             avl.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
 
             StartCoroutine(avl.search(data));
-                data = Int64.MaxValue;
-            
+            data = Int64.MaxValue;
+
         }
         else
         {
@@ -77,13 +77,13 @@ public class InputF : MonoBehaviour
 
         if (data < Int64.MaxValue)
         {
-                AVLTree avl = transform.GetComponentInParent<AVLTree>();
+            AVLTree avl = transform.GetComponentInParent<AVLTree>();
             avl.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
 
             StartCoroutine(avl.delete(data));
-                GameHandler.Instance.algorithm_running = true;
-                data = Int64.MaxValue;
-            
+            GameHandler.Instance.algorithm_running = true;
+            data = Int64.MaxValue;
+
         }
         else
         {
@@ -107,7 +107,7 @@ public class InputF : MonoBehaviour
             {
                 IStack stack = transform.GetComponentInParent<IStack>();
                 GameObject st = GameObject.Find("Stacks");
-                st.transform.Get_Component_In_Child<RectTransform>(0,1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+                st.transform.Get_Component_In_Child<RectTransform>(0, 1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
                 st.transform.Get_Component_In_Child<RectTransform>(1, 1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
 
                 StartCoroutine(stack.push(data));
@@ -140,7 +140,7 @@ public class InputF : MonoBehaviour
         {
             if (ViewHandler.Instance.Can_Add())
             {
-                IQueue queue= transform.GetComponentInParent<IQueue>();
+                IQueue queue = transform.GetComponentInParent<IQueue>();
                 GameObject st = GameObject.Find("Queues");
                 st.transform.Get_Component_In_Child<RectTransform>(0, 1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
                 st.transform.Get_Component_In_Child<RectTransform>(1, 1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
@@ -205,17 +205,31 @@ public class InputF : MonoBehaviour
         data = get_data(input_fields[0]);
         position = get_position(input_fields[1]);
 
-        if (data < Int64.MaxValue && ViewHandler.Instance.Can_Add())
+        if (data < Int64.MaxValue && position > -1)
         {
-            List list = transform.GetComponentInParent<List>();
-            GameHandler.Instance.algorithm_running = true;
-            list.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
-            StartCoroutine(list.add_position(data, position));
-            data = Int64.MaxValue;
+
+            if (ViewHandler.Instance.Can_Add())
+            {
+                List list = transform.GetComponentInParent<List>();
+                GameHandler.Instance.algorithm_running = true;
+                list.transform.Get_Component_In_Child<RectTransform>(1).DOScale(new Vector3(.001f, .001f, .001f), duration: .2f);
+                StartCoroutine(list.add_position(data, position));
+                data = Int64.MaxValue;
+                position = -1;
+            }
+            else
+            {
+                UIHandler.Instance.show_message("You have reached maximum nodes");
+            }
+        }
+        else
+        {
+            UIHandler.Instance.show_message("Either value or position is false!");
         }
 
         input_fields[0].text = "";
         input_fields[1].text = "";
+
     }
 
     private int get_position(TMPro.TMP_InputField inp_f)
@@ -242,7 +256,7 @@ public class InputF : MonoBehaviour
             }
         }
 
-       
+
 
         return data;
     }
@@ -304,7 +318,7 @@ public class InputF : MonoBehaviour
             return;
         data = get_data(input_field);
 
-       
+
 
         if (data < Int64.MaxValue)
         {

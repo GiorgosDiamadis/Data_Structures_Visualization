@@ -20,7 +20,7 @@ public class DragNode: MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
     private void Update()
     {
-        if (UnityEngine.Input.GetKey(KeyCode.D))
+        if (UnityEngine.Input.GetKey(KeyCode.E))
         {
             view.GetComponent<Image>().color = outline;
         }

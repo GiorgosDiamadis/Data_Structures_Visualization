@@ -484,7 +484,7 @@ public class BinaryTree : IDataStructure
         yield return new WaitForSeconds(0.5f);
 
         Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
-        print(head.scene_object);
+
         queue.Enqueue(head);
         
         highlight_pseudocode(0, is_open: true);
@@ -575,7 +575,7 @@ public class BinaryTree : IDataStructure
     {
         head = new BinaryTreeNode(tree[0], 0);
         head.scene_object = Find_In_View(tree[0]);
-        print(head.scene_object);
+
         BinaryTreeNode current;
         Queue<BinaryTreeNode> queue = new Queue<BinaryTreeNode>();
 
