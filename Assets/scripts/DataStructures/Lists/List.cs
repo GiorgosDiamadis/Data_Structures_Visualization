@@ -44,7 +44,7 @@ public class List : IDataStructure
         }
 
         ViewHandler.Instance.Change_Grid(GridLayoutGroup.Axis.Vertical, GridLayoutGroup.Constraint.FixedRowCount, 1, new Vector2(-5f, 10f), size: new Vector2(100, 100));
-
+        ViewHandler.Instance.num_nodes = 3;
         max_counter = 3;
         max_nodes = 14;
     }

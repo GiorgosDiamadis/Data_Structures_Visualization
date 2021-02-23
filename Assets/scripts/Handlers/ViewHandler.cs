@@ -9,7 +9,7 @@ public class ViewHandler : MonoBehaviour
     private int insertion_counter = 0;
     private int deletion_counter = 0;
 
-    private int num_nodes = 3;
+    public int num_nodes = 3;
     private int max_nodes = -1;
     private int counter = 0;
     public static GameObject view;
