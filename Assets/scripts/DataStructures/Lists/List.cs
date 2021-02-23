@@ -55,8 +55,8 @@ public class List : IDataStructure
         if (!exists(data))
         {
             UIHandler.Instance.close_message();
-            GameObject to_add = create_ux_node(data,UIHandler.Instance.ux.transform);
-            UIHandler.Instance.UXinfo("Adding " + data + " at front",true);
+            GameObject to_add = create_ux_node(data, UIHandler.Instance.ux.transform);
+            UIHandler.Instance.UXinfo("Adding " + data + " at front", true);
 
             Load_Pseudocode("add_front");
             yield return new WaitForSeconds(0.5f);
@@ -72,7 +72,7 @@ public class List : IDataStructure
                 GameObject arrow = create_arrow();
                 arrow.transform.SetSiblingIndex(1);
             }
-            ViewHandler.Instance.Change_Grid(enabled: true,size:new Vector2(100,100));
+            ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100, 100));
             to_add.Destroy_Object();
             highlight_pseudocode(0, false);
 
@@ -128,14 +128,14 @@ public class List : IDataStructure
     public override void Stop_Execution()
     {
         base.Stop_Execution();
-        if(UIHandler.Instance.ux.transform.childCount != 0)
+        if (UIHandler.Instance.ux.transform.childCount != 0)
         {
             UIHandler.Instance.ux.transform.Destroy_All_Children();
         }
 
         for (int i = 0; i < view.transform.childCount; i++)
         {
-            if(view.transform.GetChild(i).tag == "Node")
+            if (view.transform.GetChild(i).tag == "Node")
             {
                 view.transform.Get_Component_In_Child<Image>(i, 0).sprite = initial_sprite;
             }
@@ -160,7 +160,7 @@ public class List : IDataStructure
                 ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
                 to_add.transform.SetParent(view.transform);
                 to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-
+                to_add.transform.localScale = Vector3.one;
                 highlight_pseudocode(0, false);
                 GameHandler.Instance.handle_insertion.Invoke();
             }
@@ -172,7 +172,7 @@ public class List : IDataStructure
                 to_add.transform.SetParent(view.transform);
                 to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
                 to_add.transform.SetAsFirstSibling();
-
+                to_add.transform.localScale = Vector3.one;
                 GameObject arrow = create_arrow();
 
                 arrow.transform.SetSiblingIndex(1);
@@ -238,7 +238,7 @@ public class List : IDataStructure
                 int i = 1;
 
 
-                for (; i < view.transform.childCount  && k < position - 1; i++)
+                for (; i < view.transform.childCount && k < position - 1; i++)
                 {
                     child = view.transform.GetChild(i).gameObject;
 
@@ -248,7 +248,7 @@ public class List : IDataStructure
                         highlight_pseudocode(2, false);
                         highlight_pseudocode(1, true);
 
-                        
+
                         yield return StartCoroutine(Wait());
 
                         highlight_pseudocode(1, false);
@@ -298,7 +298,7 @@ public class List : IDataStructure
                     yield return StartCoroutine(Wait());
                     highlight_pseudocode(1, false);
 
-                    
+
                     highlight_pseudocode(3, true);
 
                     yield return StartCoroutine(Wait());
@@ -306,23 +306,24 @@ public class List : IDataStructure
 
                     if (i == view.transform.childCount)
                     {
-                       
+
                         create_arrow();
                         ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
                         to_add.transform.SetParent(view.transform);
                         to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                        to_add.transform.localScale = Vector3.one;
                     }
                     else
                     {
                         to_add.transform.SetParent(view.transform);
                         GameObject arrow = create_arrow();
                         to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-
+                        to_add.transform.localScale = Vector3.one;
                         if (i % 2 != 0)
                             i++;
                         ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
 
-                        
+
                         to_add.transform.SetSiblingIndex(i);
                         arrow.transform.SetSiblingIndex(i + 1);
                     }
@@ -373,7 +374,7 @@ public class List : IDataStructure
         else
         {
             //to_add.Destroy_Object();
-           
+
             UIHandler.Instance.show_message("Node already exists!");
         }
 
@@ -397,14 +398,63 @@ public class List : IDataStructure
 
             Load_Pseudocode("add");
             yield return new WaitForSeconds(0.5f);
-
-            if (view.transform.childCount == 1)
+            if (view.transform.childCount == 0)
             {
                 highlight_pseudocode(0, true);
                 yield return StartCoroutine(Wait());
                 ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100, 100));
+                to_add.transform.SetParent(view.transform);
+                to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                to_add.transform.localScale = Vector3.one;
                 highlight_pseudocode(0, false);
 
+                GameHandler.Instance.handle_insertion.Invoke();
+            }
+            else if (view.transform.childCount == 1)
+            {
+                highlight_pseudocode(0, true);
+                yield return StartCoroutine(Wait());
+                ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100, 100));
+
+                GameObject arr = create_arrow();
+                to_add.transform.SetParent(view.transform);
+                to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
+                to_add.transform.localScale = Vector3.one;
+                highlight_pseudocode(0, false);
+                if (is_circular)
+                {
+                    if (!is_double)
+                    {
+
+                        if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
+                        {
+                            view.transform.Set_Child_Active(true, 0, 2);
+                        }
+
+                        view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
+                        view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
+
+                    }
+                    else
+                    {
+
+                        if (!view.transform.Get_Child_Object(view.transform.childCount - 3, 1).gameObject.activeSelf)
+                        {
+                            view.transform.Set_Child_Active(true, 0, 2);
+                            view.transform.Set_Child_Active(true, 0, 1);
+
+                        }
+                        else
+                        {
+                            view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
+                            view.transform.Set_Child_Active(false, view.transform.childCount - 3, 2);
+
+                        }
+
+                        view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
+                        view.transform.Set_Child_Active(true, view.transform.childCount - 1, 2);
+                    }
+                }
                 GameHandler.Instance.handle_insertion.Invoke();
             }
             else
@@ -424,7 +474,7 @@ public class List : IDataStructure
                 ViewHandler.Instance.Change_Grid(enabled: true, size: new Vector2(100f, 100f));
                 to_add.transform.SetParent(view.transform);
                 to_add.transform.Get_Component_In_Child<Image>(0).sprite = initial_sprite;
-                arr.transform.SetSiblingIndex(view.transform.childCount - 2);
+                to_add.transform.localScale = Vector3.one;
 
 
 
@@ -437,6 +487,7 @@ public class List : IDataStructure
                         {
                             view.transform.Set_Child_Active(true, 0, 2);
                         }
+
                         view.transform.Set_Child_Active(false, view.transform.childCount - 3, 1);
                         view.transform.Set_Child_Active(true, view.transform.childCount - 1, 1);
 
@@ -508,7 +559,6 @@ public class List : IDataStructure
 
         if (head.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text == data.ToString())
         {
-
             found = true;
             highlight_pseudocode(1, true);
 
@@ -528,16 +578,43 @@ public class List : IDataStructure
             spr.sprite = initial_sprite;
 
             highlight_pseudocode(3, false);
+
             if (is_circular)
             {
                 if (!is_double)
                 {
-                    view.transform.Set_Child_Active(true, 0, 2);
+                    if (view.transform.childCount > 1)
+                    {
+                        view.transform.Set_Child_Active(true, 0, 2);
+                    }
+                    else
+                    {
+                        if (view.transform.childCount > 0)
+                        {
+
+                            view.transform.Set_Child_Active(false, 0, 2);
+                            view.transform.Set_Child_Active(false, 0, 1);
+
+                        }
+                    }
+
                 }
                 else
                 {
-                    view.transform.Set_Child_Active(true, 0, 1);
-                    view.transform.Set_Child_Active(true, 0, 2);
+                    if(view.transform.childCount == 1)
+                    {
+                        view.transform.Set_Child_Active(false, 0, 1);
+                        view.transform.Set_Child_Active(false, 0, 2);
+                    }
+                    else
+                    {
+
+                        if (view.transform.childCount > 0)
+                        {
+                            view.transform.Set_Child_Active(true, 0, 1);
+                            view.transform.Set_Child_Active(true, 0, 2);
+                        }
+                    }
 
                 }
             }

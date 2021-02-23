@@ -95,7 +95,7 @@ public class QueueWithList : IDataStructure,IQueue
         yield return StartCoroutine(Wait());
         highlight_pseudocode(0, false);
 
-        if (view.transform.childCount > 1)
+        if (view.transform.childCount >= 1)
         {
             highlight_pseudocode(1, true);
             yield return StartCoroutine(Wait());

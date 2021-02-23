@@ -120,7 +120,7 @@ public class StackWithList : IDataStructure, IStack
         highlight_pseudocode(1, false);
 
 
-        if (view.transform.childCount > 1)
+        if (view.transform.childCount >= 1)
         {
             highlight_pseudocode(3, true);
             yield return StartCoroutine(Wait());

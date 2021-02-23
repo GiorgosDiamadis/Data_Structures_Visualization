@@ -48,6 +48,29 @@ public class Graphs : IDataStructure
             }
         }
 
+        foreach (GraphNode g in FindObjectsOfType<GraphNode>())
+        {
+            foreach (Edge e in g.connections)
+            {
+                e.gameObject.GetComponent<Image>().color = Color.gray;
+
+                if (is_digraph)
+                {
+                    if (e.gameObject.transform.GetChild(2).gameObject.activeSelf)
+                    {
+                        e.gameObject.transform.Get_Component_In_Child<Image>(2, 0).color = Color.gray;
+                        e.gameObject.transform.Get_Component_In_Child<Image>(2, 1).color = Color.gray;
+
+                    }
+                    else if (e.gameObject.transform.GetChild(3).gameObject.activeSelf)
+                    {
+                        e.gameObject.transform.Get_Component_In_Child<Image>(3, 0).color = Color.gray;
+                        e.gameObject.transform.Get_Component_In_Child<Image>(3, 1).color = Color.gray;
+                    }
+                }
+            }
+        }
+
     }
 
     public override void Init()
